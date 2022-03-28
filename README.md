@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ggseqplot: ggplotify figures of sequence data
+# ggseqplot: ggplotify sequence data plots
 
 <!-- badges: start -->
 
