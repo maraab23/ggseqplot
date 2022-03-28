@@ -1,0 +1,23 @@
+Package: ggseqplot
+Title: Render Sequence Plots using {ggplot2}
+Version: 0.0.0.9000
+Authors@R: 
+    person("Marcel", "Raab", , "marcel.raab@gmail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-3097-1591"))
+Description: This library provides functions that reproduce some of the sequence 
+    plots from TraMineR's seqplot using ggplot2. These plots are produced on the basis
+    of a sequence object defined with TraMineR::seqdef. The package automates the 
+    reshaping and plotting of sequence data.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+Imports: 
+    dplyr,
+    forcats,
+    ggplot2,
+    glue,
+    magrittr,
+    purrr,
+    tidyr,
+    TraMineR
