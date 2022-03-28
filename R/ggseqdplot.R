@@ -140,6 +140,19 @@ ggseqdplot <- function(seqdata,
 
   cpal <- rev(cpal)
 
+  kbreaks <- length(attributes(seqdata)$names)
+  klabels <- attributes(seqdata)$names
+
+
+  if (kbreaks > 15) {
+    klabels[seq(2, length(klabels),2)] <- ""
+  }
+
+  if (kbreaks > 6 & is.null(group) == FALSE) {
+    klabels[seq(2, length(klabels),2)] <- ""
+  }
+
+
 
   # plot
 
@@ -180,6 +193,12 @@ ggseqdplot <- function(seqdata,
       labs(x = "", y = "Rel. Freq.") +
       theme(panel.spacing = unit(2, "lines"))
   }
+
+  suppressMessages(
+    ggdplot <- ggdplot +
+      scale_x_discrete(labels= klabels)
+  )
+
 
   return(ggdplot)
 
