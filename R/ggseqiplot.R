@@ -277,8 +277,8 @@ ggseqiplot <- function(seqdata,
   } else {
     suppressMessages(
       ggiplot <- ggiplot +
-        scale_y_continuous(breaks = ybrks$breaks,
-                           labels = ybrks$idnew,
+        scale_y_continuous(breaks = pretty(ybrks$breaks),
+                           #labels = pretty(ybrks$idnew),
                            expand = expansion(add = c(0, 0))) +
         labs(y = ylabspec)
     )
