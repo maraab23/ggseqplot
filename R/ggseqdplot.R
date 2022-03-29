@@ -127,6 +127,7 @@ ggseqdplot <- function(seqdata,
                         names_prefix = "k",
                         names_transform = list(k = as.integer)) %>%
     dplyr::mutate(k = factor(.data$k, labels = colnames(statefreqs)[-(1:2)])) %>%
+    dplyr::mutate(x = factor(as.integer(.data$k)), .after = .data$k) %>%
     dplyr::full_join(grouplabspec)
   )
 
@@ -140,30 +141,23 @@ ggseqdplot <- function(seqdata,
 
   cpal <- rev(cpal)
 
-  kbreaks <- length(attributes(seqdata)$names)
-  klabels <- attributes(seqdata)$names
-
-
-  if (kbreaks > 15) {
-    klabels[seq(2, length(klabels),2)] <- ""
-  }
-
-  if (kbreaks > 6 & is.null(group) == FALSE) {
-    klabels[seq(2, length(klabels),2)] <- ""
-  }
-
+  kbreaks <- pretty(1:length(attributes(seqdata)$names))
+  kbreaks <- kbreaks[kbreaks != 0]
+  klabels <- attributes(seqdata)$names[kbreaks]
 
 
   # plot
 
   if (border == FALSE) {
     ggdplot <- dplotdata %>%
-      ggplot(aes(fill = .data$state, y = .data$value, x = .data$k)) +
+      ggplot(aes(fill = .data$state, y = .data$value, x = .data$x)) +
       geom_bar(stat = "identity",
                width = 1) +
       scale_fill_manual(values = cpal) +
       scale_y_continuous(expand = expansion(add = c(.01,0))) +
-      scale_x_discrete(expand = expansion(add = .15)) +
+      scale_x_discrete(expand = expansion(add = .15),
+                       breaks = kbreaks,
+                       labels = klabels) +
       labs(x = "", y = ylabspec) +
       guides(fill = guide_legend(reverse=TRUE)) +
       theme_minimal() +
@@ -171,12 +165,14 @@ ggseqdplot <- function(seqdata,
             legend.title = element_blank())
   } else {
     ggdplot <- dplotdata %>%
-      ggplot(aes(fill = .data$state, y = .data$value, x = .data$k)) +
+      ggplot(aes(fill = .data$state, y = .data$value, x = .data$x)) +
       geom_bar(stat = "identity",
                width = 1, color = "black") +
       scale_fill_manual(values = cpal) +
       scale_y_continuous(expand = expansion(add = c(.01,0))) +
-      scale_x_discrete(expand = expansion(add = .15)) +
+      scale_x_discrete(expand = expansion(add = .15),
+                       breaks = kbreaks,
+                       labels = klabels) +
       labs(x = "", y = ylabspec) +
       guides(fill = guide_legend(reverse=TRUE)) +
       theme_minimal() +
@@ -195,10 +191,10 @@ ggseqdplot <- function(seqdata,
       theme(panel.spacing = unit(2, "lines"))
   }
 
-  suppressMessages(
-    ggdplot <- ggdplot +
-      scale_x_discrete(labels= klabels)
-  )
+  # suppressMessages(
+  #   ggdplot <- ggdplot +
+  #     scale_x_discrete(labels= klabels)
+  # )
 
 
   return(ggdplot)

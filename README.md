@@ -24,7 +24,7 @@ TraMineR::seqdplot)
 
 ## Installation
 
-You can install this very early version of {ggseqplot} like so:
+You can install this very early version of `{ggseqplot}` by typing:
 
 ``` r
 devtools::install_github("maraab23/ggseqplot")
@@ -68,7 +68,7 @@ in `{ggseqplot}`-functions is achieved via `ggplot2::facet_wrap`.
 seqIplot(actcal.seq, group=actcal$sex,sortv=actcal$age00)
 ```
 
-<img src="man/figures/README-seqiplot1-1.png" width="60%" />
+<img src="man/figures/README-seqiplot1-1.png" width="80%" />
 
 You’ll still need to render `README.Rmd` regularly, to keep `README.md`
 up-to-date. `devtools::build_readme()` is handy for this. You could also
@@ -83,12 +83,14 @@ You can also embed plots, for example:
 ggseqiplot(actcal.seq, group=actcal$sex, sortv=actcal$age00)
 ```
 
-<img src="man/figures/README-ggseqiplot1-1.png" width="60%" /> Note
-that we recommend to abstain from using regular sequence index plots
-rendering more than 300-500 sequences because of the well-known issue of
-overplotting. The code above just replicates an example of the `seqplot`
-documentation. In real world applications we recommend to rather render
-a subsample of sequences or to use relative frequency index plots.
+<img src="man/figures/README-ggseqiplot1-1.png" width="80%" />
+
+Note that we recommend to abstain from using regular sequence index
+plots rendering more than 300-500 sequences because of the well-known
+issue of overplotting. The code above just replicates an example of the
+`seqplot` documentation. In real world applications we recommend to
+rather render a subsample of sequences or to use relative frequency
+index plots.
 
   
 
@@ -106,15 +108,16 @@ state, and weights. The default behavior of `ggseqplot` is identical to
 seqIplot(ex1.seq)
 ```
 
-<img src="man/figures/README-seqiplot2-1.png" width="60%" />
+<img src="man/figures/README-seqiplot2-1.png" width="80%" />
 
 ``` r
 # with ggseqplot::ggseqiplot
 ggseqiplot(ex1.seq)
 ```
 
-<img src="man/figures/README-ggseqiplot2-1.png" width="60%" /> Of
-course, it is possible to change the default behavior using the
+<img src="man/figures/README-ggseqiplot2-1.png" width="80%" />
+
+Of course, it is possible to change the default behavior using the
 well-known arguments of `{TraMineR}`’s `seqplot` function. In the
 following example we ignore the weights and at add add borders around
 each sequence position:
@@ -124,14 +127,14 @@ each sequence position:
 seqIplot(ex1.seq, weighted = FALSE, border = TRUE)
 ```
 
-<img src="man/figures/README-seqiplot3-1.png" width="60%" />
+<img src="man/figures/README-seqiplot3-1.png" width="80%" />
 
 ``` r
 # with ggseqplot::ggseqiplot
 ggseqiplot(ex1.seq, weighted = FALSE, border = TRUE)
 ```
 
-<img src="man/figures/README-ggseqiplot3-1.png" width="60%" />
+<img src="man/figures/README-ggseqiplot3-1.png" width="80%" />
 
 If you haven’t notice the differences in the aspect ratio used by
 `seqplot` and {ggseqplot} it earlier, you probably will have done so
@@ -146,7 +149,7 @@ specifying height and width arguments when saving the figure with
 ggsave("test.png", width = 10, height = 4)
 ```
 
-<img src="man/figures/README-ggseqiplot3b-1.png" width="60%" />
+<img src="man/figures/README-ggseqiplot3b-1.png" width="80%" />
 
 ## Sequence distribution plot
 
@@ -158,14 +161,14 @@ files, so they display on GitHub and CRAN.
 seqdplot(actcal.seq, group=actcal$sex)
 ```
 
-<img src="man/figures/README-seqdplot1-1.png" width="60%" />
+<img src="man/figures/README-seqdplot1-1.png" width="80%" />
 
 ``` r
 # with ggseqplot::ggseqdplot
 ggseqdplot(actcal.seq, group=actcal$sex)
 ```
 
-<img src="man/figures/README-ggseqdplot1-1.png" width="60%" />
+<img src="man/figures/README-ggseqdplot1-1.png" width="80%" />
 
 ## Using functionss of `{ggplot2}` and its friends to adjust figures
 
@@ -191,4 +194,4 @@ ggseqdplot(actcal.seq) +
         plot.title.position = "plot")
 ```
 
-<img src="man/figures/README-ggseqdplot2-1.png" width="60%" />
+<img src="man/figures/README-ggseqdplot2-1.png" width="80%" />

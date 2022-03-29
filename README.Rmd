@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# ggseqplot: ggplotify figures of sequence data
+# ggseqplot: ggplotify sequence data plots
 
 <!-- badges: start -->
 ![Status](https://img.shields.io/badge/status-early%20release-yellowgreen)
@@ -32,7 +32,7 @@ Currently, ggseqplot only contains two functions:
 
 ## Installation
 
-You can install this very early version of {ggseqplot} like so:
+You can install this very early version of `{ggseqplot}` by typing:
 
 ``` r
 devtools::install_github("maraab23/ggseqplot")
@@ -69,7 +69,7 @@ ex1.seq <- seqdef(ex1, 1:13, weights=ex1$weights)
 We start with a sequence plot of 2000 sequences grouped by sex. Grouping in 
 `{ggseqplot}`-functions is achieved via `ggplot2::facet_wrap`.
 
-```{r seqiplot1}
+```{r seqiplot1, out.width="80%"}
 # with TraMineR::seqIplot
 seqIplot(actcal.seq, group=actcal$sex,sortv=actcal$age00)
 ```
@@ -78,10 +78,11 @@ You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-da
 
 You can also embed plots, for example:
 
-```{r ggseqiplot1}
+```{r ggseqiplot1, out.width="80%"}
 # with ggseqplot::ggseqiplot
 ggseqiplot(actcal.seq, group=actcal$sex, sortv=actcal$age00)
 ```
+
 Note that we recommend to abstain from using regular sequence index plots rendering more than 300-500 sequences because of the well-known issue of overplotting. The code above just replicates an example of the `seqplot` documentation. In real world applications we recommend to rather render a subsample of sequences or to use relative frequency index plots.
 
 \
@@ -92,25 +93,26 @@ The default behavior of `ggseqplot` is identical to `seqplot`:
 1. If weights have been specified when defining the sequence object with `seqdef`, they are automatically used. 
 2. If sequences contain missing states they are automatically added to the alphabet and will also be plotted. 
 
-```{r seqiplot2}
+```{r seqiplot2, out.width="80%"}
 # with TraMineR::seqIplot
 seqIplot(ex1.seq)
 ```
 
 
-```{r ggseqiplot2}
+```{r ggseqiplot2, out.width="80%"}
 # with ggseqplot::ggseqiplot
 ggseqiplot(ex1.seq)
 ```
+
 Of course, it is possible to change the default behavior using the well-known arguments of `{TraMineR}`'s `seqplot` function. In the following example we ignore the weights and at add add borders around each sequence position:  
 
-```{r seqiplot3}
+```{r seqiplot3, out.width="80%"}
 # with TraMineR::seqIplot
 seqIplot(ex1.seq, weighted = FALSE, border = TRUE)
 ```
 
 
-```{r ggseqiplot3}
+```{r ggseqiplot3, out.width="80%"}
 # with ggseqplot::ggseqiplot
 ggseqiplot(ex1.seq, weighted = FALSE, border = TRUE)
 ```
@@ -121,7 +123,7 @@ If you haven't notice the differences in the aspect ratio used by `seqplot` and 
 ggsave("test.png", width = 10, height = 4)
 ```
 
-```{r ggseqiplot3b, fig.width=10, fig.height=4, echo=FALSE}
+```{r ggseqiplot3b, fig.width=10, fig.height=4, echo=FALSE, out.width="80%"}
 ggseqiplot(ex1.seq, weighted = FALSE, border = TRUE)
 ``` 
 
@@ -131,12 +133,12 @@ ggseqiplot(ex1.seq, weighted = FALSE, border = TRUE)
 
 In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
 
-```{r seqdplot1}
+```{r seqdplot1, out.width="80%"}
 # with TraMineR::seqdplot
 seqdplot(actcal.seq, group=actcal$sex)
 ```
 
-```{r ggseqdplot1}
+```{r ggseqdplot1, out.width="80%"}
 # with ggseqplot::ggseqdplot
 ggseqdplot(actcal.seq, group=actcal$sex)
 ```
@@ -146,7 +148,7 @@ ggseqdplot(actcal.seq, group=actcal$sex)
 Rendering figures using `{ggplot2}` `{ggseqplot}` plots can be easily manipulated with all the functions that are 
 usually used to adjust the `{ggplot2}` output. We also can utilize other libraries that were designed to be used together `{ggplot2}`:
 
-```{r ggseqdplot2, message=FALSE, warning=FALSE}
+```{r ggseqdplot2, message=FALSE, warning=FALSE, out.width="80%"}
 
 library(ggplot2)
 library(ggthemes)
