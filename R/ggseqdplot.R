@@ -99,11 +99,11 @@ ggseqdplot <- function(seqdata,
 
 
   if (length(ylabspec) == 1 & weighted == TRUE) {
-    ylabspec <- glue::glue("Rel. Freq. (weighted n={ylabspec})")
+    ylabspec <- glue::glue("Rel. Freq. (weighted n={round(ylabspec,2)})")
   } else if (length(ylabspec) == 1 & weighted == FALSE) {
     ylabspec <- glue::glue("Rel. Freq. (n={ylabspec})")
   } else if (weighted == TRUE) {
-    ylabspec <- glue::glue("{unique(group)} (weighted n={ylabspec})")
+    ylabspec <- glue::glue("{unique(group)} (weighted n={round(ylabspec,2)})")
   } else {
     ylabspec <- glue::glue("{unique(group)} (n={ylabspec})")
   }

@@ -172,11 +172,11 @@ ggseqiplot <- function(seqdata,
 
 
   if (nrow(ylabspec) == 1 & weighted == TRUE) {
-    ylabspec <- glue::glue("{ylabspec$nseq} sequences (weighted n={ylabspec$maxwgt})")
+    ylabspec <- glue::glue("{ylabspec$nseq} sequences (weighted n={round(ylabspec$maxwgt,2)})")
   } else if (nrow(ylabspec) == 1 & weighted == FALSE) {
     ylabspec <- glue::glue("# sequences (n = {ylabspec$nseq})")
   } else if (weighted == TRUE) {
-    ylabspec <- glue::glue("{ylabspec$group} \n({ylabspec$nseq} sequences; weighted n={ylabspec$maxwgt})")
+    ylabspec <- glue::glue("{ylabspec$group} \n({ylabspec$nseq} sequences; weighted n={round(ylabspec$maxwgt,2)})")
   } else {
     ylabspec <- glue::glue("{ylabspec$group} (n={ylabspec$nseq})")
   }
