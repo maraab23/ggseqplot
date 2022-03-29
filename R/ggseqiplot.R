@@ -89,6 +89,7 @@ ggseqiplot <- function(seqdata,
     weights <-  attributes(seqdata)$weights
   } else {
     weights <- rep(1, nrow(seqdata))
+    weighted <- FALSE
   }
 
 
@@ -151,6 +152,43 @@ ggseqiplot <- function(seqdata,
                   right = ifelse(is.na(.data$right),0,.data$right))
 
 
+
+  ybrks <- dt2 %>%
+    dplyr::distinct(.data$idnew, .keep_all = T) %>%
+    dplyr::mutate(breaks = (.data$begin+.data$end)/2,
+                  breaks = ifelse(.data$begin==.data$end, .data$breaks+1,
+                                  .data$breaks))
+
+  if (is.null(group)) dt2$group <- 1
+  if (is.null(group)) group <- 1
+
+  ylabspec <- purrr::map(unique(group),
+                         ~dt2 %>%
+                           dplyr::filter(.data$group == .x) %>%
+                           dplyr::summarise(group = dplyr::first(.data$group),
+                                            maxwgt = max(.data$end),
+                                            nseq = dplyr::n_distinct(.data$idnew))) %>%
+                           dplyr::bind_rows()
+
+
+  if (nrow(ylabspec) == 1 & weighted == TRUE) {
+    ylabspec <- glue::glue("{ylabspec$nseq} sequences (weighted n={ylabspec$maxwgt})")
+  } else if (nrow(ylabspec) == 1 & weighted == FALSE) {
+    ylabspec <- glue::glue("# sequences (n = {ylabspec$nseq})")
+  } else if (weighted == TRUE) {
+    ylabspec <- glue::glue("{ylabspec$group} \n({ylabspec$nseq} sequences; weighted n={ylabspec$maxwgt})")
+  } else {
+    ylabspec <- glue::glue("{ylabspec$group} (n={ylabspec$nseq})")
+  }
+
+  grouplabspec <- dplyr::tibble(group = unique(group),
+                                grouplab = ylabspec)
+
+  suppressMessages(
+    if (length(ylabspec) > 1) dt2 <- dt2 %>% dplyr::full_join(grouplabspec)
+  )
+
+
   if ("Missing" %in% dt2$states == TRUE) {
     cpal <- c(attributes(seqdata)$cpal,
               attributes(seqdata)$missing.color)
@@ -172,6 +210,7 @@ ggseqiplot <- function(seqdata,
     kbreaks <- kbreaks[seq(1, length(kbreaks),2)]
     klabels <- klabels[seq(1, length(klabels),2)]
   }
+
 
 
   if (border == FALSE) {
@@ -212,12 +251,36 @@ ggseqiplot <- function(seqdata,
     )
   }
 
+  grsize <- length(unique(dt2$group))
 
-  if (is.null(group) == FALSE) {
+
+  if (grsize > 1 & weighted == TRUE) {
     suppressMessages(
       ggiplot <- ggiplot +
-        facet_wrap(~.data$group, scales = "free_y") +
+        facet_wrap(~.data$grouplab,
+                   scales = "free_y",
+                   ncol = 2) +
+        scale_y_continuous(expand = expansion(add = c(0, 0))) +
+        labs(y = "# weighted sequences") +
         theme(panel.spacing = unit(2, "lines"))
+    )
+  } else if (grsize > 1 & weighted == FALSE) {
+    suppressMessages(
+      ggiplot <- ggiplot +
+        facet_wrap(~.data$grouplab,
+                   scales = "free_y",
+                   ncol = 2) +
+        scale_y_continuous(expand = expansion(add = c(0, 0))) +
+        labs(y = "# sequences") +
+        theme(panel.spacing = unit(2, "lines"))
+    )
+  } else {
+    suppressMessages(
+      ggiplot <- ggiplot +
+        scale_y_continuous(breaks = ybrks$breaks,
+                           labels = ybrks$idnew,
+                           expand = expansion(add = c(0, 0))) +
+        labs(y = ylabspec)
     )
   }
 
@@ -225,8 +288,8 @@ ggseqiplot <- function(seqdata,
     ggiplot <- ggiplot +
       scale_x_continuous(breaks = kbreaks,
                          labels= klabels,
-                         expand = expansion(add = c(0.2, 0))) +
-      scale_y_continuous(expand = expansion(add = c(0, 0)))
+                         expand = expansion(add = c(0.2, 0)))
+
   )
 
   return(ggiplot)

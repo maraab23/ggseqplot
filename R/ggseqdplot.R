@@ -188,8 +188,9 @@ ggseqdplot <- function(seqdata,
 
   if (grsize > 1) {
     ggdplot <- ggdplot +
-      facet_wrap(~.data$grouplab, scales = "free_y",
-                 nrow = ceiling(grsize/2)) +
+      facet_wrap(~.data$grouplab,
+                 scales = "free_y",
+                 ncol = 2) +
       labs(x = "", y = "Rel. Freq.") +
       theme(panel.spacing = unit(2, "lines"))
   }
