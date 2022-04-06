@@ -168,7 +168,7 @@ ggseqiplot <- function(seqdata,
                            dplyr::summarise(group = dplyr::first(.data$group),
                                             maxwgt = max(.data$end),
                                             nseq = dplyr::n_distinct(.data$idnew))) %>%
-                           dplyr::bind_rows()
+    dplyr::bind_rows()
 
 
   if (nrow(ylabspec) == 1 & weighted == TRUE) {
@@ -220,8 +220,8 @@ ggseqiplot <- function(seqdata,
         geom_rect(aes(xmin = .data$left, xmax = .data$right,
                       ymin = .data$begin, ymax = .data$end,
                       fill = .data$states, colour = .data$states)) +
-        scale_fill_manual(values = cpal)  +
-        scale_color_manual(values = cpal)  +
+        scale_fill_manual(values = cpal, drop=FALSE)  +
+        scale_color_manual(values = cpal, drop=FALSE)  +
         theme_minimal() +
         theme(legend.position = "bottom",
               legend.title = element_blank())
@@ -243,8 +243,8 @@ ggseqiplot <- function(seqdata,
         geom_rect(aes(xmin = .data$left, xmax = .data$right,
                       ymin = .data$begin, ymax = .data$end,
                       fill = .data$states), colour = "black") +
-        scale_fill_manual(values = cpal)  +
-        scale_color_manual(values = cpal)  +
+        scale_fill_manual(values = cpal, drop=FALSE)  +
+        scale_color_manual(values = cpal, drop=FALSE)  +
         theme_minimal() +
         theme(legend.position = "bottom",
               legend.title = element_blank())
