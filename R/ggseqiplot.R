@@ -195,9 +195,12 @@ ggseqiplot <- function(seqdata,
                          ~ybrks |>
                            dplyr::filter(.data$group == .x) |>
                     dplyr::pull(.data$breaks)) |>
-      purrr::map(~scale_y_continuous(breaks = .x,
-                                     labels = 1:length(.x)))
+      purrr::map(~scale_y_continuous(expand = expansion(add = c(0, 0)),
+                                     breaks = .x,
+                                     labels = 1:length(.x),
+                                     guide = guide_axis(check.overlap = TRUE)))
   }
+
 
 
   if (nrow(ylabspec) == 1 & weighted == TRUE) {
@@ -289,7 +292,6 @@ ggseqiplot <- function(seqdata,
         facet_wrap(~.data$grouplab,
                    scales = facet_scale,
                    ncol = 2) +
-        scale_y_continuous(expand = expansion(add = c(0, 0))) +
         labs(y = ifelse(weighted == TRUE,
                         "# weighted sequences",
                         "# sequences")) +
