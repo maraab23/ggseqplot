@@ -3,3 +3,4 @@
 export(ggseqdplot)
 export(ggseqiplot)
 import(ggplot2)
+importFrom(ggh4x,facetted_pos_scales)

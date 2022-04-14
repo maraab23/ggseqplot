@@ -9,6 +9,9 @@
 #' @param sortv Vector of numerical values for sorting the sequences
 #' @param weighted Controls if weights should be used
 #' @param border if \code{TRUE} bars are plotted with black outline
+#' @param facet_scale Specifies if y-scale in faceted plot should be free ("free_y" = default) or "fixed"
+#' @param facet_ncol Number of columns in faceted (i.e. grouped) plot
+#' @param facet_nrow Number of rows in faceted (i.e. grouped) plot
 #'
 #' @return A sequence index plot. If stored as object the resulting list object
 #' also contains the data (spell format) used for rendering the plot.
@@ -75,7 +78,10 @@ ggseqiplot <- function(seqdata,
                        group = NULL,
                        sortv = NULL,
                        weighted = TRUE,
-                       border = FALSE) {
+                       border = FALSE,
+                       facet_scale = "free_y",
+                       facet_ncol = NULL,
+                       facet_nrow = NULL) {
 
   if (!inherits(seqdata, "stslist"))
     stop("data is not a sequence object, use 'seqdef' function to create one")
@@ -96,6 +102,15 @@ ggseqiplot <- function(seqdata,
     stop("The number of sequences and the length of the weights vector do not correspond.
          Probably you subsetted the sequence object. Subsetting a sequence object does not subset the weight attribute accordingly.
          If you want to use a subset of sequences with weights you should define a new sequence object with `TraMineR::seqdef`")
+
+  if (!facet_scale %in% c("free_y", "fixed"))
+    stop('the argument `facet_scale` has to be either "free_y" or "fixed"')
+
+  if (!is.null(facet_ncol) & !is.integer(facet_ncol))
+    stop("`facet_ncol` must be NULL or an integer.")
+
+  if (!is.null(facet_nrow) & !is.integer(facet_nrow))
+    stop("`facet_nrow` must be NULL or an integer.")
 
 
   auxid <- dplyr::tibble(id = as.character(attributes(seqdata)$row.names)) |>
@@ -173,6 +188,16 @@ ggseqiplot <- function(seqdata,
                                             maxwgt = max(.data$end),
                                             nseq = dplyr::n_distinct(.data$idnew))) |>
     dplyr::bind_rows()
+
+
+  if (length(unique(group)) > 1) {
+    scales <- purrr::map(unique(group),
+                         ~ybrks |>
+                           dplyr::filter(.data$group == .x) |>
+                    dplyr::pull(.data$breaks)) |>
+      purrr::map(~scale_y_continuous(breaks = .x,
+                                     labels = 1:length(.x)))
+  }
 
 
   if (nrow(ylabspec) == 1 & weighted == TRUE) {
@@ -258,25 +283,18 @@ ggseqiplot <- function(seqdata,
   grsize <- length(unique(dt2$group))
 
 
-  if (grsize > 1 & weighted == TRUE) {
+  if (grsize > 1) {
     suppressMessages(
       ggiplot <- ggiplot +
         facet_wrap(~.data$grouplab,
-                   scales = "free_y",
+                   scales = facet_scale,
                    ncol = 2) +
         scale_y_continuous(expand = expansion(add = c(0, 0))) +
-        labs(y = "# weighted sequences") +
-        theme(panel.spacing = unit(2, "lines"))
-    )
-  } else if (grsize > 1 & weighted == FALSE) {
-    suppressMessages(
-      ggiplot <- ggiplot +
-        facet_wrap(~.data$grouplab,
-                   scales = "free_y",
-                   ncol = 2) +
-        scale_y_continuous(expand = expansion(add = c(0, 0))) +
-        labs(y = "# sequences") +
-        theme(panel.spacing = unit(2, "lines"))
+        labs(y = ifelse(weighted == TRUE,
+                        "# weighted sequences",
+                        "# sequences")) +
+        theme(panel.spacing = unit(2, "lines")) +
+        ggh4x::facetted_pos_scales(y = scales)
     )
   } else {
     suppressMessages(
@@ -291,7 +309,7 @@ ggseqiplot <- function(seqdata,
   suppressMessages(
     ggiplot <- ggiplot +
        scale_x_continuous(breaks = kbreaks,
-                          labels= klabels,
+                          labels = klabels,
                           guide = guide_axis(check.overlap = TRUE),
                           expand = expansion(add = c(0.2, 0)))
 

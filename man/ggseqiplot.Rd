@@ -9,7 +9,10 @@ ggseqiplot(
   group = NULL,
   sortv = NULL,
   weighted = TRUE,
-  border = FALSE
+  border = FALSE,
+  facet_scale = "free_y",
+  facet_ncol = NULL,
+  facet_nrow = NULL
 )
 }
 \arguments{
@@ -23,6 +26,12 @@ When not NULL, a distinct plot is generated for each level of group.}
 \item{weighted}{Controls if weights should be used}
 
 \item{border}{if \code{TRUE} bars are plotted with black outline}
+
+\item{facet_scale}{Specifies if y-scale in faceted plot should be free ("free_y" = default) or "fixed"}
+
+\item{facet_ncol}{Number of columns in faceted (i.e. grouped) plot}
+
+\item{facet_nrow}{Number of rows in faceted (i.e. grouped) plot}
 }
 \value{
 A sequence index plot. If stored as object the resulting list object

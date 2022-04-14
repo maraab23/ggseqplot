@@ -15,6 +15,7 @@ RoxygenNote: 7.1.2
 Imports: 
     dplyr,
     forcats,
+    ggh4x,
     ggplot2,
     glue,
     purrr,
