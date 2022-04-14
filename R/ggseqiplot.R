@@ -94,11 +94,11 @@ ggseqiplot <- function(seqdata,
 
   if (weighted == TRUE & nrow(seqdata) != length(weights))
     stop("The number of sequences and the length of the weights vector do not correspond.
-         Probably you subsetted the sequence object. Subsetting a sequence object does not update the weight attribute.
+         Probably you subsetted the sequence object. Subsetting a sequence object does not subset the weight attribute accordingly.
          If you want to use a subset of sequences with weights you should define a new sequence object with `TraMineR::seqdef`")
 
 
-  auxid <- dplyr::tibble(id = as.character(attributes(seqdata)$row.names)) %>%
+  auxid <- dplyr::tibble(id = as.character(attributes(seqdata)$row.names)) |>
     dplyr::mutate(idnew = dplyr::row_number(),
                   weight = weights,
                   group = NA)
@@ -107,59 +107,58 @@ ggseqiplot <- function(seqdata,
 
 
   if (is.null(sortv) == FALSE) {
-    auxid <- auxid %>%
-      dplyr::mutate(sortv = {{ sortv }}) %>%
-      dplyr::arrange(sortv) %>%
+    auxid <- auxid |>
+      dplyr::mutate(sortv = {{ sortv }}) |>
+      dplyr::arrange(sortv) |>
       dplyr::mutate(idnew = dplyr::row_number())
   } else {
     auxid$sortv <- auxid$idnew
   }
 
   suppressMessages(
-    spelldata <- TraMineR::seqformat(seqdata, to = "SPELL") %>%
-      dplyr::full_join(auxid) %>%
-      dplyr::select(.data$idnew, dplyr::everything()) %>%
+    spelldata <- TraMineR::seqformat(seqdata, to = "SPELL") |>
+      dplyr::full_join(auxid) |>
+      dplyr::select(.data$idnew, dplyr::everything()) |>
       dplyr::mutate(states = factor(.data$states,
                                     levels = TraMineR::alphabet(seqdata),
                                     labels = attributes(seqdata)$labels),
                     states = forcats::fct_explicit_na(.data$states,
-                                                      na_level="Missing")) %>%
-      dplyr::group_by(.data$idnew) %>%
-      dplyr::mutate(spell = dplyr::row_number(), .after = 1) %>%
-      dplyr::as_tibble() %>%
+                                                      na_level="Missing")) |>
+      dplyr::group_by(.data$idnew) |>
+      dplyr::mutate(spell = dplyr::row_number(), .after = 1) |>
+      dplyr::as_tibble() |>
       dplyr::rename(left = .data$begin, right = .data$end)
   )
 
 
   suppressMessages(
-    dt <- spelldata %>%
-      dplyr::arrange(sortv) %>%
-      dplyr::select(.data$idnew, .data$weight, group) %>%
-      dplyr::distinct(.data$idnew, .keep_all = TRUE) %>%
-      dplyr::ungroup() %>%
-      dplyr::group_by(group) %>%
-      dplyr::mutate(begin = 0, end = cumsum(.data$weight)) %>%
-      dplyr::ungroup() %>%
-      dplyr::select(-.data$weight, -.data$group) %>%
+    dt <- spelldata |>
+      dplyr::arrange(sortv) |>
+      dplyr::select(.data$idnew, .data$weight, group) |>
+      dplyr::distinct(.data$idnew, .keep_all = TRUE) |>
+      dplyr::ungroup() |>
+      dplyr::group_by(group) |>
+      dplyr::mutate(begin = 0, end = cumsum(.data$weight)) |>
+      dplyr::ungroup() |>
+      dplyr::select(-.data$weight, -.data$group) |>
       dplyr::full_join(spelldata, by = "idnew")
   )
 
 
-  dt2 <- dt %>%
-    dplyr::group_by(group) %>%
-    dplyr::mutate(begin = ifelse(dplyr::row_number()==1,0,NA)) %>%
-    dplyr::arrange(.data$spell, .data$idnew) %>%
+  dt2 <- dt |>
+    dplyr::group_by(group) |>
+    dplyr::mutate(begin = ifelse(dplyr::row_number()==1,0,NA)) |>
+    dplyr::arrange(.data$spell, .data$idnew) |>
     dplyr::mutate(begin = ifelse(is.na(.data$begin),.data$end - .data$weight, .data$begin),
-                  left = .data$left - 1) %>%
-    dplyr::arrange(.data$idnew, .data$spell) %>%
-    dplyr::ungroup() %>%
+                  left = .data$left - 1) |>
+    dplyr::arrange(.data$idnew, .data$spell) |>
+    dplyr::ungroup() |>
     dplyr::mutate(left = ifelse(is.na(.data$left),0,.data$left),
                   right = ifelse(is.na(.data$right),0,.data$right))
 
 
-
-  ybrks <- dt2 %>%
-    dplyr::distinct(.data$idnew, .keep_all = T) %>%
+  ybrks <- dt2 |>
+    dplyr::distinct(.data$idnew, .keep_all = T) |>
     dplyr::mutate(breaks = (.data$begin+.data$end)/2,
                   breaks = ifelse(.data$begin==.data$end, .data$breaks+1,
                                   .data$breaks))
@@ -168,11 +167,11 @@ ggseqiplot <- function(seqdata,
   if (is.null(group)) group <- 1
 
   ylabspec <- purrr::map(unique(group),
-                         ~dt2 %>%
-                           dplyr::filter(.data$group == .x) %>%
+                         ~dt2 |>
+                           dplyr::filter(.data$group == .x) |>
                            dplyr::summarise(group = dplyr::first(.data$group),
                                             maxwgt = max(.data$end),
-                                            nseq = dplyr::n_distinct(.data$idnew))) %>%
+                                            nseq = dplyr::n_distinct(.data$idnew))) |>
     dplyr::bind_rows()
 
 
@@ -190,7 +189,7 @@ ggseqiplot <- function(seqdata,
                                 grouplab = ylabspec)
 
   suppressMessages(
-    if (length(ylabspec) > 1) dt2 <- dt2 %>% dplyr::full_join(grouplabspec)
+    if (length(ylabspec) > 1) dt2 <- dt2 |> dplyr::full_join(grouplabspec)
   )
 
 
@@ -206,21 +205,21 @@ ggseqiplot <- function(seqdata,
   klabels <- attributes(seqdata)$names
 
 
-  if (length(kbreaks) > 15) {
-    kbreaks <- kbreaks[seq(1, length(kbreaks),2)]
-    klabels <- klabels[seq(1, length(klabels),2)]
-  }
-
-  if (length(kbreaks) > 6 & is.null(group) == FALSE) {
-    kbreaks <- kbreaks[seq(1, length(kbreaks),2)]
-    klabels <- klabels[seq(1, length(klabels),2)]
-  }
+  # if (length(kbreaks) > 15) {
+  #   kbreaks <- kbreaks[seq(1, length(kbreaks),2)]
+  #   klabels <- klabels[seq(1, length(klabels),2)]
+  # }
+  #
+  # if (length(kbreaks) > 6 & is.null(group) == FALSE) {
+  #   kbreaks <- kbreaks[seq(1, length(kbreaks),2)]
+  #   klabels <- klabels[seq(1, length(klabels),2)]
+  # }
 
 
 
   if (border == FALSE) {
     suppressMessages(
-      ggiplot <- dt2 %>%
+      ggiplot <- dt2 |>
         ggplot() +
         geom_rect(aes(xmin = .data$left, xmax = .data$right,
                       ymin = .data$begin, ymax = .data$end,
@@ -233,17 +232,17 @@ ggseqiplot <- function(seqdata,
     )
   } else {
     suppressMessages(
-      ggiplot <- dt2 %>%
+      ggiplot <- dt2 |>
         dplyr::mutate(aux = .data$right - .data$left,
                       aux2 = .data$aux,
-                      aux = ifelse(.data$aux==0, 1, .data$aux)) %>%
-        tidyr::uncount(.data$aux) %>%
-        dplyr::select(-.data$aux) %>%
-        dplyr::group_by(.data$idnew) %>%
+                      aux = ifelse(.data$aux==0, 1, .data$aux)) |>
+        tidyr::uncount(.data$aux) |>
+        dplyr::select(-.data$aux) |>
+        dplyr::group_by(.data$idnew) |>
         dplyr::mutate(left = dplyr::row_number() - 1,
-                      right = ifelse(.data$aux2==0,.data$left, .data$left + 1)) %>%
-        dplyr::ungroup() %>%
-        dplyr::select(-.data$aux2) %>%
+                      right = ifelse(.data$aux2==0,.data$left, .data$left + 1)) |>
+        dplyr::ungroup() |>
+        dplyr::select(-.data$aux2) |>
         ggplot() +
         geom_rect(aes(xmin = .data$left, xmax = .data$right,
                       ymin = .data$begin, ymax = .data$end,
@@ -291,9 +290,10 @@ ggseqiplot <- function(seqdata,
 
   suppressMessages(
     ggiplot <- ggiplot +
-      scale_x_continuous(breaks = kbreaks,
-                         labels= klabels,
-                         expand = expansion(add = c(0.2, 0)))
+       scale_x_continuous(breaks = kbreaks,
+                          labels= klabels,
+                          guide = guide_axis(check.overlap = TRUE),
+                          expand = expansion(add = c(0.2, 0)))
 
   )
 

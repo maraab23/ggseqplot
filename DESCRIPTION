@@ -1,6 +1,6 @@
 Package: ggseqplot
 Title: Render Sequence Plots using {ggplot2}
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: 
     person("Marcel", "Raab", , "marcel.raab@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-3097-1591"))
@@ -17,7 +17,6 @@ Imports:
     forcats,
     ggplot2,
     glue,
-    magrittr,
     purrr,
     tidyr,
     TraMineR

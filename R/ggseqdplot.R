@@ -85,16 +85,16 @@ ggseqdplot <- function(seqdata,
   statefreqs <- purrr::map(unique(group),
                            ~TraMineR::seqstatd(seqdata[group == .x,],
                                                weighted = weighted,
-                                               with.missing = with.missing)$Frequencies %>%
-                             dplyr::as_tibble(rownames = "state") %>%
-                             dplyr::mutate(group = .x, .before = 1)) %>%
+                                               with.missing = with.missing)$Frequencies |>
+                             dplyr::as_tibble(rownames = "state") |>
+                             dplyr::mutate(group = .x, .before = 1)) |>
     dplyr::bind_rows()
 
 
   ylabspec <- purrr::map(unique(group),
                   ~attributes(TraMineR::seqstatd(seqdata[group == .x,],
                                                  weighted = weighted,
-                                                 with.missing = with.missing))$nbseq) %>%
+                                                 with.missing = with.missing))$nbseq) |>
     unlist()
 
 
@@ -113,21 +113,21 @@ ggseqdplot <- function(seqdata,
 
 
   suppressMessages(
-  dplotdata <- statefreqs %>%
+  dplotdata <- statefreqs |>
     dplyr::rename_with(~ glue::glue("k{1:(ncol(statefreqs)-2)}"),
-                       -(1:2)) %>%
+                       -(1:2)) |>
     dplyr::mutate(state = factor(.data$state,
                                  levels = TraMineR::alphabet(seqdata),
                                  labels = attributes(seqdata)$labels),
                   state = forcats::fct_explicit_na(.data$state,
                                                    na_level="Missing"),
-                  state = forcats::fct_rev(.data$state)) %>%
+                  state = forcats::fct_rev(.data$state)) |>
     tidyr::pivot_longer(cols = -(1:2),
                         names_to = "k",
                         names_prefix = "k",
-                        names_transform = list(k = as.integer)) %>%
-    dplyr::mutate(k = factor(.data$k, labels = colnames(statefreqs)[-(1:2)])) %>%
-    dplyr::mutate(x = factor(as.integer(.data$k)), .after = .data$k) %>%
+                        names_transform = list(k = as.integer)) |>
+    dplyr::mutate(k = factor(.data$k, labels = colnames(statefreqs)[-(1:2)])) |>
+    dplyr::mutate(x = factor(as.integer(.data$k)), .after = .data$k) |>
     dplyr::full_join(grouplabspec)
   )
 
@@ -141,44 +141,40 @@ ggseqdplot <- function(seqdata,
 
   cpal <- rev(cpal)
 
-  kbreaks <- pretty(1:length(attributes(seqdata)$names))
-  kbreaks <- kbreaks[kbreaks != 0]
-  klabels <- attributes(seqdata)$names[kbreaks]
+  # kbreaks <- pretty(1:length(attributes(seqdata)$names))
+  # kbreaks <- kbreaks[kbreaks != 0]
+  # klabels <- attributes(seqdata)$names[kbreaks]
+
+  kbreaks <- 1:(length(attributes(seqdata)$names))
+  klabels <- attributes(seqdata)$names
 
 
   # plot
 
   if (border == FALSE) {
-    ggdplot <- dplotdata %>%
+    ggdplot <- dplotdata |>
       ggplot(aes(fill = .data$state, y = .data$value, x = .data$x)) +
       geom_bar(stat = "identity",
-               width = 1) +
-      scale_fill_manual(values = cpal) +
-      scale_y_continuous(expand = expansion(add = c(.01,0))) +
-      scale_x_discrete(expand = expansion(add = .15),
-                       breaks = kbreaks,
-                       labels = klabels) +
-      labs(x = "", y = ylabspec) +
-      guides(fill = guide_legend(reverse=TRUE)) +
-      theme_minimal() +
-      theme(legend.position = "bottom",
-            legend.title = element_blank())
+               width = 1)
   } else {
-    ggdplot <- dplotdata %>%
+    ggdplot <- dplotdata |>
       ggplot(aes(fill = .data$state, y = .data$value, x = .data$x)) +
       geom_bar(stat = "identity",
-               width = 1, color = "black") +
-      scale_fill_manual(values = cpal) +
-      scale_y_continuous(expand = expansion(add = c(.01,0))) +
-      scale_x_discrete(expand = expansion(add = .15),
-                       breaks = kbreaks,
-                       labels = klabels) +
-      labs(x = "", y = ylabspec) +
-      guides(fill = guide_legend(reverse=TRUE)) +
-      theme_minimal() +
-      theme(legend.position = "bottom",
-            legend.title = element_blank())
+               width = 1, color = "black")
   }
+
+  ggdplot <- ggdplot +
+    scale_fill_manual(values = cpal) +
+    scale_y_continuous(expand = expansion(add = c(.01,0))) +
+    scale_x_discrete(expand = expansion(add = .15),
+                     breaks = kbreaks,
+                     labels = klabels,
+                     guide = guide_axis(check.overlap = TRUE)) +
+    labs(x = "", y = ylabspec) +
+    guides(fill = guide_legend(reverse=TRUE)) +
+    theme_minimal() +
+    theme(legend.position = "bottom",
+          legend.title = element_blank())
 
   grsize <- length(unique(dplotdata$group))
 
@@ -191,10 +187,6 @@ ggseqdplot <- function(seqdata,
       theme(panel.spacing = unit(2, "lines"))
   }
 
-  # suppressMessages(
-  #   ggdplot <- ggdplot +
-  #     scale_x_discrete(labels= klabels)
-  # )
 
 
   return(ggdplot)
