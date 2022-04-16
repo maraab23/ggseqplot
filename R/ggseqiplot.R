@@ -172,14 +172,16 @@ ggseqiplot <- function(seqdata,
                   right = ifelse(is.na(.data$right),0,.data$right))
 
 
+  if (is.null(group)) dt2$group <- 1
+  if (is.null(group)) group <- dt2$group
+
   ybrks <- dt2 |>
     dplyr::distinct(.data$idnew, .keep_all = T) |>
     dplyr::mutate(breaks = (.data$begin+.data$end)/2,
                   breaks = ifelse(.data$begin==.data$end, .data$breaks+1,
                                   .data$breaks))
 
-  if (is.null(group)) dt2$group <- 1
-  if (is.null(group)) group <- 1
+
 
   ylabspec <- purrr::map(unique(group),
                          ~dt2 |>
@@ -190,17 +192,34 @@ ggseqiplot <- function(seqdata,
     dplyr::bind_rows()
 
 
-  if (length(unique(group)) > 1) {
-    scales <- purrr::map(unique(group),
-                         ~ybrks |>
-                           dplyr::filter(.data$group == .x) |>
-                    dplyr::pull(.data$breaks)) |>
-      purrr::map(~scale_y_continuous(expand = expansion(add = c(0, 0)),
-                                     breaks = .x,
-                                     labels = 1:length(.x),
-                                     guide = guide_axis(check.overlap = TRUE)))
-  }
+  scalebreaks <- purrr::map(unique(group),
+                            ~ybrks |>
+                              dplyr::filter(.data$group == .x) |>
+                              dplyr::pull(.data$breaks))
 
+  scalelabels <- purrr::map(unique(group),
+                            ~ybrks |>
+                              dplyr::filter(.data$group == .x) |>
+                              dplyr::transmute(laby = dplyr::row_number()) |>
+                              dplyr::pull())
+
+  grsize <- purrr::map(scalelabels,max)
+
+  scalelabels <- purrr::map(scalelabels,
+                            ~pretty(.x)) |>
+    purrr::map(~{ .x[1] <- 1 ; .x }) |>
+    purrr::map2(grsize,
+                ~ { .x[length(.x)] <- .y ; .x })
+
+  scalebreaks <- purrr::map2(scalebreaks, scalelabels,
+                             ~ .x[.y])
+
+  scales <- purrr::map2(scalebreaks,
+                        scalelabels,
+                        ~scale_y_continuous(expand = expansion(add = c(0, 0)),
+                                            breaks = .x,
+                                            labels = .y,
+                                            guide = guide_axis(check.overlap = TRUE)))
 
 
   if (nrow(ylabspec) == 1 & weighted == TRUE) {
@@ -231,18 +250,6 @@ ggseqiplot <- function(seqdata,
 
   kbreaks <- .5:(length(attributes(seqdata)$names)-.5)
   klabels <- attributes(seqdata)$names
-
-
-  # if (length(kbreaks) > 15) {
-  #   kbreaks <- kbreaks[seq(1, length(kbreaks),2)]
-  #   klabels <- klabels[seq(1, length(klabels),2)]
-  # }
-  #
-  # if (length(kbreaks) > 6 & is.null(group) == FALSE) {
-  #   kbreaks <- kbreaks[seq(1, length(kbreaks),2)]
-  #   klabels <- klabels[seq(1, length(klabels),2)]
-  # }
-
 
 
   if (border == FALSE) {
@@ -301,9 +308,7 @@ ggseqiplot <- function(seqdata,
   } else {
     suppressMessages(
       ggiplot <- ggiplot +
-        scale_y_continuous(breaks = pretty(ybrks$breaks),
-                           #labels = pretty(ybrks$idnew),
-                           expand = expansion(add = c(0, 0))) +
+        scales +
         labs(y = ylabspec)
     )
   }
@@ -313,7 +318,8 @@ ggseqiplot <- function(seqdata,
        scale_x_continuous(breaks = kbreaks,
                           labels = klabels,
                           guide = guide_axis(check.overlap = TRUE),
-                          expand = expansion(add = c(0.2, 0)))
+                          expand = expansion(add = c(0.2, 0))) +
+      theme(axis.title.y = element_text(margin = margin(0, 10, 0, 0)))
 
   )
 
