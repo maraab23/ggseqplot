@@ -170,7 +170,7 @@ ggseqdplot(actcal.seq, group=actcal$sex)
 
 <img src="man/figures/README-ggseqdplot1-1.png" width="80%" />
 
-## Using functionss of `{ggplot2}` and its friends to adjust figures
+## Using `{ggplot2}` functions and its friends to adjust figures
 
 Rendering figures using `{ggplot2}` `{ggseqplot}` plots can be easily
 manipulated with all the functions that are usually used to adjust the

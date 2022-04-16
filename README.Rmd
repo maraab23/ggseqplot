@@ -143,7 +143,7 @@ seqdplot(actcal.seq, group=actcal$sex)
 ggseqdplot(actcal.seq, group=actcal$sex)
 ```
 
-## Using functionss of `{ggplot2}` and its friends to adjust figures
+## Using `{ggplot2}` functions and its friends to adjust figures
 
 Rendering figures using `{ggplot2}` `{ggseqplot}` plots can be easily manipulated with all the functions that are 
 usually used to adjust the `{ggplot2}` output. We also can utilize other libraries that were designed to be used together `{ggplot2}`:

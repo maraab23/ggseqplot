@@ -14,7 +14,5 @@ This library provides functions that reproduce some of the sequence plots from T
 \strong{Maintainer}: Marcel Raab \email{marcel.raab@gmail.com} (\href{https://orcid.org/0000-0002-3097-1591}{ORCID})
 
 
-\strong{Maintainer}: Marcel Raab \email{marcel.raab@gmail.com} (\href{https://orcid.org/0000-0002-3097-1591}{ORCID})
-
 }
 \keyword{internal}
