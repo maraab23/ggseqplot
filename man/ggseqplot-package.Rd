@@ -7,8 +7,6 @@
 \title{ggseqplot: Render Sequence Plots using {ggplot2}}
 \description{
 This library provides functions that reproduce some of the sequence plots from TraMineR's seqplot using ggplot2. These plots are produced on the basis of a sequence object defined with TraMineR::seqdef. The package automates the reshaping and plotting of sequence data.
-
-This library provides functions that reproduce some of the sequence plots from TraMineR's seqplot using ggplot2. These plots are produced on the basis of a sequence object defined with TraMineR::seqdef. The package automates the reshaping and plotting of sequence data.
 }
 \author{
 \strong{Maintainer}: Marcel Raab \email{marcel.raab@gmail.com} (\href{https://orcid.org/0000-0002-3097-1591}{ORCID})
