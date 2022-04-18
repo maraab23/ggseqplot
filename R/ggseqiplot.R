@@ -319,7 +319,8 @@ ggseqiplot <- function(seqdata,
                           labels = klabels,
                           guide = guide_axis(check.overlap = TRUE),
                           expand = expansion(add = c(0.2, 0))) +
-      theme(axis.title.y = element_text(margin = margin(0, 10, 0, 0)))
+      theme(axis.title.y = element_text(margin = margin(0, 10, 0, 0)),
+            panel.grid.minor = element_blank())
 
   )
 

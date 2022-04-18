@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# ggseqplot: ggplotify sequence data plots
+# ggseqplot: ggplotify sequence data plots <img src='man/figures/logo.png' align="right" height="139" />
 
 <!-- badges: start -->
 ![Status](https://img.shields.io/badge/status-early%20release-yellowgreen)
