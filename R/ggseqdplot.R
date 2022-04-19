@@ -146,8 +146,20 @@ ggseqdplot <- function(seqdata,
   # klabels <- attributes(seqdata)$names[kbreaks]
 
   kbreaks <- 1:(length(attributes(seqdata)$names))
-  klabels <- attributes(seqdata)$names
 
+  xbrks <- pretty(1:length(kbreaks))
+  xbrks[1] <- 1
+  xbrks[length(xbrks)] <- length(kbreaks)
+
+  if (xbrks[length(xbrks)] == xbrks[length(xbrks)-1]+1) {
+    xbrks <- xbrks[xbrks != xbrks[length(xbrks)-1]]
+  }
+  if (xbrks[1] == xbrks[2]-1) {
+    xbrks <- xbrks[xbrks != xbrks[2]]
+  }
+
+  kbreaks <- kbreaks[xbrks]
+  klabels <- attributes(seqdata)$names[xbrks]
 
   # plot
 

@@ -25,9 +25,11 @@ reshaping and plotting of sequence data.
 
 The development of this library of convenience functions is in an early stage of development and will be hopefully complemented by a few additional functions in the near future.
 
-Currently, ggseqplot only contains two functions:
+Currently, `{ggseqplot}` only contains two functions:
   - ggseqiplot (ggplot2 version of TraMineR::seqIplot)
   - ggseqdplot (ggplot2 version of TraMineR::seqdplot)
+
+If you have preferences which plot types should be added, [create an issue](https://github.com/maraab23/ggseqplot/issues/new) on github or send me an [email](mailto:marcel.raab@ifb.uni-bamberg.de?subject=ggseqplot%3A%20feature%20request). 
 
 
 ## Installation
