@@ -1,26 +1,29 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ggseqplot: ggplotify sequence data plots <img src='man/figures/logo.png' align="right" height="139" />
+# ggseqplot: ggplotify sequence data plots
 
 <!-- badges: start -->
 
 ![Status](https://img.shields.io/badge/status-early%20release-yellowgreen)
+
 <!-- badges: end -->
 
-The main goal of ggseqplot is to provide functions that reproduce some
-of the sequence plots from `{TraMineR}`’s `seqplot` using `{ggplot2}`.
-These plots are produced on the basis of a sequence object defined with
-`TraMineR::seqdef`. The package automates the reshaping and plotting of
-sequence data.
+The main goal of `{ggseqplot}` is to provide functions that reproduce
+some of the sequence plots from `{TraMineR}`’s `seqplot` using
+`{ggplot2}`. These plots are produced on the basis of a sequence object
+defined with `TraMineR::seqdef`. The package automates the reshaping and
+plotting of sequence data.
 
 The development of this library of convenience functions is in an early
 stage of development and will be hopefully complemented by a few
 additional functions in the near future.
 
-Currently, `{ggseqplot}` only contains two functions: - ggseqiplot
-(ggplot2 version of TraMineR::seqIplot) - ggseqdplot (ggplot2 version of
-TraMineR::seqdplot)
+Currently, `{ggseqplot}` contains three functions:
+
+-   ggseqiplot (`{ggplot2}` version of `TraMineR::seqIplot`)
+-   ggseqdplot (`{ggplot2}` version of `TraMineR::seqdplot`)
+-   ggseqeplot (`{ggplot2}` version of `TraMineR::seqHtplot`)
 
 If you have preferences which plot types should be added, [create an
 issue](https://github.com/maraab23/ggseqplot/issues/new) on github or
@@ -97,8 +100,6 @@ issue of overplotting. The code above just replicates an example of the
 rather render a subsample of sequences or to use relative frequency
 index plots.
 
-  
-
 The second example renders sequences of unequal length with missing
 state, and weights. The default behavior of `ggseqplot` is identical to
 `seqplot`:
@@ -158,8 +159,8 @@ ggsave("test.png", width = 10, height = 4)
 
 ## Sequence distribution plot
 
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
+In the following examples we again show plots grouped by sex, this time
+presenting state distributions.
 
 ``` r
 # with TraMineR::seqdplot
@@ -174,6 +175,28 @@ ggseqdplot(actcal.seq, group=actcal$sex)
 ```
 
 <img src="man/figures/README-ggseqdplot1-1.png" width="80%" />
+
+## Plot of development of cross-sectional entropies
+
+Like in the previous examples, we illustrate the `group` argument of
+`{TraMiner}` and `{ggseqplot}`. Just as in the figures shown above
+`TraMineR::seqHtplot` produces a separate plot for each group.
+`ggseqeplot` behaves differently and shows each group-specific entropy
+line in a common plot.
+
+``` r
+# with TraMineR::seqHtplot
+seqHtplot(actcal.seq, group=actcal$sex)
+```
+
+<img src="man/figures/README-seqHtplot1-1.png" width="80%" />
+
+``` r
+# with ggseqplot::ggseqeplot
+ggseqeplot(actcal.seq, group=actcal$sex)
+```
+
+<img src="man/figures/README-ggseqeplot1-1.png" width="80%" />
 
 ## Using `{ggplot2}` functions and its friends to adjust figures
 

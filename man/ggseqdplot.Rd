@@ -17,7 +17,7 @@ ggseqdplot(
 )
 }
 \arguments{
-\item{seqdata}{seqdata State sequence object (class \code{stslist}) created with the \code{TraMineR::seqdef} function.}
+\item{seqdata}{State sequence object (class \code{stslist}) created with the \code{TraMineR::seqdef} function.}
 
 \item{group}{Grouping variable of length equal to the number of sequences.
 When not NULL, a distinct plot is generated for each level of group.}

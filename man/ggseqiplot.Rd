@@ -59,11 +59,11 @@ or by specifying the ratio when saving the code with \code{ggsave}.
 }
 \examples{
 
-library(TraMineR)
-
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Examples from TraMineR::seqplot
+
+library(TraMineR)
 
 # actcal data set
 data(actcal)
