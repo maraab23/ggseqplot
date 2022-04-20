@@ -9,7 +9,11 @@ ggseqdplot(
   group = NULL,
   weighted = TRUE,
   with.missing = FALSE,
-  border = TRUE
+  border = TRUE,
+  with.entropy = FALSE,
+  linetype = "dashed",
+  linecolor = "black",
+  linewidth = 1
 )
 }
 \arguments{
@@ -18,11 +22,19 @@ ggseqdplot(
 \item{group}{Grouping variable of length equal to the number of sequences.
 When not NULL, a distinct plot is generated for each level of group.}
 
-\item{weighted}{specifies if weights defined when generating the sequence object should be used for computing the state distributions. Default is \code{TRUE}, i.e. if available weights are used}
+\item{weighted}{Specifies if weights defined when generating the sequence object should be used for computing the state distributions. Default is \code{TRUE}, i.e. if available weights are used}
 
-\item{with.missing}{specifies if missing states should be considered when computing the state distributions.}
+\item{with.missing}{Specifies if missing states should be considered when computing the state distributions.}
 
 \item{border}{if \code{TRUE} (default) bars are plotted with black outline}
+
+\item{with.entropy}{add line plot of cross-sectional entropies at each sequence position}
+
+\item{linetype}{The linetype for the entropy subplot (\code{with.entropy==TRUE}) can be specified with an integer (0-6) or name (0 = blank, 1 = solid, 2 = dashed, 3 = dotted, 4 = dotdash, 5 = longdash, 6 = twodash); ; default is \code{"dashed"}}
+
+\item{linecolor}{Specifies the color of the entropy line if \code{with.entropy==TRUE}; default is \code{"black"}}
+
+\item{linewidth}{Specifies the with of the entropy line if \code{with.entropy==TRUE}; default is \code{1}}
 }
 \value{
 A sequence distribution plot. If stored as object the resulting list

@@ -6,9 +6,13 @@
 #' @param seqdata seqdata State sequence object (class \code{stslist}) created with the \code{TraMineR::seqdef} function.
 #' @param group Grouping variable of length equal to the number of sequences.
 #' When not NULL, a distinct plot is generated for each level of group.
-#' @param weighted specifies if weights defined when generating the sequence object should be used for computing the state distributions. Default is \code{TRUE}, i.e. if available weights are used
-#' @param with.missing specifies if missing states should be considered when computing the state distributions.
+#' @param weighted Specifies if weights defined when generating the sequence object should be used for computing the state distributions. Default is \code{TRUE}, i.e. if available weights are used
+#' @param with.missing Specifies if missing states should be considered when computing the state distributions.
 #' @param border if \code{TRUE} (default) bars are plotted with black outline
+#' @param with.entropy add line plot of cross-sectional entropies at each sequence position
+#' @param linetype The linetype for the entropy subplot (\code{with.entropy==TRUE}) can be specified with an integer (0-6) or name (0 = blank, 1 = solid, 2 = dashed, 3 = dotted, 4 = dotdash, 5 = longdash, 6 = twodash); ; default is \code{"dashed"}
+#' @param linecolor Specifies the color of the entropy line if \code{with.entropy==TRUE}; default is \code{"black"}
+#' @param linewidth Specifies the with of the entropy line if \code{with.entropy==TRUE}; default is \code{1}
 #'
 #' @return A sequence distribution plot. If stored as object the resulting list
 #' object also contains the data (long format) used for rendering the plot
@@ -65,7 +69,11 @@ ggseqdplot <- function(seqdata,
                        group = NULL,
                        weighted = TRUE,
                        with.missing = FALSE,
-                       border = TRUE) {
+                       border = TRUE,
+                       with.entropy = FALSE,
+                       linetype = "dashed",
+                       linecolor = "black",
+                       linewidth = 1) {
 
   if (!inherits(seqdata, "stslist"))
     stop("data is not a sequence object, use 'TraMineR::seqdef' to create one")
@@ -89,6 +97,18 @@ ggseqdplot <- function(seqdata,
                              dplyr::as_tibble(rownames = "state") |>
                              dplyr::mutate(group = .x, .before = 1)) |>
     dplyr::bind_rows()
+
+
+
+  if (with.entropy == TRUE) {
+    stateentropy <- purrr::map(unique(group),
+                               ~TraMineR::seqstatd(seqdata[group == .x,],
+                                                   weighted = weighted,
+                                                   with.missing = with.missing)$Entropy |>
+                                 dplyr::as_tibble(rownames = "k") |>
+                                 dplyr::mutate(group = .x, .before = 1)) |>
+      dplyr::bind_rows()
+  }
 
 
   ylabspec <- purrr::map(unique(group),
@@ -131,6 +151,14 @@ ggseqdplot <- function(seqdata,
     dplyr::full_join(grouplabspec)
   )
 
+  if (with.entropy == TRUE) {
+    suppressMessages(
+      eplotdata <- stateentropy |>
+        dplyr::mutate(k = factor(.data$k, levels = unique(.data$k))) |>
+        dplyr::rename(entropy = .data$value)
+    )
+  }
+
 
   if("Missing" %in% dplotdata$state == TRUE) {
     cpal <- c(attributes(seqdata)$cpal,
@@ -161,6 +189,14 @@ ggseqdplot <- function(seqdata,
   kbreaks <- kbreaks[xbrks]
   klabels <- attributes(seqdata)$names[xbrks]
 
+
+  if (with.entropy == TRUE) {
+    suppressMessages(
+      dplotdata <- dplyr::full_join(dplotdata,eplotdata,by=c("group","k"))
+    )
+  }
+
+
   # plot
 
   if (border == FALSE) {
@@ -186,7 +222,9 @@ ggseqdplot <- function(seqdata,
     guides(fill = guide_legend(reverse=TRUE)) +
     theme_minimal() +
     theme(legend.position = "bottom",
-          legend.title = element_blank())
+          legend.title = element_blank(),
+          legend.margin = margin(-0.2,0,0,-0.2, unit="cm"))
+
 
   grsize <- length(unique(dplotdata$group))
 
@@ -199,6 +237,12 @@ ggseqdplot <- function(seqdata,
       theme(panel.spacing = unit(2, "lines"))
   }
 
+  if (with.entropy==TRUE) {
+    ggdplot <- ggdplot +
+      geom_line(aes(x = .data$x, y=.data$entropy,  color = linecolor),
+                group = 1, size= linewidth, linetype = linetype) +
+      scale_color_identity(guide = "legend", name = NULL, labels = "Entropy")
+  }
 
 
   return(ggdplot)
