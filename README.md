@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ggseqplot: ggplotify sequence data plots
+# ggseqplot: ggplotify sequence data plots <img src='man/figures/logo.png' align="right" height="139" />
 
 <!-- badges: start -->
 
@@ -15,15 +15,19 @@ some of the sequence plots from `{TraMineR}`’s `seqplot` using
 defined with `TraMineR::seqdef`. The package automates the reshaping and
 plotting of sequence data.
 
-The development of this library of convenience functions is in an early
-stage of development and will be hopefully complemented by a few
-additional functions in the near future.
+This package literally builds on the excellent work of the `{TraMiner}`,
+`{TraMineRextras}`, and {ggplot2} developers and uses several of the
+their functions to produce {ggplot2}-flavored figures.
 
-Currently, `{ggseqplot}` contains three functions:
+The development of this library is in an early stage and will be
+hopefully complemented by a few additional functions in the near future.
+
+Currently, `{ggseqplot}` contains four functions:
 
 -   ggseqiplot (`{ggplot2}` version of `TraMineR::seqIplot`)
 -   ggseqdplot (`{ggplot2}` version of `TraMineR::seqdplot`)
 -   ggseqeplot (`{ggplot2}` version of `TraMineR::seqHtplot`)
+-   ggseqrfplot (`{ggplot2}` version of `TraMineRextras::seqplot.rf`)
 
 If you have preferences which plot types should be added, [create an
 issue](https://github.com/maraab23/ggseqplot/issues/new) on github or
@@ -49,17 +53,27 @@ inches).
 
 ``` r
 library(TraMineR)
+library(TraMineRextras)
 library(ggseqplot)
+library(ggplot2)
+library(patchwork)
 
-# Examples from TraMineR::seqplot
-# actcal data set
+# Examples from TraMineR
 data(actcal)
+data(biofam)
 
-# We use only a sample of 300 cases
+# We use only a samples of 1000 cases
 set.seed(1)
-actcal <- actcal[sample(nrow(actcal),300),]
+actcal <- actcal[sample(nrow(actcal),1000),]
 actcal.lab <- c("> 37 hours", "19-36 hours", "1-18 hours", "no work")
 actcal.seq <- seqdef(actcal,13:24,labels=actcal.lab)
+
+set.seed(1)
+biofam <- biofam[sample(nrow(biofam),1000),]
+biofam.lab <- c("Parent", "Left", "Married", "Left+Marr",
+                "Child", "Left+Child", "Left+Marr+Child", "Divorced")
+biofam.seq <- seqdef(biofam, 10:25, labels=biofam.lab)
+
 
 # ex1 using weights
 data(ex1)
@@ -68,7 +82,7 @@ ex1.seq <- seqdef(ex1, 1:13, weights=ex1$weights)
 
 ## Sequence index plot
 
-We start with a sequence plot of 2000 sequences grouped by sex. Grouping
+We start with a sequence plot of 1000 sequences grouped by sex. Grouping
 in `{ggseqplot}`-functions is achieved via `ggplot2::facet_wrap`.
 
 ``` r
@@ -77,14 +91,6 @@ seqIplot(actcal.seq, group=actcal$sex,sortv=actcal$age00)
 ```
 
 <img src="man/figures/README-seqiplot1-1.png" width="80%" />
-
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this. You could also
-use GitHub Actions to re-render `README.Rmd` every time you push. An
-example workflow can be found here:
-<https://github.com/r-lib/actions/tree/v1/examples>.
-
-You can also embed plots, for example:
 
 ``` r
 # with ggseqplot::ggseqiplot
@@ -157,6 +163,43 @@ ggsave("test.png", width = 10, height = 4)
 
 <img src="man/figures/README-ggseqiplot3b-1.png" width="80%" />
 
+## Relative frequency sequence plot
+
+In the following examples we divide the sample of 1000 sequences into 20
+frequency group and display the resulting relative frequency sequence
+plots. Before doing so we first have to compute a dissimilarity matrix:
+
+``` r
+diss <- seqdist(biofam.seq, method="LCS")
+#>  [>] 1000 sequences with 8 distinct states
+#>  [>] creating a 'sm' with a substitution cost of 2
+#>  [>] creating 8x8 substitution-cost matrix using 2 as constant value
+#>  [>] 356 distinct  sequences
+#>  [>] min/max sequence lengths: 16/16
+#>  [>] computing distances using the LCS metric
+#>  [>] elapsed time: 0.07 secs
+```
+
+``` r
+# with TraMineRextras::seqplot.rf
+seqplot.rf(biofam.seq, diss = diss, k = 20)
+#>  [>] Using k=20 frequency groups
+#>  [>] Pseudo/median-based-R2: 0.5319843
+#>  [>] Pseudo/median-based-F statistic: 58.62879
+```
+
+<img src="man/figures/README-seqplot.rf1-1.png" width="80%" />
+
+``` r
+# with ggseqplot::ggseqdplot
+ggseqrfplot(biofam.seq, diss = diss, k = 20)
+#>  [>] Using k=20 frequency groups
+#>  [>] Pseudo/median-based-R2: 0.5319843
+#>  [>] Pseudo/median-based-F statistic: 58.62879
+```
+
+<img src="man/figures/README-ggseqrfplot1-1.png" width="80%" />
+
 ## Sequence distribution plot
 
 In the following examples we again show plots grouped by sex, this time
@@ -182,7 +225,8 @@ Like in the previous examples, we illustrate the `group` argument of
 `{TraMiner}` and `{ggseqplot}`. Just as in the figures shown above
 `TraMineR::seqHtplot` produces a separate plot for each group.
 `ggseqeplot` behaves differently and shows each group-specific entropy
-line in a common plot.
+line in a common plot and thus resembles the new `{TraMineRextras}`
+function `seqplot.tentrop`.
 
 ``` r
 # with TraMineR::seqHtplot

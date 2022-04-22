@@ -3,4 +3,6 @@
 export(ggseqdplot)
 export(ggseqeplot)
 export(ggseqiplot)
+export(ggseqrfplot)
 import(ggplot2)
+importFrom(patchwork,plot_layout)
