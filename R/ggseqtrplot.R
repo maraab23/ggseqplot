@@ -137,7 +137,7 @@ ggseqtrplot <- function(seqdata,
                               dplyr::mutate(group = .y, .before = 1)) |>
     dplyr::bind_rows()
 
-  trplotdata <- dplyr::full_join(grn, trplotdata)
+  trplotdata <- dplyr::full_join(grn, trplotdata, by = "group")
 
   ggtrplot <- trplotdata |>
     dplyr::mutate(value = dplyr::na_if(.data$value, 0)) |>
