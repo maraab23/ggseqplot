@@ -124,14 +124,100 @@ plots just for the single purpose of visualizing sequence data.</p>
 <div class="section level2">
 <h2 id="setup-example">Setup example<a class="anchor" aria-label="anchor" href="#setup-example"></a>
 </h2>
+<p>We start by loading the required libraries and defining the sequence
+data to be plotted. We draw in the examples from the <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a> for setting up the
+examples.</p>
+<p>Note that the default figure size in this document is specified
+as:</p>
+<blockquote>
+<p>fig.width=8, fig.height=6</p>
+</blockquote>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/maraab23/ggseqplot" class="external-link">ggseqplot</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://traminer.unige.ch" class="external-link">TraMineR</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></code></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span>
+
+<span class="co"># ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+<span class="co"># Creating state sequence objects from example data sets ----</span>
+<span class="co"># ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+
+<span class="co"># biofam data</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">biofam</span><span class="op">)</span>
+
+<span class="va">biofam.lab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Parent"</span>, <span class="st">"Left"</span>, <span class="st">"Married"</span>, <span class="st">"Left+Marr"</span>,
+                <span class="st">"Child"</span>, <span class="st">"Left+Child"</span>, <span class="st">"Left+Marr+Child"</span>, <span class="st">"Divorced"</span><span class="op">)</span>
+
+<span class="va">biofam.seq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">seqdef</a></span><span class="op">(</span><span class="va">biofam</span>, <span class="fl">10</span><span class="op">:</span><span class="fl">25</span>, 
+                     labels <span class="op">=</span> <span class="va">biofam.lab</span>,
+                     weights <span class="op">=</span> <span class="va">biofam</span><span class="op">$</span><span class="va">wp00tbgs</span><span class="op">)</span>
+
+<span class="co">## actcal data</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">actcal</span><span class="op">)</span>
+
+<span class="va">actcal.lab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"&gt; 37 hours"</span>, <span class="st">"19-36 hours"</span>, <span class="st">"1-18 hours"</span>, <span class="st">"no work"</span><span class="op">)</span>
+
+<span class="va">actcal.seq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">seqdef</a></span><span class="op">(</span><span class="va">actcal</span>,<span class="fl">13</span><span class="op">:</span><span class="fl">24</span>,
+                     labels<span class="op">=</span><span class="va">actcal.lab</span><span class="op">)</span>
+
+<span class="co">## ex1 data</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ex1</span><span class="op">)</span>
+<span class="va">ex1.seq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">seqdef</a></span><span class="op">(</span><span class="va">ex1</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">13</span>, 
+                  weights<span class="op">=</span><span class="va">ex1</span><span class="op">$</span><span class="va">weights</span><span class="op">)</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="state-distribution-plots">State distribution plots<a class="anchor" aria-label="anchor" href="#state-distribution-plots"></a>
 </h2>
+<div class="section level3">
+<h3 id="baseline-comparison">Baseline comparison<a class="anchor" aria-label="anchor" href="#baseline-comparison"></a>
+</h3>
+<p>We start with the most basic version of the function simply plotting
+the state distributions of <code>actcal.seq</code> without changing any
+of the defaults. Despite a few layout differences both produce pretty
+similar results.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># TraMineR::seqplot</span>
+<span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">seqdplot</a></span><span class="op">(</span><span class="va">actcal.seq</span><span class="op">)</span></code></pre></div>
+<p><img src="seq-summarization-plots_files/figure-html/dplot1-1.png" width="768"></p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="co"># ggseqplot::ggseqdplot</span>
+<span class="fu"><a href="../reference/ggseqdplot.html">ggseqdplot</a></span><span class="op">(</span><span class="va">actcal.seq</span><span class="op">)</span></code></pre></div>
+<p><img src="seq-summarization-plots_files/figure-html/dplot1-2.png" width="768"></p>
+<p>This similarity prevails also when we add some complexity by
+visualizing the state distributions by gender.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># TraMineR::seqplot</span>
+<span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">seqdplot</a></span><span class="op">(</span><span class="va">actcal.seq</span>, group<span class="op">=</span><span class="va">actcal</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span></code></pre></div>
+<p><img src="seq-summarization-plots_files/figure-html/unnamed-chunk-2-1.png" width="768"></p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="co"># ggseqplot::ggseqdplot</span>
+<span class="fu"><a href="../reference/ggseqdplot.html">ggseqdplot</a></span><span class="op">(</span><span class="va">actcal.seq</span>, group<span class="op">=</span><span class="va">actcal</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span></code></pre></div>
+<p><img src="seq-summarization-plots_files/figure-html/unnamed-chunk-2-2.png" width="768"></p>
+</div>
+<div class="section level3">
+<h3 id="utilizing-ggplot2-environment">Utilizing ggplot2 environment<a class="anchor" aria-label="anchor" href="#utilizing-ggplot2-environment"></a>
+</h3>
+<p>We proceed by illustrating how <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> functions &amp; extensions
+can be used to refine the default outcome. Just like every other <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> figure the appearance of
+plots generated with <code>ggseqplot</code> functions can be
+dramatically changed with a few adjustments:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://github.com/hrbrmstr/hrbrthemes" class="external-link">hrbrthemes</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://colorspace.R-Forge.R-project.org/" class="external-link">colorspace</a></span><span class="op">)</span>
+
+<span class="fu"><a href="../reference/ggseqdplot.html">ggseqdplot</a></span><span class="op">(</span><span class="va">actcal.seq</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://colorspace.R-Forge.R-project.org//reference/scale_colour_discrete_sequential.html" class="external-link">scale_fill_discrete_sequential</a></span><span class="op">(</span><span class="st">"heat"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html" class="external-link">scale_x_discrete</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="va">month.abb</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"State distribution plot"</span>,
+       x <span class="op">=</span> <span class="st">"Month"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html" class="external-link">guides</a></span><span class="op">(</span>fill<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guide_legend.html" class="external-link">guide_legend</a></span><span class="op">(</span>title<span class="op">=</span><span class="st">"Alphabet"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/hrbrthemes/man/theme_ipsum_rc.html" class="external-link">theme_ipsum_rc</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">30</span>, 
+                                  margin<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">margin</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">20</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span>,
+        plot.title.position <span class="op">=</span> <span class="st">"plot"</span><span class="op">)</span></code></pre></div>
+<p><img src="seq-summarization-plots_files/figure-html/unnamed-chunk-3-1.png" width="768"></p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="entropy-plots">Entropy plots<a class="anchor" aria-label="anchor" href="#entropy-plots"></a>

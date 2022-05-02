@@ -12,9 +12,12 @@ bibliography: references.bib
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.width=8, 
+  fig.height=6
 )
 options(rmarkdown.html_vignette.check_title = FALSE)
+
 ```
 
 Following Fasang and Liao [-@fasang2014], we distinguish between sequence representation and summarization graphs. The latter aggregate and summarize the information stored in the sequence data without plotting actual observed sequences. Given the complexity of sequence data, theses type of plots focus on one or two dimensions of information stored in sequence data [@brzinsky-fay2014]. Among the diverse members of the family of summarization graphs are sequence transitions plot, Kaplan-Meier survival curves, modal state plots, mean time plots, state distribution plots, and entropy plots [@fasang2014; @raab2022].
@@ -32,13 +35,94 @@ This vignette outlines how sequence data generated with `TraMineR::seqdef` are r
 Note, that this library was not written because I personally dislike the plots produced by [`{TraMineR}`](http://traminer.unige.ch){target="\_blank"}, but rather because I am normally using [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="\_blank"} instead of base R's `plot` environment for visualizing data. [`{TraMineR}`](http://traminer.unige.ch){target="\_blank"} [@gabadinho2011] was developed before [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="\_blank"} [@wickham2016] was as popular as it is today and back then many users were more familiar with coding base R plots. To date, however, many researchers and students are more accustomed to using [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="\_blank"} and prefer to draw on the related skills and experiences instead of learning how to refine base R plots just for the single purpose of visualizing sequence data. 
 
 ## Setup example
+
+We start by loading the required libraries and defining the sequence data to be plotted. We draw in the examples from the [`{TraMineR}`](http://traminer.unige.ch){target="\_blank"} for setting up the examples.
+
+Note that the default figure size in this document is specified as: 
+
+> fig.width=8, fig.height=6
+
+
 ```{r setup, message=FALSE}
 library(ggseqplot)
 library(TraMineR)
 library(ggplot2)
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Creating state sequence objects from example data sets ----
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# biofam data
+data(biofam)
+
+biofam.lab <- c("Parent", "Left", "Married", "Left+Marr",
+                "Child", "Left+Child", "Left+Marr+Child", "Divorced")
+
+biofam.seq <- seqdef(biofam, 10:25, 
+                     labels = biofam.lab,
+                     weights = biofam$wp00tbgs)
+
+## actcal data
+data(actcal)
+
+actcal.lab <- c("> 37 hours", "19-36 hours", "1-18 hours", "no work")
+
+actcal.seq <- seqdef(actcal,13:24,
+                     labels=actcal.lab)
+
+## ex1 data
+data(ex1)
+ex1.seq <- seqdef(ex1, 1:13, 
+                  weights=ex1$weights)
+
 ```
 
 ## State distribution plots
+
+### Baseline comparison
+
+We start with the most basic version of the function simply plotting the state distributions of `actcal.seq` without changing any of the defaults. Despite a few layout differences both produce pretty similar results.
+
+
+```{r, dplot1}
+# TraMineR::seqplot
+seqdplot(actcal.seq)
+
+# ggseqplot::ggseqdplot
+ggseqdplot(actcal.seq)
+```
+
+This similarity prevails also when we add some complexity by visualizing the state distributions by gender.
+
+```{r}
+# TraMineR::seqplot
+seqdplot(actcal.seq, group=actcal$sex)
+
+# ggseqplot::ggseqdplot
+ggseqdplot(actcal.seq, group=actcal$sex)
+```
+
+### Utilizing ggplot2 environment
+
+We proceed by illustrating how [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="\_blank"} functions & extensions can be used to refine the
+default outcome. Just like every other [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="\_blank"} figure the appearance of plots generated with `ggseqplot` functions can be dramatically changed with a few adjustments:
+
+```{r, message=FALSE, warning=FALSE}
+library(hrbrthemes)
+library(colorspace)
+
+ggseqdplot(actcal.seq) +
+  scale_fill_discrete_sequential("heat") +
+  scale_x_discrete(labels = month.abb) +
+  labs(title = "State distribution plot",
+       x = "Month") +
+  guides(fill=guide_legend(title="Alphabet")) +
+  theme_ipsum_rc() +
+  theme(plot.title = element_text(size = 30, 
+                                  margin=margin(0,0,20,0)),
+        plot.title.position = "plot")
+```
+
 
 ## Entropy plots
 
