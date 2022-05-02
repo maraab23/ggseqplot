@@ -18,6 +18,13 @@ knitr::opts_chunk$set(
 )
 options(rmarkdown.html_vignette.check_title = FALSE)
 
+pkgs <- c("colorspace", "ggplot2", "ggthemes", "ggseqplot", "hrbrthemes", 
+          "patchwork", "TraMineR", "TraMineRextras")
+
+# Load all packages to library and adjust options
+lapply(pkgs, library, character.only = TRUE)
+
+
 ```
 
 Following Fasang and Liao [-@fasang2014], we distinguish between sequence representation and summarization graphs. The latter aggregate and summarize the information stored in the sequence data without plotting actual observed sequences. Given the complexity of sequence data, theses type of plots focus on one or two dimensions of information stored in sequence data [@brzinsky-fay2014]. Among the diverse members of the family of summarization graphs are sequence transitions plot, Kaplan-Meier survival curves, modal state plots, mean time plots, state distribution plots, and entropy plots [@fasang2014; @raab2022].
@@ -38,15 +45,42 @@ Note, that this library was not written because I personally dislike the plots p
 
 We start by loading the required libraries and defining the sequence data to be plotted. We draw in the examples from the [`{TraMineR}`](http://traminer.unige.ch){target="\_blank"} for setting up the examples.
 
-Note that the default figure size in this document is specified as: 
+\  
 
-> fig.width=8, fig.height=6
+
+<details><summary>**Click to see code for installing and loading required packages**</summary>
+
+```{r libraries, eval=FALSE}
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Load and download (if necessary) required packages ----
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+# Save package names as a vector of strings
+pkgs <- c("colorspace", "ggplot2", "ggthemes", "hrbrthemes", 
+          "patchwork", "TraMineR", "TraMineRextras")
+
+
+# Install uninstalled packages
+lapply(pkgs[!(pkgs %in% installed.packages())], 
+       install.packages, repos = getOption("repos")["CRAN"])
+
+
+# Load all packages to library and adjust options
+lapply(pkgs, library, character.only = TRUE)
+
+# Don't forget to load ggseqplot
+library(ggseqplot)
+
+```
+</details>
+
+
+\  
 
 
 ```{r setup, message=FALSE}
-library(ggseqplot)
-library(TraMineR)
-library(ggplot2)
+
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Creating state sequence objects from example data sets ----
@@ -77,7 +111,25 @@ ex1.seq <- seqdef(ex1, 1:13,
 
 ```
 
+Note that the default figure size in this document is specified as: 
+
+> fig.width=8, fig.height=6
+
+
 ## State distribution plots
+
+### Technicalities
+
+Under the hood `ggseqdplot` calls `TraMineR::seqstatd` to obtain the cross-sectional state distributions across the positions of the sequence data. These distributional data are reshaped into a long data set in which every row stores the (weighted) relative frequency of a given state at a given position along the sequence. The example data `actcal.seq`, for instance,  contain sequences of length 12 with an alphabet comprising 4 states. The reshaped data serving as source for the `ggplot` thus contain $12\times4=48$ rows. If a group vector is specified, the respective data will comprise 48 rows for each group. The data set produced by `ggseqdplot` can be accessed if the function's output is assigned to an object. The resulting list object stores the data as its first element (named `data`).
+
+```{r}
+dplot <- ggseqdplot(actcal.seq)
+dplot$data
+```
+
+Once the data are in the right shape `ggseqdplot` renders stacked bar charts for each sequence position using `ggplot2::geom_bar`.
+
+
 
 ### Baseline comparison
 
@@ -108,9 +160,6 @@ We proceed by illustrating how [`{ggplot2}`](https://ggplot2.tidyverse.org/){tar
 default outcome. Just like every other [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="\_blank"} figure the appearance of plots generated with `ggseqplot` functions can be dramatically changed with a few adjustments:
 
 ```{r, message=FALSE, warning=FALSE}
-library(hrbrthemes)
-library(colorspace)
-
 ggseqdplot(actcal.seq) +
   scale_fill_discrete_sequential("heat") +
   scale_x_discrete(labels = month.abb) +
@@ -123,9 +172,42 @@ ggseqdplot(actcal.seq) +
         plot.title.position = "plot")
 ```
 
+In the following example we again illustrate a few [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="\_blank"} functions & extensions by composing a figure comprising two plots produced with `ggseqdplot`. Both visualize the same data but only the first plot considers weights. In addition to state distributions the plots display the accompanying entropies as line plot (`geom_line`). Finally, the plots are brought together using the [`{patchwork}`](https://patchwork.data-imaginist.com/index.html) library [@pedersen2020].
+
+
+```{r, message=FALSE, warning=FALSE}
+# Save plot using weights
+p1 <- ggseqdplot(ex1.seq, 
+                 with.entropy = TRUE) + 
+  ggtitle("Weighted data")
+
+# Save same plot without using weights
+p2 <- ggseqdplot(ex1.seq, 
+                 with.entropy = TRUE,
+                 weighted = FALSE) + 
+  ggtitle("Unweighted data")
+
+# Arrange and refine plots using patchwork
+p1 + p2 + 
+  plot_layout(guides = "collect") &
+  scale_fill_manual(values= canva_palettes$`Fun and tropical`[1:4]) &
+  theme_ipsum_rc() &
+  theme(plot.title = element_text(size = 20,
+                                  hjust = 0.5),
+        legend.position = "bottom",
+        legend.title = element_blank())
+```
+
+
+
+
 
 ## Entropy plots
 
+
+
 ## Transition rate plots
+
+---
 
 ## References
