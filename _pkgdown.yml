@@ -3,6 +3,6 @@ template:
   bootstrap: 5
   bslib:
     base_font: {google: "Poppins"}
-    heading_font: {google: "Lato"}
+    heading_font: {google: "Poppins"}
     code_font: {google: "Fira Code"}
 
