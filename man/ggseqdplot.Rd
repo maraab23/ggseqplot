@@ -2,7 +2,7 @@
 % Please edit documentation in R/ggseqdplot.R
 \name{ggseqdplot}
 \alias{ggseqdplot}
-\title{Render sequence distribution plot with ggplot2}
+\title{Sequence Distribution Plot}
 \usage{
 ggseqdplot(
   seqdata,
@@ -17,14 +17,13 @@ ggseqdplot(
 )
 }
 \arguments{
-\item{seqdata}{State sequence object (class \code{stslist}) created with the \code{TraMineR::seqdef} function.}
+\item{seqdata}{State sequence object (class \code{stslist}) created with the \code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function.}
 
-\item{group}{Grouping variable of length equal to the number of sequences.
-When not NULL, a distinct plot is generated for each level of group.}
+\item{group}{Grouping variable of length equal to the number of sequences. When not NULL, a distinct plot is generated for each level of group.}
 
-\item{weighted}{Specifies if weights defined when generating the sequence object should be used for computing the state distributions. Default is \code{TRUE}, i.e. if available weights are used}
+\item{weighted}{Controls if weights (specified in \code{\link[TraMineR:seqdef]{TraMineR::seqdef}}) should be used. Default is \code{TRUE}, i.e. if available weights are used}
 
-\item{with.missing}{Specifies if missing states should be considered when computing the state distributions.}
+\item{with.missing}{Specifies if missing states should be considered when computing the state distributions (default is \code{FALSE}).}
 
 \item{border}{if \code{TRUE} (default) bars are plotted with black outline}
 
@@ -41,15 +40,14 @@ A sequence distribution plot. If stored as object the resulting list
 object also contains the data (long format) used for rendering the plot
 }
 \description{
-Function for rendering state distribution plots with \code{{ggplot2}} instead of base
-R's \code{plot} function that is used by \code{TraMineR::seqplot}.
+Function for rendering state distribution plots with \code{\link[ggplot2]{ggplot2}} instead of base
+R's \code{\link[base]{plot}} function that is used by \code{\link[TraMineR:seqplot]{TraMineR::seqplot}}.
 }
 \details{
-The function uses \code{TraMineR::seqstatd} to obtain state distributions. Obviously this requires that the
-input data (\code{seqdata}) is stored as state sequence object (class \code{stslist}) created with the \code{TraMineR::seqdef} function.
+The function uses \code{\link[TraMineR:seqstatd]{TraMineR::seqstatd}} to obtain state distributions. Obviously this requires that the
+input data (\code{seqdata}) is stored as state sequence object (class \code{stslist}) created with the \code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function.
 }
 \examples{
-
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Examples from TraMineR::seqplot

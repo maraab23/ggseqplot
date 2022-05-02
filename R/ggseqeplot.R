@@ -1,20 +1,21 @@
-#' Plot series of cross-sectional entropies
+#' Sequence Entropy Plot
 #'
-#' Function for plotting the development of cross-sectional entropies across sequence positions with \code{{ggplot2}} instead of base
-#' R's \code{plot} function that is used by \code{TraMineR::seqplot}. Other than in \code{TraMineR::seqHtplot} group-specific emtropy lines are displayed in a common plot.
+#' Function for plotting the development of cross-sectional entropies across sequence positions with \code{\link[ggplot2]{ggplot2}} instead of base
+#' R's \code{\link[base]{plot}} function that is used by \code{\link[TraMineR:seqplot]{TraMineR::seqplot}}. Other than in \code{\link[TraMineR:seqHtplot]{TraMineR::seqHtplot}} group-specific entropy
+#' lines are displayed in a common plot (just like in \code{\link[TraMineRextras:seqplot.tentrop]{TraMineRextras::seqplot.tentrop}}.
 #'
-#' @param seqdata State sequence object (class \code{stslist}) created with the \code{TraMineR::seqdef} function.
+#' @param seqdata State sequence object (class \code{stslist}) created with the \code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function.
 #' @param group If grouping variable is specified plot shows one line for each group
-#' @param weighted Specifies if weights defined when generating the sequence object should be used for computing the state distributions. Default is \code{TRUE}, i.e. if available weights are used
-#' @param with.missing Specifies if missing states should be considered when computing the state distributions.
+#' @param weighted Controls if weights (specified in \\code{\\link[TraMineR:seqdef]{TraMineR::seqdef}}) should be used. Default is \code{TRUE}, i.e. if available weights are used
+#' @param with.missing Specifies if missing states should be considered when computing the entropy index (default is \code{FALSE}).
 #' @param linewidth Specifies the with of the entropy line; default is \code{1}
 #'
 #' @return A line plot of entropy values at each sequence position. If stored as object the resulting list
 #' object also contains the data (long format) used for rendering the plot
 #' @export
 #'
-#' @details The function uses \code{TraMineR::seqstatd} to compute entropies. Obviously this requires that the
-#' input data (\code{seqdata}) is stored as state sequence object (class \code{stslist}) created with the \code{TraMineR::seqdef} function.
+#' @details The function uses \code{\link[TraMineR:seqstatd]{TraMineR::seqstatd}} to compute entropies. Obviously this requires that the
+#' input data (\code{seqdata}) is stored as state sequence object (class \code{stslist}) created with the \code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function.
 #'
 #' @examples
 #' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

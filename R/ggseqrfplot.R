@@ -1,11 +1,11 @@
-#' Render relative frequency sequence plot with ggplot2
+#' Relative Frequency Sequence Plot
 #'
-#' Function for rendering sequence index plots with \code{{ggplot2}} instead of base
-#' R's \code{plot} function that is used by \code{TraMineRextras::seqplot.rf}.
-#' Note that \code{ggseqrfplot} uses \code{{patchwork}} to combine the different components of the plot.
-#' For further details on relative frequency sequence plots see documentation of \code{TraMineRextras::seqplot.rf}.
+#' Function for rendering sequence index plots with \code{\link[ggplot2]{ggplot2}} instead of base
+#' R's \code{\link[base]{plot}} function that is used by \code{\link[TraMineRextras:seqplot.rf]{TraMineRextras::seqplot.rf}}.
+#' Note that \code{ggseqrfplot} uses \code{\link[patchwork]{patchwork}} to combine the different components of the plot.
+#' For further details on relative frequency sequence plots see documentation of \code{\link[TraMineRextras:seqplot.rf]{TraMineRextras::seqplot.rf}}.
 #'
-#' @param seqdata State sequence object (class \code{stslist}) created with the \code{TraMineR::seqdef} function.
+#' @param seqdata State sequence object (class \code{stslist}) created with the \code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function.
 #' @param k integer specifying the number of frequency groups
 #' @param diss pairwise dissimilarities between sequences in \code{seqdata} (see \code{TraMineRextras::seqdist})
 #' @param sortv optional sorting variable that may be used to compute the frequency groups. If  \code{NULL} (default), an MDS is used. Ties are randomly ordered.

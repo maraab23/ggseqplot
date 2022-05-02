@@ -2,7 +2,7 @@
 % Please edit documentation in R/ggseqiplot.R
 \name{ggseqiplot}
 \alias{ggseqiplot}
-\title{Render sequence index plot with ggplot2}
+\title{Sequence Index Plot}
 \usage{
 ggseqiplot(
   seqdata,
@@ -16,18 +16,17 @@ ggseqiplot(
 )
 }
 \arguments{
-\item{seqdata}{State sequence object (class \code{stslist}) created with the \code{TraMineR::seqdef} function.}
+\item{seqdata}{State sequence object (class \code{stslist}) created with the \code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function.}
 
-\item{group}{Grouping variable for rendering faceted plots.
-When not NULL, a distinct plot is generated for each level of group.}
+\item{group}{Grouping variable of length equal to the number of sequences. When not NULL, a distinct plot is generated for each level of group.}
 
-\item{sortv}{Vector of numerical values for sorting the sequences}
+\item{sortv}{Vector of numerical values sorting the sequences or a sorting method (either \code{"from.start"} or \code{"from.end"}). See details.}
 
-\item{weighted}{Controls if weights should be used}
+\item{weighted}{Controls if weights (specified in \code{\link[TraMineR:seqdef]{TraMineR::seqdef}}) should be used. Default is \code{TRUE}, i.e. if available weights are used}
 
 \item{border}{if \code{TRUE} bars are plotted with black outline}
 
-\item{facet_scale}{Specifies if y-scale in faceted plot should be free ("free_y" = default) or "fixed"}
+\item{facet_scale}{Specifies if y-scale in faceted plot should be free (\code{"free_y"} is default) or \code{"fixed"}}
 
 \item{facet_ncol}{Number of columns in faceted (i.e. grouped) plot}
 
@@ -38,27 +37,38 @@ A sequence index plot. If stored as object the resulting list object
 also contains the data (spell format) used for rendering the plot.
 }
 \description{
-Function for rendering sequence index plots with \code{{ggplot2}} instead of base
-R's \code{plot} function that is used by \code{TraMineR::seqplot}.
+Function for rendering sequence index plots with \code{\link[ggplot2]{ggplot2}} \insertCite{wickham2016}{ggseqplot} instead of base
+R's \code{\link[base]{plot}} function that is used by \code{\link[TraMineR:seqplot]{TraMineR::seqplot}} \insertCite{gabadinho2011}{ggseqplot}.
 }
 \details{
-The function uses \code{TraMineR::seqformat} to reshape \code{seqdata} stored in wide format into
+Sequence index plots have been introduced by \insertCite{scherer2001;textual}{ggseqplot} and display each sequence as horizontally stacked bar or line.
+For a more detailes discussion of this tpye if sequence visualisation see, for example, \insertCite{brzinsky-fay2014;textual}{ggseqplot}, \insertCite{fasang2014;textual}{ggseqplot},
+and \insertCite{raab2022;textual}{ggseqplot}.
+
+The function uses \code{\link[TraMineR:seqformat]{TraMineR::seqformat}} to reshape \code{seqdata} stored in wide format into
 a spell/episode format. If \code{border=TRUE} the data are reshaped into the long format, i.e. for every sequence
 each row in the data represents one specific sequence position. For example, if we have 5 sequences of length 10,
 the long file will have 50 rows. In the case of sequences of unequal length not every sequence will contribute
 the same number of rows to the long data.
 
-The reshaped data are used as input for rendering the index plot using ggplot2's \code{geom_rect}.
-\code{ggseqiplot} uses \code{geom_rect} instead of \code{geom_tile} because this allows for a straight forward
-implementation of weights. If weights are specified for \code{seqdata} and \code{weighted=TRUE} the sequence height
-corresponds to its weight.
+The reshaped data are used as input for rendering the index plot using ggplot2's \code{\link[ggplot2]{geom_rect}}.
+\code{ggseqiplot} uses \code{\link[ggplot2]{geom_rect}} instead of \code{\link[ggplot2]{geom_tile}} because this allows
+for a straight forward implementation of weights. If weights are specified for \code{seqdata} and \code{weighted=TRUE}
+the sequence height corresponds to its weight.
 
-Note that the default aspect ratio of \code{ggseqiplot} is different from \code{TraMineR::seqIplot}. This is most
-obvious when \code{border=TRUE}. You can change the ratio either by adding code to \code{ggseqiplot}
-or by specifying the ratio when saving the code with \code{ggsave}.
+If weights and a grouping variable are used, and \code{facet_scale="fixed"} the values of the y-axis are not labeled,
+because \code{\link[ggplot2]{ggplot2}} reasonably does not allow for varying scales when the facet scale is fixed.
+
+When a \code{sortv} is specified, the sequences are arranged in the order of its values.
+With \code{sortv="from.start"} sequence data are sorted according to the states of the alphabet in ascending order starting with the first sequence position,
+drawing on succeeding positions in the case of ties. Likewise, \code{sortv="from.end"} sorts a reversed version of the sequence data,
+starting with the final sequence position turning to preceding positions in case of ties.
+
+Note that the default aspect ratio of \code{ggseqiplot} is different from \code{\link[TraMineR:seqIplot]{TraMineR::seqIplot}}. This is most
+obvious when \code{border=TRUE}. You can change the ratio either by adding code to \code{ggseqiplot} or by specifying
+the ratio when saving the code with \code{\link[ggplot2]{ggsave}}.
 }
 \examples{
-
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Examples from TraMineR::seqplot
@@ -91,10 +101,13 @@ ggseqiplot(actcal.seq, group=actcal$sex, sortv=actcal$age00)
 seqIplot(ex1.seq)
 ggseqiplot(ex1.seq)
 
-# ... turn weights off add border
+# ... turn weights off and add border
 seqIplot(ex1.seq, weighted = FALSE, border = TRUE)
 ggseqiplot(ex1.seq, weighted = FALSE, border = TRUE)
 
+}
+\references{
+\insertAllCited{}
 }
 \author{
 Marcel Raab

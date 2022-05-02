@@ -1,13 +1,10 @@
-#' Render sequence distribution plot with ggplot2
+#' Sequence Distribution Plot
 #'
-#' Function for rendering state distribution plots with \code{{ggplot2}} instead of base
-#' R's \code{plot} function that is used by \code{TraMineR::seqplot}.
+#' Function for rendering state distribution plots with \code{\link[ggplot2]{ggplot2}} instead of base
+#' R's \code{\link[base]{plot}} function that is used by \code{\link[TraMineR:seqplot]{TraMineR::seqplot}}.
 #'
-#' @param seqdata State sequence object (class \code{stslist}) created with the \code{TraMineR::seqdef} function.
-#' @param group Grouping variable of length equal to the number of sequences.
-#' When not NULL, a distinct plot is generated for each level of group.
-#' @param weighted Specifies if weights defined when generating the sequence object should be used for computing the state distributions. Default is \code{TRUE}, i.e. if available weights are used
-#' @param with.missing Specifies if missing states should be considered when computing the state distributions.
+#' @eval shared_params()
+#' @param with.missing Specifies if missing states should be considered when computing the state distributions (default is \code{FALSE}).
 #' @param border if \code{TRUE} (default) bars are plotted with black outline
 #' @param with.entropy add line plot of cross-sectional entropies at each sequence position
 #' @param linetype The linetype for the entropy subplot (\code{with.entropy==TRUE}) can be specified with an integer (0-6) or name (0 = blank, 1 = solid, 2 = dashed, 3 = dotted, 4 = dotdash, 5 = longdash, 6 = twodash); ; default is \code{"dashed"}
@@ -18,11 +15,10 @@
 #' object also contains the data (long format) used for rendering the plot
 #' @export
 #'
-#' @details The function uses \code{TraMineR::seqstatd} to obtain state distributions. Obviously this requires that the
-#' input data (\code{seqdata}) is stored as state sequence object (class \code{stslist}) created with the \code{TraMineR::seqdef} function.
+#' @details The function uses \code{\link[TraMineR:seqstatd]{TraMineR::seqstatd}} to obtain state distributions. Obviously this requires that the
+#' input data (\code{seqdata}) is stored as state sequence object (class \code{stslist}) created with the \code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function.
 #'
 #' @examples
-#'
 #' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #'
 #' # Examples from TraMineR::seqplot

@@ -1,19 +1,3 @@
-#' Title
-#'
-#' @param seqdata
-#' @param k
-#' @param diss
-#' @param sortv
-#' @param ylab
-#' @param yaxis
-#' @param main
-#' @param which.plot
-#' @param ...
-#'
-#' @return
-#'
-#' @noRd
-#'
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Revised function ot TraMineRExtra's seqplot.rf
 # Code extracts information necessary to create the two plots manually

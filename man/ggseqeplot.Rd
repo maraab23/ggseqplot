@@ -2,7 +2,7 @@
 % Please edit documentation in R/ggseqeplot.R
 \name{ggseqeplot}
 \alias{ggseqeplot}
-\title{Plot series of cross-sectional entropies}
+\title{Sequence Entropy Plot}
 \usage{
 ggseqeplot(
   seqdata,
@@ -13,13 +13,13 @@ ggseqeplot(
 )
 }
 \arguments{
-\item{seqdata}{State sequence object (class \code{stslist}) created with the \code{TraMineR::seqdef} function.}
+\item{seqdata}{State sequence object (class \code{stslist}) created with the \code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function.}
 
 \item{group}{If grouping variable is specified plot shows one line for each group}
 
-\item{weighted}{Specifies if weights defined when generating the sequence object should be used for computing the state distributions. Default is \code{TRUE}, i.e. if available weights are used}
+\item{weighted}{Controls if weights (specified in \\code{\\link[TraMineR:seqdef]{TraMineR::seqdef}}) should be used. Default is \code{TRUE}, i.e. if available weights are used}
 
-\item{with.missing}{Specifies if missing states should be considered when computing the state distributions.}
+\item{with.missing}{Specifies if missing states should be considered when computing the entropy index (default is \code{FALSE}).}
 
 \item{linewidth}{Specifies the with of the entropy line; default is \code{1}}
 }
@@ -28,12 +28,13 @@ A line plot of entropy values at each sequence position. If stored as object the
 object also contains the data (long format) used for rendering the plot
 }
 \description{
-Function for plotting the development of cross-sectional entropies across sequence positions with \code{{ggplot2}} instead of base
-R's \code{plot} function that is used by \code{TraMineR::seqplot}. Other than in \code{TraMineR::seqHtplot} group-specific emtropy lines are displayed in a common plot.
+Function for plotting the development of cross-sectional entropies across sequence positions with \code{\link[ggplot2]{ggplot2}} instead of base
+R's \code{\link[base]{plot}} function that is used by \code{\link[TraMineR:seqplot]{TraMineR::seqplot}}. Other than in \code{\link[TraMineR:seqHtplot]{TraMineR::seqHtplot}} group-specific entropy
+lines are displayed in a common plot (just like in \code{\link[TraMineRextras:seqplot.tentrop]{TraMineRextras::seqplot.tentrop}}.
 }
 \details{
-The function uses \code{TraMineR::seqstatd} to compute entropies. Obviously this requires that the
-input data (\code{seqdata}) is stored as state sequence object (class \code{stslist}) created with the \code{TraMineR::seqdef} function.
+The function uses \code{\link[TraMineR:seqstatd]{TraMineR::seqstatd}} to compute entropies. Obviously this requires that the
+input data (\code{seqdata}) is stored as state sequence object (class \code{stslist}) created with the \code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function.
 }
 \examples{
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

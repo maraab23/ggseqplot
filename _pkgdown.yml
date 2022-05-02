@@ -1,0 +1,8 @@
+url: https://maraab23.github.io/ggseqplot
+template:
+  bootstrap: 5
+  bslib:
+    base_font: {google: "Poppins"}
+    heading_font: {google: "Lato"}
+    code_font: {google: "Fira Code"}
+

@@ -1,6 +1,6 @@
 Package: ggseqplot
-Title: Render Sequence Plots using {ggplot2}
-Version: 0.5.0
+Title: Render Sequence Plots using ggplot2
+Version: 0.6.0
 Authors@R: 
     person("Marcel", "Raab", , "marcel.raab@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-3097-1591"))
@@ -14,7 +14,9 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
+RdMacros: Rdpack
 Imports: 
+    colorspace,
     dplyr,
     forcats,
     ggh4x,
@@ -22,6 +24,11 @@ Imports:
     glue,
     patchwork,
     purrr,
+    Rdpack,
     tidyr,
     TraMineR,
     TraMineRextras
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
