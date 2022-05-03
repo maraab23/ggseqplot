@@ -35,7 +35,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ggseqplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -165,7 +165,7 @@ packages</strong>
 <span class="va">biofam.lab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Parent"</span>, <span class="st">"Left"</span>, <span class="st">"Married"</span>, <span class="st">"Left+Marr"</span>,
                 <span class="st">"Child"</span>, <span class="st">"Left+Child"</span>, <span class="st">"Left+Marr+Child"</span>, <span class="st">"Divorced"</span><span class="op">)</span>
 
-<span class="va">biofam.seq</span> <span class="op">&lt;-</span> <span class="fu">seqdef</span><span class="op">(</span><span class="va">biofam</span>, <span class="fl">10</span><span class="op">:</span><span class="fl">25</span>, 
+<span class="va">biofam.seq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">seqdef</a></span><span class="op">(</span><span class="va">biofam</span>, <span class="fl">10</span><span class="op">:</span><span class="fl">25</span>, 
                      labels <span class="op">=</span> <span class="va">biofam.lab</span>,
                      weights <span class="op">=</span> <span class="va">biofam</span><span class="op">$</span><span class="va">wp00tbgs</span><span class="op">)</span>
 
@@ -174,12 +174,12 @@ packages</strong>
 
 <span class="va">actcal.lab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"&gt; 37 hours"</span>, <span class="st">"19-36 hours"</span>, <span class="st">"1-18 hours"</span>, <span class="st">"no work"</span><span class="op">)</span>
 
-<span class="va">actcal.seq</span> <span class="op">&lt;-</span> <span class="fu">seqdef</span><span class="op">(</span><span class="va">actcal</span>,<span class="fl">13</span><span class="op">:</span><span class="fl">24</span>,
+<span class="va">actcal.seq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">seqdef</a></span><span class="op">(</span><span class="va">actcal</span>,<span class="fl">13</span><span class="op">:</span><span class="fl">24</span>,
                      labels<span class="op">=</span><span class="va">actcal.lab</span><span class="op">)</span>
 
 <span class="co">## ex1 data</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ex1</span><span class="op">)</span>
-<span class="va">ex1.seq</span> <span class="op">&lt;-</span> <span class="fu">seqdef</span><span class="op">(</span><span class="va">ex1</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">13</span>, 
+<span class="va">ex1.seq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">seqdef</a></span><span class="op">(</span><span class="va">ex1</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">13</span>, 
                   weights<span class="op">=</span><span class="va">ex1</span><span class="op">$</span><span class="va">weights</span><span class="op">)</span></code></pre></div>
 <p>Note that the default figure size in this document is specified
 as:</p>
@@ -236,7 +236,7 @@ of the defaults. Despite a few layout differences both produce pretty
 similar results.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># TraMineR::seqplot</span>
-<span class="fu">seqdplot</span><span class="op">(</span><span class="va">actcal.seq</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">seqdplot</a></span><span class="op">(</span><span class="va">actcal.seq</span><span class="op">)</span></code></pre></div>
 <p><img src="seq-summarization-plots_files/figure-html/dplot1-1.png" width="768"></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
@@ -247,7 +247,7 @@ similar results.</p>
 visualizing the state distributions by gender.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># TraMineR::seqplot</span>
-<span class="fu">seqdplot</span><span class="op">(</span><span class="va">actcal.seq</span>, group<span class="op">=</span><span class="va">actcal</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">seqdplot</a></span><span class="op">(</span><span class="va">actcal.seq</span>, group<span class="op">=</span><span class="va">actcal</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span></code></pre></div>
 <p><img src="seq-summarization-plots_files/figure-html/unnamed-chunk-3-1.png" width="768"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
@@ -265,13 +265,13 @@ dramatically changed with a few adjustments:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/ggseqdplot.html">ggseqdplot</a></span><span class="op">(</span><span class="va">actcal.seq</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">scale_fill_discrete_sequential</span><span class="op">(</span><span class="st">"heat"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">scale_x_discrete</span><span class="op">(</span>labels <span class="op">=</span> <span class="va">month.abb</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"State distribution plot"</span>,
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html" class="external-link">scale_x_discrete</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="va">month.abb</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"State distribution plot"</span>,
        x <span class="op">=</span> <span class="st">"Month"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">guides</span><span class="op">(</span>fill<span class="op">=</span><span class="fu">guide_legend</span><span class="op">(</span>title<span class="op">=</span><span class="st">"Alphabet"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html" class="external-link">guides</a></span><span class="op">(</span>fill<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guide_legend.html" class="external-link">guide_legend</a></span><span class="op">(</span>title<span class="op">=</span><span class="st">"Alphabet"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">theme_ipsum_rc</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">theme</span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">30</span>, 
-                                  margin<span class="op">=</span><span class="fu">margin</span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">20</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span>,
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">30</span>, 
+                                  margin<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">margin</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">20</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span>,
         plot.title.position <span class="op">=</span> <span class="st">"plot"</span><span class="op">)</span></code></pre></div>
 <p><img src="seq-summarization-plots_files/figure-html/unnamed-chunk-4-1.png" width="768"></p>
 <p>In the following example we again illustrate a few <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> functions &amp; extensions by
@@ -286,23 +286,23 @@ library <span class="citation">(Pedersen, 2020)</span>.</p>
 <code class="sourceCode R"><span class="co"># Save plot using weights</span>
 <span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggseqdplot.html">ggseqdplot</a></span><span class="op">(</span><span class="va">ex1.seq</span>, 
                  with.entropy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Weighted data"</span><span class="op">)</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Weighted data"</span><span class="op">)</span>
 
 <span class="co"># Save same plot without using weights</span>
 <span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggseqdplot.html">ggseqdplot</a></span><span class="op">(</span><span class="va">ex1.seq</span>, 
                  with.entropy <span class="op">=</span> <span class="cn">TRUE</span>,
                  weighted <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Unweighted data"</span><span class="op">)</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Unweighted data"</span><span class="op">)</span>
 
 <span class="co"># Arrange and refine plots using patchwork</span>
 <span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span> 
-  <span class="fu">plot_layout</span><span class="op">(</span>guides <span class="op">=</span> <span class="st">"collect"</span><span class="op">)</span> <span class="op">&amp;</span>
-  <span class="fu">scale_fill_manual</span><span class="op">(</span>values<span class="op">=</span> <span class="va">canva_palettes</span><span class="op">$</span><span class="va">`Fun and tropical`</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span> <span class="op">&amp;</span>
+  <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html" class="external-link">plot_layout</a></span><span class="op">(</span>guides <span class="op">=</span> <span class="st">"collect"</span><span class="op">)</span> <span class="op">&amp;</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_fill_manual</a></span><span class="op">(</span>values<span class="op">=</span> <span class="va">canva_palettes</span><span class="op">$</span><span class="va">`Fun and tropical`</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span> <span class="op">&amp;</span>
   <span class="fu">theme_ipsum_rc</span><span class="op">(</span><span class="op">)</span> <span class="op">&amp;</span>
-  <span class="fu">theme</span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span>,
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span>,
                                   hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>,
         legend.position <span class="op">=</span> <span class="st">"bottom"</span>,
-        legend.title <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+        legend.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="seq-summarization-plots_files/figure-html/unnamed-chunk-5-1.png" width="768"></p>
 </div>
 </div>
@@ -313,7 +313,67 @@ library <span class="citation">(Pedersen, 2020)</span>.</p>
 <div class="section level2">
 <h2 id="transition-rate-plots">Transition rate plots<a class="anchor" aria-label="anchor" href="#transition-rate-plots"></a>
 </h2>
+<div class="section level3">
+<h3 id="technicalities-1">Technicalities<a class="anchor" aria-label="anchor" href="#technicalities-1"></a>
+</h3>
+<p><br></p>
+</div>
+<div class="section level3">
+<h3 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
+</h3>
+<p>We start with a simple example that only takes the sequence data and
+the group argument as inputs. The output is a faceted plot visualizing
+two transition rate matrices of DSS sequence data.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/ggseqtrplot.html">ggseqtrplot</a></span><span class="op">(</span><span class="va">actcal.seq</span>, 
+            group <span class="op">=</span> <span class="va">actcal</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span>
+<span class="co">#&gt;  [&gt;] computing transition probabilities for states A/B/C/D ...</span>
+<span class="co">#&gt;  [&gt;] computing transition probabilities for states A/B/C/D ...</span></code></pre></div>
+<p><img src="seq-summarization-plots_files/figure-html/unnamed-chunk-6-1.png" width="768"></p>
+<p>In the second example we specify additional arguments and utilize
+once again the <code>patchwork</code> library to compose a figure that
+compares the transition matrices of sequence stored in the STS and the
+DSS format.</p>
+<p>We use <code>x_n.dodge = 2</code> to prevent overlapping of the state
+labels of the x-axis, slightly reduce the labels size of the value
+labels displayed within the tiles, and use <code>dss = FALSE</code> to
+compute and display the transition rates of the STS sequences.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggseqtrplot.html">ggseqtrplot</a></span><span class="op">(</span><span class="va">biofam.seq</span>, 
+                  dss <span class="op">=</span> <span class="cn">FALSE</span>, 
+                  x_n.dodge <span class="op">=</span> <span class="fl">2</span>,
+                  labsize <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"STS Sequences"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.margin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">10</span>,<span class="fl">5</span>,<span class="fl">5</span><span class="op">)</span>, <span class="st">"points"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt;  [&gt;] computing transition probabilities for states 0/1/2/3/4/5/6/7 ...</span>
+
+<span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggseqtrplot.html">ggseqtrplot</a></span><span class="op">(</span><span class="va">biofam.seq</span>, 
+                  x_n.dodge <span class="op">=</span> <span class="fl">2</span>,
+                  labsize <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"DSS Sequences"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.margin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">5</span>,<span class="fl">5</span>,<span class="fl">10</span><span class="op">)</span>, <span class="st">"points"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt;  [&gt;] computing transition probabilities for states 0/1/2/3/4/5/6/7 ...</span>
+
+<span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">&amp;</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span>,
+                                  hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p><img src="seq-summarization-plots_files/figure-html/unnamed-chunk-7-1.png" width="768"></p>
+<p>Other than the grouped version of the plot this composed figure
+contains the y-axis title and labels twice. This can be changed with
+small adjustments of the corresponding <code>theme</code> arguments.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">p2</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span>, 
+        axis.title.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">&amp;</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span>,
+                                  hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p><img src="seq-summarization-plots_files/figure-html/unnamed-chunk-8-1.png" width="768"></p>
 <hr>
+</div>
 </div>
 <div class="section level2 unnumbered">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>

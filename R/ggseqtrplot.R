@@ -8,6 +8,7 @@
 #' @param dss specifies if transition rates are computed for STS or DSS (default) sequences
 #' @param no.n specifies if number of (weighted) sequences is shown in grouped (faceted) graph
 #' @param with.missing Specifies if missing state should be considered when computing the transition rates (default is \code{FALSE}).
+#' @param labsize Specifies the font size of the labels within the tiles (if not specified ggplot2's default is used)
 #' @param axislabs specifies if sequence object's long labels (default) or the state names from its alphabet attribute should be used.
 #' @param x_n.dodge allows to print the labels of the x-axis in multiple rows to avoid overlapping.
 #'
@@ -53,6 +54,7 @@ ggseqtrplot <- function(seqdata,
                         no.n = FALSE,
                         weighted = TRUE,
                         with.missing = FALSE,
+                        labsize = NULL,
                         axislabs = "labels",
                         x_n.dodge = 1,
                         facet_ncol = NULL,
@@ -71,6 +73,12 @@ ggseqtrplot <- function(seqdata,
     stop("the arguments `weighted` and `with.missing` have to be objects of type logical")
 
   if (is.null(attributes(seqdata)$weights)) weighted <- FALSE
+
+  if (is.null(labsize)) labsize <- GeomLabel$default_aes$size
+
+  if (!is.null(labsize) & (length(labsize) > 1 | !is.numeric(labsize))) {
+    stop("labsize must be a single number")
+  }
 
   if (is.null(group)) group <- 1
 
@@ -137,7 +145,10 @@ ggseqtrplot <- function(seqdata,
                               dplyr::mutate(group = .y, .before = 1)) |>
     dplyr::bind_rows()
 
-  trplotdata <- dplyr::full_join(grn, trplotdata, by = "group")
+
+  suppressMessages(
+    trplotdata <- dplyr::full_join(grn, trplotdata, by = "group")
+  )
 
   ggtrplot <- trplotdata |>
     dplyr::mutate(value = dplyr::na_if(.data$value, 0)) |>
@@ -146,7 +157,8 @@ ggseqtrplot <- function(seqdata,
                fill = .data$value)) +
     geom_tile(color = "black", alpha = .9) +
     geom_text(aes(label= ifelse(is.na(.data$value), "",
-                                sprintf(.data$value, fmt = '%#.2f')))) +
+                                sprintf(.data$value, fmt = '%#.2f'))),
+              size = labsize) +
     colorspace::scale_fill_continuous_sequential(palette = "heat 2",
                                                  na.value = "transparent") +
     scale_x_continuous(name=expression('State at'~italic("t + 1")),

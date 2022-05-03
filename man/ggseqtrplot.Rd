@@ -11,6 +11,7 @@ ggseqtrplot(
   no.n = FALSE,
   weighted = TRUE,
   with.missing = FALSE,
+  labsize = NULL,
   axislabs = "labels",
   x_n.dodge = 1,
   facet_ncol = NULL,
@@ -29,6 +30,8 @@ ggseqtrplot(
 \item{weighted}{Controls if weights (specified in \code{\link[TraMineR:seqdef]{TraMineR::seqdef}}) should be used. Default is \code{TRUE}, i.e. if available weights are used}
 
 \item{with.missing}{Specifies if missing state should be considered when computing the transition rates (default is \code{FALSE}).}
+
+\item{labsize}{Specifies the font size of the labels within the tiles (if not specified ggplot2's default is used)}
 
 \item{axislabs}{specifies if sequence object's long labels (default) or the state names from its alphabet attribute should be used.}
 

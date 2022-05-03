@@ -208,6 +208,60 @@ p1 + p2 +
 
 ## Transition rate plots
 
+### Technicalities
+
+\
+
+### Examples
+
+We start with a simple example that only takes the sequence data and the group argument as inputs. The output is a faceted plot visualizing two transition rate matrices of DSS sequence data.  
+
+```{r}
+ggseqtrplot(actcal.seq, 
+            group = actcal$sex)
+```
+
+In the second example we specify additional arguments and utilize once again the `patchwork` library to compose a figure that compares the transition matrices of sequence stored in the STS and the DSS format.
+
+We use `x_n.dodge = 2` to prevent overlapping of the state labels of the x-axis, slightly reduce the labels size of the value labels displayed within the tiles, and use `dss = FALSE` to compute and display the transition rates of the STS sequences.
+
+```{r}
+
+p1 <- ggseqtrplot(biofam.seq, 
+                  dss = FALSE, 
+                  x_n.dodge = 2,
+                  labsize = 3) +
+  ggtitle("STS Sequences") +
+  theme(plot.margin = unit(c(5,10,5,5), "points"))
+
+p2 <- ggseqtrplot(biofam.seq, 
+                  x_n.dodge = 2,
+                  labsize = 3) +
+    ggtitle("DSS Sequences") +
+  theme(plot.margin = unit(c(5,5,5,10), "points"))
+
+p1 + p2 &
+  theme(plot.title = element_text(size = 20,
+                                  hjust = 0.5))
+
+```
+
+Other than the grouped version of the plot this composed figure contains the y-axis title and labels twice. This can be changed with small adjustments of the corresponding `theme` arguments. 
+
+
+```{r}
+
+p2 <- p2 +
+  theme(axis.text.y = element_blank(), 
+        axis.title.y = element_blank())
+
+p1 + p2 &
+  theme(plot.title = element_text(size = 20,
+                                  hjust = 0.5))
+```
+
+
+
 ---
 
 ## References

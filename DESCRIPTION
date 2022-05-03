@@ -29,6 +29,8 @@ Imports:
     TraMineR,
     TraMineRextras
 Suggests: 
+    ggthemes,
+    hrbrthemes,
     knitr,
     rmarkdown
 VignetteBuilder: knitr
