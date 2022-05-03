@@ -9,7 +9,6 @@ ggseqrfplot(
   k = floor(nrow(seqdata)/10),
   diss,
   sortv = NULL,
-  border = FALSE,
   ylab = NULL,
   yaxis = TRUE,
   box.color = NULL,
@@ -27,8 +26,6 @@ ggseqrfplot(
 \item{diss}{pairwise dissimilarities between sequences in \code{seqdata} (see \code{TraMineRextras::seqdist})}
 
 \item{sortv}{optional sorting variable that may be used to compute the frequency groups. If  \code{NULL} (default), an MDS is used. Ties are randomly ordered.}
-
-\item{border}{if \code{TRUE} bars are plotted with black outline}
 
 \item{ylab}{character string specifying title of y-axis. If \code{NULL} axis title is "Frequency group"}
 

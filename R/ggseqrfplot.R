@@ -9,7 +9,6 @@
 #' @param k integer specifying the number of frequency groups
 #' @param diss pairwise dissimilarities between sequences in \code{seqdata} (see \code{TraMineRextras::seqdist})
 #' @param sortv optional sorting variable that may be used to compute the frequency groups. If  \code{NULL} (default), an MDS is used. Ties are randomly ordered.
-#' @param border if \code{TRUE} bars are plotted with black outline
 #' @param ylab character string specifying title of y-axis. If \code{NULL} axis title is "Frequency group"
 #' @param yaxis Controls if a y-axis is plotted. When set as \code{TRUE}, index of frequency groups is displayed.
 #' @param which.plot character string specifying which components of relative frequency sequence plot should be displayed.
@@ -68,7 +67,6 @@ ggseqrfplot <- function(seqdata,
                         k = floor(nrow(seqdata)/10),
                         diss,
                         sortv = NULL,
-                        border = FALSE,
                         ylab= NULL,
                         yaxis=TRUE,
                         box.color = NULL,
@@ -77,8 +75,8 @@ ggseqrfplot <- function(seqdata,
                         which.plot="both",
                         quality=TRUE) {
 
-  if (!is.logical(yaxis) | !is.logical(border) | !is.logical(quality))
-    stop("the arguments `border`, `yaxis`, and `quality`  have to be objects of type logical")
+  if (!is.logical(yaxis) | !is.logical(quality))
+    stop("the arguments `yaxis`, and `quality`  have to be objects of type logical")
 
   if (which.plot %in% c("both", "medoids", "diss.to.med") == FALSE) {
     stop('`which.plot` must take one of the following values: "both", "medoids", "diss.to.med"')
@@ -121,7 +119,7 @@ ggseqrfplot <- function(seqdata,
   # )
 
   suppressMessages(
-    p1 <- ggseqiplot(seqdata[[1]], sortv=seqdata[[2]], border = border) +
+    p1 <- ggseqiplot(seqdata[[1]], sortv=seqdata[[2]]) +
       labs(title = "Sequence medoids",
            y = ylab) +
       scale_y_continuous(breaks = ybrks,
@@ -140,7 +138,7 @@ ggseqrfplot <- function(seqdata,
 
   if (which.plot == "medoids") {
     suppressMessages(
-      p1 <- ggseqiplot(seqdata[[1]], sortv=seqdata[[2]], border = border) +
+      p1 <- ggseqiplot(seqdata[[1]], sortv=seqdata[[2]]) +
         scale_y_continuous(breaks = ybrks,
                            labels = ylabels,
                            expand = expansion(add = c(0, 0))) +
