@@ -5,7 +5,9 @@
 
 <!-- badges: start -->
 
-![](https://img.shields.io/github/r-package/v/maraab23/ggseqplot?style=flat-square)
+[![Version
+badge](https://img.shields.io/github/r-package/v/maraab23/ggseqplot)](https://github.com/maraab23/ggseqplot)
+
 [![R-CMD-check](https://github.com/maraab23/ggseqplot/workflows/R-CMD-check/badge.svg)](https://github.com/maraab23/ggseqplot/actions)
 <!-- badges: end -->
 
