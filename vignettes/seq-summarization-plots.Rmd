@@ -166,7 +166,7 @@ ggseqdplot(actcal.seq) +
   labs(title = "State distribution plot",
        x = "Month") +
   guides(fill=guide_legend(title="Alphabet")) +
-  theme_ipsum_rc() +
+  theme_ipsum(base_family = "") + # ensures that this works on different OS
   theme(plot.title = element_text(size = 30, 
                                   margin=margin(0,0,20,0)),
         plot.title.position = "plot")
@@ -191,7 +191,7 @@ p2 <- ggseqdplot(ex1.seq,
 p1 + p2 + 
   plot_layout(guides = "collect") &
   scale_fill_manual(values= canva_palettes$`Fun and tropical`[1:4]) &
-  theme_ipsum_rc() &
+  theme_ipsum(base_family = "") &
   theme(plot.title = element_text(size = 20,
                                   hjust = 0.5),
         legend.position = "bottom",
