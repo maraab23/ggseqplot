@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 ![](https://img.shields.io/github/r-package/v/maraab23/ggseqplot?style=flat-square)
-
+[![R-CMD-check](https://github.com/maraab23/ggseqplot/workflows/R-CMD-check/badge.svg)](https://github.com/maraab23/ggseqplot/actions)
 <!-- badges: end -->
 
 The main goal of `{ggseqplot}` is to provide functions that reproduce

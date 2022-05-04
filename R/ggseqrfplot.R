@@ -19,7 +19,7 @@
 #' @param box.fill  specifies fill color of boxplots; default is "white"
 #' @param box.alpha specifies alpha value of boxplot fill color; default is 1
 #'
-#' @return
+#' @return A relative sequence index plot using \code{\link[ggplot2]{ggplot}}.
 #' @export ggseqrfplot
 #' @importFrom patchwork plot_layout
 #'

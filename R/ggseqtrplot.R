@@ -12,7 +12,7 @@
 #' @param axislabs specifies if sequence object's long labels (default) or the state names from its alphabet attribute should be used.
 #' @param x_n.dodge allows to print the labels of the x-axis in multiple rows to avoid overlapping.
 #'
-#' @return
+#' @return A tile plot of transition rates.
 #' @export
 #'
 #' @author Marcel Raab

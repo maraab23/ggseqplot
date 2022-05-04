@@ -42,7 +42,7 @@ ggseqtrplot(
 \item{facet_nrow}{Number of rows in faceted (i.e. grouped) plot}
 }
 \value{
-
+A tile plot of transition rates.
 }
 \description{
 Function for plotting transition rate matrix of sequence states internally computed by \code{\link[TraMineR:seqtrate]{TraMineR::seqtrate}} \insertCite{gabadinho2011}{ggseqplot}.
