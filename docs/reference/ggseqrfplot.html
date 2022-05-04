@@ -16,7 +16,7 @@ For further details on relative frequency sequence plots see documentation of Tr
     
     <a class="navbar-brand me-2" href="../index.html">ggseqplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9061</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -108,17 +108,13 @@ the box plots of the group-specific distances to the medoids are shown.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    
+    <p>A relative sequence index plot using <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></code>.</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## From TraMineRextras::seqplot.rf</span></span>
 <span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://traminer.unige.ch" class="external-link">TraMineR</a></span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> TraMineR stable version 2.2-3 (Built: 2022-03-25)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Website: http://traminer.unige.ch</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Please type 'citation("TraMineR")' for citation information.</span>
 <span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://traminer.unige.ch/" class="external-link">TraMineRextras</a></span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> TraMineRextras stable version 0.6.3 (Built: 2022-03-25)</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Functions provided by this package are still in test</span>
@@ -163,7 +159,7 @@ the box plots of the group-specific distances to the medoids are shown.</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] 76 distinct  sequences </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] min/max sequence lengths: 16/16</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] computing distances using the LCS metric</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] elapsed time: 0.02 secs</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] elapsed time: 0.01 secs</span>
 <span class="r-in"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Using 12 groups and default MDS sorting</span></span>
@@ -191,8 +187,8 @@ the box plots of the group-specific distances to the medoids are shown.</p></dd>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/TraMineRextras/man/seqplot-rf.html" class="external-link">seqplot.rf</a></span><span class="op">(</span><span class="va">biofam.seq</span>, diss<span class="op">=</span><span class="va">diss</span>, k<span class="op">=</span><span class="fl">12</span>, sortv<span class="op">=</span><span class="va">parentTime</span>,</span>
 <span class="r-in">   main<span class="op">=</span><span class="st">"Sorted by parent time"</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Using k=12 frequency groups</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Pseudo/median-based-R2: 0.4169247</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Pseudo/median-based-F statistic: 5.720354</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Pseudo/median-based-R2: 0.4499484</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Pseudo/median-based-F statistic: 6.54409</span>
 <span class="r-plt img"><img src="ggseqrfplot-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## ... with ggseqrfplot</span></span>
@@ -201,8 +197,8 @@ the box plots of the group-specific distances to the medoids are shown.</p></dd>
 <span class="r-in">                  theme <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span>,</span>
 <span class="r-in">                                                          size <span class="op">=</span> <span class="fl">18</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Using k=12 frequency groups</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Pseudo/median-based-R2: 0.4652219</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Pseudo/median-based-F statistic: 6.959475</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Pseudo/median-based-R2: 0.4501548</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Pseudo/median-based-F statistic: 6.54955</span>
 <span class="r-plt img"><img src="ggseqrfplot-4.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
