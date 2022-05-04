@@ -210,7 +210,9 @@ p1 + p2 +
 
 ### Technicalities
 
-\
+`ggseqdplot` calls `TraMineR::seqtrate` to obtain the transition rates between the states of the alphabet. `TraMineR::seqtrate` stores these rates in a symmetrical matrix which internally is reshaped into a long format with one row for every combination of states (i.e., the squared size of the sequence alphabet) by `ggseqdplot`. The reshaped data are the input for a `ggplot` call using `geom_tile`.
+
+The data set produced by `ggseqtrplot` can be accessed if the function's output is assigned to an object. The resulting list object stores the data as its first element (named `data`)
 
 ### Examples
 
