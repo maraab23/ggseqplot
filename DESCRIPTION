@@ -26,11 +26,13 @@ Imports:
     purrr,
     Rdpack,
     tidyr,
-    TraMineR,
-    TraMineRextras
+    TraMineR
 Suggests: 
     ggthemes,
     hrbrthemes,
     knitr,
-    rmarkdown
+    rmarkdown,
+    testthat (>= 3.0.0),
+    TraMineRextras
 VignetteBuilder: knitr
+Config/testthat/edition: 3
