@@ -3,7 +3,6 @@
 # Examples from TraMineR::seqplot
 
 library(TraMineR)
-library(ggplot2)
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -32,3 +31,44 @@ test_that("Number of rows in plot data equals states*positions*groups", {
                nrow(ggseqdplot(actcal.seq, group = group)$data))
 })
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+test_that("Executions stops if input data are not of class stslist", {
+  expect_error(ggseqdplot(actcal))
+})
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+test_that("Executions stops if group vector is not of same length as sequence data", {
+  expect_error(ggseqdplot(actcal.seq, weighted = group),
+               "the arguments `weighted`, `with.missing`, and `border` have to be objects of type logical")
+})
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+test_that("Executions stops if logical arguments take wrong values", {
+  expect_error(ggseqdplot(actcal.seq, group = group[1:20]),
+               "length of group vector must match number of rows of seqdata")
+})
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+test_that("check if output of ggseqdplot is ggplot", {
+  expect_s3_class(ggseqdplot(actcal.seq), "ggplot")
+  expect_s3_class(ggseqdplot(actcal.seq, border = FALSE), "ggplot")
+  expect_s3_class(ggseqdplot(actcal.seq, with.entropy = TRUE), "ggplot")
+  expect_s3_class(ggseqdplot(actcal.seq, group = group), "ggplot")
+  expect_s3_class(ggseqdplot(actcal.seq, weighted = FALSE), "ggplot")
+  expect_s3_class(ggseqdplot(actcal.seq, with.missing = TRUE), "ggplot")
+})
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+test_that("Colors from seqdata extracted correctly", {
+  p <- ggplot2::ggplot_build(ggseqdplot(actcal.seq))
+
+  expect_equal(attributes(actcal.seq)$cpal,
+               dplyr::pull(unique(p$data[[1]]["fill"])))
+})
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

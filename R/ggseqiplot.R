@@ -117,10 +117,10 @@ ggseqiplot <- function(seqdata,
   if (!facet_scale %in% c("free_y", "fixed"))
     stop('the argument `facet_scale` has to be either "free_y" or "fixed"')
 
-  if (!is.null(facet_ncol) & !is.integer(facet_ncol))
+  if (!is.null(facet_ncol) && as.integer(facet_ncol) != facet_ncol)
     stop("`facet_ncol` must be NULL or an integer.")
 
-  if (!is.null(facet_nrow) & !is.integer(facet_nrow))
+  if (!is.null(facet_nrow) && as.integer(facet_nrow) != facet_nrow)
     stop("`facet_nrow` must be NULL or an integer.")
 
 
