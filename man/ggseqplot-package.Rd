@@ -10,6 +10,7 @@
 
 This library provides functions that reproduce some of the sequence plots from TraMineR's seqplot using ggplot2. These plots are produced on the basis of a sequence object defined with TraMineR::seqdef. The package automates the reshaping and plotting of sequence data.
 
+}
 \seealso{
 Useful links:
 \itemize{
