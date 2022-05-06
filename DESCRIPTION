@@ -28,6 +28,7 @@ Imports:
     tidyr,
     TraMineR
 Suggests: 
+    covr,
     ggthemes,
     hrbrthemes,
     knitr,
