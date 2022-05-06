@@ -76,7 +76,6 @@ send me an
 [email](mailto:marcel.raab@ifb.uni-bamberg.de?subject=ggseqplot%3A%20feature%20request).
 
 
-
 Two vignettes outlines how `{ggseqplot}` reshapes sequence data
 generated with `TraMineR::seqdef` to visualize them using
 [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="\_blank"}. We
@@ -88,7 +87,7 @@ functions (and add ons).
 
 | Vignette                               | Plot type                                               | Function        |
 |:-----------------------------|:------------------------|:-----------------|
-| `vignette("seq-summarization-plots")`  | state distribution plot<br/>entropy line plot           | `ggseqdplot`<br/>`ggseqeplot`<br/>`ggseqtrplot`  |
+| `vignette("seq-summarization-plots")`  | state distribution plot<br/>entropy line plot<br/>transition rate plot           | `ggseqdplot`<br/>`ggseqeplot`<br/>`ggseqtrplot`  |
 | `vignette("seq-representation-plots")` | sequence index plot<br/>relative frequency seqence plot | `ggseqiplot`<br/>`ggseqrfplot` |
 
 ## Installation

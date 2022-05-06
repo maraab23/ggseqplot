@@ -8,7 +8,6 @@
 [![Version
 badge](https://img.shields.io/github/r-package/v/maraab23/ggseqplot)](https://github.com/maraab23/ggseqplot)
 [![R-CMD-check](https://github.com/maraab23/ggseqplot/workflows/R-CMD-check/badge.svg)](https://github.com/maraab23/ggseqplot/actions)
-
 [![Codecov test
 coverage](https://codecov.io/gh/maraab23/ggseqplot/branch/main/graph/badge.svg)](https://app.codecov.io/gh/maraab23/ggseqplot?branch=main)
 <!-- badges: end -->
@@ -77,10 +76,10 @@ the baseline output using familiar
 <a href="https://ggplot2.tidyverse.org/"
 target="_blank"><code>{ggplot2}</code></a> functions (and add ons).
 
-| Vignette                               | Plot type                                               | Function                                        |
-|:---------------------------------------|:--------------------------------------------------------|:------------------------------------------------|
-| `vignette("seq-summarization-plots")`  | state distribution plot<br/>entropy line plot           | `ggseqdplot`<br/>`ggseqeplot`<br/>`ggseqtrplot` |
-| `vignette("seq-representation-plots")` | sequence index plot<br/>relative frequency seqence plot | `ggseqiplot`<br/>`ggseqrfplot`                  |
+| Vignette                               | Plot type                                                              | Function                                        |
+|:---------------------------------------|:-----------------------------------------------------------------------|:------------------------------------------------|
+| `vignette("seq-summarization-plots")`  | state distribution plot<br/>entropy line plot<br/>transition rate plot | `ggseqdplot`<br/>`ggseqeplot`<br/>`ggseqtrplot` |
+| `vignette("seq-representation-plots")` | sequence index plot<br/>relative frequency seqence plot                | `ggseqiplot`<br/>`ggseqrfplot`                  |
 
 ## Installation
 
