@@ -33,7 +33,7 @@ seqplot.rf_internal <- function(seqdata, k=floor(nrow(seqdata)/10), diss, sortv=
     sortv <- stats::cmdscale(diss, k = 1)
 
   }
-  if(!is.null(sortv)){
+
     ng <- nrow(seqdata) %/% k
     r <- nrow(seqdata) %% k
     n.per.group <- rep(ng, k)
@@ -42,15 +42,17 @@ seqplot.rf_internal <- function(seqdata, k=floor(nrow(seqdata)/10), diss, sortv=
     }
     mdsk <- rep(1:k, n.per.group)
     mdsk <- mdsk[rank(sortv, ties.method = "random")]
-  }else{
-    hh <- stats::hclust(stats::as.dist(diss), method=hclust_method)
-    mdsk <- factor(stats::cutree(hh, k))
-    medoids <- TraMineR::disscenter(diss, group=mdsk, medoids.index="first")
-    medoids <- medoids[levels(mdsk)]
-    #ww <- xtabs(~mdsk)
-    mds <- stats::cmdscale(diss[medoids, medoids], k=1)
-    mdsk <- as.integer(factor(mdsk, levels=levels(mdsk)[order(mds)]))
-  }
+
+  # following block not necessary as use.hclust=FALSE -> sot
+  # else{
+  #   hh <- stats::hclust(stats::as.dist(diss), method=hclust_method)
+  #   mdsk <- factor(stats::cutree(hh, k))
+  #   medoids <- TraMineR::disscenter(diss, group=mdsk, medoids.index="first")
+  #   medoids <- medoids[levels(mdsk)]
+  #   #ww <- xtabs(~mdsk)
+  #   mds <- stats::cmdscale(diss[medoids, medoids], k=1)
+  #   mdsk <- as.integer(factor(mdsk, levels=levels(mdsk)[order(mds)]))
+  # }
   kun <- length(unique(mdsk))
   if(kun!=k){
     warning(" [>] k value was adjusted to ", kun)

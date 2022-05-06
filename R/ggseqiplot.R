@@ -109,11 +109,6 @@ ggseqiplot <- function(seqdata,
     weighted <- FALSE
   }
 
-  if (weighted == TRUE & nrow(seqdata) != length(weights))
-    stop("The number of sequences and the length of the weights vector do not correspond.
-         Probably you subsetted the sequence object. Subsetting a sequence object does not subset the weight attribute accordingly.
-         If you want to use a subset of sequences with weights you should define a new sequence object with `TraMineR::seqdef`")
-
   if (!facet_scale %in% c("free_y", "fixed"))
     stop('the argument `facet_scale` has to be either "free_y" or "fixed"')
 

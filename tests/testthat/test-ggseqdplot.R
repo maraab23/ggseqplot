@@ -19,6 +19,9 @@ actcal.seq <- seqdef(actcal,13:24,labels=actcal.lab)
 
 group <- actcal$sex
 
+data(ex1)
+ex1.seq <- seqdef(ex1, 1:13, weights=ex1$weights)
+
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -55,11 +58,14 @@ test_that("Executions stops if logical arguments take wrong values", {
 
 test_that("check if output of ggseqdplot is ggplot", {
   expect_s3_class(ggseqdplot(actcal.seq), "ggplot")
+  expect_s3_class(ggseqdplot(ex1.seq), "ggplot")
+  expect_s3_class(ggseqdplot(ex1.seq, group = c(1,1,1,2,2,2,2)), "ggplot")
   expect_s3_class(ggseqdplot(actcal.seq, border = FALSE), "ggplot")
   expect_s3_class(ggseqdplot(actcal.seq, with.entropy = TRUE), "ggplot")
   expect_s3_class(ggseqdplot(actcal.seq, group = group), "ggplot")
-  expect_s3_class(ggseqdplot(actcal.seq, weighted = FALSE), "ggplot")
+  expect_s3_class(ggseqdplot(ex1.seq, weighted = FALSE), "ggplot")
   expect_s3_class(ggseqdplot(actcal.seq, with.missing = TRUE), "ggplot")
+
 })
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

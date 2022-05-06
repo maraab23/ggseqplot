@@ -97,6 +97,7 @@ ggseqrfplot <- function(seqdata,
   if (ylabels[length(ylabels)] == ylabels[length(ylabels)-1]+1) {
     ylabels <- ylabels[ylabels != ylabels[length(ylabels)-1]]
   }
+
   if (ylabels[1] == ylabels[2]-1) {
     ylabels <- ylabels[ylabels != ylabels[2]]
   }
@@ -108,16 +109,6 @@ ggseqrfplot <- function(seqdata,
   if (is.null(box.alpha)) box.alpha <- 1
 
 
-  # suppressMessages(
-  #   p1 <- ggseqiplot(seqdata[[1]], sortv=seqdata[[2]], border = border) +
-  #     scale_y_continuous(labels = NULL,
-  #                        breaks = NULL,
-  #                        expand = expansion(add = c(0, 0))) +
-  #     labs(title = "Sequence medoids",
-  #          y = "") +
-  #     theme(plot.title = element_text(hjust = 0.5))
-  # )
-
   suppressMessages(
     p1 <- ggseqiplot(seqdata[[1]], sortv=seqdata[[2]]) +
       labs(title = "Sequence medoids",
@@ -128,13 +119,6 @@ ggseqrfplot <- function(seqdata,
       theme(plot.title = element_text(hjust = 0.5))
   )
 
-  # suppressMessages(
-  #   p1 <- ggseqiplot(seqdata[[1]], sortv=seqdata[[2]], border = border) +
-  #     scale_y_continuous(breaks = ybrks,
-  #                        labels = ylabels,
-  #                        expand = expansion(add = c(0, 0))) +
-  #     labs(y = "Frequency group")
-  # )
 
   if (which.plot == "medoids") {
     suppressMessages(
