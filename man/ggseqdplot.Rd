@@ -13,7 +13,9 @@ ggseqdplot(
   with.entropy = FALSE,
   linetype = "dashed",
   linecolor = "black",
-  linewidth = 1
+  linewidth = 1,
+  facet_ncol = NULL,
+  facet_nrow = NULL
 )
 }
 \arguments{
@@ -34,6 +36,10 @@ ggseqdplot(
 \item{linecolor}{Specifies the color of the entropy line if \code{with.entropy==TRUE}; default is \code{"black"}}
 
 \item{linewidth}{Specifies the with of the entropy line if \code{with.entropy==TRUE}; default is \code{1}}
+
+\item{facet_ncol}{Number of columns in faceted (i.e. grouped) plot}
+
+\item{facet_nrow}{Number of rows in faceted (i.e. grouped) plot}
 }
 \value{
 A sequence distribution plot. If stored as object the resulting list

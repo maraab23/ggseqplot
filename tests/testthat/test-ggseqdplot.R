@@ -25,20 +25,26 @@ ex1.seq <- seqdef(ex1, 1:13, weights=ex1$weights)
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-test_that("Number of rows in plot data equals states*positions*groups", {
-  expect_equal(length(TraMineR::alphabet(actcal.seq)) * dim(actcal.seq)[2],
-               nrow(ggseqdplot(actcal.seq)$data))
-
-  expect_equal(length(TraMineR::alphabet(actcal.seq)) * dim(actcal.seq)[2] *
-                 length(unique(group)),
-               nrow(ggseqdplot(actcal.seq, group = group)$data))
-})
+# test_that("Number of rows in plot data equals states*positions*groups", {
+#   expect_equal(length(TraMineR::alphabet(actcal.seq)) * dim(actcal.seq)[2],
+#                nrow(ggseqdplot(actcal.seq)$data))
+#
+#   expect_equal(length(TraMineR::alphabet(actcal.seq)) * dim(actcal.seq)[2] *
+#                  length(unique(group)),
+#                nrow(ggseqdplot(actcal.seq, group = group)$data))
+# })
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 test_that("Executions stops if input data are not of class stslist", {
   expect_error(ggseqdplot(actcal))
 })
+
+test_that("arguments are specified correctly (length, type, ...)", {
+  expect_error(ggseqdplot(actcal.seq, group = group, facet_ncol = 5.5))
+  expect_error(ggseqdplot(actcal.seq, group = group, facet_nrow = 5.5))
+})
+
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

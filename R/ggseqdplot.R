@@ -10,6 +10,7 @@
 #' @param linetype The linetype for the entropy subplot (\code{with.entropy==TRUE}) can be specified with an integer (0-6) or name (0 = blank, 1 = solid, 2 = dashed, 3 = dotted, 4 = dotdash, 5 = longdash, 6 = twodash); ; default is \code{"dashed"}
 #' @param linecolor Specifies the color of the entropy line if \code{with.entropy==TRUE}; default is \code{"black"}
 #' @param linewidth Specifies the with of the entropy line if \code{with.entropy==TRUE}; default is \code{1}
+#' @eval shared_facet()
 #'
 #' @return A sequence distribution plot. If stored as object the resulting list
 #' object also contains the data (long format) used for rendering the plot
@@ -69,7 +70,9 @@ ggseqdplot <- function(seqdata,
                        with.entropy = FALSE,
                        linetype = "dashed",
                        linecolor = "black",
-                       linewidth = 1) {
+                       linewidth = 1,
+                       facet_ncol = NULL,
+                       facet_nrow = NULL) {
 
   if (!inherits(seqdata, "stslist"))
     stop("data is not a sequence object, use 'TraMineR::seqdef' to create one")
@@ -85,6 +88,13 @@ ggseqdplot <- function(seqdata,
   if (is.null(attributes(seqdata)$weights)) weighted <- FALSE
 
   if (is.null(group)) group <- 1
+
+  if (!is.null(facet_ncol) && as.integer(facet_ncol) != facet_ncol)
+    stop("`facet_ncol` must be NULL or an integer.")
+
+  if (!is.null(facet_nrow) && as.integer(facet_nrow) != facet_nrow)
+    stop("`facet_nrow` must be NULL or an integer.")
+
 
   statefreqs <- purrr::map(unique(group),
                            ~TraMineR::seqstatd(seqdata[group == .x,],
@@ -228,7 +238,8 @@ ggseqdplot <- function(seqdata,
     ggdplot <- ggdplot +
       facet_wrap(~.data$grouplab,
                  scales = "free_y",
-                 ncol = 2) +
+                 ncol = facet_ncol,
+                 nrow = facet_nrow) +
       labs(x = "", y = "Rel. Freq.") +
       theme(panel.spacing = unit(2, "lines"))
   }

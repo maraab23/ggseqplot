@@ -33,7 +33,7 @@ These plots are produced on the basis of a sequence object defined with
 `TraMineR::seqdef`. The package automates the reshaping and plotting of
 sequence data.
 
-This package literally builds on the excellent work of the
+Being a set of wrapper functions this library literally builds on the excellent work of the
 [`{TraMineR}`](http://traminer.unige.ch){target="\_blank"},
 [`{TraMineRExtras}`](http://traminer.unige.ch){target="\_blank"}, and
 [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="\_blank"}
@@ -44,7 +44,7 @@ Note, that this library was not written because I personally dislike the
 plots produced by
 [`{TraMineR}`](http://traminer.unige.ch){target="\_blank"}, but rather
 because I am normally using
-[`{TraMineR}`](http://traminer.unige.ch){target="\_blank"} instead of
+[`{ggplot2}`](https://ggplot2.tidyverse.org/){target="\_blank"} instead of
 base R's `plot` environment for visualizing data.
 [`{TraMineR}`](http://traminer.unige.ch){target="\_blank"} was developed before
 [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="\_blank"} was as popular as it is today and back then many users

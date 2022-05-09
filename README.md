@@ -20,8 +20,8 @@ target="_blank"><code>{ggplot2}</code></a>. These plots are produced on
 the basis of a sequence object defined with `TraMineR::seqdef`. The
 package automates the reshaping and plotting of sequence data.
 
-This package literally builds on the excellent work of the
-<a href="http://traminer.unige.ch"
+Being a set of wrapper functions this library literally builds on the
+excellent work of the <a href="http://traminer.unige.ch"
 target="_blank"><code>{TraMineR}</code></a>,
 <a href="http://traminer.unige.ch"
 target="_blank"><code>{TraMineRExtras}</code></a>, and
@@ -32,8 +32,8 @@ of the their functions to produce ggplot2-flavored figures.
 Note, that this library was not written because I personally dislike the
 plots produced by <a href="http://traminer.unige.ch"
 target="_blank"><code>{TraMineR}</code></a>, but rather because I am
-normally using <a href="http://traminer.unige.ch"
-target="_blank"><code>{TraMineR}</code></a> instead of base R’s `plot`
+normally using <a href="https://ggplot2.tidyverse.org/"
+target="_blank"><code>{ggplot2}</code></a> instead of base R’s `plot`
 environment for visualizing data. <a href="http://traminer.unige.ch"
 target="_blank"><code>{TraMineR}</code></a> was developed before
 <a href="https://ggplot2.tidyverse.org/"
