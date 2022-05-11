@@ -48,10 +48,11 @@ plots just for the single purpose of visualizing sequence data.
 The development of this library is in an early stage and will be
 hopefully complemented by a few additional functions in the near future.
 
-Currently, `{ggseqplot}` contains five functions:
+Currently, `{ggseqplot}` contains the following functions:
 
 -   `ggseqdplot` (equivalent to `TraMineR::seqdplot`)
 -   `ggseqeplot` (equivalent to `TraMineRextras::seqplot.tentrop`)
+-   `ggseqmsplot` (equivalent to `TraMineR::seqmsplot`)
 -   `ggstrqeplot` (based on transitions rates computed with
     `TraMineR::seqtrate`)
 -   `ggseqiplot` (equivalent to `TraMineR::seqIplot`)
@@ -76,10 +77,10 @@ the baseline output using familiar
 <a href="https://ggplot2.tidyverse.org/"
 target="_blank"><code>{ggplot2}</code></a> functions (and add ons).
 
-| Vignette                               | Plot type                                                              | Function                                        |
-|:---------------------------------------|:-----------------------------------------------------------------------|:------------------------------------------------|
-| `vignette("seq-summarization-plots")`  | state distribution plot<br/>entropy line plot<br/>transition rate plot | `ggseqdplot`<br/>`ggseqeplot`<br/>`ggseqtrplot` |
-| `vignette("seq-representation-plots")` | sequence index plot<br/>relative frequency seqence plot                | `ggseqiplot`<br/>`ggseqrfplot`                  |
+| Vignette                               | Plot type                                                                                            | Function                                                          |
+|:---------------------------------------|:-----------------------------------------------------------------------------------------------------|:------------------------------------------------------------------|
+| `vignette("seq-summarization-plots")`  | state distribution plot<br/>entropy line plot<br/>modal state sequence plot<br/>transition rate plot | `ggseqdplot`<br/>`ggseqeplot`<br/>`ggseqmsplot`<br/>`ggseqtrplot` |
+| `vignette("seq-representation-plots")` | sequence index plot<br/>relative frequency seqence plot                                              | `ggseqiplot`<br/>`ggseqrfplot`                                    |
 
 ## Installation
 

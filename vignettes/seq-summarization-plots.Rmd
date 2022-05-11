@@ -33,7 +33,9 @@ Currently, `{ggseqplot}` includes three summarization graphs:
 
 -   state distribution plots (`ggseqdplot`)
 -   entropy line plots (`ggseqplot`)
+-   modal state sequence plot (`ggseqmsplot`)
 -   transition rate plots (`ggseqtrplot`)
+
 
 [`{TraMineR}`](http://traminer.unige.ch){target="\_blank"} and [`{TraMineRextras}`](http://traminer.unige.ch){target="\_blank"} provide a much more comprehensive set of plots. Although, {ggseqplot} does not aim at rebuilding all of these plots it's planned to add additional plot types.
 
@@ -204,7 +206,11 @@ p1 + p2 +
 
 ## Entropy plots
 
+... will be added soon
 
+## Modal state sequence plots
+
+... will be added soon
 
 ## Transition rate plots
 

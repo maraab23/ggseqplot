@@ -43,7 +43,7 @@
     
     <a class="navbar-brand me-2" href="index.html">ggseqplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -115,7 +115,8 @@ plots just for the single purpose of visualizing sequence data.</p>
 <p>The development of this library is in an early stage and will be
 hopefully complemented by a few additional functions in the near
 future.</p>
-<p>Currently, <a href="https://github.com/maraab23/ggseqplot" class="external-link">ggseqplot</a> contains five functions:</p>
+<p>Currently, <a href="https://github.com/maraab23/ggseqplot" class="external-link">ggseqplot</a> contains the following
+functions:</p>
 <ul>
 <li>
 <code>ggseqdplot</code> (equivalent to
@@ -123,6 +124,9 @@ future.</p>
 <li>
 <code>ggseqeplot</code> (equivalent to
 <code><a href="https://rdrr.io/pkg/TraMineRextras/man/seqplot-tentrop.html" class="external-link">TraMineRextras::seqplot.tentrop</a></code>)</li>
+<li>
+<code>ggseqmsplot</code> (equivalent to
+<code><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">TraMineR::seqmsplot</a></code>)</li>
 <li>
 <code>ggstrqeplot</code> (based on transitions rates computed with
 <code><a href="https://rdrr.io/pkg/TraMineR/man/seqtrate.html" class="external-link">TraMineR::seqtrate</a></code>)</li>
@@ -147,9 +151,9 @@ the baseline output using familiar
 <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> functions (and add ons).</p>
 <table class="table">
 <colgroup>
-<col width="24%">
-<col width="44%">
-<col width="30%">
+<col width="19%">
+<col width="48%">
+<col width="32%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">Vignette</th>
@@ -159,10 +163,10 @@ the baseline output using familiar
 <tbody>
 <tr class="odd">
 <td align="left"><code><a href="articles/seq-summarization-plots.html">vignette("seq-summarization-plots")</a></code></td>
-<td align="left">state distribution plot<br>entropy line
-plot<br>transition rate plot</td>
+<td align="left">state distribution plot<br>entropy line plot<br>modal
+state sequence plot<br>transition rate plot</td>
 <td align="left">
-<code>ggseqdplot</code><br><code>ggseqeplot</code><br><code>ggseqtrplot</code>
+<code>ggseqdplot</code><br><code>ggseqeplot</code><br><code>ggseqmsplot</code><br><code>ggseqtrplot</code>
 </td>
 </tr>
 <tr class="even">

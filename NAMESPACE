@@ -3,6 +3,7 @@
 export(ggseqdplot)
 export(ggseqeplot)
 export(ggseqiplot)
+export(ggseqmsplot)
 export(ggseqrfplot)
 export(ggseqtrplot)
 import(ggplot2)
