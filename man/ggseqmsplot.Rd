@@ -73,5 +73,5 @@ seqmsplot(actcal.seq, group = actcal$sex)
 # with ggseqplot
 ggseqmsplot(actcal.seq, group = actcal$sex)
 # with ggseqplot and some layout changes
-ggseqdplot(actcal.seq, group = actcal$sex, no.n = TRUE, border = FALSE, facet_nrow = 2)
+ggseqmsplot(actcal.seq, group = actcal$sex, no.n = TRUE, border = FALSE, facet_nrow = 2)
 }
