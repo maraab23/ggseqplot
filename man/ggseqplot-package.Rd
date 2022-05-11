@@ -9,10 +9,6 @@
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
 This library provides a set of wrapper functions that reproduce some of the sequence plots from TraMineR's seqplot using ggplot2. These plots are produced on the basis of a sequence object defined with TraMineR::seqdef. The package automates the reshaping and plotting of sequence data. Resulting plots are of class "ggplot", i.e. components can be added and tweaked using `+` and regular ggplot2 functions.
-
-\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
-
-This library provides a set of wrapper functions that reproduce some of the sequence plots from TraMineR's seqplot using ggplot2. These plots are produced on the basis of a sequence object defined with TraMineR::seqdef. The package automates the reshaping and plotting of sequence data. Resulting plots are of class "ggplot", i.e. components can be added and tweaked using `+` and regular ggplot2 functions.
 }
 \seealso{
 Useful links:
@@ -21,18 +17,8 @@ Useful links:
   \item Report bugs at \url{https://github.com/maraab23/ggseqplot/issues}
 }
 
-
-Useful links:
-\itemize{
-  \item \url{https://github.com/maraab23/ggseqplot}
-  \item Report bugs at \url{https://github.com/maraab23/ggseqplot/issues}
-}
-
 }
 \author{
-\strong{Maintainer}: Marcel Raab \email{marcel.raab@gmail.com} (\href{https://orcid.org/0000-0002-3097-1591}{ORCID})
-
-
 \strong{Maintainer}: Marcel Raab \email{marcel.raab@gmail.com} (\href{https://orcid.org/0000-0002-3097-1591}{ORCID})
 
 }
