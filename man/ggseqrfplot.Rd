@@ -52,6 +52,11 @@ R's \code{\link[base]{plot}} function that is used by \code{\link[TraMineRextras
 Note that \code{ggseqrfplot} uses \code{\link[patchwork]{patchwork}} to combine the different components of the plot.
 For further details on relative frequency sequence plots see documentation of \code{\link[TraMineRextras:seqplot.rf]{TraMineRextras::seqplot.rf}}.
 }
+\details{
+Note that an identical function call might produce different results
+if \code{sortv} has ties, because the sequences are sorted randomly within
+each set of ties (see \code{\link[base]{rank}}; \code{ties.method="random"})
+}
 \examples{
 ## From TraMineRextras::seqplot.rf
 library(TraMineR)
@@ -63,20 +68,21 @@ library(ggplot2)
 ## (family status from age 15 to 30) in the biofam data set
 data(biofam)
 biofam.lab <- c("Parent", "Left", "Married", "Left+Marr",
-                "Child", "Left+Child", "Left+Marr+Child", "Divorced")
+  "Child", "Left+Child", "Left+Marr+Child", "Divorced")
+
 ## Here, we use only 100 cases selected such that all elements
 ## of the alphabet be present.
 ## (More cases and a larger k would be necessary to get a meaningful example.)
-biofam.seq <- seqdef(biofam[501:600, ], 10:25, labels=biofam.lab)
-diss <- seqdist(biofam.seq, method="LCS")
+biofam.seq <- seqdef(biofam[501:600, ], 10:25, labels = biofam.lab)
+diss <- seqdist(biofam.seq, method = "LCS")
 
 
 ## Using 12 groups and default MDS sorting
 ## ... with TraMineRextras::seqplot.rf
-seqplot.rf(biofam.seq, diss=diss, k=12)
+seqplot.rf(biofam.seq, diss = diss, k = 12)
 
 ## ... with ggseqrfplot
-ggseqrfplot(biofam.seq, diss=diss, k=12)
+ggseqrfplot(biofam.seq, diss = diss, k = 12)
 
 
 ## With a user specified sorting variable
@@ -84,12 +90,13 @@ ggseqrfplot(biofam.seq, diss=diss, k=12)
 parentTime <- seqistatd(biofam.seq)[, 1]
 
 ## ... with TraMineRextras::seqplot.rf
-seqplot.rf(biofam.seq, diss=diss, k=12, sortv=parentTime,
-   main="Sorted by parent time")
+set.seed(123)
+seqplot.rf(biofam.seq, diss = diss, k = 12,
+  sortv = parentTime, main = "Sorted by parent time")
 
 ## ... with ggseqrfplot
-ggseqrfplot(biofam.seq, diss=diss, k=12, sortv=parentTime) +
+set.seed(123)
+ggseqrfplot(biofam.seq, diss = diss, k = 12, sortv = parentTime) +
   plot_annotation(title = "Sorted by parent time",
-                  theme = theme(plot.title = element_text(hjust = 0.5,
-                                                          size = 18)))
+     theme = theme(plot.title = element_text(hjust = 0.5, size = 18)))
 }

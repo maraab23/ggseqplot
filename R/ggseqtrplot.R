@@ -189,6 +189,9 @@ ggseqtrplot <- function(seqdata,
       theme(panel.spacing = unit(2, "lines"))
   }
 
+  ggtrplot <- ggtrplot +
+    theme(plot.margin = margin(15, 15, 10, 15))
+
   return(ggtrplot)
 
 }

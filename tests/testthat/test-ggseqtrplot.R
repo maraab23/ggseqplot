@@ -4,15 +4,17 @@ library(TraMineR)
 data(biofam)
 # We use only a sample of 300 cases
 set.seed(10)
-biofam <- biofam[sample(nrow(biofam),300),]
-biofam.lab <- c("Parent", "Left", "Married", "Left+Marr",
-                "Child", "Left+Child", "Left+Marr+Child", "Divorced")
-biofam.seq <- seqdef(biofam, 10:25, labels=biofam.lab, weights = biofam$wp00tbgs)
-biofam2.seq <- seqdef(biofam, 10:25, labels=biofam.lab)
+biofam <- biofam[sample(nrow(biofam), 300), ]
+biofam.lab <- c(
+  "Parent", "Left", "Married", "Left+Marr",
+  "Child", "Left+Child", "Left+Marr+Child", "Divorced"
+)
+biofam.seq <- seqdef(biofam, 10:25, labels = biofam.lab, weights = biofam$wp00tbgs)
+biofam2.seq <- seqdef(biofam, 10:25, labels = biofam.lab)
 group <- biofam$sex
 
 data(ex1)
-ex1.seq <- seqdef(ex1, 1:13, weights=ex1$weights)
+ex1.seq <- seqdef(ex1, 1:13, weights = ex1$weights)
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -23,7 +25,7 @@ test_that("arguments are specified correctly (length, type, ...)", {
   expect_error(ggseqtrplot(biofam.seq, axislabs = "something"))
   expect_error(ggseqtrplot(biofam.seq, group = group[1:100]))
   expect_error(ggseqtrplot(biofam.seq, weighted = group))
-  expect_error(ggseqrfplot(biofam.seq, diss=diss, which.plot = "medods" ))
+  expect_error(ggseqrfplot(biofam.seq, diss = diss, which.plot = "medods"))
 })
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

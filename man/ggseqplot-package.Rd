@@ -21,5 +21,6 @@ Useful links:
 }
 \author{
 \strong{Maintainer}: Marcel Raab \email{marcel.raab@gmail.com} (\href{https://orcid.org/0000-0002-3097-1591}{ORCID})
+
 }
 \keyword{internal}

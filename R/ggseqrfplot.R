@@ -19,8 +19,12 @@
 #' @param box.fill  specifies fill color of boxplots; default is "white"
 #' @param box.alpha specifies alpha value of boxplot fill color; default is 1
 #'
+#' @details Note that an identical function call might produce different results
+#' if \code{sortv} has ties, because the sequences are sorted randomly within
+#' each set of ties (see \code{\link[base]{rank}}; \code{ties.method="random"})
+#'
 #' @return A relative sequence index plot using \code{\link[ggplot2]{ggplot}}.
-#' @export ggseqrfplot
+#' @export
 #' @importFrom patchwork plot_layout
 #'
 #' @examples
@@ -34,20 +38,21 @@
 #' ## (family status from age 15 to 30) in the biofam data set
 #' data(biofam)
 #' biofam.lab <- c("Parent", "Left", "Married", "Left+Marr",
-#'                 "Child", "Left+Child", "Left+Marr+Child", "Divorced")
+#'   "Child", "Left+Child", "Left+Marr+Child", "Divorced")
+#'
 #' ## Here, we use only 100 cases selected such that all elements
 #' ## of the alphabet be present.
 #' ## (More cases and a larger k would be necessary to get a meaningful example.)
-#' biofam.seq <- seqdef(biofam[501:600, ], 10:25, labels=biofam.lab)
-#' diss <- seqdist(biofam.seq, method="LCS")
+#' biofam.seq <- seqdef(biofam[501:600, ], 10:25, labels = biofam.lab)
+#' diss <- seqdist(biofam.seq, method = "LCS")
 #'
 #'
 #' ## Using 12 groups and default MDS sorting
 #' ## ... with TraMineRextras::seqplot.rf
-#' seqplot.rf(biofam.seq, diss=diss, k=12)
+#' seqplot.rf(biofam.seq, diss = diss, k = 12)
 #'
 #' ## ... with ggseqrfplot
-#' ggseqrfplot(biofam.seq, diss=diss, k=12)
+#' ggseqrfplot(biofam.seq, diss = diss, k = 12)
 #'
 #'
 #' ## With a user specified sorting variable
@@ -55,54 +60,63 @@
 #' parentTime <- seqistatd(biofam.seq)[, 1]
 #'
 #' ## ... with TraMineRextras::seqplot.rf
-#' seqplot.rf(biofam.seq, diss=diss, k=12, sortv=parentTime,
-#'    main="Sorted by parent time")
+#' set.seed(123)
+#' seqplot.rf(biofam.seq, diss = diss, k = 12,
+#'   sortv = parentTime, main = "Sorted by parent time")
 #'
 #' ## ... with ggseqrfplot
-#' ggseqrfplot(biofam.seq, diss=diss, k=12, sortv=parentTime) +
+#' set.seed(123)
+#' ggseqrfplot(biofam.seq, diss = diss, k = 12, sortv = parentTime) +
 #'   plot_annotation(title = "Sorted by parent time",
-#'                   theme = theme(plot.title = element_text(hjust = 0.5,
-#'                                                           size = 18)))
+#'      theme = theme(plot.title = element_text(hjust = 0.5, size = 18)))
 ggseqrfplot <- function(seqdata,
-                        k = floor(nrow(seqdata)/10),
+                        k = floor(nrow(seqdata) / 10),
                         diss,
                         sortv = NULL,
-                        ylab= NULL,
-                        yaxis=TRUE,
+                        ylab = NULL,
+                        yaxis = TRUE,
                         box.color = NULL,
                         box.fill = NULL,
                         box.alpha = NULL,
-                        which.plot="both",
-                        quality=TRUE) {
-
-  if (!is.logical(yaxis) | !is.logical(quality))
+                        which.plot = "both",
+                        quality = TRUE) {
+  if (!is.logical(yaxis) | !is.logical(quality)) {
     stop("the arguments `yaxis`, and `quality`  have to be objects of type logical")
+  }
 
   if (which.plot %in% c("both", "medoids", "diss.to.med") == FALSE) {
     stop('`which.plot` must take one of the following values: "both", "medoids", "diss.to.med"')
   }
 
 
-  seqdata <- rfplot.obj(seqdata, k=k, diss=diss, sortv=sortv)
+  seqdata <- rfplot.obj(seqdata, k = k, diss = diss, sortv = sortv)
+
+  attributes(seqdata[[1]])$row.names <- seqdata[[2]] # seqdata[[2]]
+
+  seqdata.new <- TraMineR::seqtab(seqdata[[1]], idxs=0)
+  class(seqdata.new) <- c("stslist", "data.frame")
+
+  sortv.new <- as.numeric(attributes(seqdata.new)$row.names)
 
   if (is.null(ylab)) ylab <- "Frequency group"
 
   n <- nrow(seqdata[[1]])
-  step <- n/k
+  step <- n / k
 
   ylabels <- pretty(1:k)
   ylabels[1] <- 1
   ylabels[length(ylabels)] <- k
 
-  if (ylabels[length(ylabels)] == ylabels[length(ylabels)-1]+1) {
-    ylabels <- ylabels[ylabels != ylabels[length(ylabels)-1]]
+  if (ylabels[length(ylabels)] == ylabels[length(ylabels) - 1] + 1) {
+    ylabels <- ylabels[ylabels != ylabels[length(ylabels) - 1]]
   }
 
-  if (ylabels[1] == ylabels[2]-1) {
+  if (ylabels[1] == ylabels[2] - 1) {
     ylabels <- ylabels[ylabels != ylabels[2]]
   }
 
-  ybrks <- seq(step/2, n - step/2, by=step)[ylabels]
+  ybrks <- ylabels
+  #ybrks <- seq(step / 2, n - step / 2, by = step)[ylabels]
 
   if (is.null(box.color)) box.color <- "black"
   if (is.null(box.fill)) box.fill <- "white"
@@ -110,22 +124,29 @@ ggseqrfplot <- function(seqdata,
 
 
   suppressMessages(
-    p1 <- ggseqiplot(seqdata[[1]], sortv=seqdata[[2]]) +
-      labs(title = "Sequence medoids",
-           y = ylab) +
-      scale_y_continuous(breaks = ybrks,
-                         labels = ylabels,
-                         expand = expansion(add = c(0, 0))) +
+    p1 <- ggseqiplot(seqdata.new, sortv = sortv.new, weighted = FALSE) +
+      labs(
+        title = "Sequence medoids",
+        y = ylab
+      ) +
+      scale_y_continuous(
+        limits = range(0,k)+.5,
+        breaks = ybrks,
+        labels = ylabels,
+        expand = expansion(add = c(0, 0))
+      ) +
       theme(plot.title = element_text(hjust = 0.5))
   )
 
 
   if (which.plot == "medoids") {
     suppressMessages(
-      p1 <- ggseqiplot(seqdata[[1]], sortv=seqdata[[2]]) +
-        scale_y_continuous(breaks = ybrks,
-                           labels = ylabels,
-                           expand = expansion(add = c(0, 0))) +
+      p1 <- ggseqiplot(seqdata.new, sortv = sortv.new, weighted = FALSE) +
+        scale_y_continuous(
+          breaks = ybrks,
+          labels = ylabels,
+          expand = expansion(add = c(0, 0))
+        ) +
         labs(y = ylab)
     )
   }
@@ -134,49 +155,64 @@ ggseqrfplot <- function(seqdata,
 
   p2 <- boxdata |>
     ggplot(aes(y = .data$kgr, x = .data$values, group = .data$kgr)) +
-    geom_boxplot(color = box.color, fill = box.fill, alpha = box.alpha)  +
-    scale_y_continuous(expand = expansion(add = c(0, 0))) +
-    labs(title = "Dissimilarities to medoid",
-         x = "", y = "") +
+    geom_boxplot(color = box.color, fill = box.fill, alpha = box.alpha) +
+    scale_y_continuous(limits = range(0,k)+.5,
+                       breaks = ybrks,
+                       expand = expansion(add = c(0, 0))) +
+    labs(
+      title = "Dissimilarities to medoid",
+      x = "", y = ""
+    ) +
     theme_minimal() +
-    theme(plot.title = element_text(hjust = 0.5),
-          axis.text.y = element_blank(),
-          axis.ticks.y = element_blank(),
-          axis.title.y = element_blank())
+    theme(
+      plot.title = element_text(hjust = 0.5),
+      axis.text.y = element_blank(),
+      axis.ticks.y = element_blank(),
+      axis.title.y = element_blank(),
+      panel.grid.minor.y = element_blank()
+    )
 
   if (which.plot == "diss.to.med") {
     p2 <- boxdata |>
       ggplot(aes(y = .data$kgr, x = .data$values, group = .data$kgr)) +
-      geom_boxplot(color = box.color, fill = box.fill, alpha = box.alpha)  +
-      scale_y_continuous(breaks = ylabels,
-                         labels = ylabels,
-                         expand = expansion(add = c(0, 0))) +
+      geom_boxplot(color = box.color, fill = box.fill, alpha = box.alpha) +
+      scale_y_continuous(
+        breaks = ylabels,
+        labels = ylabels,
+        expand = expansion(add = c(0, 0))
+      ) +
       labs(y = ylab, x = "") +
       theme_minimal()
   }
 
 
-  seqrfplot <- p1 + p2 + plot_layout(guides = "collect") & theme(legend.position = "bottom")
+  ggrfplot <- p1 + p2 + plot_layout(guides = "collect") & theme(legend.position = "bottom")
 
-  if (yaxis==FALSE) {
-    seqrfplot[[1]] <- seqrfplot[[1]] +
-      theme(axis.text.y = element_blank(),
-            axis.ticks.y = element_blank(),
-            axis.title.y = element_blank())
+  if (yaxis == FALSE) {
+    ggrfplot[[1]] <- ggrfplot[[1]] +
+      theme(
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.title.y = element_blank()
+      )
   }
 
 
-  if (which.plot == "medoids") seqrfplot <- p1
-  if (which.plot == "diss.to.med") seqrfplot <- p2
+  if (which.plot == "medoids") ggrfplot <- p1
+  if (which.plot == "diss.to.med") ggrfplot <- p2
 
   if (quality == TRUE) {
-    seqrfplot <- seqrfplot + patchwork::plot_annotation(
-      caption = paste("Representation quality: R2 =",
-                      round(as.numeric(seqdata["R2"]),2),
-                      "and F =", round(as.numeric(seqdata["Fstat"]),2))
+    ggrfplot <- ggrfplot + patchwork::plot_annotation(
+      caption = paste(
+        "Representation quality: R2 =",
+        round(as.numeric(seqdata["R2"]), 2),
+        "and F =", round(as.numeric(seqdata["Fstat"]), 2)
+      )
     )
   }
 
-  return(seqrfplot)
+  ggrfplot <- ggrfplot +
+    theme(plot.margin = margin(15, 15, 10, 15))
 
+  return(ggrfplot)
 }

@@ -4,6 +4,7 @@
 #' R's \code{\link[base]{plot}} function that is used by \code{\link[TraMineR:seqplot]{TraMineR::seqplot}}.
 #'
 #' @eval shared_params()
+#' @param no.n specifies if number of (weighted) sequences is shown (default is \code{TRUE})
 #' @param with.missing Specifies if missing states should be considered when computing the state distributions (default is \code{FALSE}).
 #' @param border if \code{TRUE} (default) bars are plotted with black outline
 #' @param with.entropy add line plot of cross-sectional entropies at each sequence position
@@ -36,33 +37,40 @@
 #'
 #' # We use only a sample of 300 cases
 #' set.seed(1)
-#' actcal <- actcal[sample(nrow(actcal),300),]
+#' actcal <- actcal[sample(nrow(actcal), 300), ]
 #' actcal.lab <- c("> 37 hours", "19-36 hours", "1-18 hours", "no work")
-#' actcal.seq <- seqdef(actcal,13:24,labels=actcal.lab)
+#' actcal.seq <- seqdef(actcal, 13:24, labels = actcal.lab)
 #'
 #' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #'
 #' # state distribution plots; grouped by sex
 #' # with TraMineR::seqplot
-#' seqdplot(actcal.seq, group=actcal$sex)
+#' seqdplot(actcal.seq, group = actcal$sex)
 #' # with ggseqplot
-#' ggseqdplot(actcal.seq, group=actcal$sex)
+#' ggseqdplot(actcal.seq, group = actcal$sex)
 #' # with ggseqplot and weights turned off
-#' ggseqdplot(actcal.seq, group=actcal$sex, weighted = FALSE)
+#' ggseqdplot(actcal.seq, group = actcal$sex, weighted = FALSE)
 #'
 #' # make use of ggplot functions for modifying the plot
 #' ggseqdplot(actcal.seq) +
 #'   scale_x_discrete(labels = month.abb) +
-#'   labs(title = "State distribution plot",
-#'        x = "Month") +
-#'   guides(fill=guide_legend(title="Alphabet")) +
+#'   labs(
+#'     title = "State distribution plot",
+#'     x = "Month"
+#'   ) +
+#'   guides(fill = guide_legend(title = "Alphabet")) +
 #'   theme_classic() +
-#'   theme(plot.title = element_text(size = 30,
-#'                                   margin=margin(0,0,20,0)),
-#'         plot.title.position = "plot")
+#'   theme(
+#'     plot.title = element_text(
+#'       size = 30,
+#'       margin = margin(0, 0, 20, 0)
+#'     ),
+#'     plot.title.position = "plot"
+#'   )
 #'
 #' @import ggplot2
 ggseqdplot <- function(seqdata,
+                       no.n = FALSE,
                        group = NULL,
                        weighted = TRUE,
                        with.missing = FALSE,
@@ -73,88 +81,91 @@ ggseqdplot <- function(seqdata,
                        linewidth = 1,
                        facet_ncol = NULL,
                        facet_nrow = NULL) {
-
-  if (!inherits(seqdata, "stslist"))
+  if (!inherits(seqdata, "stslist")) {
     stop("data is not a sequence object, use 'TraMineR::seqdef' to create one")
+  }
 
 
-  if (!is.null(group) & (length(group) != nrow(seqdata)))
+  if (!is.null(group) & (length(group) != nrow(seqdata))) {
     stop("length of group vector must match number of rows of seqdata")
+  }
 
 
-  if(!is.logical(weighted) | !is.logical(with.missing) | !is.logical(border))
-    stop("the arguments `weighted`, `with.missing`, and `border` have to be objects of type logical")
+  if (!is.logical(weighted) | !is.logical(with.missing) |
+      !is.logical(border) | !is.logical(no.n)) {
+    stop("the arguments `no.n`, `weighted`, `with.missing`, and `border` have to be objects of type logical")
+  }
 
   if (is.null(attributes(seqdata)$weights)) weighted <- FALSE
 
   if (is.null(group)) group <- 1
 
-  if (!is.null(facet_ncol) && as.integer(facet_ncol) != facet_ncol)
+  if (!is.null(facet_ncol) && as.integer(facet_ncol) != facet_ncol) {
     stop("`facet_ncol` must be NULL or an integer.")
+  }
 
-  if (!is.null(facet_nrow) && as.integer(facet_nrow) != facet_nrow)
+  if (!is.null(facet_nrow) && as.integer(facet_nrow) != facet_nrow) {
     stop("`facet_nrow` must be NULL or an integer.")
+  }
 
-
-  statefreqs <- purrr::map(unique(group),
-                           ~TraMineR::seqstatd(seqdata[group == .x,],
-                                               weighted = weighted,
-                                               with.missing = with.missing)$Frequencies |>
-                             dplyr::as_tibble(rownames = "state") |>
-                             dplyr::mutate(group = .x, .before = 1)) |>
+  statefreqs <- purrr::map(
+    unique(group),
+    ~ TraMineR::seqstatd(seqdata[group == .x, ],
+      weighted = weighted,
+      with.missing = with.missing
+    )$Frequencies |>
+      dplyr::as_tibble(rownames = "state") |>
+      dplyr::mutate(group = .x, .before = 1)
+  ) |>
     dplyr::bind_rows()
 
-
-
   if (with.entropy == TRUE) {
-    stateentropy <- purrr::map(unique(group),
-                               ~TraMineR::seqstatd(seqdata[group == .x,],
-                                                   weighted = weighted,
-                                                   with.missing = with.missing)$Entropy |>
-                                 dplyr::as_tibble(rownames = "k") |>
-                                 dplyr::mutate(group = .x, .before = 1)) |>
+    stateentropy <- purrr::map(
+      unique(group),
+      ~ TraMineR::seqstatd(seqdata[group == .x, ],
+        weighted = weighted,
+        with.missing = with.missing
+      )$Entropy |>
+        dplyr::as_tibble(rownames = "k") |>
+        dplyr::mutate(group = .x, .before = 1)
+    ) |>
       dplyr::bind_rows()
   }
 
 
-  ylabspec <- purrr::map(unique(group),
-                  ~attributes(TraMineR::seqstatd(seqdata[group == .x,],
-                                                 weighted = weighted,
-                                                 with.missing = with.missing))$nbseq) |>
-    unlist()
-
-
-  if (length(ylabspec) == 1 & weighted == TRUE) {
-    ylabspec <- glue::glue("Rel. Freq. (weighted n={round(ylabspec,2)})")
-  } else if (length(ylabspec) == 1 & weighted == FALSE) {
-    ylabspec <- glue::glue("Rel. Freq. (n={ylabspec})")
-  } else if (weighted == TRUE) {
-    ylabspec <- glue::glue("{unique(group)} (weighted n={round(ylabspec,2)})")
-  } else {
-    ylabspec <- glue::glue("{unique(group)} (n={ylabspec})")
-  }
-
-  grouplabspec <- dplyr::tibble(group = unique(group),
-                                grouplab = ylabspec)
+  xandgrouplabs <- xandgrouplab(seqdata = seqdata,
+                                weighted = weighted,
+                                no.n = no.n,
+                                group = group)
+  grouplabspec <- xandgrouplabs[[1]]
+  ylabspec <- xandgrouplabs[[2]]
 
 
   suppressMessages(
-  dplotdata <- statefreqs |>
-    dplyr::rename_with(~ glue::glue("k{1:(ncol(statefreqs)-2)}"),
-                       -(1:2)) |>
-    dplyr::mutate(state = factor(.data$state,
-                                 levels = TraMineR::alphabet(seqdata),
-                                 labels = attributes(seqdata)$labels),
-                  state = forcats::fct_explicit_na(.data$state,
-                                                   na_level="Missing"),
-                  state = forcats::fct_rev(.data$state)) |>
-    tidyr::pivot_longer(cols = -(1:2),
-                        names_to = "k",
-                        names_prefix = "k",
-                        names_transform = list(k = as.integer)) |>
-    dplyr::mutate(k = factor(.data$k, labels = colnames(statefreqs)[-(1:2)])) |>
-    dplyr::mutate(x = factor(as.integer(.data$k)), .after = .data$k) |>
-    dplyr::full_join(grouplabspec)
+    dplotdata <- statefreqs |>
+      dplyr::rename_with(
+        ~ glue::glue("k{1:(ncol(statefreqs)-2)}"),
+        -(1:2)
+      ) |>
+      dplyr::mutate(
+        state = factor(.data$state,
+          levels = TraMineR::alphabet(seqdata),
+          labels = attributes(seqdata)$labels
+        ),
+        state = forcats::fct_explicit_na(.data$state,
+          na_level = "Missing"
+        ),
+        state = forcats::fct_rev(.data$state)
+      ) |>
+      tidyr::pivot_longer(
+        cols = -(1:2),
+        names_to = "k",
+        names_prefix = "k",
+        names_transform = list(k = as.integer)
+      ) |>
+      dplyr::mutate(k = factor(.data$k, labels = colnames(statefreqs)[-(1:2)])) |>
+      dplyr::mutate(x = factor(as.integer(.data$k)), .after = .data$k) |>
+      dplyr::full_join(grouplabspec)
   )
 
   if (with.entropy == TRUE) {
@@ -166,18 +177,16 @@ ggseqdplot <- function(seqdata,
   }
 
 
-  if("Missing" %in% dplotdata$state == TRUE) {
-    cpal <- c(attributes(seqdata)$cpal,
-              attributes(seqdata)$missing.color)
+  if ("Missing" %in% dplotdata$state == TRUE) {
+    cpal <- c(
+      attributes(seqdata)$cpal,
+      attributes(seqdata)$missing.color
+    )
   } else {
     cpal <- attributes(seqdata)$cpal
   }
 
   cpal <- rev(cpal)
-
-  # kbreaks <- pretty(1:length(attributes(seqdata)$names))
-  # kbreaks <- kbreaks[kbreaks != 0]
-  # klabels <- attributes(seqdata)$names[kbreaks]
 
   kbreaks <- 1:(length(attributes(seqdata)$names))
 
@@ -185,10 +194,10 @@ ggseqdplot <- function(seqdata,
   xbrks[1] <- 1
   xbrks[length(xbrks)] <- length(kbreaks)
 
-  if (xbrks[length(xbrks)] == xbrks[length(xbrks)-1]+1) {
-    xbrks <- xbrks[xbrks != xbrks[length(xbrks)-1]]
+  if (xbrks[length(xbrks)] == xbrks[length(xbrks) - 1] + 1) {
+    xbrks <- xbrks[xbrks != xbrks[length(xbrks) - 1]]
   }
-  if (xbrks[1] == xbrks[2]-1) {
+  if (xbrks[1] == xbrks[2] - 1) {
     xbrks <- xbrks[xbrks != xbrks[2]]
   }
 
@@ -198,7 +207,7 @@ ggseqdplot <- function(seqdata,
 
   if (with.entropy == TRUE) {
     suppressMessages(
-      dplotdata <- dplyr::full_join(dplotdata,eplotdata,by=c("group","k"))
+      dplotdata <- dplyr::full_join(dplotdata, eplotdata, by = c("group", "k"))
     )
   }
 
@@ -208,50 +217,62 @@ ggseqdplot <- function(seqdata,
   if (border == FALSE) {
     ggdplot <- dplotdata |>
       ggplot(aes(fill = .data$state, y = .data$value, x = .data$x)) +
-      geom_bar(stat = "identity",
-               width = 1)
+      geom_bar(
+        stat = "identity",
+        width = 1
+      )
   } else {
     ggdplot <- dplotdata |>
       ggplot(aes(fill = .data$state, y = .data$value, x = .data$x)) +
-      geom_bar(stat = "identity",
-               width = 1, color = "black")
+      geom_bar(
+        stat = "identity",
+        width = 1, color = "black"
+      )
   }
 
   ggdplot <- ggdplot +
     scale_fill_manual(values = cpal) +
-    scale_y_continuous(expand = expansion(add = c(.01,0))) +
-    scale_x_discrete(expand = expansion(add = .15),
-                     breaks = kbreaks,
-                     labels = klabels,
-                     guide = guide_axis(check.overlap = TRUE)) +
+    scale_y_continuous(expand = expansion(add = c(.01, 0))) +
+    scale_x_discrete(
+      expand = expansion(add = .15),
+      breaks = kbreaks,
+      labels = klabels,
+      guide = guide_axis(check.overlap = TRUE)
+    ) +
     labs(x = "", y = ylabspec) +
-    guides(fill = guide_legend(reverse=TRUE)) +
+    guides(fill = guide_legend(reverse = TRUE)) +
     theme_minimal() +
-    theme(legend.position = "bottom",
-          legend.title = element_blank(),
-          legend.margin = margin(-0.2,0,0,-0.2, unit="cm"))
+    theme(
+      legend.position = "bottom",
+      legend.title = element_blank(),
+      legend.margin = margin(-0.2, 0, 0, -0.2, unit = "cm")
+    )
 
 
   grsize <- length(unique(dplotdata$group))
 
   if (grsize > 1) {
     ggdplot <- ggdplot +
-      facet_wrap(~.data$grouplab,
-                 scales = "free_y",
-                 ncol = facet_ncol,
-                 nrow = facet_nrow) +
+      facet_wrap(~ .data$grouplab,
+        scales = "free_y",
+        ncol = facet_ncol,
+        nrow = facet_nrow
+      ) +
       labs(x = "", y = "Rel. Freq.") +
       theme(panel.spacing = unit(2, "lines"))
   }
 
-  if (with.entropy==TRUE) {
+  if (with.entropy == TRUE) {
     ggdplot <- ggdplot +
-      geom_line(aes(x = .data$x, y=.data$entropy,  color = linecolor),
-                group = 1, size= linewidth, linetype = linetype) +
+      geom_line(aes(x = .data$x, y = .data$entropy, color = linecolor),
+        group = 1, size = linewidth, linetype = linetype
+      ) +
       scale_color_identity(guide = "legend", name = NULL, labels = "Entropy")
   }
 
 
-  return(ggdplot)
+  ggdplot <- ggdplot +
+    theme(plot.margin = margin(15, 15, 10, 15))
 
+  return(ggdplot)
 }

@@ -6,6 +6,7 @@
 \usage{
 ggseqdplot(
   seqdata,
+  no.n = FALSE,
   group = NULL,
   weighted = TRUE,
   with.missing = FALSE,
@@ -20,6 +21,8 @@ ggseqdplot(
 }
 \arguments{
 \item{seqdata}{State sequence object (class \code{stslist}) created with the \code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function.}
+
+\item{no.n}{specifies if number of (weighted) sequences is shown (default is \code{TRUE})}
 
 \item{group}{Grouping variable of length equal to the number of sequences. When not NULL, a distinct plot is generated for each level of group.}
 
@@ -70,29 +73,35 @@ data(actcal)
 
 # We use only a sample of 300 cases
 set.seed(1)
-actcal <- actcal[sample(nrow(actcal),300),]
+actcal <- actcal[sample(nrow(actcal), 300), ]
 actcal.lab <- c("> 37 hours", "19-36 hours", "1-18 hours", "no work")
-actcal.seq <- seqdef(actcal,13:24,labels=actcal.lab)
+actcal.seq <- seqdef(actcal, 13:24, labels = actcal.lab)
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # state distribution plots; grouped by sex
 # with TraMineR::seqplot
-seqdplot(actcal.seq, group=actcal$sex)
+seqdplot(actcal.seq, group = actcal$sex)
 # with ggseqplot
-ggseqdplot(actcal.seq, group=actcal$sex)
+ggseqdplot(actcal.seq, group = actcal$sex)
 # with ggseqplot and weights turned off
-ggseqdplot(actcal.seq, group=actcal$sex, weighted = FALSE)
+ggseqdplot(actcal.seq, group = actcal$sex, weighted = FALSE)
 
 # make use of ggplot functions for modifying the plot
 ggseqdplot(actcal.seq) +
   scale_x_discrete(labels = month.abb) +
-  labs(title = "State distribution plot",
-       x = "Month") +
-  guides(fill=guide_legend(title="Alphabet")) +
+  labs(
+    title = "State distribution plot",
+    x = "Month"
+  ) +
+  guides(fill = guide_legend(title = "Alphabet")) +
   theme_classic() +
-  theme(plot.title = element_text(size = 30,
-                                  margin=margin(0,0,20,0)),
-        plot.title.position = "plot")
+  theme(
+    plot.title = element_text(
+      size = 30,
+      margin = margin(0, 0, 20, 0)
+    ),
+    plot.title.position = "plot"
+  )
 
 }

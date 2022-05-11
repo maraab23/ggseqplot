@@ -30,22 +30,22 @@
 #'
 #' # We use only a sample of 300 cases
 #' set.seed(1)
-#' actcal <- actcal[sample(nrow(actcal),300),]
+#' actcal <- actcal[sample(nrow(actcal), 300), ]
 #' actcal.lab <- c("> 37 hours", "19-36 hours", "1-18 hours", "no work")
-#' actcal.seq <- seqdef(actcal,13:24,labels=actcal.lab)
+#' actcal.seq <- seqdef(actcal, 13:24, labels = actcal.lab)
 #'
 #' # ex1 using weights
 #' data(ex1)
-#' ex1.seq <- seqdef(ex1, 1:13, weights=ex1$weights)
+#' ex1.seq <- seqdef(ex1, 1:13, weights = ex1$weights)
 #'
 #' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #'
 #'
 #' # sequences sorted by age in 2000 and grouped by sex
 #' # with TraMineR::seqplot (entropies shown in two separate plots)
-#' seqHtplot(actcal.seq, group=actcal$sex)
+#' seqHtplot(actcal.seq, group = actcal$sex)
 #' # with ggseqplot (entropies shown in one plot)
-#' ggseqeplot(actcal.seq, group=actcal$sex)
+#' ggseqeplot(actcal.seq, group = actcal$sex)
 #'
 #' # sequences of unequal length with missing state, and weights
 #' seqHtplot(ex1.seq)
@@ -57,38 +57,44 @@ ggseqeplot <- function(seqdata,
                        weighted = TRUE,
                        with.missing = FALSE,
                        linewidth = 1) {
-
-
-  if (!inherits(seqdata, "stslist"))
+  if (!inherits(seqdata, "stslist")) {
     stop("data is not a sequence object, use 'TraMineR::seqdef' to create one")
+  }
 
 
-  if (!is.null(group) & (length(group) != nrow(seqdata)))
+  if (!is.null(group) & (length(group) != nrow(seqdata))) {
     stop("length of group vector must match number of rows of seqdata")
+  }
 
 
-  if(!is.logical(weighted) | !is.logical(with.missing))
+  if (!is.logical(weighted) | !is.logical(with.missing)) {
     stop("the arguments `weighted`, and `with.missing` have to be objects of type logical")
+  }
 
   if (is.null(attributes(seqdata)$weights)) weighted <- FALSE
 
   if (is.null(group)) group <- 1
 
-  cpal <- c("#4E79A7FF", "#F28E2BFF", "#E15759FF",
-            "#76B7B2FF", "#59A14FFF", "#EDC948FF",
-            "#B07AA1FF", "#FF9DA7FF", "#9C755FFF",
-            "#BAB0ACFF")
+  cpal <- c(
+    "#4E79A7FF", "#F28E2BFF", "#E15759FF",
+    "#76B7B2FF", "#59A14FFF", "#EDC948FF",
+    "#B07AA1FF", "#FF9DA7FF", "#9C755FFF",
+    "#BAB0ACFF"
+  )
 
 
   grsize <- length(unique(group))
 
 
-  eplotdata <- purrr::map(unique(group),
-                          ~TraMineR::seqstatd(seqdata[group == .x,],
-                                              weighted = weighted,
-                                              with.missing = with.missing)$Entropy |>
-                            dplyr::as_tibble(rownames = "k") |>
-                            dplyr::mutate(group = .x, .before = 1)) |>
+  eplotdata <- purrr::map(
+    unique(group),
+    ~ TraMineR::seqstatd(seqdata[group == .x, ],
+      weighted = weighted,
+      with.missing = with.missing
+    )$Entropy |>
+      dplyr::as_tibble(rownames = "k") |>
+      dplyr::mutate(group = .x, .before = 1)
+  ) |>
     dplyr::bind_rows() |>
     dplyr::mutate(k = factor(.data$k, levels = unique(.data$k))) |>
     dplyr::mutate(x = factor(as.integer(.data$k)), .after = .data$k) |>
@@ -102,11 +108,11 @@ ggseqeplot <- function(seqdata,
   xbrks[1] <- 1
   xbrks[length(xbrks)] <- length(kbreaks)
 
-  if (xbrks[length(xbrks)] == xbrks[length(xbrks)-1]+1) {
-    xbrks <- xbrks[xbrks != xbrks[length(xbrks)-1]]
+  if (xbrks[length(xbrks)] == xbrks[length(xbrks) - 1] + 1) {
+    xbrks <- xbrks[xbrks != xbrks[length(xbrks) - 1]]
   }
 
-  if (xbrks[1] == xbrks[2]-1) {
+  if (xbrks[1] == xbrks[2] - 1) {
     xbrks <- xbrks[xbrks != xbrks[2]]
   }
 
@@ -114,23 +120,39 @@ ggseqeplot <- function(seqdata,
   klabels <- attributes(seqdata)$names[xbrks]
 
 
-  eplotdata |> ggplot(aes(x= .data$x, y= .data$entropy, group=.data$group)) +
-    geom_line(aes(color = .data$group,
-                  linetype = .data$group),
-              size=linewidth) +
-    scale_y_continuous(limits = c(0, 1),
-                       breaks = seq(0, 1, by = .2)) +
-    scale_color_manual(values= `if`(grsize ==1,"black",cpal),
-                       guide = ifelse(grsize ==1,"none", "legend")) +
-    scale_linetype(guide = ifelse(grsize ==1,"none", "legend")) +
+  ggeplot <- eplotdata |>
+    ggplot(aes(x = .data$x, y = .data$entropy, group = .data$group)) +
+    geom_line(aes(
+      color = .data$group,
+      linetype = .data$group
+    ),
+    size = linewidth
+    ) +
+    scale_y_continuous(
+      limits = c(0, 1),
+      breaks = seq(0, 1, by = .2)
+    ) +
+    scale_color_manual(
+      values = `if`(grsize == 1, "black", cpal),
+      guide = ifelse(grsize == 1, "none", "legend")
+    ) +
+    scale_linetype(guide = ifelse(grsize == 1, "none", "legend")) +
     scale_x_discrete(
       breaks = kbreaks,
       labels = klabels,
-      guide = guide_axis(check.overlap = TRUE)) +
+      guide = guide_axis(check.overlap = TRUE)
+    ) +
     labs(x = "", y = "Entropy") +
     theme_minimal() +
-    theme(axis.title.y = element_text(margin = margin(0, 10, 0, 0)),
-          legend.position = "bottom",
-          legend.title = element_blank(),
-          legend.text = element_text(size=11))
+    theme(
+      axis.title.y = element_text(margin = margin(0, 10, 0, 0)),
+      legend.position = "bottom",
+      legend.title = element_blank(),
+      legend.text = element_text(size = 11)
+    )
+
+  ggeplot <- ggeplot +
+    theme(plot.margin = margin(15, 15, 10, 15))
+
+  return(ggeplot)
 }

@@ -6,6 +6,7 @@
 \usage{
 ggseqiplot(
   seqdata,
+  no.n = FALSE,
   group = NULL,
   sortv = NULL,
   weighted = TRUE,
@@ -18,15 +19,19 @@ ggseqiplot(
 \arguments{
 \item{seqdata}{State sequence object (class \code{stslist}) created with the \code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function.}
 
+\item{no.n}{specifies if number of (weighted) sequences is shown (default is \code{TRUE})}
+
 \item{group}{Grouping variable of length equal to the number of sequences. When not NULL, a distinct plot is generated for each level of group.}
 
-\item{sortv}{Vector of numerical values sorting the sequences or a sorting method (either \code{"from.start"} or \code{"from.end"}). See details.}
+\item{sortv}{Vector of numerical values sorting the sequences or a sorting
+method (either \code{"from.start"} or \code{"from.end"}). See details.}
 
 \item{weighted}{Controls if weights (specified in \code{\link[TraMineR:seqdef]{TraMineR::seqdef}}) should be used. Default is \code{TRUE}, i.e. if available weights are used}
 
 \item{border}{if \code{TRUE} bars are plotted with black outline}
 
-\item{facet_scale}{Specifies if y-scale in faceted plot should be free (\code{"free_y"} is default) or \code{"fixed"}}
+\item{facet_scale}{Specifies if y-scale in faceted plot should be free
+(\code{"free_y"} is default) or \code{"fixed"}}
 
 \item{facet_ncol}{Number of columns in faceted (i.e. grouped) plot}
 
@@ -37,36 +42,54 @@ A sequence index plot. If stored as object the resulting list object
 also contains the data (spell format) used for rendering the plot.
 }
 \description{
-Function for rendering sequence index plots with \code{\link[ggplot2]{ggplot2}} \insertCite{wickham2016}{ggseqplot} instead of base
-R's \code{\link[base]{plot}} function that is used by \code{\link[TraMineR:seqplot]{TraMineR::seqplot}} \insertCite{gabadinho2011}{ggseqplot}.
+Function for rendering sequence index plots with
+\code{\link[ggplot2]{ggplot2}} \insertCite{wickham2016}{ggseqplot} instead
+of base R's \code{\link[base]{plot}} function that is used by
+\code{\link[TraMineR:seqplot]{TraMineR::seqplot}}
+\insertCite{gabadinho2011}{ggseqplot}.
 }
 \details{
-Sequence index plots have been introduced by \insertCite{scherer2001;textual}{ggseqplot} and display each sequence as horizontally stacked bar or line.
-For a more detailes discussion of this tpye if sequence visualisation see, for example, \insertCite{brzinsky-fay2014;textual}{ggseqplot}, \insertCite{fasang2014;textual}{ggseqplot},
+Sequence index plots have been introduced by
+\insertCite{scherer2001;textual}{ggseqplot} and display each sequence as
+horizontally stacked bar or line. For a more detailes discussion of this
+tpye if sequence visualisation see, for example,
+\insertCite{brzinsky-fay2014;textual}{ggseqplot},
+\insertCite{fasang2014;textual}{ggseqplot},
 and \insertCite{raab2022;textual}{ggseqplot}.
 
-The function uses \code{\link[TraMineR:seqformat]{TraMineR::seqformat}} to reshape \code{seqdata} stored in wide format into
-a spell/episode format. If \code{border=TRUE} the data are reshaped into the long format, i.e. for every sequence
-each row in the data represents one specific sequence position. For example, if we have 5 sequences of length 10,
-the long file will have 50 rows. In the case of sequences of unequal length not every sequence will contribute
-the same number of rows to the long data.
+The function uses \code{\link[TraMineR:seqformat]{TraMineR::seqformat}}
+to reshape \code{seqdata} stored in wide format into a spell/episode format.
+If \code{border=TRUE} the data are reshaped into the long format, i.e. for
+every sequence each row in the data represents one specific sequence
+position. For example, if we have 5 sequences of length 10, the long file
+will have 50 rows. In the case of sequences of unequal length not every
+sequence will contribute the same number of rows to the long data.
 
-The reshaped data are used as input for rendering the index plot using ggplot2's \code{\link[ggplot2]{geom_rect}}.
-\code{ggseqiplot} uses \code{\link[ggplot2]{geom_rect}} instead of \code{\link[ggplot2]{geom_tile}} because this allows
-for a straight forward implementation of weights. If weights are specified for \code{seqdata} and \code{weighted=TRUE}
+The reshaped data are used as input for rendering the index plot using
+ggplot2's \code{\link[ggplot2]{geom_rect}}. \code{ggseqiplot} uses
+\code{\link[ggplot2]{geom_rect}} instead of \code{\link[ggplot2]{geom_tile}}
+because this allows for a straight forward implementation of weights.
+If weights are specified for \code{seqdata} and \code{weighted=TRUE}
 the sequence height corresponds to its weight.
 
-If weights and a grouping variable are used, and \code{facet_scale="fixed"} the values of the y-axis are not labeled,
-because \code{\link[ggplot2]{ggplot2}} reasonably does not allow for varying scales when the facet scale is fixed.
+If weights and a grouping variable are used, and \code{facet_scale="fixed"}
+the values of the y-axis are not labeled, because
+\code{\link[ggplot2]{ggplot2}} reasonably does not allow for varying scales
+when the facet scale is fixed.
 
-When a \code{sortv} is specified, the sequences are arranged in the order of its values.
-With \code{sortv="from.start"} sequence data are sorted according to the states of the alphabet in ascending order starting with the first sequence position,
-drawing on succeeding positions in the case of ties. Likewise, \code{sortv="from.end"} sorts a reversed version of the sequence data,
-starting with the final sequence position turning to preceding positions in case of ties.
+When a \code{sortv} is specified, the sequences are arranged in the order of
+its values. With \code{sortv="from.start"} sequence data are sorted
+according to the states of the alphabet in ascending order starting with the
+first sequence position, drawing on succeeding positions in the case of
+ties. Likewise, \code{sortv="from.end"} sorts a reversed version of the
+sequence data, starting with the final sequence position turning to
+preceding positions in case of ties.
 
-Note that the default aspect ratio of \code{ggseqiplot} is different from \code{\link[TraMineR:seqIplot]{TraMineR::seqIplot}}. This is most
-obvious when \code{border=TRUE}. You can change the ratio either by adding code to \code{ggseqiplot} or by specifying
-the ratio when saving the code with \code{\link[ggplot2]{ggsave}}.
+Note that the default aspect ratio of \code{ggseqiplot} is different from
+\code{\link[TraMineR:seqIplot]{TraMineR::seqIplot}}. This is most obvious
+when \code{border=TRUE}. You can change the ratio either by adding code to
+\code{ggseqiplot} or by specifying the ratio when saving the code with
+\code{\link[ggplot2]{ggsave}}.
 }
 \examples{
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -80,22 +103,22 @@ data(actcal)
 
 # We use only a sample of 300 cases
 set.seed(1)
-actcal <- actcal[sample(nrow(actcal),300),]
+actcal <- actcal[sample(nrow(actcal), 300), ]
 actcal.lab <- c("> 37 hours", "19-36 hours", "1-18 hours", "no work")
-actcal.seq <- seqdef(actcal,13:24,labels=actcal.lab)
+actcal.seq <- seqdef(actcal, 13:24, labels = actcal.lab)
 
 # ex1 using weights
 data(ex1)
-ex1.seq <- seqdef(ex1, 1:13, weights=ex1$weights)
+ex1.seq <- seqdef(ex1, 1:13, weights = ex1$weights)
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 # sequences sorted by age in 2000 and grouped by sex
 # with TraMineR::seqplot
-seqIplot(actcal.seq, group=actcal$sex,sortv=actcal$age00)
+seqIplot(actcal.seq, group = actcal$sex, sortv = actcal$age00)
 # with ggseqplot
-ggseqiplot(actcal.seq, group=actcal$sex, sortv=actcal$age00)
+ggseqiplot(actcal.seq, group = actcal$sex, sortv = actcal$age00)
 
 # sequences of unequal length with missing state, and weights
 seqIplot(ex1.seq)

@@ -49,22 +49,22 @@ data(actcal)
 
 # We use only a sample of 300 cases
 set.seed(1)
-actcal <- actcal[sample(nrow(actcal),300),]
+actcal <- actcal[sample(nrow(actcal), 300), ]
 actcal.lab <- c("> 37 hours", "19-36 hours", "1-18 hours", "no work")
-actcal.seq <- seqdef(actcal,13:24,labels=actcal.lab)
+actcal.seq <- seqdef(actcal, 13:24, labels = actcal.lab)
 
 # ex1 using weights
 data(ex1)
-ex1.seq <- seqdef(ex1, 1:13, weights=ex1$weights)
+ex1.seq <- seqdef(ex1, 1:13, weights = ex1$weights)
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 # sequences sorted by age in 2000 and grouped by sex
 # with TraMineR::seqplot (entropies shown in two separate plots)
-seqHtplot(actcal.seq, group=actcal$sex)
+seqHtplot(actcal.seq, group = actcal$sex)
 # with ggseqplot (entropies shown in one plot)
-ggseqeplot(actcal.seq, group=actcal$sex)
+ggseqeplot(actcal.seq, group = actcal$sex)
 
 # sequences of unequal length with missing state, and weights
 seqHtplot(ex1.seq)
