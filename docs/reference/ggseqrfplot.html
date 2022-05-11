@@ -16,7 +16,7 @@ For further details on relative frequency sequence plots see documentation of Tr
     
     <a class="navbar-brand me-2" href="../index.html">ggseqplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9061</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -110,6 +110,12 @@ the box plots of the group-specific distances to the medoids are shown.</p></dd>
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A relative sequence index plot using <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></code>.</p>
     </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Note that an identical function call might produce different results
+if <code>sortv</code> has ties, because the sequences are sorted randomly within
+each set of ties (see <code><a href="https://rdrr.io/r/base/rank.html" class="external-link">rank</a></code>; <code>ties.method="random"</code>)</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
@@ -126,11 +132,12 @@ the box plots of the group-specific distances to the medoids are shown.</p></dd>
 <span class="r-in"><span class="co">## (family status from age 15 to 30) in the biofam data set</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">biofam</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">biofam.lab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Parent"</span>, <span class="st">"Left"</span>, <span class="st">"Married"</span>, <span class="st">"Left+Marr"</span>,</span>
-<span class="r-in">                <span class="st">"Child"</span>, <span class="st">"Left+Child"</span>, <span class="st">"Left+Marr+Child"</span>, <span class="st">"Divorced"</span><span class="op">)</span></span>
+<span class="r-in">  <span class="st">"Child"</span>, <span class="st">"Left+Child"</span>, <span class="st">"Left+Marr+Child"</span>, <span class="st">"Divorced"</span><span class="op">)</span></span>
+<span class="r-in"></span>
 <span class="r-in"><span class="co">## Here, we use only 100 cases selected such that all elements</span></span>
 <span class="r-in"><span class="co">## of the alphabet be present.</span></span>
 <span class="r-in"><span class="co">## (More cases and a larger k would be necessary to get a meaningful example.)</span></span>
-<span class="r-in"><span class="va">biofam.seq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">seqdef</a></span><span class="op">(</span><span class="va">biofam</span><span class="op">[</span><span class="fl">501</span><span class="op">:</span><span class="fl">600</span>, <span class="op">]</span>, <span class="fl">10</span><span class="op">:</span><span class="fl">25</span>, labels<span class="op">=</span><span class="va">biofam.lab</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">biofam.seq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">seqdef</a></span><span class="op">(</span><span class="va">biofam</span><span class="op">[</span><span class="fl">501</span><span class="op">:</span><span class="fl">600</span>, <span class="op">]</span>, <span class="fl">10</span><span class="op">:</span><span class="fl">25</span>, labels <span class="op">=</span> <span class="va">biofam.lab</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] 8 distinct states appear in the data: </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>      1 = 0</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>      2 = 1</span>
@@ -152,26 +159,26 @@ the box plots of the group-specific distances to the medoids are shown.</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>      8  7           7        Divorced</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] 100 sequences in the data set</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] min/max sequence length: 16/16</span>
-<span class="r-in"><span class="va">diss</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqdist.html" class="external-link">seqdist</a></span><span class="op">(</span><span class="va">biofam.seq</span>, method<span class="op">=</span><span class="st">"LCS"</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">diss</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqdist.html" class="external-link">seqdist</a></span><span class="op">(</span><span class="va">biofam.seq</span>, method <span class="op">=</span> <span class="st">"LCS"</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] 100 sequences with 8 distinct states</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] creating a 'sm' with a substitution cost of 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] creating 8x8 substitution-cost matrix using 2 as constant value</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] 76 distinct  sequences </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] min/max sequence lengths: 16/16</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] computing distances using the LCS metric</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] elapsed time: 0.01 secs</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] elapsed time: 0.02 secs</span>
 <span class="r-in"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Using 12 groups and default MDS sorting</span></span>
 <span class="r-in"><span class="co">## ... with TraMineRextras::seqplot.rf</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/TraMineRextras/man/seqplot-rf.html" class="external-link">seqplot.rf</a></span><span class="op">(</span><span class="va">biofam.seq</span>, diss<span class="op">=</span><span class="va">diss</span>, k<span class="op">=</span><span class="fl">12</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/TraMineRextras/man/seqplot-rf.html" class="external-link">seqplot.rf</a></span><span class="op">(</span><span class="va">biofam.seq</span>, diss <span class="op">=</span> <span class="va">diss</span>, k <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Using k=12 frequency groups</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Pseudo/median-based-R2: 0.5391125</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Pseudo/median-based-F statistic: 9.357815</span>
 <span class="r-plt img"><img src="ggseqrfplot-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## ... with ggseqrfplot</span></span>
-<span class="r-in"><span class="fu">ggseqrfplot</span><span class="op">(</span><span class="va">biofam.seq</span>, diss<span class="op">=</span><span class="va">diss</span>, k<span class="op">=</span><span class="fl">12</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">ggseqrfplot</span><span class="op">(</span><span class="va">biofam.seq</span>, diss <span class="op">=</span> <span class="va">diss</span>, k <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Using k=12 frequency groups</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Pseudo/median-based-R2: 0.5391125</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Pseudo/median-based-F statistic: 9.357815</span>
@@ -184,21 +191,22 @@ the box plots of the group-specific distances to the medoids are shown.</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] computing state distribution for 100 sequences ...</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## ... with TraMineRextras::seqplot.rf</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/TraMineRextras/man/seqplot-rf.html" class="external-link">seqplot.rf</a></span><span class="op">(</span><span class="va">biofam.seq</span>, diss<span class="op">=</span><span class="va">diss</span>, k<span class="op">=</span><span class="fl">12</span>, sortv<span class="op">=</span><span class="va">parentTime</span>,</span>
-<span class="r-in">   main<span class="op">=</span><span class="st">"Sorted by parent time"</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/TraMineRextras/man/seqplot-rf.html" class="external-link">seqplot.rf</a></span><span class="op">(</span><span class="va">biofam.seq</span>, diss <span class="op">=</span> <span class="va">diss</span>, k <span class="op">=</span> <span class="fl">12</span>,</span>
+<span class="r-in">  sortv <span class="op">=</span> <span class="va">parentTime</span>, main <span class="op">=</span> <span class="st">"Sorted by parent time"</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Using k=12 frequency groups</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Pseudo/median-based-R2: 0.4499484</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Pseudo/median-based-F statistic: 6.54409</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Pseudo/median-based-R2: 0.4745098</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Pseudo/median-based-F statistic: 7.223881</span>
 <span class="r-plt img"><img src="ggseqrfplot-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## ... with ggseqrfplot</span></span>
-<span class="r-in"><span class="fu">ggseqrfplot</span><span class="op">(</span><span class="va">biofam.seq</span>, diss<span class="op">=</span><span class="va">diss</span>, k<span class="op">=</span><span class="fl">12</span>, sortv<span class="op">=</span><span class="va">parentTime</span><span class="op">)</span> <span class="op">+</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">ggseqrfplot</span><span class="op">(</span><span class="va">biofam.seq</span>, diss <span class="op">=</span> <span class="va">diss</span>, k <span class="op">=</span> <span class="fl">12</span>, sortv <span class="op">=</span> <span class="va">parentTime</span><span class="op">)</span> <span class="op">+</span></span>
 <span class="r-in">  <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_annotation.html" class="external-link">plot_annotation</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Sorted by parent time"</span>,</span>
-<span class="r-in">                  theme <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span>,</span>
-<span class="r-in">                                                          size <span class="op">=</span> <span class="fl">18</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in">     theme <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span>, size <span class="op">=</span> <span class="fl">18</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Using k=12 frequency groups</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Pseudo/median-based-R2: 0.4501548</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Pseudo/median-based-F statistic: 6.54955</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Pseudo/median-based-R2: 0.4745098</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Pseudo/median-based-F statistic: 7.223881</span>
 <span class="r-plt img"><img src="ggseqrfplot-4.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
