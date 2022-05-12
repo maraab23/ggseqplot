@@ -56,6 +56,7 @@ Currently, `{ggseqplot}` contains the following functions:
 -   `ggstrqeplot` (based on transitions rates computed with
     `TraMineR::seqtrate`)
 -   `ggseqiplot` (equivalent to `TraMineR::seqIplot`)
+-   `ggseqrplot` (equivalent to `TraMineR::seqrplot`)
 -   `ggseqrfplot` (equivalent to `TraMineRextras::seqplot.rf`)
 
 The documentation (including vignettes) is still very much **work in
@@ -80,7 +81,7 @@ target="_blank"><code>{ggplot2}</code></a> functions (and add ons).
 | Vignette                               | Plot type                                                                                            | Function                                                          |
 |:---------------------------------------|:-----------------------------------------------------------------------------------------------------|:------------------------------------------------------------------|
 | `vignette("seq-summarization-plots")`  | state distribution plot<br/>entropy line plot<br/>modal state sequence plot<br/>transition rate plot | `ggseqdplot`<br/>`ggseqeplot`<br/>`ggseqmsplot`<br/>`ggseqtrplot` |
-| `vignette("seq-representation-plots")` | sequence index plot<br/>relative frequency seqence plot                                              | `ggseqiplot`<br/>`ggseqrfplot`                                    |
+| `vignette("seq-representation-plots")` | sequence index plot<br/>representative sequence plot<br/>relative frequency sequence plot            | `ggseqiplot`<br/>`ggseqrplot`<br/>`ggseqrfplot`                   |
 
 ## Installation
 
