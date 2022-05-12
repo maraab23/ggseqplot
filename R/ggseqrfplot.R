@@ -93,8 +93,7 @@ ggseqrfplot <- function(seqdata,
 
   attributes(seqdata[[1]])$row.names <- seqdata[[2]] # seqdata[[2]]
 
-  seqdata.new <- TraMineR::seqtab(seqdata[[1]], idxs=0)
-  class(seqdata.new) <- c("stslist", "data.frame")
+  seqdata.new <- seqdata[[1]][match(unique(seqdata[[2]]), seqdata[[2]]),]
 
   sortv.new <- as.numeric(attributes(seqdata.new)$row.names)
 
