@@ -5,4 +5,41 @@ template:
     base_font: {google: "Poppins"}
     heading_font: {google: "Poppins"}
     code_font: {google: "Fira Code"}
+figures:
+  fig.width: 8
+  fig.height: 6
+  fig.asp: 1.333
 
+reference:
+- title: Summarization plots
+  contents:
+  - ggseqdplot
+  - ggseqeplot
+  - ggseqmsplot
+  - ggseqtrplot
+- title: Representation plots
+  contents:
+  - ggseqiplot
+  - ggseqrplot
+  - ggseqrfplot
+
+
+articles:
+- title: Articles
+  navbar: ~
+  contents:
+  - seq-summarization-plots
+  - seq-representation-plots
+
+navbar:
+  structure:
+    right: [twitter, github]
+  components:
+    twitter:
+      icon: fa-twitter
+      href: https://twitter.com/RaabM
+      aria-label: Twitter
+
+authors:
+  Marcel Raab:
+    href: https://marcelraab.de

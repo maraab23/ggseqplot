@@ -8,11 +8,7 @@
 
 #'
 #' @inheritParams TraMineR::seqrep
-#' @param seqdata State sequence object (class \\code{stslist}) created with
-#' the \\code{\\link[TraMineR:seqdef]{TraMineR::seqdef}} function.
-#' @param weighted Controls if weights (specified in
-#' \\code{\\link[TraMineR:seqdef]{TraMineR::seqdef}}) should be used. Default
-#' is \\code{TRUE}, i.e. if available weights are used
+#' @eval shared_params()
 #' @param diss pairwise dissimilarities between sequences in \code{seqdata} (see \code{TraMineRextras::seqdist})
 #' @param border if \code{TRUE} bars are plotted with black outline
 #' @param proportional if \\code{TRUE} (default), the sequence heights are
@@ -24,6 +20,7 @@
 #' color coded; only recommended if number of representatives is small;
 #' if set to \code{NULL} (default) colors are used if n rep. <= 10;
 #' use \code{TRUE} or \code{FALSE} to change manually
+#' @param facet_ncol specifies the number of columns in the plot (relevant if !is.null(group))
 #'
 #' @return A representative sequence plot using \code{\link[ggplot2]{ggplot}}.
 #' @export
@@ -48,8 +45,17 @@
 #'
 #' ## ... with ggseqrplot
 #' ggseqrplot(biofam.seq, diss = biofam.om)
+#'
+#' ## using group argument
+#' ## ... with TraMineR::seqplot
+#' seqrplot(biofam.seq, diss = biofam.om, group = biofam$sex)
+#'
+#' ## ... with ggseqrplot
+#' ggseqrplot(biofam.seq, diss = biofam.om, group = biofam$sex)
+
 ggseqrplot <- function(seqdata,
                        diss,
+                       group = NULL,
                        criterion = "density",
                        coverage = .25,
                        nrep = NULL,
@@ -59,7 +65,8 @@ ggseqrplot <- function(seqdata,
                        proportional = TRUE,
                        weighted = TRUE,
                        stats = TRUE,
-                       colored.stats = NULL) {
+                       colored.stats = NULL,
+                       facet_ncol = NULL) {
 
 
 
@@ -67,148 +74,265 @@ ggseqrplot <- function(seqdata,
     stop("nrep has to be a positive whole number")
   }
 
+  if (is.null(group)) group <- 1
 
-  seq.rep <- TraMineR::seqrep(seqdata,
-                              diss = diss,
-                              criterion = criterion,
-                              weighted = weighted,
-                              coverage = coverage,
-                              nrep = nrep,
-                              pradius = pradius,
-                              dmax = dmax
-  )
-
-
-  if (is.null(colored.stats) & nrow(seq.rep) <=10) colored.stats <- TRUE
-  if (is.null(colored.stats) & nrow(seq.rep) > 10) colored.stats <- FALSE
-
-  if (proportional == TRUE) {
-    attributes(seq.rep)$weights <- attributes(seq.rep)$Statistics[1:nrow(seq.rep),4]
+  if (length(unique(group)) > 10 & is.null(facet_ncol)) {
+    facet_ncol <- 5
   }
 
-  aux <- ggseqiplot(seq.rep)$data
-  ybreaks <- (unique(aux$begin) + unique(aux$end)) / 2
+  if (length(unique(group)) <= 10 & is.null(facet_ncol)) {
+    facet_ncol <- c(1,2,3,2,3,3,4,4,5,5)[length(unique(group))]
+  }
+
+  seq.rep <- purrr::map(
+    sort(unique(group)),
+    ~ TraMineR::seqrep(seqdata[group == .x, ],
+                       diss = diss[group == .x, group == .x],
+                       criterion = criterion,
+                       weighted = weighted,
+                       coverage = coverage,
+                       nrep = nrep,
+                       pradius = pradius,
+                       dmax = dmax
+    ))
+
+  nrow.aux <- purrr::map(seq.rep, nrow) |>
+    unlist() |>
+    max()
+
+  if (is.null(colored.stats) & nrow.aux <=10) colored.stats <- TRUE
+  if (is.null(colored.stats) & nrow.aux > 10) colored.stats <- FALSE
+
+  if (proportional == TRUE) {
+    for(i in 1:length(unique(group))) {
+      wgt <- attributes(seq.rep[[i]])$Statistics[1:nrow(seq.rep[[i]]),4]
+      attributes(seq.rep[[i]])$weights <- wgt
+    }
+  }
+
+  aux <- purrr::map(seq.rep,
+                    ~ ggseqiplot(.x)$data)
+
+  ybreaks <- purrr::map(aux,
+                        ~(unique(.x$begin) + unique(.x$end)) / 2)
 
 
-  coverage <- attributes(seq.rep)$Statistics[nrow(seq.rep) + 1, 4]
-  coverage <- paste0(round(coverage, 2), "%")
+
+  coverage <- purrr::map(seq.rep,
+                         ~attributes(.x)$Statistics[nrow(.x) + 1, 4])
+
+  coverage <- purrr::map(coverage, ~paste0(round(.x, 1), "%"))
 
 
-  rplotdata <- attributes(seq.rep)$Statistics |>
-    dplyr::transmute(
-      id = dplyr::row_number(),
-      `Discrepancy (mean dist. to center)` = .data$V,
-      `Mean dist. to representative seq.` = .data$MD
-    ) |>
-    dplyr::filter(.data$id != max(.data$id)) |>
-    tidyr::pivot_longer(cols = -.data$id)
+  rplotdata <- purrr::map(seq.rep,
+                          ~ attributes(.x)$Statistics |>
+                            dplyr::transmute(
+                              id = dplyr::row_number(),
+                              `Discrepancy (mean dist. to center)` = .data$V,
+                              `Mean dist. to representative seq.` = .data$MD
+                            ) |>
+                            dplyr::filter(.data$id != max(.data$id)) |>
+                            tidyr::pivot_longer(cols = -.data$id))
+
+
+  rplotdata <- purrr::map(sort(unique(group)),
+                          ~rplotdata[[.x]] |>
+                            dplyr::mutate(group = .x, .before = 1))
 
 
   if (colored.stats == TRUE & stats == TRUE) {
-    p2 <- rplotdata |>
-      ggplot(aes(
-        x = .data$value,
-        y = "1",
-        label = .data$id,
-        fill = factor(.data$id)
-      )) +
-      ggrepel::geom_label_repel(
-        size = 3, colour = "black",
-        alpha = .8, point.size = NA,
-        direction = "y"
-      ) +
-      scale_y_discrete(
-        labels = NULL,
-        expand = expansion(add = 1.5)
-      ) +
-      facet_wrap(vars(.data$name),
-        nrow = 2,
-        scales = "fixed"
-      ) +
-      theme_minimal() +
-      theme(
-        legend.position = "none",
-        strip.text = element_text(size = 12),
-        axis.title.y = element_blank(),
-        axis.title.x = element_blank(),
-        panel.grid.major.y = element_blank()
-      )
+    p2 <- purrr::map(rplotdata,
+                     ~ .x |>
+                       ggplot(aes(
+                         x = .data$value,
+                         y = "1",
+                         label = .data$id,
+                         fill = factor(.data$id)
+                       )) +
+                       ggrepel::geom_label_repel(
+                         size = 3, colour = "black",
+                         alpha = .8, point.size = NA,
+                         direction = "y"
+                       ) +
+                       scale_y_discrete(
+                         labels = NULL,
+                         expand = expansion(add = 1.5)
+                       ) +
+                       facet_wrap(vars(.data$name),
+                                  nrow = 2,
+                                  scales = "fixed"
+                       ) +
+                       theme_minimal() +
+                       theme(
+                         legend.position = "none",
+                         strip.text = element_text(size = 10),
+                         axis.title.y = element_blank(),
+                         axis.title.x = element_blank(),
+                         panel.grid.major.y = element_blank()
+                       ))
 
 
-    color <- ggplot_build(p2)$data[[1]] |>
-      dplyr::group_by(.data$label) |>
-      dplyr::summarise(col = dplyr::first(.data$fill)) |>
-      dplyr::pull(.data$col)
+    color <- purrr::map(p2,
+                        ~ggplot_build(.x)$data[[1]] |>
+                          dplyr::group_by(.data$label) |>
+                          dplyr::summarise(col = dplyr::first(.data$fill)) |>
+                          dplyr::pull(.data$col))
 
-    labs <- glue::glue("<b style='color:{color}'>{1:length(color)}</b>")
+    labs <- purrr::map(color,
+                       ~glue::glue("<b style='color:{.x}'>{1:length(.x)}</b>"))
+
 
     suppressMessages(
-      p1 <- ggseqplot::ggseqiplot(seq.rep) +
-        scale_y_continuous(
-          breaks = ybreaks,
-          labels = labs,
-          guide = guide_axis(check.overlap = TRUE),
-          expand = expansion(add = c(0, 0))
-        ) +
-        labs(caption = glue::glue("Coverage = {coverage}; Criterion = {criterion}")) +
-        theme(
-          axis.title.y = element_blank(),
-          axis.text.y = ggtext::element_markdown(size = 11)
-        )
+      p1 <- purrr::map2(seq.rep, 1:length(unique(group)),
+                        ~ggseqplot::ggseqiplot(.x) +
+                          scale_y_continuous(
+                            breaks = ybreaks[[.y]],
+                            labels = labs[[.y]],
+                            guide = guide_axis(check.overlap = TRUE),
+                            expand = expansion(add = c(0, 0))
+                          ) +
+                          labs(subtitle = glue::glue("Coverage = {coverage[[.y]]}")) +
+                          theme(
+                            axis.title.y = element_blank(),
+                            axis.text.y = ggtext::element_markdown(size = 11),
+                            plot.subtitle = element_text(hjust = 0.5)
+                          ))
     ) } else {
-    suppressMessages(
-      p1 <- ggseqiplot(seq.rep, border = border) +
-        scale_y_continuous(
-          breaks = ybreaks,
-          labels = 1:nrow(seq.rep),
-          guide = guide_axis(check.overlap = TRUE),
-          expand = expansion(add = c(0, 0))
-        ) +
-        labs(caption = glue::glue("Coverage = {coverage}; Criterion = {criterion}")) +
-        theme(axis.title.y = element_blank())
-    )
-
-    p2 <- rplotdata |>
-      ggplot(aes(
-        x = .data$value,
-        y = "1",
-        label = .data$id
-      )) +
-      ggrepel::geom_text_repel(
-        size = 4.5,
-        fontface = "bold",
-        point.size = NA,
-        direction = "y"
-      ) +
-      scale_y_discrete(
-        labels = NULL,
-        expand = expansion(add = 1.5)
-      ) +
-      facet_wrap(vars(.data$name), nrow = 2, scales = "fixed") +
-      theme_minimal() +
-      theme(
-        legend.position = "none",
-        strip.text = element_text(size = 12),
-        axis.title.y = element_blank(),
-        axis.title.x = element_blank(),
-        panel.grid.major.y = element_blank()
+      suppressMessages(
+        p1 <- purrr::map2(seq.rep, 1:length(unique(group)),
+                          ~ggseqiplot(.x, border = border) +
+                            scale_y_continuous(
+                              breaks = ybreaks[[.y]],
+                              labels = 1:nrow(.x),
+                              guide = guide_axis(check.overlap = TRUE),
+                              expand = expansion(add = c(0, 0))
+                            ) +
+                            theme(axis.title.y = element_blank()))
       )
+
+
+      if (length(unique(group)) > 1) {
+        p1 <- purrr::map(1:length(unique(group)),
+                         ~p1[[.x]] +
+                           labs(subtitle = glue::glue("Coverage = {coverage[[.x]]}")) +
+                           theme(plot.subtitle = element_text(hjust = 0.5)))
+      } else {
+        p1[[1]] <- p1[[1]] +
+          labs(caption = glue::glue("Coverage = {coverage[[1]]}; Criterion = {criterion}"))
+      }
+
+      p2 <- purrr::map(rplotdata,
+                       ~.x |>
+                         ggplot(aes(
+                           x = .data$value,
+                           y = "1",
+                           label = .data$id
+                         )) +
+                         ggrepel::geom_text_repel(
+                           size = 4.5,
+                           fontface = "bold",
+                           point.size = NA,
+                           direction = "y"
+                         ) +
+                         scale_y_discrete(
+                           labels = NULL,
+                           expand = expansion(add = 1.5)
+                         ) +
+                         facet_wrap(vars(.data$name), nrow = 2, scales = "fixed") +
+                         theme_minimal() +
+                         theme(
+                           legend.position = "none",
+                           strip.text = element_text(size = 12),
+                           axis.title.y = element_blank(),
+                           axis.title.x = element_blank(),
+                           panel.grid.major.y = element_blank()
+                         ))
+    }
+
+  if (length(unique(group)) > 1) {
+    p2 <- purrr::map(1:length(unique(group)),
+                     ~p2[[.x]] +
+                       labs(title = sort(unique(group))[[.x]]) +
+                       theme(plot.title = element_text(hjust = .5)))
   }
 
-  if (stats == FALSE) {
-    rplot <- p1
-  } else if (colored.stats == FALSE) {
-    p1 <- p1 + theme(axis.text.y = element_text(
-      color = "black",
-      size = 12,
-      face = "bold"
-    ))
-    rplot <- p2 / p1 +
-      plot_layout(heights = c(1, 2))
+
+  patches <- vector(mode='character')
+
+  for (i in 1:facet_ncol) {
+    facx <- i - 1
+    idx <- 1:facet_ncol+facet_ncol*facx
+
+    if (min(idx) <= length(unique(group))) {
+      idy <- idx[idx > length(unique(group))]
+      idx <- idx[idx<=length(unique(group))]
+
+      if (stats == TRUE) {
+        patches <- paste0(patches, " + ", paste0("p2[[",idx,"]]", collapse = " + "))
+        if (length(idy) > 0) {
+          patches <- paste0(patches, " + ", paste0(rep("patchwork::plot_spacer()", length(idy)),
+                                                   collapse = " + "))
+        }
+      }
+
+      patches <- paste0(patches, " + ", paste0("p1[[",idx,"]]", collapse = " + "))
+      if (length(idy) > 0) {
+        patches <- paste0(patches, " + ", paste0( rep("patchwork::plot_spacer()", length(idy)),
+                                                  collapse = " + "))
+      }
+    }
+  }
+
+  patches <- substring(patches, 4)
+
+  prows <- ceiling(length(unique(group))/facet_ncol)
+
+  heights <- as.character(rep(c(.75,1),prows))
+
+  if (stats == TRUE) {
+    patches <- glue::glue("{patches} + plot_layout(guides = 'collect', ncol = {facet_ncol}, heights = ")
+    patches <- paste0(patches, "c(", paste0(heights, collapse = ", "), "))")
   } else {
-    rplot <- p2 / p1 +
-      plot_layout(heights = c(1, 2))
+    patches <- glue::glue("{patches} + plot_layout(guides = 'collect', ncol = {facet_ncol})")
+  }
+
+  patches <- glue::glue("{patches} + patchwork::plot_annotation(theme = theme(legend.position = 'bottom'))")
+
+
+  if (stats == FALSE & length(unique(group)) > 1) {
+    p1 <- purrr::map2(p1, sort(unique(group)),
+                      ~ .x +
+                        ggtitle(.y) +
+                        theme(plot.title = element_text(hjust = 0.5,
+                                                        size = 16)))
+  }
+
+
+  if (colored.stats == FALSE) {
+    p1 <- purrr::map(p1,
+                     ~.x +
+                       theme(axis.text.y = element_text(
+                         color = "black",
+                         size = 12,
+                         face = "bold"
+                       )))
+  }
+
+    rplot <- eval(parse(text = patches))
+
+
+  if (length(unique(group)) > 1) {
+    rplot <- rplot +
+      patchwork::plot_annotation(caption = paste("Criterion:", criterion))
+  }
+
+  if (length(unique(group)) > 6) {
+      usethis::ui_info(glue::glue("You are trying to render representative sequence plot for many groups.
+      The resulting output (if produced at all) might be hard to decipher.
+      Consider reducing the number of distinct groups."))
   }
 
   return(rplot)
+
+
 }

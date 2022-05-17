@@ -7,6 +7,7 @@
 ggseqrplot(
   seqdata,
   diss,
+  group = NULL,
   criterion = "density",
   coverage = 0.25,
   nrep = NULL,
@@ -16,14 +17,16 @@ ggseqrplot(
   proportional = TRUE,
   weighted = TRUE,
   stats = TRUE,
-  colored.stats = NULL
+  colored.stats = NULL,
+  facet_ncol = NULL
 )
 }
 \arguments{
-\item{seqdata}{State sequence object (class \\code{stslist}) created with
-the \\code{\\link[TraMineR:seqdef]{TraMineR::seqdef}} function.}
+\item{seqdata}{State sequence object (class \code{stslist}) created with the \code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function.}
 
 \item{diss}{pairwise dissimilarities between sequences in \code{seqdata} (see \code{TraMineRextras::seqdist})}
+
+\item{group}{Grouping variable of length equal to the number of sequences. When not NULL, a distinct plot is generated for each level of group.}
 
 \item{criterion}{the representativeness criterion for sorting the candidate list. One of \code{"freq"} (sequence
       frequency), \code{"density"} (neighborhood density), \code{"mscore"} (mean state frequency), \code{"dist"}
@@ -48,9 +51,7 @@ redundant to sequence \eqn{x} when it is in the neighborhood of \eqn{x}, i.e., w
 \item{proportional}{if \\code{TRUE} (default), the sequence heights are
 displayed proportional to the number of represented sequences}
 
-\item{weighted}{Controls if weights (specified in
-\\code{\\link[TraMineR:seqdef]{TraMineR::seqdef}}) should be used. Default
-is \\code{TRUE}, i.e. if available weights are used}
+\item{weighted}{Controls if weights (specified in \code{\link[TraMineR:seqdef]{TraMineR::seqdef}}) should be used. Default is \code{TRUE}, i.e. if available weights are used}
 
 \item{stats}{if \\code{TRUE} (default), mean discrepancy in each subset
 defined by all sequences attributed to one representative sequence and the
@@ -60,6 +61,8 @@ mean distance to this representative sequence are displayed.}
 color coded; only recommended if number of representatives is small;
 if set to \code{NULL} (default) colors are used if n rep. <= 10;
 use \code{TRUE} or \code{FALSE} to change manually}
+
+\item{facet_ncol}{specifies the number of columns in the plot (relevant if !is.null(group))}
 }
 \value{
 A representative sequence plot using \code{\link[ggplot2]{ggplot}}.
@@ -90,4 +93,11 @@ seqrplot(biofam.seq, diss = biofam.om)
 
 ## ... with ggseqrplot
 ggseqrplot(biofam.seq, diss = biofam.om)
+
+## using group argument
+## ... with TraMineR::seqplot
+seqrplot(biofam.seq, diss = biofam.om, group = biofam$sex)
+
+## ... with ggseqrplot
+ggseqrplot(biofam.seq, diss = biofam.om, group = biofam$sex)
 }
