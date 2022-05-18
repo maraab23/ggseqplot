@@ -1,0 +1,183 @@
+#' Mean time plot
+#'
+#' Function for rendering plot displaying the mean time spent in each state of
+#' a state sequence object using \code{\link[ggplot2]{ggplot2}} instead of base
+#' R's \code{\link[base]{plot}} function that is used by
+#' \code{\link[TraMineR:seqplot]{TraMineR::seqplot}}.
+#'
+#' @eval shared_params()
+#' @param no.n specifies if number of (weighted) sequences is shown (default is \code{TRUE})
+#' @param with.missing Specifies if missing states should be considered when computing the state distributions (default is \code{FALSE}).
+#' @param border if \code{TRUE} (default) bars are plotted with black outline
+#' @param error.bar allows to add error bars either using the standard
+#' deviation \code{"SD"} or the standard error \code{"SE"}; default plot is without error bars
+#' @param error.caption a caption is added if error bars are displayed; this default
+#' behavior can be turned off by setting the argument to  \code{"FALSE"}
+#' @param facet_scale Specifies if y-scale in faceted plot should be
+#' \code{"fixed"} (default) or \code{"free_y"}
+#' @eval shared_facet()
+#'
+#' @return A mean time plot created by using \code{\link[ggplot2]{ggplot2}}.
+#' If stored as object the resulting list object (of class gg and ggplot) also
+#' contains the data used for rendering the plot
+#' @export
+#'
+#' @examples
+#' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' # Examples from TraMineR::seqplot
+#'
+#' library(TraMineR)
+#' library(ggplot2)
+#'
+#' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' # Examples from TraMineR::seqplot
+#'
+#' # actcal data set
+#' data(actcal)
+#'
+#' # We use only a sample of 300 cases
+#' set.seed(1)
+#' actcal <- actcal[sample(nrow(actcal), 300), ]
+#' actcal.lab <- c("> 37 hours", "19-36 hours", "1-18 hours", "no work")
+#' actcal.seq <- seqdef(actcal, 13:24, labels = actcal.lab)
+#'
+#' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' # modal state sequence plot; grouped by sex
+#' # with TraMineR::seqplot
+#' seqmtplot(actcal.seq, group = actcal$sex)
+#' # with ggseqplot
+#' ggseqmtplot(actcal.seq, group = actcal$sex)
+#' # with ggseqplot and some layout changes
+#' ggseqmtplot(actcal.seq, group = actcal$sex,
+#'             no.n = TRUE, border = TRUE,
+#'             facet_nrow = 2, error.bar = "SE")
+ggseqmtplot <- function(seqdata,
+                        no.n = FALSE,
+                        group = NULL,
+                        weighted = TRUE,
+                        with.missing = FALSE,
+                        border = FALSE,
+                        error.bar = NULL,
+                        error.caption = TRUE,
+                        facet_scale = "fixed",
+                        facet_ncol = NULL,
+                        facet_nrow = NULL) {
+  if (!inherits(seqdata, "stslist")) {
+    stop("data is not a sequence object, use 'TraMineR::seqdef' to create one")
+  }
+
+  if (!is.null(group) & (length(group) != nrow(seqdata))) {
+    stop("length of group vector must match number of rows of seqdata")
+  }
+
+
+  if (!is.logical(weighted) | !is.logical(with.missing) |
+      !is.logical(border) | !is.logical(no.n)) {
+    stop("the arguments `no.n`, `weighted`, `with.missing`, and `border` have to be objects of type logical")
+  }
+
+  if (is.null(attributes(seqdata)$weights)) weighted <- FALSE
+
+  if (is.null(group)) group <- 1
+
+  if (!is.null(facet_ncol) && as.integer(facet_ncol) != facet_ncol) {
+    stop("`facet_ncol` must be NULL or an integer.")
+  }
+
+  if (!is.null(facet_nrow) && as.integer(facet_nrow) != facet_nrow) {
+    stop("`facet_nrow` must be NULL or an integer.")
+  }
+
+  xandgrouplabs <- xandgrouplab(seqdata = seqdata,
+                                weighted = weighted,
+                                no.n = no.n,
+                                group = group,
+                                ylabprefix = "Mean time")
+  grouplabspec <- xandgrouplabs[[1]]
+  ylabspec <- xandgrouplabs[[2]]
+
+
+  mtplotdata <- purrr::map(sort(unique(group)),
+                           ~seqmeant(seqdata[group == .x,],
+                                     serr=TRUE,
+                                     weighted = weighted,
+                                     with.missing = with.missing) |>
+                             as.data.frame() |>
+                             dplyr::mutate(group = .x,
+                                           state =
+                                             forcats::fct_inorder(
+                                               ifelse(dplyr::row_number() <= length(alphabet(seqdata)),
+                                                      alphabet(seqdata), "Missing")),
+                                           labels = forcats::fct_inorder(
+                                             ifelse(dplyr::row_number() <= length(alphabet(seqdata)),
+                                                    attributes(seqdata)$labels, "Missing")))) |>
+    dplyr::bind_rows() |>
+    dplyr::filter(!(.data$state == "Missing" & .data$Mean == 0)) |>
+    dplyr::mutate(labels = forcats::fct_drop(.data$labels),
+                  state = forcats::fct_drop(.data$state)) |>
+    dplyr::full_join(grouplabspec, by = "group")
+
+
+  if ("Missing" %in% mtplotdata$state) {
+    cpal <- c(
+      attributes(seqdata)$cpal,
+      attributes(seqdata)$missing.color
+    )
+  } else {
+    cpal <- attributes(seqdata)$cpal
+  }
+
+  ggmtplot <- mtplotdata |>
+    ggplot(aes(x = .data$state, fill = .data$labels)) +
+    geom_bar(aes(y = .data$Mean), stat="identity",
+             color = ifelse(border == TRUE, "black",
+                            "transparent")) +
+    scale_fill_manual(drop = FALSE,
+                      values = cpal) +
+    labs(x = "", y = ylabspec) +
+    theme_minimal() +
+    theme(legend.position = "bottom",
+          legend.title = element_blank(),
+          panel.grid.major.x = element_blank(),
+          plot.margin = margin(15, 15, 10, 15),
+          legend.margin = margin(-0.2, 0, 0, -0.2, unit = "cm"))
+
+  if (!is.null(error.bar)) {
+
+    if (error.bar == "SE") {
+      ggmtplot <- ggmtplot +
+        geom_errorbar(aes(ymin = .data$Mean - .data$SE,
+                          ymax= .data$Mean + .data$SE),
+                      width=0.1, alpha=0.6, size=1)
+    } else if (error.bar == "SD") {
+      ggmtplot <- ggmtplot +
+        geom_errorbar(aes(ymin = .data$Mean - .data$Stdev,
+                          ymax = .data$Mean + .data$Stdev),
+                      width=0.1, alpha=0.6, size=1)
+    }
+
+    captext <- glue::glue(
+      'Note: error bars show standard {ifelse(error.bar == "SE",
+    "errors", "deviations")}'
+    )
+
+    if (error.caption == TRUE & !is.null(error.bar)) {
+      ggmtplot <- ggmtplot +
+        labs(caption = captext)
+    }
+  }
+
+  if (length(unique(group)) > 1) {
+    ggmtplot <- ggmtplot +
+      facet_wrap(~ .data$grouplab,
+                 scales = facet_scale,
+                 ncol = facet_ncol) +
+      labs(y = "Mean time")
+    theme(panel.spacing = unit(2, "lines"))
+  }
+
+  return(ggmtplot)
+}

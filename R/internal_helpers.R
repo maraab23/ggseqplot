@@ -14,7 +14,7 @@ shared_facet <- function() {
 }
 
 
-xandgrouplab <- function(seqdata, weighted, no.n, group) {
+xandgrouplab <- function(seqdata, weighted, no.n, group, ylabprefix) {
   if (weighted == FALSE) {
     attributes(seqdata)$weights <- rep(1, nrow(seqdata))
   }
@@ -26,9 +26,9 @@ xandgrouplab <- function(seqdata, weighted, no.n, group) {
     unlist()
 
   if (length(ylabspec) == 1 & weighted == TRUE) {
-    ylabspec <- glue::glue("Rel. Freq. (weighted n={round(ylabspec,2)})")
+    ylabspec <- glue::glue("{ylabprefix} (weighted n={round(ylabspec,2)})")
   } else if (length(ylabspec) == 1 & weighted == FALSE) {
-    ylabspec <- glue::glue("Rel. Freq. (n={ylabspec})")
+    ylabspec <- glue::glue("{ylabprefix} (n={ylabspec})")
   } else if (weighted == TRUE) {
     ylabspec <- glue::glue("{unique(group)} (weighted n={round(ylabspec,2)})")
   } else {
@@ -43,7 +43,7 @@ xandgrouplab <- function(seqdata, weighted, no.n, group) {
   if (no.n == TRUE) {
     grouplabspec <- grouplabspec |>
       dplyr::mutate(grouplab = .data$group)
-    ylabspec <- "Rel. Freq."
+    ylabspec <- ylabprefix
   }
 
   xandgrouplab <- list(grouplabspec = grouplabspec,

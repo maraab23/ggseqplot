@@ -115,7 +115,8 @@ ggseqmsplot <- function(seqdata,
   xandgrouplabs <- xandgrouplab(seqdata = seqdata,
                                 weighted = weighted,
                                 no.n = no.n,
-                                group = group)
+                                group = group,
+                                ylabprefix = "Rel. Freq.")
   grouplabspec <- xandgrouplabs[[1]]
   ylabspec <- xandgrouplabs[[2]]
 

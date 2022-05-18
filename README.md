@@ -53,6 +53,7 @@ Currently, `{ggseqplot}` contains the following functions:
 -   `ggseqdplot` (equivalent to `TraMineR::seqdplot`)
 -   `ggseqeplot` (equivalent to `TraMineRextras::seqplot.tentrop`)
 -   `ggseqmsplot` (equivalent to `TraMineR::seqmsplot`)
+-   `ggseqmtplot` (equivalent to `TraMineR::seqmtplot`)
 -   `ggstrqeplot` (based on transitions rates computed with
     `TraMineR::seqtrate`)
 -   `ggseqiplot` (equivalent to `TraMineR::seqIplot`)
@@ -78,10 +79,10 @@ the baseline output using familiar
 <a href="https://ggplot2.tidyverse.org/"
 target="_blank"><code>{ggplot2}</code></a> functions (and add ons).
 
-| Vignette                               | Plot type                                                                                            | Function                                                          |
-|:---------------------------------------|:-----------------------------------------------------------------------------------------------------|:------------------------------------------------------------------|
-| `vignette("seq-summarization-plots")`  | state distribution plot<br/>entropy line plot<br/>modal state sequence plot<br/>transition rate plot | `ggseqdplot`<br/>`ggseqeplot`<br/>`ggseqmsplot`<br/>`ggseqtrplot` |
-| `vignette("seq-representation-plots")` | sequence index plot<br/>representative sequence plot<br/>relative frequency sequence plot            | `ggseqiplot`<br/>`ggseqrplot`<br/>`ggseqrfplot`                   |
+| Vignette                               | Plot type                                                                                                               | Function                                                                            |
+|:---------------------------------------|:------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------|
+| `vignette("seq-summarization-plots")`  | state distribution plot<br/>entropy line plot<br/>modal state sequence plot<br/>mean time plot<br/>transition rate plot | `ggseqdplot`<br/>`ggseqeplot`<br/>`ggseqmsplot`<br/>`ggseqmtplot`<br/>`ggseqtrplot` |
+| `vignette("seq-representation-plots")` | sequence index plot<br/>representative sequence plot<br/>relative frequency sequence plot                               | `ggseqiplot`<br/>`ggseqrplot`<br/>`ggseqrfplot`                                     |
 
 ## Installation
 
@@ -90,3 +91,8 @@ You can install `{ggseqplot}` by typing:
 ``` r
 devtools::install_github("maraab23/ggseqplot")
 ```
+
+## Acknowledgements
+
+I’d like to thank Gilbert Ritschard, Tim Liao, and Emanuela Struffolino
+for their comments on earlier version of this library.
