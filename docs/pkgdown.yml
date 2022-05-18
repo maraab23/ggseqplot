@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   seq-representation-plots: seq-representation-plots.html
   seq-summarization-plots: seq-summarization-plots.html
-last_built: 2022-05-18T21:06Z
+last_built: 2022-05-18T21:27Z
 urls:
   reference: https://maraab23.github.io/ggseqplot/reference
   article: https://maraab23.github.io/ggseqplot/articles

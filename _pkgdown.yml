@@ -16,6 +16,7 @@ reference:
   - ggseqdplot
   - ggseqeplot
   - ggseqmsplot
+  - ggseqmtplot
   - ggseqtrplot
 - title: Representation plots
   contents:
