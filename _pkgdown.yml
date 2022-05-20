@@ -7,9 +7,7 @@ template:
     code_font: {google: "Fira Code"}
 figures:
   fig.width: 8.000
-  fig.height: ~
-  fig.retina: 2
-  fig.asp: 1.618
+  fig.height: 4.94
 
 reference:
 - title: Summarization plots

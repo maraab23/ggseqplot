@@ -13,8 +13,7 @@ bibliography: references.bib
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.width=8, 
-  fig.retina = 2,
+  fig.width=8,
   fig.height=4.94
 )
 options(rmarkdown.html_vignette.check_title = FALSE)
