@@ -71,3 +71,6 @@ seqHtplot(ex1.seq)
 ggseqeplot(ex1.seq)
 
 }
+\author{
+Marcel Raab
+}

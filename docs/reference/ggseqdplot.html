@@ -12,7 +12,7 @@ R's plot function that is used by TraMineR::seqplot."><meta property="og:image" 
     
     <a class="navbar-brand me-2" href="../index.html">ggseqplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -117,6 +117,10 @@ object also contains the data (long format) used for rendering the plot</p>
     <p>The function uses <code><a href="https://rdrr.io/pkg/TraMineR/man/seqstatd.html" class="external-link">TraMineR::seqstatd</a></code> to obtain state distributions. Obviously this requires that the
 input data (<code>seqdata</code>) is stored as state sequence object (class <code>stslist</code>) created with the <code><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">TraMineR::seqdef</a></code> function.</p>
     </div>
+    <div class="section level2">
+    <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
+    <p>Marcel Raab</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
@@ -162,13 +166,13 @@ input data (<code>seqdata</code>) is stored as state sequence object (class <cod
 <span class="r-in"><span class="co"># state distribution plots; grouped by sex</span></span>
 <span class="r-in"><span class="co"># with TraMineR::seqplot</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">seqdplot</a></span><span class="op">(</span><span class="va">actcal.seq</span>, group <span class="op">=</span> <span class="va">actcal</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="ggseqdplot-1.png" alt="" width="768" height="576"></span>
+<span class="r-plt img"><img src="ggseqdplot-1.png" alt="" width="768" height="1243"></span>
 <span class="r-in"><span class="co"># with ggseqplot</span></span>
 <span class="r-in"><span class="fu">ggseqdplot</span><span class="op">(</span><span class="va">actcal.seq</span>, group <span class="op">=</span> <span class="va">actcal</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="ggseqdplot-2.png" alt="" width="768" height="576"></span>
+<span class="r-plt img"><img src="ggseqdplot-2.png" alt="" width="768" height="1243"></span>
 <span class="r-in"><span class="co"># with ggseqplot and weights turned off</span></span>
 <span class="r-in"><span class="fu">ggseqdplot</span><span class="op">(</span><span class="va">actcal.seq</span>, group <span class="op">=</span> <span class="va">actcal</span><span class="op">$</span><span class="va">sex</span>, weighted <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="ggseqdplot-3.png" alt="" width="768" height="576"></span>
+<span class="r-plt img"><img src="ggseqdplot-3.png" alt="" width="768" height="1243"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># make use of ggplot functions for modifying the plot</span></span>
 <span class="r-in"><span class="fu">ggseqdplot</span><span class="op">(</span><span class="va">actcal.seq</span><span class="op">)</span> <span class="op">+</span></span>
@@ -188,7 +192,7 @@ input data (<code>seqdata</code>) is stored as state sequence object (class <cod
 <span class="r-in">  <span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Scale for 'x' is already present. Adding another scale for 'x', which will</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> replace the existing scale.</span>
-<span class="r-plt img"><img src="ggseqdplot-4.png" alt="" width="768" height="576"></span>
+<span class="r-plt img"><img src="ggseqdplot-4.png" alt="" width="768" height="1243"></span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>

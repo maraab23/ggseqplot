@@ -48,7 +48,7 @@ redundant to sequence \eqn{x} when it is in the neighborhood of \eqn{x}, i.e., w
 
 \item{border}{if \code{TRUE} bars are plotted with black outline}
 
-\item{proportional}{if \\code{TRUE} (default), the sequence heights are
+\item{proportional}{if \code{TRUE} (default), the sequence heights are
 displayed proportional to the number of represented sequences}
 
 \item{weighted}{Controls if weights (specified in \code{\link[TraMineR:seqdef]{TraMineR::seqdef}}) should be used. Default is \code{TRUE}, i.e. if available weights are used}

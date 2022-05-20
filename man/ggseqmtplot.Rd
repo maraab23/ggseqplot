@@ -55,6 +55,16 @@ a state sequence object using \code{\link[ggplot2]{ggplot2}} instead of base
 R's \code{\link[base]{plot}} function that is used by
 \code{\link[TraMineR:seqplot]{TraMineR::seqplot}}.
 }
+\details{
+The infromation on time spent in different states is obtained by an
+internal call of \code{\link[TraMineR:seqmeant]{TraMineR::seqmeant}}.
+The resulting output then is prepared to be plotted with
+\code{\link[ggplot2:geom_bar]{ggplot2::geom_bar}}. The data
+and specifications used for rendering the plot can be obtained by storing the
+plot as an object. The appearance of the plot can be adjusted just like with
+every other ggplot (e.g., by changing the theme or the scale using \code{+} and
+the respective functions).
+}
 \examples{
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -83,8 +93,13 @@ actcal.seq <- seqdef(actcal, 13:24, labels = actcal.lab)
 seqmtplot(actcal.seq, group = actcal$sex)
 # with ggseqplot
 ggseqmtplot(actcal.seq, group = actcal$sex)
-# with ggseqplot and some layout changes
-ggseqmtplot(actcal.seq, group = actcal$sex,
-            no.n = TRUE, border = TRUE,
-            facet_nrow = 2, error.bar = "SE")
+# with ggseqplot using additional arguments and some adjustments
+ggseqmtplot(actcal.seq, no.n = TRUE, error.bar = "SE") +
+ coord_flip() +
+ theme(axis.text.y=element_blank(),
+       panel.grid.major.y = element_blank(),
+       legend.position = "top")
+}
+\author{
+Marcel Raab
 }

@@ -10,7 +10,7 @@
 #' @param no.n specifies if number of (weighted) sequences is shown (default is \code{TRUE})
 #' @param sortv Vector of numerical values sorting the sequences or a sorting
 #' method (either \code{"from.start"} or \code{"from.end"}). See details.
-#' @param border if \code{TRUE} bars are plotted with black outline
+#' @param border if \code{TRUE} bars are plotted with black outline; default is \code{FALSE}
 #' @param facet_scale Specifies if y-scale in faceted plot should be free
 #' (\code{"free_y"} is default) or \code{"fixed"}
 #' @eval shared_facet()

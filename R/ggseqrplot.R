@@ -11,7 +11,7 @@
 #' @inheritParams TraMineR::seqrep
 #' @param diss pairwise dissimilarities between sequences in \code{seqdata} (see \code{TraMineRextras::seqdist})
 #' @param border if \code{TRUE} bars are plotted with black outline
-#' @param proportional if \\code{TRUE} (default), the sequence heights are
+#' @param proportional if \code{TRUE} (default), the sequence heights are
 #' displayed proportional to the number of represented sequences
 #' @param stats if \\code{TRUE} (default), mean discrepancy in each subset
 #' defined by all sequences attributed to one representative sequence and the

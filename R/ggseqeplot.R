@@ -17,6 +17,8 @@
 #' @details The function uses \code{\link[TraMineR:seqstatd]{TraMineR::seqstatd}} to compute entropies. Obviously this requires that the
 #' input data (\code{seqdata}) is stored as state sequence object (class \code{stslist}) created with the \code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function.
 #'
+#' @author Marcel Raab
+#'
 #' @examples
 #' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #'

@@ -27,6 +27,8 @@
 #' @export
 #' @importFrom patchwork plot_layout
 #'
+#' @author Marcel Raab
+#'
 #' @examples
 #' ## From TraMineRextras::seqplot.rf
 #' library(TraMineR)

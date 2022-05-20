@@ -20,6 +20,8 @@
 #' @details The function uses \code{\link[TraMineR:seqstatd]{TraMineR::seqstatd}} to obtain state distributions. Obviously this requires that the
 #' input data (\code{seqdata}) is stored as state sequence object (class \code{stslist}) created with the \code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function.
 #'
+#' @author Marcel Raab
+#'
 #' @examples
 #' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #'
@@ -111,8 +113,8 @@ ggseqdplot <- function(seqdata,
   statefreqs <- purrr::map(
     unique(group),
     ~ TraMineR::seqstatd(seqdata[group == .x, ],
-      weighted = weighted,
-      with.missing = with.missing
+                         weighted = weighted,
+                         with.missing = with.missing
     )$Frequencies |>
       dplyr::as_tibble(rownames = "state") |>
       dplyr::mutate(group = .x, .before = 1)
@@ -123,8 +125,8 @@ ggseqdplot <- function(seqdata,
     stateentropy <- purrr::map(
       unique(group),
       ~ TraMineR::seqstatd(seqdata[group == .x, ],
-        weighted = weighted,
-        with.missing = with.missing
+                           weighted = weighted,
+                           with.missing = with.missing
       )$Entropy |>
         dplyr::as_tibble(rownames = "k") |>
         dplyr::mutate(group = .x, .before = 1)
@@ -150,11 +152,11 @@ ggseqdplot <- function(seqdata,
       ) |>
       dplyr::mutate(
         state = factor(.data$state,
-          levels = TraMineR::alphabet(seqdata),
-          labels = attributes(seqdata)$labels
+                       levels = TraMineR::alphabet(seqdata),
+                       labels = attributes(seqdata)$labels
         ),
         state = forcats::fct_explicit_na(.data$state,
-          na_level = "Missing"
+                                         na_level = "Missing"
         ),
         state = forcats::fct_rev(.data$state)
       ) |>
@@ -255,9 +257,9 @@ ggseqdplot <- function(seqdata,
   if (grsize > 1) {
     ggdplot <- ggdplot +
       facet_wrap(~ .data$grouplab,
-        scales = "free_y",
-        ncol = facet_ncol,
-        nrow = facet_nrow
+                 scales = "free_y",
+                 ncol = facet_ncol,
+                 nrow = facet_nrow
       ) +
       labs(x = "", y = "Rel. Freq.") +
       theme(panel.spacing = unit(2, "lines"))
@@ -266,7 +268,7 @@ ggseqdplot <- function(seqdata,
   if (with.entropy == TRUE) {
     ggdplot <- ggdplot +
       geom_line(aes(x = .data$x, y = .data$entropy, color = linecolor),
-        group = 1, size = linewidth, linetype = linetype
+                group = 1, size = linewidth, linetype = linetype
       ) +
       scale_color_identity(guide = "legend", name = NULL, labels = "Entropy")
   }

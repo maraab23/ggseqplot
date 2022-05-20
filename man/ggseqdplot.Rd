@@ -105,3 +105,6 @@ ggseqdplot(actcal.seq) +
   )
 
 }
+\author{
+Marcel Raab
+}

@@ -57,14 +57,15 @@ Currently, `{ggseqplot}` contains the following functions:
 -   `ggstrqeplot` (based on transitions rates computed with
     `TraMineR::seqtrate`)
 -   `ggseqiplot` (equivalent to `TraMineR::seqIplot`)
+-   `ggseqfplot` (equivalent to `TraMineR::seqfplot`)
 -   `ggseqrplot` (equivalent to `TraMineR::seqrplot`)
 -   `ggseqrfplot` (equivalent to `TraMineRextras::seqplot.rf`)
 
 The documentation (including vignettes) is still very much **work in
 progress**. While I am working on these, it is very likely that the
-existing functions will be slightly revised and extended.
+existing functions will be revised and possibly extended.
 
-If you have preferences which plot types should be added, [create an
+If you have change requests or find errors, [create an
 issue](https://github.com/maraab23/ggseqplot/issues/new) on github or
 send me an
 [email](mailto:marcel.raab@ifb.uni-bamberg.de?subject=ggseqplot%3A%20feature%20request).
@@ -82,7 +83,7 @@ target="_blank"><code>{ggplot2}</code></a> functions (and add ons).
 | Vignette                               | Plot type                                                                                                               | Function                                                                            |
 |:---------------------------------------|:------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------|
 | `vignette("seq-summarization-plots")`  | state distribution plot<br/>entropy line plot<br/>modal state sequence plot<br/>mean time plot<br/>transition rate plot | `ggseqdplot`<br/>`ggseqeplot`<br/>`ggseqmsplot`<br/>`ggseqmtplot`<br/>`ggseqtrplot` |
-| `vignette("seq-representation-plots")` | sequence index plot<br/>representative sequence plot<br/>relative frequency sequence plot                               | `ggseqiplot`<br/>`ggseqrplot`<br/>`ggseqrfplot`                                     |
+| `vignette("seq-representation-plots")` | sequence index plot<br/>sequence frequency plot<br/>representative sequence plot<br/>relative frequency sequence plot   | `ggseqiplot`<br/>`ggseqfplot`<br/>`ggseqrplot`<br/>`ggseqrfplot`                    |
 
 ## Installation
 

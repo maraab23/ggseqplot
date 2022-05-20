@@ -6,9 +6,10 @@ template:
     heading_font: {google: "Poppins"}
     code_font: {google: "Fira Code"}
 figures:
-  fig.width: 8
-  fig.height: 6
-  fig.asp: 1.333
+  fig.width: 8.000
+  fig.height: ~
+  fig.retina: 2
+  fig.asp: 1.618
 
 reference:
 - title: Summarization plots

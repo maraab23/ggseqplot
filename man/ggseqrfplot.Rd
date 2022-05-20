@@ -100,3 +100,6 @@ ggseqrfplot(biofam.seq, diss = diss, k = 12, sortv = parentTime) +
   plot_annotation(title = "Sorted by parent time",
      theme = theme(plot.title = element_text(hjust = 0.5, size = 18)))
 }
+\author{
+Marcel Raab
+}

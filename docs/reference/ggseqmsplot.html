@@ -12,7 +12,7 @@ R's plot function that is used by TraMineR::seqplot."><meta property="og:image" 
     
     <a class="navbar-brand me-2" href="../index.html">ggseqplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -105,6 +105,10 @@ object also contains the data (long format) used for rendering the plot</p>
     <p>The function uses <code><a href="https://rdrr.io/pkg/TraMineR/man/seqmodst.html" class="external-link">TraMineR::seqstatd</a></code> to obtain the modal states and their prevalence. Obviously, this requires that the
 input data (<code>seqdata</code>) is stored as state sequence object (class <code>stslist</code>) created with the <code><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">TraMineR::seqdef</a></code> function.</p>
     </div>
+    <div class="section level2">
+    <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
+    <p>Marcel Raab</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
@@ -146,13 +150,13 @@ input data (<code>seqdata</code>) is stored as state sequence object (class <cod
 <span class="r-in"><span class="co"># modal state sequence plot; grouped by sex</span></span>
 <span class="r-in"><span class="co"># with TraMineR::seqplot</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">seqmsplot</a></span><span class="op">(</span><span class="va">actcal.seq</span>, group <span class="op">=</span> <span class="va">actcal</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="ggseqmsplot-1.png" alt="" width="768" height="576"></span>
+<span class="r-plt img"><img src="ggseqmsplot-1.png" alt="" width="768" height="1243"></span>
 <span class="r-in"><span class="co"># with ggseqplot</span></span>
 <span class="r-in"><span class="fu">ggseqmsplot</span><span class="op">(</span><span class="va">actcal.seq</span>, group <span class="op">=</span> <span class="va">actcal</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="ggseqmsplot-2.png" alt="" width="768" height="576"></span>
+<span class="r-plt img"><img src="ggseqmsplot-2.png" alt="" width="768" height="1243"></span>
 <span class="r-in"><span class="co"># with ggseqplot and some layout changes</span></span>
 <span class="r-in"><span class="fu">ggseqmsplot</span><span class="op">(</span><span class="va">actcal.seq</span>, group <span class="op">=</span> <span class="va">actcal</span><span class="op">$</span><span class="va">sex</span>, no.n <span class="op">=</span> <span class="cn">TRUE</span>, border <span class="op">=</span> <span class="cn">FALSE</span>, facet_nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="ggseqmsplot-3.png" alt="" width="768" height="576"></span>
+<span class="r-plt img"><img src="ggseqmsplot-3.png" alt="" width="768" height="1243"></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

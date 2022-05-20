@@ -18,7 +18,7 @@ TraMineR::seqplot and related documentation files."><meta property="og:image" co
     
     <a class="navbar-brand me-2" href="../index.html">ggseqplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -120,7 +120,7 @@ redundant to sequence \(x\) when it is in the neighborhood of \(x\), i.e., withi
 <dt>border</dt>
 <dd><p>if <code>TRUE</code> bars are plotted with black outline</p></dd>
 <dt>proportional</dt>
-<dd><p>if \codeTRUE (default), the sequence heights are
+<dd><p>if <code>TRUE</code> (default), the sequence heights are
 displayed proportional to the number of represented sequences</p></dd>
 <dt>weighted</dt>
 <dd><p>Controls if weights (specified in <code><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">TraMineR::seqdef</a></code>) should be used. Default is <code>TRUE</code>, i.e. if available weights are used</p></dd>
@@ -182,7 +182,7 @@ use <code>TRUE</code> or <code>FALSE</code> to change manually</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] 537 distinct  sequences </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] min/max sequence lengths: 16/16</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] computing distances using the OM metric</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] elapsed time: 0.31 secs</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] elapsed time: 0.33 secs</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Representative sequence  plot (using defaults)</span></span>
 <span class="r-in"><span class="co">## ... with TraMineR::seqplot</span></span>
@@ -192,7 +192,7 @@ use <code>TRUE</code> or <code>FALSE</code> to change manually</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] neighborhood radius: 3.19</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] 4 representative(s) selected, coverage=28% (threshold=25%)</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] 537 distinct sequence(s)</span>
-<span class="r-plt img"><img src="ggseqrplot-1.png" alt="" width="768" height="576"></span>
+<span class="r-plt img"><img src="ggseqrplot-1.png" alt="" width="768" height="1243"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## ... with ggseqrplot</span></span>
 <span class="r-in"><span class="fu">ggseqrplot</span><span class="op">(</span><span class="va">biofam.seq</span>, diss <span class="op">=</span> <span class="va">biofam.om</span><span class="op">)</span></span>
@@ -201,7 +201,7 @@ use <code>TRUE</code> or <code>FALSE</code> to change manually</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] neighborhood radius: 3.19</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] 4 representative(s) selected, coverage=28% (threshold=25%)</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] 537 distinct sequence(s)</span>
-<span class="r-plt img"><img src="ggseqrplot-2.png" alt="" width="768" height="576"></span>
+<span class="r-plt img"><img src="ggseqrplot-2.png" alt="" width="768" height="1243"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## using group argument</span></span>
 <span class="r-in"><span class="co">## ... with TraMineR::seqplot</span></span>
@@ -216,7 +216,7 @@ use <code>TRUE</code> or <code>FALSE</code> to change manually</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] neighborhood radius: 3.19</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] 4 representative(s) selected, coverage=26% (threshold=25%)</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] 402 distinct sequence(s)</span>
-<span class="r-plt img"><img src="ggseqrplot-3.png" alt="" width="768" height="576"></span>
+<span class="r-plt img"><img src="ggseqrplot-3.png" alt="" width="768" height="1243"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## ... with ggseqrplot</span></span>
 <span class="r-in"><span class="fu">ggseqrplot</span><span class="op">(</span><span class="va">biofam.seq</span>, diss <span class="op">=</span> <span class="va">biofam.om</span>, group <span class="op">=</span> <span class="va">biofam</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span></span>
@@ -230,7 +230,7 @@ use <code>TRUE</code> or <code>FALSE</code> to change manually</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] neighborhood radius: 3.19</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] 4 representative(s) selected, coverage=26% (threshold=25%)</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] 402 distinct sequence(s)</span>
-<span class="r-plt img"><img src="ggseqrplot-4.png" alt="" width="768" height="576"></span>
+<span class="r-plt img"><img src="ggseqrplot-4.png" alt="" width="768" height="1243"></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
