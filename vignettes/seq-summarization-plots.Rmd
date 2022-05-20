@@ -30,11 +30,12 @@ lapply(pkgs, library, character.only = TRUE)
 
 Following Fasang and Liao [-@fasang2014], we distinguish between sequence representation and summarization graphs. The latter aggregate and summarize the information stored in the sequence data without plotting actual observed sequences. Given the complexity of sequence data, theses type of plots focus on one or two dimensions of information stored in sequence data [@brzinsky-fay2014]. Among the diverse members of the family of summarization graphs are sequence transitions plot, Kaplan-Meier survival curves, modal state plots, mean time plots, state distribution plots, and entropy plots [@fasang2014; @raab2022].
 
-Currently, `{ggseqplot}` includes three summarization graphs:
+`{ggseqplot}` includes five summarization graphs:
 
 -   state distribution plots (`ggseqdplot`)
 -   entropy line plots (`ggseqplot`)
 -   modal state sequence plot (`ggseqmsplot`)
+-   mean time plot (`ggseqmtplot`)
 -   transition rate plots (`ggseqtrplot`)
 
 
