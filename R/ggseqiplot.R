@@ -21,8 +21,8 @@
 #'
 #' @details Sequence index plots have been introduced by
 #' \insertCite{scherer2001;textual}{ggseqplot} and display each sequence as
-#' horizontally stacked bar or line. For a more detailes discussion of this
-#' tpye if sequence visualisation see, for example,
+#' horizontally stacked bar or line. For a more detailed discussion of this
+#' tpye if sequence visualization see, for example,
 #' \insertCite{brzinsky-fay2014;textual}{ggseqplot},
 #' \insertCite{fasang2014;textual}{ggseqplot},
 #' and \insertCite{raab2022;textual}{ggseqplot}.
@@ -125,7 +125,7 @@ ggseqiplot <- function(seqdata,
 
 
   if (exists("weights", where = attributes(seqdata)) == TRUE &
-    weighted == TRUE) {
+      weighted == TRUE) {
     weights <- attributes(seqdata)$weights
   } else {
     weights <- rep(1, nrow(seqdata))
@@ -188,11 +188,11 @@ ggseqiplot <- function(seqdata,
       dplyr::select(.data$idnew, dplyr::everything()) |>
       dplyr::mutate(
         states = factor(.data$states,
-          levels = TraMineR::alphabet(seqdata),
-          labels = attributes(seqdata)$labels
+                        levels = TraMineR::alphabet(seqdata),
+                        labels = attributes(seqdata)$labels
         ),
         states = forcats::fct_explicit_na(.data$states,
-          na_level = "Missing"
+                                          na_level = "Missing"
         )
       ) |>
       dplyr::group_by(.data$idnew) |>
@@ -246,7 +246,7 @@ ggseqiplot <- function(seqdata,
     dplyr::mutate(
       breaks = (.data$begin + .data$end) / 2,
       breaks = ifelse(.data$begin == .data$end, .data$breaks + 1,
-        .data$breaks
+                      .data$breaks
       )
     )
 
@@ -363,7 +363,7 @@ ggseqiplot <- function(seqdata,
   }
 
 
-  kbreaks <- .5:(length(attributes(seqdata)$names) - .5)
+  kbreaks <- 1:length(attributes(seqdata)$names)
 
   xbrks <- pretty(1:length(kbreaks))
   xbrks[1] <- 1
@@ -377,18 +377,24 @@ ggseqiplot <- function(seqdata,
   }
 
   kbreaks <- kbreaks[xbrks]
-  klabels <- attributes(seqdata)$names[xbrks]
+  klabels  <- attributes(seqdata)$names[xbrks]
 
+  old <- dt2
+  dt2 <- dt2 |>
+    dplyr::mutate(left = .data$left +.5,
+                  right = .data$right +.5,
+                  x = rep(factor(1:length(attributes(seqdata)$names)),
+                          length.out = nrow(dt2)))
 
   if (border == FALSE) {
     suppressMessages(
       ggiplot <- dt2 |>
-        ggplot() +
-        geom_rect(aes(
-          xmin = .data$left, xmax = .data$right,
-          ymin = .data$begin, ymax = .data$end,
-          fill = .data$states, colour = .data$states
+        ggplot(aes(x = .data$x,
+                   xmin = .data$left, xmax = .data$right,
+                   ymin = .data$begin, ymax = .data$end,
+                   fill = .data$states, colour = .data$states
         )) +
+        geom_rect() +
         scale_fill_manual(values = cpal, drop = FALSE) +
         scale_color_manual(values = cpal, drop = FALSE) +
         theme_minimal() +
@@ -398,28 +404,36 @@ ggseqiplot <- function(seqdata,
         )
     )
   } else {
+    ggiplot <- dt2 |>
+      dplyr::mutate(
+        aux = .data$right - .data$left,
+        aux2 = .data$aux,
+        aux = ifelse(.data$aux == 0, 1, .data$aux)
+      ) |>
+      tidyr::uncount(.data$aux) |>
+      dplyr::select(-.data$aux) |>
+      dplyr::group_by(.data$idnew) |>
+      dplyr::mutate(
+        left = dplyr::row_number() - 1,
+        right = ifelse(.data$aux2 == 0, .data$left, .data$left + 1)
+      ) |>
+      dplyr::ungroup() |>
+      dplyr::select(-.data$aux2)
+
+
     suppressMessages(
-      ggiplot <- dt2 |>
-        dplyr::mutate(
-          aux = .data$right - .data$left,
-          aux2 = .data$aux,
-          aux = ifelse(.data$aux == 0, 1, .data$aux)
-        ) |>
-        tidyr::uncount(.data$aux) |>
-        dplyr::select(-.data$aux) |>
-        dplyr::group_by(.data$idnew) |>
-        dplyr::mutate(
-          left = dplyr::row_number() - 1,
-          right = ifelse(.data$aux2 == 0, .data$left, .data$left + 1)
-        ) |>
-        dplyr::ungroup() |>
-        dplyr::select(-.data$aux2) |>
-        ggplot() +
-        geom_rect(aes(
+      ggiplot <- ggiplot |>
+        dplyr::mutate(x = rep(factor(1:length(attributes(seqdata)$names)),
+                              length.out = nrow(ggiplot)),
+                      left = .data$left +.5,
+                      right = .data$right +.5)  |>
+        ggplot(aes(
+          x = .data$x,
           xmin = .data$left, xmax = .data$right,
           ymin = .data$begin, ymax = .data$end,
           fill = .data$states
-        ), colour = "black") +
+        )) +
+        geom_rect(colour = "black") +
         scale_fill_manual(values = cpal, drop = FALSE) +
         scale_color_manual(values = cpal, drop = FALSE) +
         theme_minimal() +
@@ -437,13 +451,13 @@ ggseqiplot <- function(seqdata,
     suppressMessages(
       ggiplot <- ggiplot +
         facet_wrap(~ .data$grouplab,
-          scales = facet_scale,
-          ncol = facet_ncol,
-          nrow = facet_nrow
+                   scales = facet_scale,
+                   ncol = facet_ncol,
+                   nrow = facet_nrow
         ) +
         labs(y = ifelse(weighted == TRUE,
-          "# weighted sequences",
-          "# sequences"
+                        "# weighted sequences",
+                        "# sequences"
         )) +
         theme(panel.spacing = unit(2, "lines")) +
         ggh4x::facetted_pos_scales(y = scales)
@@ -467,20 +481,20 @@ ggseqiplot <- function(seqdata,
 
   suppressMessages(
     ggiplot <- ggiplot +
-      scale_x_continuous(
+      scale_x_discrete(
         breaks = kbreaks,
         labels = klabels,
         guide = guide_axis(check.overlap = TRUE),
         expand = expansion(add = c(0.2, 0))
       ) +
+      labs(x = "") +
       theme(
         axis.title.y = element_text(margin = margin(0, 10, 0, 0)),
-        panel.grid.minor = element_blank()
+        panel.grid.minor = element_blank(),
+        plot.margin = margin(15, 15, 10, 15)
       )
   )
 
-  ggiplot <- ggiplot +
-    theme(plot.margin = margin(15, 15, 10, 15))
 
   return(ggiplot)
 }

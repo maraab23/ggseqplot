@@ -69,9 +69,9 @@
 #'            group = actcal$sex,
 #'            ranks = 1:5,
 #'            ylabs = "share") +
-#'   scale_x_continuous(breaks = 1:12-.5,
-#'                      labels = month.abb,
-#'                      expand = expansion(add = c(0.2, 0)))
+#'   scale_x_discrete(breaks = 1:12,
+#'                    labels = month.abb,
+#'                    expand = expansion(add = c(0.2, 0)))
 ggseqfplot <- function(seqdata,
                        group = NULL,
                        ranks = 1:10,
@@ -181,9 +181,6 @@ ggseqfplot <- function(seqdata,
                          breaks = ylb[[.x]]$ybreaks,
                          labels = ylb[[.x]]$ylabs,
                          guide = guide_axis(check.overlap = TRUE)))
-
-
-
 
   if (length(unique(group)) == 1) {
     suppressMessages(

@@ -51,8 +51,8 @@ of base R's \code{\link[base]{plot}} function that is used by
 \details{
 Sequence index plots have been introduced by
 \insertCite{scherer2001;textual}{ggseqplot} and display each sequence as
-horizontally stacked bar or line. For a more detailes discussion of this
-tpye if sequence visualisation see, for example,
+horizontally stacked bar or line. For a more detailed discussion of this
+tpye if sequence visualization see, for example,
 \insertCite{brzinsky-fay2014;textual}{ggseqplot},
 \insertCite{fasang2014;textual}{ggseqplot},
 and \insertCite{raab2022;textual}{ggseqplot}.

@@ -49,14 +49,14 @@ test_that("check if output of ggseqiplot is ggplot", {
   expect_s3_class(ggseqiplot(ex1.seq), "ggplot")
   expect_s3_class(ggseqiplot(ex1.seq, group = c(1, 1, 1, 2, 2, 2, 2)), "ggplot")
   expect_s3_class(ggseqiplot(ex1.seq,group = c(1, 1, 1, 2, 2, 2, 2),
-    facet_scale = "fixed"), "ggplot")
+                             facet_scale = "fixed"), "ggplot")
   expect_s3_class(ggseqiplot(actcal.seq, border = TRUE), "ggplot")
   expect_s3_class(ggseqiplot(actcal.seq, group = group, facet_nrow = 2), "ggplot")
   expect_s3_class(ggseqiplot(actcal.seq, weighted = FALSE), "ggplot")
   expect_s3_class(ggseqiplot(actcal.seq, sortv = "from.start"), "ggplot")
   expect_s3_class(ggseqiplot(actcal.seq, sortv = "from.end"), "ggplot")
   expect_s3_class(ggseqiplot(actcal.seq,
-    group = group,
-    facet_scale = "fixed"
+                             group = group,
+                             facet_scale = "fixed"
   ), "ggplot")
 })

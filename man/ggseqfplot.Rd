@@ -97,9 +97,9 @@ ggseqfplot(actcal.seq,
            group = actcal$sex,
            ranks = 1:5,
            ylabs = "share") +
-  scale_x_continuous(breaks = 1:12-.5,
-                     labels = month.abb,
-                     expand = expansion(add = c(0.2, 0)))
+  scale_x_discrete(breaks = 1:12,
+                   labels = month.abb,
+                   expand = expansion(add = c(0.2, 0)))
 }
 \author{
 Marcel Raab

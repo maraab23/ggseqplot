@@ -4,6 +4,7 @@
 #' R's \code{\link[base]{plot}} function that is used by \code{\link[TraMineR:seqplot]{TraMineR::seqplot}}.
 #'
 #' @eval shared_params()
+#' @param barwidth specifies width of bars (default is \code{NULL}); valid range: (0, 1]
 #' @param no.n specifies if number of (weighted) sequences is shown (default is \code{TRUE})
 #' @param with.missing Specifies if missing states should be considered when computing the state distributions (default is \code{FALSE}).
 #' @param border if \code{TRUE} (default) bars are plotted with black outline
@@ -51,10 +52,11 @@
 #' ggseqmsplot(actcal.seq, group = actcal$sex, no.n = TRUE, border = FALSE, facet_nrow = 2)
 ggseqmsplot <- function(seqdata,
                         no.n = FALSE,
+                        barwidth = NULL,
                         group = NULL,
                         weighted = TRUE,
                         with.missing = FALSE,
-                        border = TRUE,
+                        border = FALSE,
                         facet_ncol = NULL,
                         facet_nrow = NULL) {
   if (!inherits(seqdata, "stslist")) {
@@ -83,6 +85,10 @@ ggseqmsplot <- function(seqdata,
 
   if (!is.null(facet_nrow) && as.integer(facet_nrow) != facet_nrow) {
     stop("`facet_nrow` must be NULL or an integer.")
+  }
+
+  if (!is.null(barwidth) && (barwidth <= 0 | barwidth > 1)) {
+    stop("`barwidth` must be NULL or a value in the range (0, 1]")
   }
 
 
@@ -161,12 +167,12 @@ ggseqmsplot <- function(seqdata,
   if (border == FALSE) {
     ggmsplot <- msplotdata |>
       ggplot(aes(fill = .data$state, y = .data$value, x = .data$x)) +
-      geom_col(width = 1)
+      geom_col(width = barwidth)
   } else {
     ggmsplot <- msplotdata |>
       ggplot(aes(fill = .data$state, y = .data$value, x = .data$x)) +
       geom_col(
-        width = 1,
+        width = barwidth,
         color = "black"
       )
   }
@@ -188,6 +194,8 @@ ggseqmsplot <- function(seqdata,
     guides(fill = guide_legend(reverse = TRUE)) +
     theme_minimal() +
     theme(
+      axis.title.y = element_text(vjust = +3),
+      panel.grid.major.x = element_blank(),
       legend.position = "bottom",
       legend.title = element_blank(),
       legend.margin = margin(-0.2, 0, 0, -0.2, unit = "cm")

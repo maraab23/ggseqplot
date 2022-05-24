@@ -43,6 +43,7 @@ test_that("Executions stops if input data are not of class stslist", {
 test_that("arguments are specified correctly (length, type, ...)", {
   expect_error(ggseqmsplot(actcal.seq, group = group, facet_ncol = 5.5))
   expect_error(ggseqmsplot(actcal.seq, group = group, facet_nrow = 5.5))
+  expect_error(ggseqmsplot(actcal.seq, barwidth = 5.5))
 })
 
 
@@ -71,7 +72,7 @@ test_that("check if output of ggseqmsplot is ggplot", {
   expect_s3_class(ggseqmsplot(actcal.seq, no.n= TRUE), "ggplot")
   expect_s3_class(ggseqmsplot(ex1.seq), "ggplot")
   expect_s3_class(ggseqmsplot(ex1.seq, group = c(1, 1, 1, 2, 2, 2, 2)), "ggplot")
-  expect_s3_class(ggseqmsplot(actcal.seq, border = FALSE), "ggplot")
+  expect_s3_class(ggseqmsplot(actcal.seq, border = TRUE), "ggplot")
   expect_s3_class(ggseqmsplot(actcal.seq, group = group), "ggplot")
   expect_s3_class(ggseqmsplot(ex1.seq, weighted = FALSE), "ggplot")
   expect_s3_class(ggseqmsplot(actcal.seq, with.missing = TRUE), "ggplot")

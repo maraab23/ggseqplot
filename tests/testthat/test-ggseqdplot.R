@@ -71,7 +71,7 @@ test_that("check if output of ggseqdplot is ggplot", {
   expect_s3_class(ggseqdplot(actcal.seq, no.n= TRUE), "ggplot")
   expect_s3_class(ggseqdplot(ex1.seq), "ggplot")
   expect_s3_class(ggseqdplot(ex1.seq, group = c(1, 1, 1, 2, 2, 2, 2)), "ggplot")
-  expect_s3_class(ggseqdplot(actcal.seq, border = FALSE), "ggplot")
+  expect_s3_class(ggseqdplot(actcal.seq, border = TRUE), "ggplot")
   expect_s3_class(ggseqdplot(actcal.seq, with.entropy = TRUE), "ggplot")
   expect_s3_class(ggseqdplot(actcal.seq, group = group), "ggplot")
   expect_s3_class(ggseqdplot(ex1.seq, weighted = FALSE), "ggplot")

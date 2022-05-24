@@ -17,7 +17,7 @@
 #' \code{"fixed"} (default) or \code{"free_y"}
 #' @eval shared_facet()
 #'
-#' @details The infromation on time spent in different states is obtained by an
+#' @details The information on time spent in different states is obtained by an
 #' internal call of \code{\link[TraMineR:seqmeant]{TraMineR::seqmeant}}.
 #' The resulting output then is prepared to be plotted with
 #'  \code{\link[ggplot2:geom_bar]{ggplot2::geom_bar}}. The data

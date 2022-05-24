@@ -7,10 +7,11 @@
 ggseqmsplot(
   seqdata,
   no.n = FALSE,
+  barwidth = NULL,
   group = NULL,
   weighted = TRUE,
   with.missing = FALSE,
-  border = TRUE,
+  border = FALSE,
   facet_ncol = NULL,
   facet_nrow = NULL
 )
@@ -19,6 +20,8 @@ ggseqmsplot(
 \item{seqdata}{State sequence object (class \code{stslist}) created with the \code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function.}
 
 \item{no.n}{specifies if number of (weighted) sequences is shown (default is \code{TRUE})}
+
+\item{barwidth}{specifies width of bars (default is \code{NULL}); valid range: (0, 1]}
 
 \item{group}{Grouping variable of length equal to the number of sequences. When not NULL, a distinct plot is generated for each level of group.}
 

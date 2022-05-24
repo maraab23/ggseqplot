@@ -56,7 +56,7 @@ R's \code{\link[base]{plot}} function that is used by
 \code{\link[TraMineR:seqplot]{TraMineR::seqplot}}.
 }
 \details{
-The infromation on time spent in different states is obtained by an
+The information on time spent in different states is obtained by an
 internal call of \code{\link[TraMineR:seqmeant]{TraMineR::seqmeant}}.
 The resulting output then is prepared to be plotted with
 \code{\link[ggplot2:geom_bar]{ggplot2::geom_bar}}. The data
