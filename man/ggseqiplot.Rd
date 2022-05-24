@@ -59,7 +59,7 @@ and \insertCite{raab2022;textual}{ggseqplot}.
 
 The function uses \code{\link[TraMineR:seqformat]{TraMineR::seqformat}}
 to reshape \code{seqdata} stored in wide format into a spell/episode format.
-If \code{border=TRUE} the data are reshaped into the long format, i.e. for
+Then the data are further reshaped into the long format, i.e. for
 every sequence each row in the data represents one specific sequence
 position. For example, if we have 5 sequences of length 10, the long file
 will have 50 rows. In the case of sequences of unequal length not every

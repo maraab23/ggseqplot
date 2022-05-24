@@ -246,6 +246,7 @@ ggseqdplot <- function(seqdata,
     guides(fill = guide_legend(reverse = TRUE)) +
     theme_minimal() +
     theme(
+      axis.title.y = element_text(vjust = +3),
       legend.position = "bottom",
       legend.title = element_blank(),
       legend.margin = margin(-0.2, 0, 0, -0.2, unit = "cm")
@@ -262,7 +263,8 @@ ggseqdplot <- function(seqdata,
                  nrow = facet_nrow
       ) +
       labs(x = "", y = "Rel. Freq.") +
-      theme(panel.spacing = unit(2, "lines"))
+      theme(panel.spacing = unit(2, "lines"),
+            strip.text.x = element_text(margin = margin( b = 10, t = 0)))
   }
 
   if (with.entropy == TRUE) {

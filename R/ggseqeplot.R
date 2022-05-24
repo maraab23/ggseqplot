@@ -140,6 +140,7 @@ ggseqeplot <- function(seqdata,
     ) +
     scale_linetype(guide = ifelse(grsize == 1, "none", "legend")) +
     scale_x_discrete(
+      expand = expansion(add = .15),
       breaks = kbreaks,
       labels = klabels,
       guide = guide_axis(check.overlap = TRUE)
@@ -147,7 +148,7 @@ ggseqeplot <- function(seqdata,
     labs(x = "", y = "Entropy") +
     theme_minimal() +
     theme(
-      axis.title.y = element_text(margin = margin(0, 10, 0, 0)),
+      axis.title.y = element_text(vjust = +3),
       legend.position = "bottom",
       legend.title = element_blank(),
       legend.text = element_text(size = 11)

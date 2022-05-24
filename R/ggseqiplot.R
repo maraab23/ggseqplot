@@ -29,7 +29,7 @@
 #'
 #' The function uses \code{\link[TraMineR:seqformat]{TraMineR::seqformat}}
 #' to reshape \code{seqdata} stored in wide format into a spell/episode format.
-#' If \code{border=TRUE} the data are reshaped into the long format, i.e. for
+#' Then the data are further reshaped into the long format, i.e. for
 #' every sequence each row in the data represents one specific sequence
 #' position. For example, if we have 5 sequences of length 10, the long file
 #' will have 50 rows. In the case of sequences of unequal length not every
@@ -379,12 +379,30 @@ ggseqiplot <- function(seqdata,
   kbreaks <- kbreaks[xbrks]
   klabels  <- attributes(seqdata)$names[xbrks]
 
-  old <- dt2
+
   dt2 <- dt2 |>
-    dplyr::mutate(left = .data$left +.5,
-                  right = .data$right +.5,
-                  x = rep(factor(1:length(attributes(seqdata)$names)),
-                          length.out = nrow(dt2)))
+    dplyr::mutate(
+      aux = .data$right - .data$left,
+      aux2 = .data$aux,
+      aux = ifelse(.data$aux == 0, 1, .data$aux)
+    ) |>
+    tidyr::uncount(.data$aux) |>
+    dplyr::select(-.data$aux) |>
+    dplyr::group_by(.data$idnew) |>
+    dplyr::mutate(
+      left = dplyr::row_number() - 1,
+      right = ifelse(.data$aux2 == 0, .data$left, .data$left + 1)
+    ) |>
+    dplyr::ungroup() |>
+    dplyr::select(-.data$aux2)
+
+
+  dt2 <- dt2 |>
+      dplyr::mutate(x = rep(factor(1:length(attributes(seqdata)$names)),
+                            length.out = nrow(dt2)),
+                    left = .data$left +.5,
+                    right = .data$right +.5)
+
 
   if (border == FALSE) {
     suppressMessages(
@@ -404,34 +422,13 @@ ggseqiplot <- function(seqdata,
         )
     )
   } else {
-    ggiplot <- dt2 |>
-      dplyr::mutate(
-        aux = .data$right - .data$left,
-        aux2 = .data$aux,
-        aux = ifelse(.data$aux == 0, 1, .data$aux)
-      ) |>
-      tidyr::uncount(.data$aux) |>
-      dplyr::select(-.data$aux) |>
-      dplyr::group_by(.data$idnew) |>
-      dplyr::mutate(
-        left = dplyr::row_number() - 1,
-        right = ifelse(.data$aux2 == 0, .data$left, .data$left + 1)
-      ) |>
-      dplyr::ungroup() |>
-      dplyr::select(-.data$aux2)
-
 
     suppressMessages(
-      ggiplot <- ggiplot |>
-        dplyr::mutate(x = rep(factor(1:length(attributes(seqdata)$names)),
-                              length.out = nrow(ggiplot)),
-                      left = .data$left +.5,
-                      right = .data$right +.5)  |>
-        ggplot(aes(
-          x = .data$x,
-          xmin = .data$left, xmax = .data$right,
-          ymin = .data$begin, ymax = .data$end,
-          fill = .data$states
+      ggiplot <- dt2 |>
+        ggplot(aes(x = .data$x,
+                   xmin = .data$left, xmax = .data$right,
+                   ymin = .data$begin, ymax = .data$end,
+                   fill = .data$states
         )) +
         geom_rect(colour = "black") +
         scale_fill_manual(values = cpal, drop = FALSE) +
@@ -485,11 +482,11 @@ ggseqiplot <- function(seqdata,
         breaks = kbreaks,
         labels = klabels,
         guide = guide_axis(check.overlap = TRUE),
-        expand = expansion(add = c(0.2, 0))
+        expand = expansion(mult = c(.02, 0))
       ) +
       labs(x = "") +
       theme(
-        axis.title.y = element_text(margin = margin(0, 10, 0, 0)),
+        axis.title.y = element_text(vjust = +3),
         panel.grid.minor = element_blank(),
         plot.margin = margin(15, 15, 10, 15)
       )
