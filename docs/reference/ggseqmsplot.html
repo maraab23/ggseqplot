@@ -12,7 +12,7 @@ R's plot function that is used by TraMineR::seqplot."><meta property="og:image" 
     
     <a class="navbar-brand me-2" href="../index.html">ggseqplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,10 +67,11 @@ R's <code><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot<
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">ggseqmsplot</span><span class="op">(</span>
   <span class="va">seqdata</span>,
   no.n <span class="op">=</span> <span class="cn">FALSE</span>,
+  barwidth <span class="op">=</span> <span class="cn">NULL</span>,
   group <span class="op">=</span> <span class="cn">NULL</span>,
   weighted <span class="op">=</span> <span class="cn">TRUE</span>,
   with.missing <span class="op">=</span> <span class="cn">FALSE</span>,
-  border <span class="op">=</span> <span class="cn">TRUE</span>,
+  border <span class="op">=</span> <span class="cn">FALSE</span>,
   facet_ncol <span class="op">=</span> <span class="cn">NULL</span>,
   facet_nrow <span class="op">=</span> <span class="cn">NULL</span>
 <span class="op">)</span></code></pre></div>
@@ -82,6 +83,8 @@ R's <code><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot<
 <dd><p>State sequence object (class <code>stslist</code>) created with the <code><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">TraMineR::seqdef</a></code> function.</p></dd>
 <dt>no.n</dt>
 <dd><p>specifies if number of (weighted) sequences is shown (default is <code>TRUE</code>)</p></dd>
+<dt>barwidth</dt>
+<dd><p>specifies width of bars (default is <code>NULL</code>); valid range: (0, 1]</p></dd>
 <dt>group</dt>
 <dd><p>Grouping variable of length equal to the number of sequences. When not NULL, a distinct plot is generated for each level of group.</p></dd>
 <dt>weighted</dt>
