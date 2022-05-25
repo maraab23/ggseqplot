@@ -192,5 +192,10 @@ ggseqmtplot <- function(seqdata,
     theme(panel.spacing = unit(2, "lines"))
   }
 
+  ggmtplot <- ggmtplot +
+    theme(axis.title.y = element_text(vjust = +3),
+          plot.margin = margin(15, 15, 10, 15))
+
+
   return(ggmtplot)
 }

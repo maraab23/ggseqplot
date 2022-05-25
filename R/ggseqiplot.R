@@ -456,7 +456,8 @@ ggseqiplot <- function(seqdata,
                         "# weighted sequences",
                         "# sequences"
         )) +
-        theme(panel.spacing = unit(2, "lines")) +
+        theme(panel.spacing = unit(2, "lines"),
+              strip.text.x = element_text(margin = margin( b = 10, t = 0))) +
         ggh4x::facetted_pos_scales(y = scales)
     )
   } else {

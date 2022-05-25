@@ -33,7 +33,7 @@ ggseqtrplot(
 
 \item{labsize}{Specifies the font size of the labels within the tiles (if not specified ggplot2's default is used)}
 
-\item{axislabs}{specifies if sequence object's long labels (default) or the state names from its alphabet attribute should be used.}
+\item{axislabs}{specifies if sequence object's long "labels" (default) or the state names from its "alphabet" attribute should be used.}
 
 \item{x_n.dodge}{allows to print the labels of the x-axis in multiple rows to avoid overlapping.}
 

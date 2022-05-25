@@ -8,7 +8,7 @@
 #' @param no.n specifies if number of (weighted) sequences is shown in grouped (faceted) graph
 #' @param with.missing Specifies if missing state should be considered when computing the transition rates (default is \code{FALSE}).
 #' @param labsize Specifies the font size of the labels within the tiles (if not specified ggplot2's default is used)
-#' @param axislabs specifies if sequence object's long labels (default) or the state names from its alphabet attribute should be used.
+#' @param axislabs specifies if sequence object's long "labels" (default) or the state names from its "alphabet" attribute should be used.
 #' @param x_n.dodge allows to print the labels of the x-axis in multiple rows to avoid overlapping.
 #' @eval shared_facet()
 #'
@@ -186,7 +186,8 @@ ggseqtrplot <- function(seqdata,
       facet_wrap(~.data$grlab,
                  ncol = facet_ncol,
                  nrow = facet_nrow) +
-      theme(panel.spacing = unit(2, "lines"))
+      theme(panel.spacing = unit(2, "lines"),
+            strip.text.x = element_text(margin = margin( b = 10, t = 0)))
   }
 
   ggtrplot <- ggtrplot +

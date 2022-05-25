@@ -50,25 +50,19 @@
 #' seqdplot(actcal.seq, group = actcal$sex)
 #' # with ggseqplot
 #' ggseqdplot(actcal.seq, group = actcal$sex)
-#' # with ggseqplot and weights turned off
-#' ggseqdplot(actcal.seq, group = actcal$sex, weighted = FALSE)
+#' # with ggseqplot applying a few additional arguments, e.g. entropy line
+#' ggseqdplot(actcal.seq, group = actcal$sex,
+#'            no.n = TRUE, with.entropy = TRUE, border = TRUE)
 #'
 #' # make use of ggplot functions for modifying the plot
 #' ggseqdplot(actcal.seq) +
 #'   scale_x_discrete(labels = month.abb) +
-#'   labs(
-#'     title = "State distribution plot",
-#'     x = "Month"
-#'   ) +
+#'   labs(title = "State distribution plot", x = "Month") +
 #'   guides(fill = guide_legend(title = "Alphabet")) +
 #'   theme_classic() +
-#'   theme(
-#'     plot.title = element_text(
-#'       size = 30,
-#'       margin = margin(0, 0, 20, 0)
-#'     ),
-#'     plot.title.position = "plot"
-#'   )
+#'   theme(plot.title = element_text(size = 30,
+#'                                   margin = margin(0, 0, 20, 0)),
+#'     plot.title.position = "plot")
 #'
 #' @import ggplot2
 ggseqdplot <- function(seqdata,
