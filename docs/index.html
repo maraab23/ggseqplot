@@ -43,7 +43,7 @@
     
     <a class="navbar-brand me-2" href="index.html">ggseqplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -89,81 +89,39 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header">
-<img src="logo.png" class="logo" alt=""><h1 id="ggseqplot-ggplotify-sequence-data-plots-">ggseqplot: ggplotify sequence data plots
-<a class="anchor" aria-label="anchor" href="#ggseqplot-ggplotify-sequence-data-plots-"></a>
+<img src="logo.png" class="logo" alt=""><h1 id="ggseqplot-ggplotify-sequence-data-plots-">ggseqplot: ggplotify sequence data plots <a class="anchor" aria-label="anchor" href="#ggseqplot-ggplotify-sequence-data-plots-"></a>
 </h1>
 </div>
 <!-- badges: start -->
 
-<p>The main goal of <a href="https://github.com/maraab23/ggseqplot" class="external-link">ggseqplot</a> is to provide functions
-that reproduce some of the sequence plots from
-<a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a>’s <code>seqplot</code> using
-<a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a>. These plots are produced on
-the basis of a sequence object defined with
-<code><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">TraMineR::seqdef</a></code>. The package automates the reshaping and
-plotting of sequence data.</p>
-<p>Being a set of wrapper functions this library literally builds on the
-excellent work of the <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a>,
-<a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineRExtras}</code></a>, and
-<a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> developers and uses several
-of the their functions to produce ggplot2-flavored figures.</p>
-<p>Note, that this library was not written because I personally dislike
-the plots produced by <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a>, but rather because I am
-normally using <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> instead of base R’s
-<code>plot</code> environment for visualizing data.
-<a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a> was developed before
-<a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> was as popular as it is today
-and back then many users were more familiar with coding base R plots. To
-date, however, many researchers and students are more accustomed to
-using <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> and prefer to draw on the
-related skills and experiences instead of learning how to refine base R
-plots just for the single purpose of visualizing sequence data.</p>
-<p>The development of this library is in an early stage and will be
-hopefully complemented by a few additional functions in the near
-future.</p>
-<p>Currently, <a href="https://github.com/maraab23/ggseqplot" class="external-link">ggseqplot</a> contains the following
-functions:</p>
+<p>The main goal of <a href="https://github.com/maraab23/ggseqplot" class="external-link">ggseqplot</a> is to provide functions that reproduce some of the sequence plots from <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a>’s <code>seqplot</code> using <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a>. These plots are produced on the basis of a sequence object defined with <code><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">TraMineR::seqdef</a></code>. The package automates the reshaping and plotting of sequence data.</p>
+<p>Being a set of wrapper functions this library literally builds on the excellent work of the <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a>, <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineRExtras}</code></a>, and <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> developers and uses several of the their functions to produce ggplot2-flavored figures.</p>
+<p>Note, that this library was not written because I personally dislike the plots produced by <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a>, but rather because I am normally using <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> instead of base R’s <code>plot</code> environment for visualizing data. <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a> was developed before <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> was as popular as it is today and back then many users were more familiar with coding base R plots. To date, however, many researchers and students are more accustomed to using <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> and prefer to draw on the related skills and experiences instead of learning how to refine base R plots just for the single purpose of visualizing sequence data.</p>
+<p>The development of this library is in an early stage and will be hopefully complemented by a few additional functions in the near future.</p>
+<p>Currently, <a href="https://github.com/maraab23/ggseqplot" class="external-link">ggseqplot</a> contains the following functions:</p>
 <ul>
 <li>
-<code>ggseqdplot</code> (equivalent to
-<code><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">TraMineR::seqdplot</a></code>)</li>
+<code>ggseqdplot</code> (equivalent to <code><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">TraMineR::seqdplot</a></code>)</li>
 <li>
-<code>ggseqeplot</code> (equivalent to
-<code><a href="https://rdrr.io/pkg/TraMineRextras/man/seqplot-tentrop.html" class="external-link">TraMineRextras::seqplot.tentrop</a></code>)</li>
+<code>ggseqeplot</code> (equivalent to <code><a href="https://rdrr.io/pkg/TraMineRextras/man/seqplot-tentrop.html" class="external-link">TraMineRextras::seqplot.tentrop</a></code>)</li>
 <li>
-<code>ggseqmsplot</code> (equivalent to
-<code><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">TraMineR::seqmsplot</a></code>)</li>
+<code>ggseqmsplot</code> (equivalent to <code><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">TraMineR::seqmsplot</a></code>)</li>
 <li>
-<code>ggseqmtplot</code> (equivalent to
-<code><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">TraMineR::seqmtplot</a></code>)</li>
+<code>ggseqmtplot</code> (equivalent to <code><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">TraMineR::seqmtplot</a></code>)</li>
 <li>
-<code>ggstrqeplot</code> (based on transitions rates computed with
-<code><a href="https://rdrr.io/pkg/TraMineR/man/seqtrate.html" class="external-link">TraMineR::seqtrate</a></code>)</li>
+<code>ggstrqeplot</code> (based on transitions rates computed with <code><a href="https://rdrr.io/pkg/TraMineR/man/seqtrate.html" class="external-link">TraMineR::seqtrate</a></code>)</li>
 <li>
-<code>ggseqiplot</code> (equivalent to
-<code><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">TraMineR::seqIplot</a></code>)</li>
+<code>ggseqiplot</code> (equivalent to <code><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">TraMineR::seqIplot</a></code>)</li>
 <li>
-<code>ggseqfplot</code> (equivalent to
-<code><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">TraMineR::seqfplot</a></code>)</li>
+<code>ggseqfplot</code> (equivalent to <code><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">TraMineR::seqfplot</a></code>)</li>
 <li>
-<code>ggseqrplot</code> (equivalent to
-<code><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">TraMineR::seqrplot</a></code>)</li>
+<code>ggseqrplot</code> (equivalent to <code><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">TraMineR::seqrplot</a></code>)</li>
 <li>
-<code>ggseqrfplot</code> (equivalent to
-<code><a href="https://rdrr.io/pkg/TraMineRextras/man/seqplot-rf.html" class="external-link">TraMineRextras::seqplot.rf</a></code>)</li>
+<code>ggseqrfplot</code> (equivalent to <code><a href="https://rdrr.io/pkg/TraMineRextras/man/seqplot-rf.html" class="external-link">TraMineRextras::seqplot.rf</a></code>)</li>
 </ul>
-<p>The documentation (including vignettes) is still very much
-<strong>work in progress</strong>. While I am working on these, it is
-very likely that the existing functions will be revised and possibly
-extended.</p>
-<p>If you have change requests or find errors, <a href="https://github.com/maraab23/ggseqplot/issues/new" class="external-link">create an
-issue</a> on github or send me an <a href="mailto:marcel.raab@ifb.uni-bamberg.de?subject=ggseqplot%3A%20feature%20request">email</a>.</p>
-<p>Two vignettes outlines how <a href="https://github.com/maraab23/ggseqplot" class="external-link">ggseqplot</a> reshapes sequence
-data generated with <code><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">TraMineR::seqdef</a></code> to visualize them
-using <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a>. We compare the resulting
-plots to those produced by <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a> and illustrate how to adjust
-the baseline output using familiar
-<a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> functions (and add ons).</p>
+<p>The documentation (including vignettes) is still very much <strong>work in progress</strong>. While I am working on these, it is very likely that the existing functions will be revised and possibly extended.</p>
+<p>If you have change requests or find errors, <a href="https://github.com/maraab23/ggseqplot/issues/new" class="external-link">create an issue</a> on github or send me an <a href="mailto:marcel.raab@ifb.uni-bamberg.de?subject=ggseqplot%3A%20feature%20request">email</a>.</p>
+<p>Two vignettes outlines how <a href="https://github.com/maraab23/ggseqplot" class="external-link">ggseqplot</a> reshapes sequence data generated with <code><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">TraMineR::seqdef</a></code> to visualize them using <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a>. We compare the resulting plots to those produced by <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a> and illustrate how to adjust the baseline output using familiar <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> functions (and add ons).</p>
 <table class="table">
 <colgroup>
 <col width="16%">
@@ -178,17 +136,14 @@ the baseline output using familiar
 <tbody>
 <tr class="odd">
 <td align="left"><code><a href="articles/seq-summarization-plots.html">vignette("seq-summarization-plots")</a></code></td>
-<td align="left">state distribution plot<br>entropy line plot<br>modal
-state sequence plot<br>mean time plot<br>transition rate plot</td>
+<td align="left">state distribution plot<br>entropy line plot<br>modal state sequence plot<br>mean time plot<br>transition rate plot</td>
 <td align="left">
 <code>ggseqdplot</code><br><code>ggseqeplot</code><br><code>ggseqmsplot</code><br><code>ggseqmtplot</code><br><code>ggseqtrplot</code>
 </td>
 </tr>
 <tr class="even">
 <td align="left"><code><a href="articles/seq-representation-plots.html">vignette("seq-representation-plots")</a></code></td>
-<td align="left">sequence index plot<br>sequence frequency
-plot<br>representative sequence plot<br>relative frequency sequence
-plot</td>
+<td align="left">sequence index plot<br>sequence frequency plot<br>representative sequence plot<br>relative frequency sequence plot</td>
 <td align="left">
 <code>ggseqiplot</code><br><code>ggseqfplot</code><br><code>ggseqrplot</code><br><code>ggseqrfplot</code>
 </td>
@@ -205,8 +160,7 @@ plot</td>
 <div class="section level2">
 <h2 id="acknowledgements">Acknowledgements<a class="anchor" aria-label="anchor" href="#acknowledgements"></a>
 </h2>
-<p>I’d like to thank Gilbert Ritschard, Tim Liao, and Emanuela
-Struffolino for their comments on earlier version of this library.</p>
+<p>I’d like to thank Gilbert Ritschard, Tim Liao, and Emanuela Struffolino for their comments on earlier version of this library.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
@@ -261,8 +215,7 @@ Struffolino for their comments on earlier version of this library.</p>
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
     </footer>
