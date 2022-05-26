@@ -9,7 +9,9 @@ ggseqeplot(
   group = NULL,
   weighted = TRUE,
   with.missing = FALSE,
-  linewidth = 1
+  linewidth = 1,
+  linecolor = "Okabe-Ito",
+  gr.linetype = FALSE
 )
 }
 \arguments{
@@ -22,6 +24,12 @@ ggseqeplot(
 \item{with.missing}{Specifies if missing states should be considered when computing the entropy index (default is \code{FALSE}).}
 
 \item{linewidth}{Specifies the with of the entropy line; default is \code{1}}
+
+\item{linecolor}{Specifies color palette for line(s); default is \code{"Okabe-Ito"} which contains up to 9 colors (first is black).
+if more than 9 lines should be rendered, user has to specify an alternative color palette}
+
+\item{gr.linetype}{Specifies if line type should be vary by group; hence only relevant if
+group argument is specified; default is \code{FALSE}}
 }
 \value{
 A line plot of entropy values at each sequence position. If stored as object the resulting list
@@ -53,10 +61,6 @@ actcal <- actcal[sample(nrow(actcal), 300), ]
 actcal.lab <- c("> 37 hours", "19-36 hours", "1-18 hours", "no work")
 actcal.seq <- seqdef(actcal, 13:24, labels = actcal.lab)
 
-# ex1 using weights
-data(ex1)
-ex1.seq <- seqdef(ex1, 1:13, weights = ex1$weights)
-
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -65,11 +69,12 @@ ex1.seq <- seqdef(ex1, 1:13, weights = ex1$weights)
 seqHtplot(actcal.seq, group = actcal$sex)
 # with ggseqplot (entropies shown in one plot)
 ggseqeplot(actcal.seq, group = actcal$sex)
+ggseqeplot(actcal.seq, group = actcal$sex, gr.linetype = TRUE)
 
-# sequences of unequal length with missing state, and weights
-seqHtplot(ex1.seq)
-ggseqeplot(ex1.seq)
-
+#manual color specification
+ggseqeplot(actcal.seq, linecolor = "darkgreen")
+ggseqeplot(actcal.seq, group = actcal$sex,
+           linecolor = c("#3D98D3FF", "#FF363CFF"))
 }
 \author{
 Marcel Raab
