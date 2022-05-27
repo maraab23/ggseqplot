@@ -19,7 +19,7 @@ ggseqeplot(
 
 \item{group}{If grouping variable is specified plot shows one line for each group}
 
-\item{weighted}{Controls if weights (specified in \\code{\\link[TraMineR:seqdef]{TraMineR::seqdef}}) should be used. Default is \code{TRUE}, i.e. if available weights are used}
+\item{weighted}{Controls if weights (specified in \code{\link[TraMineR:seqdef]{TraMineR::seqdef}}) should be used. Default is \code{TRUE}, i.e. if available weights are used}
 
 \item{with.missing}{Specifies if missing states should be considered when computing the entropy index (default is \code{FALSE}).}
 

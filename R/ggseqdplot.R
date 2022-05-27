@@ -1,7 +1,9 @@
 #' Sequence Distribution Plot
 #'
-#' Function for rendering state distribution plots with \code{\link[ggplot2]{ggplot2}} instead of base
-#' R's \code{\link[base]{plot}} function that is used by \code{\link[TraMineR:seqplot]{TraMineR::seqplot}}.
+#' Function for rendering state distribution plots with \code{\link[ggplot2]{ggplot2}}
+#' \insertCite{wickham2016}{ggseqplot} instead of base R's \code{\link[base]{plot}}
+#' function that is used by \code{\link[TraMineR:seqplot]{TraMineR::seqplot}}
+#' \insertCite{gabadinho2011}{ggseqplot}.
 #'
 #' @eval shared_params()
 #' @param no.n specifies if number of (weighted) sequences is shown (default is \code{TRUE})
@@ -13,14 +15,42 @@
 #' @param linewidth Specifies the with of the entropy line if \code{with.entropy==TRUE}; default is \code{1}
 #' @eval shared_facet()
 #'
-#' @return A sequence distribution plot. If stored as object the resulting list
-#' object also contains the data (long format) used for rendering the plot
+#' @return A sequence distribution plot created by using \code{\link[ggplot2]{ggplot2}}.
+#' If stored as object the resulting list object (of class gg and ggplot) also
+#' contains the data used for rendering the plot.
+#'
 #' @export
 #'
-#' @details The function uses \code{\link[TraMineR:seqstatd]{TraMineR::seqstatd}} to obtain state distributions. Obviously this requires that the
-#' input data (\code{seqdata}) is stored as state sequence object (class \code{stslist}) created with the \code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function.
+#' @details Sequence distribution plots visualize the distribution of all states
+#' by rendering a series of stacked bar charts at each position of the sequence.
+#' Although this type of plot has been used in the life course studies for several
+#' decades (see \insertCite{blossfeld1987;textual}{ggseqplot} for an early application),
+#' it should be noted that the size of the different bars in stacked bar charts
+#' might be difficult to compare - particularly if the alphabet comprises many
+#' states  \insertCite{wilke2019}{ggseqplot}. Moreover, it is important to keep
+#' in mind that this plot type does not visualize individual trajectories;
+#' instead it displays aggregated distributional information (repeated cross-sections).
+#' For a more detailed discussion of this  type of sequence visualization see,
+#' for example, \insertCite{brzinsky-fay2014;textual}{ggseqplot},
+#' \insertCite{fasang2014;textual}{ggseqplot},and \insertCite{raab2022;textual}{ggseqplot}.
+#'
+#' The function uses \code{\link[TraMineR:seqstatd]{TraMineR::seqstatd}} to obtain state
+#' distributions (and entropy values). Obviously this requires that the input data (\code{seqdata})
+#' is stored as state sequence object (class \code{stslist}) created with
+#' the \code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function. The state distributions
+#' are reshaped into a a long data format to enable plotting with \code{\link[ggplot2]{ggplot2}}.
+#' The stacked bars are rendered by calling \code{\link[ggplot2]{geom_bar}}; if \code{entropy = TRUE}
+#' entropy values are plotted with \code{\link[ggplot2]{geom_line}}. The data
+#' and specifications used for rendering the plot can be obtained by storing the
+#' plot as an object. The appearance of the plot can be adjusted just like with
+#' every other ggplot (e.g., by changing the theme or the scale using \code{+} and
+#' the respective functions).
+#'
 #'
 #' @author Marcel Raab
+#'
+#' @references
+#'   \insertAllCited{}
 #'
 #' @examples
 #' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

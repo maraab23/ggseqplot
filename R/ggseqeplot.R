@@ -6,7 +6,7 @@
 #'
 #' @param seqdata State sequence object (class \code{stslist}) created with the \code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function.
 #' @param group If grouping variable is specified plot shows one line for each group
-#' @param weighted Controls if weights (specified in \\code{\\link[TraMineR:seqdef]{TraMineR::seqdef}}) should be used. Default is \code{TRUE}, i.e. if available weights are used
+#' @param weighted Controls if weights (specified in \code{\link[TraMineR:seqdef]{TraMineR::seqdef}}) should be used. Default is \code{TRUE}, i.e. if available weights are used
 #' @param with.missing Specifies if missing states should be considered when computing the entropy index (default is \code{FALSE}).
 #' @param linewidth Specifies the with of the entropy line; default is \code{1}
 #' @param gr.linetype Specifies if line type should be vary by group; hence only relevant if
