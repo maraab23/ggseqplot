@@ -1,10 +1,10 @@
 #' Sequence Frequency Plot
 #'
 #' Function for rendering sequence index plot of the most frequent sequences of
-#' a state sequence object using \code{\link[ggplot2]{ggplot2}} instead of base
-#' R's \code{\link[base]{plot}} function that is used by
+#' a state sequence object using \code{\link[ggplot2]{ggplot2}} \insertCite{wickham2016}{ggseqplot}
+#' instead of base R's \code{\link[base]{plot}} function that is used by
 #' \code{\link[TraMineR:seqfplot]{TraMineR::seqplot}} /
-#' \code{\link[TraMineR:plot.stslist.freq]{TraMineR::plot.stslist.freq}}.
+#' \code{\link[TraMineR:plot.stslist.freq]{TraMineR::plot.stslist.freq}} \insertCite{gabadinho2011}{ggseqplot}.
 #'
 #' @eval shared_params()
 #' @param ranks specifies which of the most frequent sequences should be plotted;
@@ -18,8 +18,9 @@
 #' @eval shared_facet()
 #'
 #' @details The subset of displayed sequences is obtained by an internal call of
-#' \code{\link[TraMineR:seqtab]{TraMineR::seqtab}}. The resulting data are reshaped
-#' to be plotted with \code{\link[ggplot2:geom_rect]{ggplot2::geom_rect}}. The data
+#' \code{\link[TraMineR:seqtab]{TraMineR::seqtab}}. The extracted sequences are plotted
+#' by a call of \code{\link[ggseqplot:ggseqiplot]{ggseqiplot}} which uses
+#' \code{\link[ggplot2:geom_rect]{ggplot2::geom_rect}} to render the sequences. The data
 #' and specifications used for rendering the plot can be obtained by storing the
 #' plot as an object. The appearance of the plot can be adjusted just like with
 #' every other ggplot (e.g., by changing the theme or the scale using \code{+} and
@@ -35,6 +36,12 @@
 #' @export
 #'
 #' @author Marcel Raab
+#'
+#' @references
+#'   \insertAllCited{}
+#'
+#' @seealso
+#' \code{\link[ggseqplot:ggseqiplot]{ggseqiplot}}
 #'
 #' @examples
 #' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -83,7 +90,7 @@ ggseqfplot <- function(seqdata,
                        facet_nrow = NULL) {
 
   if (!inherits(seqdata, "stslist")) {
-    stop("data is not a sequence object, use 'TraMineR::seqdef' to create one")
+    stop("data are not stored as sequence object, use 'TraMineR::seqdef' to create one")
   }
 
   if (!is.null(group) & (length(group) != nrow(seqdata))) {

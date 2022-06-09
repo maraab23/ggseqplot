@@ -21,7 +21,7 @@ ggseqiplot(
 
 \item{no.n}{specifies if number of (weighted) sequences is shown (default is \code{TRUE})}
 
-\item{group}{Grouping variable of length equal to the number of sequences. When not NULL, a distinct plot is generated for each level of group.}
+\item{group}{A vector of the same length as the sequence data indicating group membership. When not NULL, a distinct plot is generated for each level of group.}
 
 \item{sortv}{Vector of numerical values sorting the sequences or a sorting
 method (either \code{"from.start"} or \code{"from.end"}). See details.}

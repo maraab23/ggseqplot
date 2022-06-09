@@ -1,11 +1,9 @@
 #' Representative Sequence plot
 #'
-#' Function for rendering representative sequence plots with \code{\link[ggplot2]{ggplot2}} instead of base
-#' R's \code{\link[base]{plot}} function that is used by \code{\link[TraMineR:seqplot]{TraMineR::seqplot}}.
-#' Note that \code{ggseqrplot} uses \code{\link[patchwork]{patchwork}} to combine the different components of the plot.
-#' For further details on representative sequence plots see documentation of
-#' \code{\link[TraMineR:seqplot]{TraMineR::seqplot}} and related documentation files.
-
+#' Function for rendering representative sequence plots with
+#' \code{\link[ggplot2]{ggplot2}} \insertCite{wickham2016}{ggseqplot} instead of base
+#' R's \code{\link[base]{plot}} function that is used by
+#' \code{\link[TraMineR:seqplot]{TraMineR::seqplot}} \insertCite{gabadinho2011}{ggseqplot}.
 #'
 #' @eval shared_params()
 #' @inheritParams TraMineR::seqrep
@@ -13,7 +11,7 @@
 #' @param border if \code{TRUE} bars are plotted with black outline
 #' @param proportional if \code{TRUE} (default), the sequence heights are
 #' displayed proportional to the number of represented sequences
-#' @param stats if \\code{TRUE} (default), mean discrepancy in each subset
+#' @param stats if \code{TRUE} (default), mean discrepancy in each subset
 #' defined by all sequences attributed to one representative sequence and the
 #' mean distance to this representative sequence are displayed.
 #' @param colored.stats specifies if representatives in stats plot should be
@@ -22,9 +20,31 @@
 #' use \code{TRUE} or \code{FALSE} to change manually
 #' @param facet_ncol specifies the number of columns in the plot (relevant if !is.null(group))
 #'
+#' @details
+#' The representative sequence plot displays a set of distinct sequences as sequence index plot.
+#' The set of representative sequences is extracted from the sequence data by an internal call of
+#' \code{\link[TraMineR:seqrep]{TraMineR::seqrep}} according to the criteria listed in the
+#' arguments section above.
+#'
+#' The extracted sequences are plotted by a call of \code{\link[ggseqplot:ggseqiplot]{ggseqiplot}} which uses
+#' \code{\link[ggplot2:geom_rect]{ggplot2::geom_rect}} to render the sequences. If \code{stats = TRUE} the
+#' index plots are complemented by information on the "quality" of the representative sequences.
+#' For further details on representative sequence plots see \insertCite{gabadinho2011a;textual}{ggseqplot}
+#' and the documentation of \code{\link[TraMineR:plot.stslist.rep]{TraMineR::plot.stslist.rep}},
+#' \code{\link[TraMineR:seqplot]{TraMineR::seqplot}}, and \code{\link[TraMineR:seqrep]{TraMineR::seqrep}}.
+#'
+#' Note that \code{ggseqrplot} uses \code{\link[patchwork]{patchwork}} to combine the different components
+#' of the plot. If you want to adjust the appearance of the composed plot, for instance by changing the
+#' plot theme, you should consult the documentation material of \code{\link[patchwork]{patchwork}}.
+#'
 #' @return A representative sequence plot using \code{\link[ggplot2]{ggplot}}.
 #' @export
 #' @importFrom patchwork plot_layout
+#'
+#' @author Marcel Raab
+#'
+#' @references
+#'   \insertAllCited{}
 #'
 #' @examples
 #' library(TraMineR)
@@ -67,8 +87,9 @@ ggseqrplot <- function(seqdata,
                        stats = TRUE,
                        colored.stats = NULL,
                        facet_ncol = NULL) {
-
-
+  if (!inherits(seqdata, "stslist")) {
+    stop("data are not stored as sequence object, use 'TraMineR::seqdef' to create one")
+  }
 
   if (!is.null(nrep) && (nrep%%1!=0 | nrep == 0)) {
     stop("nrep has to be a positive whole number")
@@ -135,8 +156,8 @@ ggseqrplot <- function(seqdata,
                             tidyr::pivot_longer(cols = -.data$id))
 
 
-  rplotdata <- purrr::map(sort(unique(group)),
-                          ~rplotdata[[.x]] |>
+  rplotdata <- purrr::imap(sort(unique(group)),
+                          ~rplotdata[[.y]] |>
                             dplyr::mutate(group = .x, .before = 1))
 
 

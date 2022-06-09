@@ -1,6 +1,7 @@
 #' Sequence Transition Rate Plot
 #'
-#' Function for plotting transition rate matrix of sequence states internally computed by \code{\link[TraMineR:seqtrate]{TraMineR::seqtrate}} \insertCite{gabadinho2011}{ggseqplot}.
+#' Function for plotting transition rate matrix of sequence states internally
+#' computed by \code{\link[TraMineR:seqtrate]{TraMineR::seqtrate}} \insertCite{gabadinho2011}{ggseqplot}.
 #' Plot is generated using \code{\link[ggplot2]{ggplot2}} \insertCite{wickham2016}{ggseqplot}.
 #'
 #' @eval shared_params()
@@ -11,6 +12,23 @@
 #' @param axislabs specifies if sequence object's long "labels" (default) or the state names from its "alphabet" attribute should be used.
 #' @param x_n.dodge allows to print the labels of the x-axis in multiple rows to avoid overlapping.
 #' @eval shared_facet()
+#'
+#' @details The transition rates are obtained by an internal call of
+#' \code{\link[TraMineR:seqtrate]{TraMineR::seqtrate}}.
+#' This requires that the input data (\code{seqdata})
+#' are stored as state sequence object (class \code{stslist}) created with
+#' the \code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function.
+#' As STS based transition rates tend to be dominated by high values on the diagonal, it might be
+#' worthwhile to examine DSS sequences instead (\code{dss = TRUE})). In this case the resulting
+#' plot shows the transition rates between episodes of distinct states.
+#'
+#' In any case (DSS or STS) the transitions rates are reshaped into a a long data format
+#' to enable plotting with \code{\link[ggplot2]{ggplot2}}. The resulting output then is
+#' prepared to be plotted with  \code{\link[ggplot2:geom_tile]{ggplot2::geom_tile}}.
+#' The data and specifications used for rendering the plot can be obtained by storing the
+#' plot as an object. The appearance of the plot can be adjusted just like with
+#' every other ggplot (e.g., by changing the theme or the scale using \code{+} and
+#' the respective functions).
 #'
 #' @return A tile plot of transition rates.
 #' @export
@@ -62,7 +80,7 @@ ggseqtrplot <- function(seqdata,
 
 
   if (!inherits(seqdata, "stslist"))
-    stop("data is not a sequence object, use 'TraMineR::seqdef' to create one")
+    stop("data are not stored as sequence object, use 'TraMineR::seqdef' to create one")
 
 
   if (!is.null(group) & (length(group) != nrow(seqdata)))

@@ -23,7 +23,7 @@ ggseqmsplot(
 
 \item{barwidth}{specifies width of bars (default is \code{NULL}); valid range: (0, 1]}
 
-\item{group}{Grouping variable of length equal to the number of sequences. When not NULL, a distinct plot is generated for each level of group.}
+\item{group}{A vector of the same length as the sequence data indicating group membership. When not NULL, a distinct plot is generated for each level of group.}
 
 \item{weighted}{Controls if weights (specified in \code{\link[TraMineR:seqdef]{TraMineR::seqdef}}) should be used. Default is \code{TRUE}, i.e. if available weights are used}
 
@@ -40,12 +40,23 @@ A modal state sequence plot. If stored as object the resulting list
 object also contains the data (long format) used for rendering the plot
 }
 \description{
-Function for rendering modal state sequence plot with \code{\link[ggplot2]{ggplot2}} instead of base
-R's \code{\link[base]{plot}} function that is used by \code{\link[TraMineR:seqplot]{TraMineR::seqplot}}.
+Function for rendering modal state sequence plot with
+\code{\link[ggplot2]{ggplot2}} \insertCite{wickham2016}{ggseqplot} instead
+of base R's \code{\link[base]{plot}} function that is used by
+\code{\link[TraMineR:seqplot]{TraMineR::seqplot}} \insertCite{gabadinho2011}{ggseqplot}.
 }
 \details{
-The function uses \code{\link[TraMineR:seqmodst]{TraMineR::seqstatd}} to obtain the modal states and their prevalence. Obviously, this requires that the
-input data (\code{seqdata}) is stored as state sequence object (class \code{stslist}) created with the \code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function.
+The function uses \code{\link[TraMineR:seqmodst]{TraMineR::seqmodst}}
+to obtain the modal states and their prevalence. This requires that the
+input data (\code{seqdata}) are stored as state sequence object (class \code{stslist})
+created with the \code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function.
+
+The data on the modal states and their prevalences are reshaped to be plotted with
+\code{\link[ggplot2:geom_bar]{ggplot2::geom_bar}}. The data
+and specifications used for rendering the plot can be obtained by storing the
+plot as an object. The appearance of the plot can be adjusted just like with
+every other ggplot (e.g., by changing the theme or the scale using \code{+} and
+the respective functions).
 }
 \examples{
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -77,6 +88,9 @@ seqmsplot(actcal.seq, group = actcal$sex)
 ggseqmsplot(actcal.seq, group = actcal$sex)
 # with ggseqplot and some layout changes
 ggseqmsplot(actcal.seq, group = actcal$sex, no.n = TRUE, border = FALSE, facet_nrow = 2)
+}
+\references{
+\insertAllCited{}
 }
 \author{
 Marcel Raab

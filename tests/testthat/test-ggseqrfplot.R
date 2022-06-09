@@ -29,6 +29,10 @@ diss <- seqdist(biofam.seq, method = "LCS")
 #                 floor(nrow(biofam.seq)/10))
 # })
 
+test_that("Executions stops if input data are not of class stslist", {
+  expect_error(ggseqrfplot(biofam, diss = diss, k = 12))
+})
+
 
 test_that("arguments are specified correctly (length, type, ...)", {
   expect_error(ggseqrfplot(biofam.seq, diss = diss, yaxis = "none"))

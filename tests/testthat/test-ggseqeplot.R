@@ -22,7 +22,7 @@ ex1.seq <- seqdef(ex1, 1:13, weights = ex1$weights)
 test_that("arguments are specified correctly (length, type, ...)", {
   expect_error(ggseqeplot(biofam))
   expect_error(ggseqeplot(biofam.seq, group = biofam$birthyr))
-  expect_error(ggseqeplot(biofam.seq, group = biofam$sex, gr.linecolor = "green"))
+  expect_error(ggseqeplot(biofam.seq, group = biofam$sex, linecolor = "green"))
   expect_error(ggseqeplot(biofam.seq, group = group[1:100]))
   expect_error(ggseqeplot(biofam.seq, weighted = group))
 })

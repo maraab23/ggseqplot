@@ -1,7 +1,9 @@
 #' Modal State Sequence Plot
 #'
-#' Function for rendering modal state sequence plot with \code{\link[ggplot2]{ggplot2}} instead of base
-#' R's \code{\link[base]{plot}} function that is used by \code{\link[TraMineR:seqplot]{TraMineR::seqplot}}.
+#' Function for rendering modal state sequence plot with
+#' \code{\link[ggplot2]{ggplot2}} \insertCite{wickham2016}{ggseqplot} instead
+#' of base R's \code{\link[base]{plot}} function that is used by
+#' \code{\link[TraMineR:seqplot]{TraMineR::seqplot}} \insertCite{gabadinho2011}{ggseqplot}.
 #'
 #' @eval shared_params()
 #' @param barwidth specifies width of bars (default is \code{NULL}); valid range: (0, 1]
@@ -10,8 +12,17 @@
 #' @param border if \code{TRUE} (default) bars are plotted with black outline
 #' @eval shared_facet()
 #'
-#' @details The function uses \code{\link[TraMineR:seqmodst]{TraMineR::seqstatd}} to obtain the modal states and their prevalence. Obviously, this requires that the
-#' input data (\code{seqdata}) is stored as state sequence object (class \code{stslist}) created with the \code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function.
+#' @details The function uses \code{\link[TraMineR:seqmodst]{TraMineR::seqmodst}}
+#' to obtain the modal states and their prevalence. This requires that the
+#' input data (\code{seqdata}) are stored as state sequence object (class \code{stslist})
+#' created with the \code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function.
+#'
+#' The data on the modal states and their prevalences are reshaped to be plotted with
+#'  \code{\link[ggplot2:geom_bar]{ggplot2::geom_bar}}. The data
+#' and specifications used for rendering the plot can be obtained by storing the
+#' plot as an object. The appearance of the plot can be adjusted just like with
+#' every other ggplot (e.g., by changing the theme or the scale using \code{+} and
+#' the respective functions).
 #'
 #' @return A modal state sequence plot. If stored as object the resulting list
 #' object also contains the data (long format) used for rendering the plot
@@ -19,6 +30,9 @@
 #' @import ggplot2
 #'
 #' @author Marcel Raab
+#'
+#' @references
+#'   \insertAllCited{}
 #'
 #' @examples
 #' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -160,21 +174,16 @@ ggseqmsplot <- function(seqdata,
   klabels <- attributes(seqdata)$names[xbrks]
 
 
-  msplotdata |>
-    dplyr::mutate()
-
-
   if (border == FALSE) {
     ggmsplot <- msplotdata |>
       ggplot(aes(fill = .data$state, y = .data$value, x = .data$x)) +
-      geom_col(width = barwidth)
+      geom_bar(stat="identity", width = barwidth)
   } else {
     ggmsplot <- msplotdata |>
       ggplot(aes(fill = .data$state, y = .data$value, x = .data$x)) +
-      geom_col(
-        width = barwidth,
-        color = "black"
-      )
+      geom_bar(stat="identity",
+               width = barwidth,
+               color = "black")
   }
 
   ggmsplot <- ggmsplot +

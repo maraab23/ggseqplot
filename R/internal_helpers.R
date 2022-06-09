@@ -2,7 +2,7 @@ shared_params <- function() {
   c(
     "@param seqdata State sequence object (class \\code{stslist}) created with the \\code{\\link[TraMineR:seqdef]{TraMineR::seqdef}} function.",
     "@param weighted Controls if weights (specified in \\code{\\link[TraMineR:seqdef]{TraMineR::seqdef}}) should be used. Default is \\code{TRUE}, i.e. if available weights are used",
-    "@param group Grouping variable of length equal to the number of sequences. When not NULL, a distinct plot is generated for each level of group."
+    "@param group A vector of the same length as the sequence data indicating group membership. When not NULL, a distinct plot is generated for each level of group."
   )
 }
 

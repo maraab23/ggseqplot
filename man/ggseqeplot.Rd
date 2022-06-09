@@ -28,21 +28,33 @@ ggseqeplot(
 \item{linecolor}{Specifies color palette for line(s); default is \code{"Okabe-Ito"} which contains up to 9 colors (first is black).
 if more than 9 lines should be rendered, user has to specify an alternative color palette}
 
-\item{gr.linetype}{Specifies if line type should be vary by group; hence only relevant if
+\item{gr.linetype}{Specifies if line type should vary by group; hence only relevant if
 group argument is specified; default is \code{FALSE}}
 }
 \value{
 A line plot of entropy values at each sequence position. If stored as object the resulting list
-object also contains the data (long format) used for rendering the plot
+object also contains the data (long format) used for rendering the plot.
 }
 \description{
-Function for plotting the development of cross-sectional entropies across sequence positions with \code{\link[ggplot2]{ggplot2}} instead of base
-R's \code{\link[base]{plot}} function that is used by \code{\link[TraMineR:seqplot]{TraMineR::seqplot}}. Other than in \code{\link[TraMineR:seqHtplot]{TraMineR::seqHtplot}} group-specific entropy
-lines are displayed in a common plot (just like in \code{\link[TraMineRextras:seqplot.tentrop]{TraMineRextras::seqplot.tentrop}}.
+Function for plotting the development of cross-sectional entropies across
+sequence positions with \code{\link[ggplot2]{ggplot2}} \insertCite{wickham2016}{ggseqplot}
+instead of base R's \code{\link[base]{plot}} function that is used by
+\code{\link[TraMineR:seqplot]{TraMineR::seqplot}} \insertCite{gabadinho2011}{ggseqplot}.
+Other than in \code{\link[TraMineR:seqHtplot]{TraMineR::seqHtplot}} group-specific entropy
+lines are displayed in a common plot (just like in
+\code{\link[TraMineRextras:seqplot.tentrop]{TraMineRextras::seqplot.tentrop}}).
 }
 \details{
-The function uses \code{\link[TraMineR:seqstatd]{TraMineR::seqstatd}} to compute entropies. Obviously this requires that the
-input data (\code{seqdata}) is stored as state sequence object (class \code{stslist}) created with the \code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function.
+The function uses \code{\link[TraMineR:seqstatd]{TraMineR::seqstatd}}
+to compute entropies. This requires that the input data (\code{seqdata})
+are stored as state sequence object (class \code{stslist}) created with the
+\code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function.
+
+The entropy values are plotted with \code{\link[ggplot2]{geom_line}}. The data
+and specifications used for rendering the plot can be obtained by storing the
+plot as an object. The appearance of the plot can be adjusted just like with
+every other ggplot (e.g., by changing the theme or the scale using \code{+} and
+the respective functions).
 }
 \examples{
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -75,6 +87,9 @@ ggseqeplot(actcal.seq, group = actcal$sex, gr.linetype = TRUE)
 ggseqeplot(actcal.seq, linecolor = "darkgreen")
 ggseqeplot(actcal.seq, group = actcal$sex,
            linecolor = c("#3D98D3FF", "#FF363CFF"))
+}
+\references{
+\insertAllCited{}
 }
 \author{
 Marcel Raab

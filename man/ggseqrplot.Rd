@@ -26,7 +26,7 @@ ggseqrplot(
 
 \item{diss}{pairwise dissimilarities between sequences in \code{seqdata} (see \code{TraMineRextras::seqdist})}
 
-\item{group}{Grouping variable of length equal to the number of sequences. When not NULL, a distinct plot is generated for each level of group.}
+\item{group}{A vector of the same length as the sequence data indicating group membership. When not NULL, a distinct plot is generated for each level of group.}
 
 \item{criterion}{the representativeness criterion for sorting the candidate list. One of \code{"freq"} (sequence
       frequency), \code{"density"} (neighborhood density), \code{"mscore"} (mean state frequency), \code{"dist"}
@@ -53,7 +53,7 @@ displayed proportional to the number of represented sequences}
 
 \item{weighted}{Controls if weights (specified in \code{\link[TraMineR:seqdef]{TraMineR::seqdef}}) should be used. Default is \code{TRUE}, i.e. if available weights are used}
 
-\item{stats}{if \\code{TRUE} (default), mean discrepancy in each subset
+\item{stats}{if \code{TRUE} (default), mean discrepancy in each subset
 defined by all sequences attributed to one representative sequence and the
 mean distance to this representative sequence are displayed.}
 
@@ -68,11 +68,27 @@ use \code{TRUE} or \code{FALSE} to change manually}
 A representative sequence plot using \code{\link[ggplot2]{ggplot}}.
 }
 \description{
-Function for rendering representative sequence plots with \code{\link[ggplot2]{ggplot2}} instead of base
-R's \code{\link[base]{plot}} function that is used by \code{\link[TraMineR:seqplot]{TraMineR::seqplot}}.
-Note that \code{ggseqrplot} uses \code{\link[patchwork]{patchwork}} to combine the different components of the plot.
-For further details on representative sequence plots see documentation of
-\code{\link[TraMineR:seqplot]{TraMineR::seqplot}} and related documentation files.
+Function for rendering representative sequence plots with
+\code{\link[ggplot2]{ggplot2}} \insertCite{wickham2016}{ggseqplot} instead of base
+R's \code{\link[base]{plot}} function that is used by
+\code{\link[TraMineR:seqplot]{TraMineR::seqplot}} \insertCite{gabadinho2011}{ggseqplot}.
+}
+\details{
+The representative sequence plot displays a set of distinct sequences as sequence index plot.
+The set of representative sequences is extracted from the sequence data by an internal call of
+\code{\link[TraMineR:seqrep]{TraMineR::seqrep}} according to the criteria listed in the
+arguments section above.
+
+The extracted sequences are plotted by a call of \code{\link[ggseqplot:ggseqiplot]{ggseqiplot}} which uses
+\code{\link[ggplot2:geom_rect]{ggplot2::geom_rect}} to render the sequences. If \code{stats = TRUE} the
+index plots are complemented by information on the "quality" of the representative sequences.
+For further details on representative sequence plots see \insertCite{gabadinho2011a;textual}{ggseqplot}
+and the documentation of \code{\link[TraMineR:plot.stslist.rep]{TraMineR::plot.stslist.rep}},
+\code{\link[TraMineR:seqplot]{TraMineR::seqplot}}, and \code{\link[TraMineR:seqrep]{TraMineR::seqrep}}.
+
+Note that \code{ggseqrplot} uses \code{\link[patchwork]{patchwork}} to combine the different components
+of the plot. If you want to adjust the appearance of the composed plot, for instance by changing the
+plot theme, you should consult the documentation material of \code{\link[patchwork]{patchwork}}.
 }
 \examples{
 library(TraMineR)
@@ -100,4 +116,10 @@ seqrplot(biofam.seq, diss = biofam.om, group = biofam$sex)
 
 ## ... with ggseqrplot
 ggseqrplot(biofam.seq, diss = biofam.om, group = biofam$sex)
+}
+\references{
+\insertAllCited{}
+}
+\author{
+Marcel Raab
 }

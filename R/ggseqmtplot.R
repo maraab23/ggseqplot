@@ -1,30 +1,38 @@
 #' Mean time plot
 #'
 #' Function for rendering plot displaying the mean time spent in each state of
-#' a state sequence object using \code{\link[ggplot2]{ggplot2}} instead of base
-#' R's \code{\link[base]{plot}} function that is used by
-#' \code{\link[TraMineR:seqplot]{TraMineR::seqplot}}.
+#' a state sequence object using \code{\link[ggplot2]{ggplot2}}
+#' \insertCite{wickham2016}{ggseqplot} instead of base R's
+#' \code{\link[base]{plot}} function that is used by
+#' \code{\link[TraMineR:seqplot]{TraMineR::seqplot}}
+#' \insertCite{gabadinho2011}{ggseqplot}.
 #'
 #' @eval shared_params()
-#' @param no.n specifies if number of (weighted) sequences is shown (default is \code{TRUE})
-#' @param with.missing Specifies if missing states should be considered when computing the state distributions (default is \code{FALSE}).
+#' @param no.n specifies if number of (weighted) sequences is shown
+#' (default is \code{TRUE})
+#' @param with.missing Specifies if missing states should be considered when
+#' computing the state distributions (default is \code{FALSE}).
 #' @param border if \code{TRUE} (default) bars are plotted with black outline
 #' @param error.bar allows to add error bars either using the standard
-#' deviation \code{"SD"} or the standard error \code{"SE"}; default plot is without error bars
-#' @param error.caption a caption is added if error bars are displayed; this default
-#' behavior can be turned off by setting the argument to  \code{"FALSE"}
+#' deviation \code{"SD"} or the standard error \code{"SE"}; default plot is
+#' without error bars
+#' @param error.caption a caption is added if error bars are displayed; this
+#' default behavior can be turned off by setting the argument to  \code{"FALSE"}
 #' @param facet_scale Specifies if y-scale in faceted plot should be
 #' \code{"fixed"} (default) or \code{"free_y"}
 #' @eval shared_facet()
 #'
 #' @details The information on time spent in different states is obtained by an
-#' internal call of \code{\link[TraMineR:seqmeant]{TraMineR::seqmeant}}.
-#' The resulting output then is prepared to be plotted with
-#'  \code{\link[ggplot2:geom_bar]{ggplot2::geom_bar}}. The data
-#' and specifications used for rendering the plot can be obtained by storing the
+#' internal call of \code{\link[TraMineR:seqmeant]{TraMineR::seqmeant}}. This
+#' requires that the input data (\code{seqdata}) are stored as state sequence
+#' object (class \code{stslist}) created with the
+#' \code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function. The resulting
+#' output then is prepared to be plotted with
+#'  \code{\link[ggplot2:geom_bar]{ggplot2::geom_bar}}. The data and
+#' specifications used for rendering the plot can be obtained by storing the
 #' plot as an object. The appearance of the plot can be adjusted just like with
-#' every other ggplot (e.g., by changing the theme or the scale using \code{+} and
-#' the respective functions).
+#' every other ggplot (e.g., by changing the theme or the scale using \code{+}
+#' and the respective functions).
 #'
 #' @return A mean time plot created by using \code{\link[ggplot2]{ggplot2}}.
 #' If stored as object the resulting list object (of class gg and ggplot) also
@@ -32,6 +40,9 @@
 #' @export
 #'
 #' @author Marcel Raab
+#'
+#' @references
+#'   \insertAllCited{}
 #'
 #' @examples
 #' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -79,7 +90,7 @@ ggseqmtplot <- function(seqdata,
                         facet_ncol = NULL,
                         facet_nrow = NULL) {
   if (!inherits(seqdata, "stslist")) {
-    stop("data is not a sequence object, use 'TraMineR::seqdef' to create one")
+    stop("data are not stored as sequence object, use 'TraMineR::seqdef' to create one")
   }
 
   if (!is.null(group) & (length(group) != nrow(seqdata))) {

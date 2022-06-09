@@ -14,29 +14,25 @@ function that is used by TraMineR::seqplot
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
-
+    
 
     <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
-
+    
     <a class="navbar-brand me-2" href="../index.html">ggseqplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0</small>
 
-
+    
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="active nav-item">
-  <a class="nav-link" href="../reference/index.html">Reference</a>
+      <ul class="navbar-nav me-auto"><li class="nav-item">
+  <a class="nav-link" href="../articles/ggseqplot.html">Get started</a>
 </li>
-<li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/seq-summarization-plots.html">Sequence Summarization Plots</a>
-    <a class="dropdown-item" href="../articles/seq-representation-plots.html">Sequence Representation Plots</a>
-  </div>
+<li class="active nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
@@ -44,18 +40,18 @@ function that is used by TraMineR::seqplot
       <ul class="navbar-nav"><li class="nav-item">
   <a class="external-link nav-link" href="https://twitter.com/RaabM" aria-label="Twitter">
     <span class="fa fa-twitter"></span>
-
+     
   </a>
 </li>
 <li class="nav-item">
   <a class="external-link nav-link" href="https://github.com/maraab23/ggseqplot/" aria-label="github">
     <span class="fab fa fab fa-github fa-lg"></span>
-
+     
   </a>
 </li>
       </ul></div>
 
-
+    
   </div>
 </nav><div class="container template-reference-topic">
 <div class="row">
@@ -99,7 +95,7 @@ function that is used by <code><a href="https://rdrr.io/pkg/TraMineR/man/seqplot
 <dt>no.n</dt>
 <dd><p>specifies if number of (weighted) sequences is shown (default is <code>TRUE</code>)</p></dd>
 <dt>group</dt>
-<dd><p>Grouping variable of length equal to the number of sequences. When not NULL, a distinct plot is generated for each level of group.</p></dd>
+<dd><p>A vector of the same length as the sequence data indicating group membership. When not NULL, a distinct plot is generated for each level of group.</p></dd>
 <dt>weighted</dt>
 <dd><p>Controls if weights (specified in <code><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">TraMineR::seqdef</a></code>) should be used. Default is <code>TRUE</code>, i.e. if available weights are used</p></dd>
 <dt>with.missing</dt>
@@ -113,7 +109,7 @@ function that is used by <code><a href="https://rdrr.io/pkg/TraMineR/man/seqplot
 <dt>linecolor</dt>
 <dd><p>Specifies the color of the entropy line if <code>with.entropy==TRUE</code>; default is <code>"black"</code></p></dd>
 <dt>linewidth</dt>
-<dd><p>Specifies the with of the entropy line if <code>with.entropy==TRUE</code>; default is <code>1</code></p></dd>
+<dd><p>Specifies the width of the entropy line if <code>with.entropy==TRUE</code>; default is <code>1</code></p></dd>
 <dt>facet_ncol</dt>
 <dd><p>Number of columns in faceted (i.e. grouped) plot</p></dd>
 <dt>facet_nrow</dt>
@@ -142,11 +138,11 @@ For a more detailed discussion of this  type of sequence visualization see,
 for example, Brzinsky-Fay (2014)
 ,
 Fasang and Liao (2014)
-,and Raab and Struffolino (2022)
+, and Raab and Struffolino (2022)
 .</p>
 <p>The function uses <code><a href="https://rdrr.io/pkg/TraMineR/man/seqstatd.html" class="external-link">TraMineR::seqstatd</a></code> to obtain state
-distributions (and entropy values). Obviously this requires that the input data (<code>seqdata</code>)
-is stored as state sequence object (class <code>stslist</code>) created with
+distributions (and entropy values). This requires that the input data (<code>seqdata</code>)
+are stored as state sequence object (class <code>stslist</code>) created with
 the <code><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">TraMineR::seqdef</a></code> function. The state distributions
 are reshaped into a a long data format to enable plotting with <code><a href="https://ggplot2.tidyverse.org/reference/ggplot2-package.html" class="external-link">ggplot2</a></code>.
 The stacked bars are rendered by calling <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_bar</a></code>; if <code>entropy = TRUE</code>
@@ -164,14 +160,14 @@ the respective functions).</p>
 doi: <a href="https://doi.org/10.1086/228707" class="external-link">10.1086/228707</a>
 .<br><br> Brzinsky-Fay C (2014).
 “Graphical Representation of Transitions and Sequences.”
-In Blanchard P, Bühlmann F, Gauthier J (eds.), <em>Advances in Sequence Analysis: Theory, Method, Applications</em>,  Life Course Research and Social Policies, 265--284.
+In Blanchard P, B昼㹣hlmann F, Gauthier J (eds.), <em>Advances in Sequence Analysis: Theory, Method, Applications</em>,  Life Course Research and Social Policies, 265--284.
 Springer, Cham.
 doi: <a href="https://doi.org/10.1007/978-3-319-04969-4_14" class="external-link">10.1007/978-3-319-04969-4_14</a>
 .<br><br> Fasang AE, Liao TF (2014).
 “Visualizing Sequences in the Social Sciences: Relative Frequency Sequence Plots.”
 <em>Sociological Methods &amp; Research</em>, <b>43</b>(4), 643--676.
 doi: <a href="https://doi.org/10.1177/0049124113506563" class="external-link">10.1177/0049124113506563</a>
-.<br><br> Gabadinho A, Ritschard G, Müller NS, Studer M (2011).
+.<br><br> Gabadinho A, Ritschard G, M昼㹣ller NS, Studer M (2011).
 “Analyzing and Visualizing State Sequences in R with TraMineR.”
 <em>Journal of Statistical Software</em>, <b>40</b>(4), 1--37.
 doi: <a href="https://doi.org/10.18637/jss.v040.i04" class="external-link">10.18637/jss.v040.i04</a>
@@ -274,9 +270,9 @@ ISBN 978-1-4920-3108-6.</p>
 
     </footer></div>
 
+  
 
-
-
+  
 
   </body></html>
 

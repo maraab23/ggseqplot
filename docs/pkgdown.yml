@@ -2,9 +2,8 @@ pandoc: 2.17.1.1
 pkgdown: 2.0.3
 pkgdown_sha: ~
 articles:
-  seq-representation-plots: seq-representation-plots.html
-  seq-summarization-plots: seq-summarization-plots.html
-last_built: 2022-05-25T09:34Z
+  ggseqplot: ggseqplot.html
+last_built: 2022-06-09T21:30Z
 urls:
   reference: https://maraab23.github.io/ggseqplot/reference
   article: https://maraab23.github.io/ggseqplot/articles

@@ -115,7 +115,7 @@ ggseqiplot <- function(seqdata,
                        facet_ncol = NULL,
                        facet_nrow = NULL) {
   if (!inherits(seqdata, "stslist")) {
-    stop("data is not a sequence object, use 'seqdef' function to create one")
+    stop("data are not stored as sequence object, use 'TraMineR::seqdef' to create one")
   }
 
   if (!is.logical(weighted) | !is.logical(border)) {

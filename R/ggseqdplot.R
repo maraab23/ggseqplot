@@ -12,7 +12,7 @@
 #' @param with.entropy add line plot of cross-sectional entropies at each sequence position
 #' @param linetype The linetype for the entropy subplot (\code{with.entropy==TRUE}) can be specified with an integer (0-6) or name (0 = blank, 1 = solid, 2 = dashed, 3 = dotted, 4 = dotdash, 5 = longdash, 6 = twodash); ; default is \code{"dashed"}
 #' @param linecolor Specifies the color of the entropy line if \code{with.entropy==TRUE}; default is \code{"black"}
-#' @param linewidth Specifies the with of the entropy line if \code{with.entropy==TRUE}; default is \code{1}
+#' @param linewidth Specifies the width of the entropy line if \code{with.entropy==TRUE}; default is \code{1}
 #' @eval shared_facet()
 #'
 #' @return A sequence distribution plot created by using \code{\link[ggplot2]{ggplot2}}.
@@ -32,11 +32,11 @@
 #' instead it displays aggregated distributional information (repeated cross-sections).
 #' For a more detailed discussion of this  type of sequence visualization see,
 #' for example, \insertCite{brzinsky-fay2014;textual}{ggseqplot},
-#' \insertCite{fasang2014;textual}{ggseqplot},and \insertCite{raab2022;textual}{ggseqplot}.
+#' \insertCite{fasang2014;textual}{ggseqplot}, and \insertCite{raab2022;textual}{ggseqplot}.
 #'
 #' The function uses \code{\link[TraMineR:seqstatd]{TraMineR::seqstatd}} to obtain state
-#' distributions (and entropy values). Obviously this requires that the input data (\code{seqdata})
-#' is stored as state sequence object (class \code{stslist}) created with
+#' distributions (and entropy values). This requires that the input data (\code{seqdata})
+#' are stored as state sequence object (class \code{stslist}) created with
 #' the \code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function. The state distributions
 #' are reshaped into a a long data format to enable plotting with \code{\link[ggplot2]{ggplot2}}.
 #' The stacked bars are rendered by calling \code{\link[ggplot2]{geom_bar}}; if \code{entropy = TRUE}
@@ -108,7 +108,7 @@ ggseqdplot <- function(seqdata,
                        facet_ncol = NULL,
                        facet_nrow = NULL) {
   if (!inherits(seqdata, "stslist")) {
-    stop("data is not a sequence object, use 'TraMineR::seqdef' to create one")
+    stop("data are not stored as sequence object, use 'TraMineR::seqdef' to create one")
   }
 
 

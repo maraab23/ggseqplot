@@ -23,7 +23,7 @@
 #' if \code{sortv} has ties, because the sequences are sorted randomly within
 #' each set of ties (see \code{\link[base]{rank}}; \code{ties.method="random"})
 #'
-#' @return A relative sequence index plot using \code{\link[ggplot2]{ggplot}}.
+#' @return A relative frequency sequence plot using \code{\link[ggplot2]{ggplot}}.
 #' @export
 #' @importFrom patchwork plot_layout
 #'
@@ -82,6 +82,10 @@ ggseqrfplot <- function(seqdata,
                         box.alpha = NULL,
                         which.plot = "both",
                         quality = TRUE) {
+  if (!inherits(seqdata, "stslist")) {
+    stop("data are not stored as sequence object, use 'TraMineR::seqdef' to create one")
+  }
+
   if (!is.logical(yaxis) | !is.logical(quality)) {
     stop("the arguments `yaxis`, and `quality`  have to be objects of type logical")
   }

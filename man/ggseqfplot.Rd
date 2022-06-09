@@ -19,7 +19,7 @@ ggseqfplot(
 \arguments{
 \item{seqdata}{State sequence object (class \code{stslist}) created with the \code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function.}
 
-\item{group}{Grouping variable of length equal to the number of sequences. When not NULL, a distinct plot is generated for each level of group.}
+\item{group}{A vector of the same length as the sequence data indicating group membership. When not NULL, a distinct plot is generated for each level of group.}
 
 \item{ranks}{specifies which of the most frequent sequences should be plotted;
 default is the first ten (\code{1:10}); if set to 0 all sequences are displayed}
@@ -46,15 +46,16 @@ contains the data used for rendering the plot.
 }
 \description{
 Function for rendering sequence index plot of the most frequent sequences of
-a state sequence object using \code{\link[ggplot2]{ggplot2}} instead of base
-R's \code{\link[base]{plot}} function that is used by
+a state sequence object using \code{\link[ggplot2]{ggplot2}} \insertCite{wickham2016}{ggseqplot}
+instead of base R's \code{\link[base]{plot}} function that is used by
 \code{\link[TraMineR:seqfplot]{TraMineR::seqplot}} /
-\code{\link[TraMineR:plot.stslist.freq]{TraMineR::plot.stslist.freq}}.
+\code{\link[TraMineR:plot.stslist.freq]{TraMineR::plot.stslist.freq}} \insertCite{gabadinho2011}{ggseqplot}.
 }
 \details{
 The subset of displayed sequences is obtained by an internal call of
-\code{\link[TraMineR:seqtab]{TraMineR::seqtab}}. The resulting data are reshaped
-to be plotted with \code{\link[ggplot2:geom_rect]{ggplot2::geom_rect}}. The data
+\code{\link[TraMineR:seqtab]{TraMineR::seqtab}}. The extracted sequences are plotted
+by a call of \code{\link[ggseqplot:ggseqiplot]{ggseqiplot}} which uses
+\code{\link[ggplot2:geom_rect]{ggplot2::geom_rect}} to render the sequences. The data
 and specifications used for rendering the plot can be obtained by storing the
 plot as an object. The appearance of the plot can be adjusted just like with
 every other ggplot (e.g., by changing the theme or the scale using \code{+} and
@@ -100,6 +101,12 @@ ggseqfplot(actcal.seq,
   scale_x_discrete(breaks = 1:12,
                    labels = month.abb,
                    expand = expansion(add = c(0.2, 0)))
+}
+\references{
+\insertAllCited{}
+}
+\seealso{
+\code{\link[ggseqplot:ggseqiplot]{ggseqiplot}}
 }
 \author{
 Marcel Raab

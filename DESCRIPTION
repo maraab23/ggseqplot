@@ -1,6 +1,10 @@
 Package: ggseqplot
 Title: Render Sequence Plots using ggplot2
+<<<<<<< Updated upstream
 Version: 0.5.7
+=======
+Version: 0.6.0
+>>>>>>> Stashed changes
 Authors@R: 
     person("Marcel", "Raab", , "marcel.raab@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-3097-1591"))

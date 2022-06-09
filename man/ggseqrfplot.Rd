@@ -44,7 +44,7 @@ the box plots of the group-specific distances to the medoids are shown.}
 \item{quality}{specifies if representation quality is shown as figure caption; default is \code{TRUE}}
 }
 \value{
-A relative sequence index plot using \code{\link[ggplot2]{ggplot}}.
+A relative frequency sequence plot using \code{\link[ggplot2]{ggplot}}.
 }
 \description{
 Function for rendering sequence index plots with \code{\link[ggplot2]{ggplot2}} instead of base

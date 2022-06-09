@@ -23,7 +23,7 @@ ggseqtrplot(
 
 \item{dss}{specifies if transition rates are computed for STS or DSS (default) sequences}
 
-\item{group}{Grouping variable of length equal to the number of sequences. When not NULL, a distinct plot is generated for each level of group.}
+\item{group}{A vector of the same length as the sequence data indicating group membership. When not NULL, a distinct plot is generated for each level of group.}
 
 \item{no.n}{specifies if number of (weighted) sequences is shown in grouped (faceted) graph}
 
@@ -45,8 +45,27 @@ ggseqtrplot(
 A tile plot of transition rates.
 }
 \description{
-Function for plotting transition rate matrix of sequence states internally computed by \code{\link[TraMineR:seqtrate]{TraMineR::seqtrate}} \insertCite{gabadinho2011}{ggseqplot}.
+Function for plotting transition rate matrix of sequence states internally
+computed by \code{\link[TraMineR:seqtrate]{TraMineR::seqtrate}} \insertCite{gabadinho2011}{ggseqplot}.
 Plot is generated using \code{\link[ggplot2]{ggplot2}} \insertCite{wickham2016}{ggseqplot}.
+}
+\details{
+The transition rates are obtained by an internal call of
+\code{\link[TraMineR:seqtrate]{TraMineR::seqtrate}}.
+This requires that the input data (\code{seqdata})
+are stored as state sequence object (class \code{stslist}) created with
+the \code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function.
+As STS based transition rates tend to be dominated by high values on the diagonal, it might be
+worthwhile to examine DSS sequences instead (\code{dss = TRUE})). In this case the resulting
+plot shows the transition rates between episodes of distinct states.
+
+In any case (DSS or STS) the transitions rates are reshaped into a a long data format
+to enable plotting with \code{\link[ggplot2]{ggplot2}}. The resulting output then is
+prepared to be plotted with  \code{\link[ggplot2:geom_tile]{ggplot2::geom_tile}}.
+The data and specifications used for rendering the plot can be obtained by storing the
+plot as an object. The appearance of the plot can be adjusted just like with
+every other ggplot (e.g., by changing the theme or the scale using \code{+} and
+the respective functions).
 }
 \examples{
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -29,6 +29,7 @@ group2 <- sample(1:11, nrow(biofam.seq), replace = TRUE)
 
 test_that("arguments are specified correctly (length, type, ...)", {
   expect_error(ggseqrplot(biofam.seq, diss = diss, nrep = 5.5))
+  expect_error(ggseqrplot(biofam, diss = diss))
 
 })
 

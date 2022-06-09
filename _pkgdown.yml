@@ -25,13 +25,6 @@ reference:
   - ggseqrfplot
 
 
-articles:
-- title: Articles
-  navbar: ~
-  contents:
-  - seq-summarization-plots
-  - seq-representation-plots
-
 navbar:
   structure:
     right: [twitter, github]
