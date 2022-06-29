@@ -126,7 +126,7 @@ ggseqrplot <- function(seqdata,
 
   if (proportional == TRUE) {
     for(i in 1:length(unique(group))) {
-      wgt <- attributes(seq.rep[[i]])$Statistics[1:nrow(seq.rep[[i]]),4]
+      wgt <- attributes(seq.rep[[i]])$Statistics[1:nrow(seq.rep[[i]]),2]
       attributes(seq.rep[[i]])$weights <- wgt
     }
   }
@@ -205,7 +205,7 @@ ggseqrplot <- function(seqdata,
 
     suppressMessages(
       p1 <- purrr::map2(seq.rep, 1:length(unique(group)),
-                        ~ggseqplot::ggseqiplot(.x) +
+                        ~ggseqplot::ggseqiplot(.x, border = border) +
                           scale_y_continuous(
                             breaks = ybreaks[[.y]],
                             labels = labs[[.y]],
