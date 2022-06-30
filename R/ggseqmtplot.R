@@ -12,7 +12,7 @@
 #' (default is \code{TRUE})
 #' @param with.missing Specifies if missing states should be considered when
 #' computing the state distributions (default is \code{FALSE}).
-#' @param border if \code{TRUE} (default) bars are plotted with black outline
+#' @param border if \code{TRUE} bars are plotted with black outline; default is \code{FALSE} (also accepts \code{NULL})
 #' @param error.bar allows to add error bars either using the standard
 #' deviation \code{"SD"} or the standard error \code{"SE"}; default plot is
 #' without error bars
@@ -97,6 +97,7 @@ ggseqmtplot <- function(seqdata,
     stop("length of group vector must match number of rows of seqdata")
   }
 
+  if (is.null(border)) border <- FALSE
 
   if (!is.logical(weighted) | !is.logical(with.missing) |
       !is.logical(border) | !is.logical(no.n)) {

@@ -46,7 +46,7 @@ redundant to sequence \eqn{x} when it is in the neighborhood of \eqn{x}, i.e., w
 
 \item{dmax}{maximum theoretical distance. Used to derive the neighborhood radius as \code{pradius*dmax}. If \code{NULL}, the value of \code{dmax} is derived from the dissimilarity matrix.}
 
-\item{border}{if \code{TRUE} bars are plotted with black outline}
+\item{border}{if \code{TRUE} bars are plotted with black outline; default is \code{FALSE} (also accepts \code{NULL})}
 
 \item{proportional}{if \code{TRUE} (default), the sequence heights are
 displayed proportional to the number of represented sequences}

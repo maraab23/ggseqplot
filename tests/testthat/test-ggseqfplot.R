@@ -65,6 +65,7 @@ test_that("check if output of ggseqfplot is ggplot", {
                              group = group), "ggplot")
   expect_s3_class(ggseqfplot(actcal.seq, proportional = FALSE), "ggplot")
   expect_s3_class(ggseqfplot(actcal.seq, border = TRUE), "ggplot")
+  expect_s3_class(ggseqfplot(actcal.seq, border = NULL), "ggplot")
   expect_s3_class(ggseqfplot(actcal.seq, ylabs = "total",
                              proportional = FALSE), "ggplot")
 })

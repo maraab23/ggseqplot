@@ -73,6 +73,7 @@ test_that("check if output of ggseqmsplot is ggplot", {
   expect_s3_class(ggseqmsplot(ex1.seq), "ggplot")
   expect_s3_class(ggseqmsplot(ex1.seq, group = c(1, 1, 1, 2, 2, 2, 2)), "ggplot")
   expect_s3_class(ggseqmsplot(actcal.seq, border = TRUE), "ggplot")
+  expect_s3_class(ggseqmsplot(actcal.seq, border = NULL), "ggplot")
   expect_s3_class(ggseqmsplot(actcal.seq, group = group), "ggplot")
   expect_s3_class(ggseqmsplot(ex1.seq, weighted = FALSE), "ggplot")
   expect_s3_class(ggseqmsplot(actcal.seq, with.missing = TRUE), "ggplot")

@@ -9,6 +9,7 @@
 #' @param k integer specifying the number of frequency groups
 #' @param diss pairwise dissimilarities between sequences in \code{seqdata} (see \code{TraMineRextras::seqdist})
 #' @param sortv optional sorting variable that may be used to compute the frequency groups. If  \code{NULL} (default), an MDS is used. Ties are randomly ordered.
+#' @param border if \code{TRUE} bars of index plot are plotted with black outline; default is \code{FALSE} (also accepts \code{NULL})
 #' @param ylab character string specifying title of y-axis. If \code{NULL} axis title is "Frequency group"
 #' @param yaxis Controls if a y-axis is plotted. When set as \code{TRUE}, index of frequency groups is displayed.
 #' @param which.plot character string specifying which components of relative frequency sequence plot should be displayed.
@@ -75,6 +76,7 @@ ggseqrfplot <- function(seqdata,
                         k = floor(nrow(seqdata) / 10),
                         diss,
                         sortv = NULL,
+                        border = FALSE,
                         ylab = NULL,
                         yaxis = TRUE,
                         box.color = NULL,
@@ -85,6 +87,8 @@ ggseqrfplot <- function(seqdata,
   if (!inherits(seqdata, "stslist")) {
     stop("data are not stored as sequence object, use 'TraMineR::seqdef' to create one")
   }
+
+  if (is.null(border)) border <- FALSE
 
   if (!is.logical(yaxis) | !is.logical(quality)) {
     stop("the arguments `yaxis`, and `quality`  have to be objects of type logical")
@@ -129,7 +133,7 @@ ggseqrfplot <- function(seqdata,
 
 
   suppressMessages(
-    p1 <- ggseqiplot(seqdata.new, sortv = sortv.new, weighted = FALSE) +
+    p1 <- ggseqiplot(seqdata.new, sortv = sortv.new, weighted = FALSE, border = border) +
       labs(
         title = "Sequence medoids",
         y = ylab

@@ -8,7 +8,7 @@
 #' @eval shared_params()
 #' @param no.n specifies if number of (weighted) sequences is shown (default is \code{TRUE})
 #' @param with.missing Specifies if missing states should be considered when computing the state distributions (default is \code{FALSE}).
-#' @param border if \code{TRUE} bars are plotted with black outline (default is \code{FALSE})
+#' @param border if \code{TRUE} bars are plotted with black outline; default is \code{FALSE} (also accepts \code{NULL})
 #' @param with.entropy add line plot of cross-sectional entropies at each sequence position
 #' @param linetype The linetype for the entropy subplot (\code{with.entropy==TRUE}) can be specified with an integer (0-6) or name (0 = blank, 1 = solid, 2 = dashed, 3 = dotted, 4 = dotdash, 5 = longdash, 6 = twodash); ; default is \code{"dashed"}
 #' @param linecolor Specifies the color of the entropy line if \code{with.entropy==TRUE}; default is \code{"black"}
@@ -116,6 +116,7 @@ ggseqdplot <- function(seqdata,
     stop("length of group vector must match number of rows of seqdata")
   }
 
+  if (is.null(border)) border <- FALSE
 
   if (!is.logical(weighted) | !is.logical(with.missing) |
       !is.logical(border) | !is.logical(no.n)) {

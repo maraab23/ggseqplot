@@ -30,7 +30,7 @@ ggseqdplot(
 
 \item{with.missing}{Specifies if missing states should be considered when computing the state distributions (default is \code{FALSE}).}
 
-\item{border}{if \code{TRUE} bars are plotted with black outline (default is \code{FALSE})}
+\item{border}{if \code{TRUE} bars are plotted with black outline; default is \code{FALSE} (also accepts \code{NULL})}
 
 \item{with.entropy}{add line plot of cross-sectional entropies at each sequence position}
 

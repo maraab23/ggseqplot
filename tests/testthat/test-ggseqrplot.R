@@ -37,8 +37,11 @@ test_that("arguments are specified correctly (length, type, ...)", {
 
 test_that("check if output of ggseqrplot is ggplot", {
   expect_s3_class(ggseqrplot(biofam.seq, diss = diss), "ggplot")
+  expect_s3_class(ggseqrplot(biofam.seq, diss = diss, border = NULL), "ggplot")
   expect_s3_class(ggseqrplot(biofam.seq, diss = diss, stats = FALSE,
                              group = group2, facet_ncol = NULL), "ggplot")
+  expect_s3_class(ggseqrplot(biofam.seq, diss = diss, stats = FALSE,
+                             group = group, facet_ncol = 1), "ggplot")
   expect_s3_class(ggseqrplot(biofam.seq, diss = diss,
                              facet_ncol = 3, stats = TRUE), "ggplot")
   expect_s3_class(ggseqrplot(biofam.seq, diss = diss, nrep = 11), "ggplot")

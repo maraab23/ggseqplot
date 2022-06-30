@@ -9,7 +9,7 @@
 #' @eval shared_params()
 #' @param ranks specifies which of the most frequent sequences should be plotted;
 #' default is the first ten (\code{1:10}); if set to 0 all sequences are displayed
-#' @param border if \code{TRUE} bars are plotted with black outline; default is \code{FALSE}
+#' @param border if \code{TRUE} bars are plotted with black outline; default is \code{FALSE} (also accepts \code{NULL})
 #' @param proportional if \code{TRUE} (default), the sequence heights are
 #' displayed proportional to their frequencies
 #' @param ylabs defines appearance of y-axis labels; default (\code{"total"})
@@ -97,6 +97,7 @@ ggseqfplot <- function(seqdata,
     stop("length of group vector must match number of rows of seqdata")
   }
 
+  if (is.null(border)) border <- FALSE
 
   if (!is.logical(weighted) | !is.logical(proportional) |
       !is.logical(border)) {

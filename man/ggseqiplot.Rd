@@ -28,7 +28,7 @@ method (either \code{"from.start"} or \code{"from.end"}). See details.}
 
 \item{weighted}{Controls if weights (specified in \code{\link[TraMineR:seqdef]{TraMineR::seqdef}}) should be used. Default is \code{TRUE}, i.e. if available weights are used}
 
-\item{border}{if \code{TRUE} bars are plotted with black outline; default is \code{FALSE}}
+\item{border}{if \code{TRUE} bars are plotted with black outline; default is \code{FALSE} (also accepts \code{NULL})}
 
 \item{facet_scale}{Specifies if y-scale in faceted plot should be free
 (\code{"free_y"} is default) or \code{"fixed"}}

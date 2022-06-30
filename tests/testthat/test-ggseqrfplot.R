@@ -56,6 +56,7 @@ test_that("check if output of ggseqrfplot is ggplot", {
     which.plot = "diss.to.med"
   ), "ggplot")
   expect_s3_class(ggseqrfplot(biofam.seq, diss = diss, yaxis = FALSE), "ggplot")
+  expect_s3_class(ggseqrfplot(biofam.seq, diss = diss, border = NULL), "ggplot")
   # expect_s3_class(ggseqrfplot(biofam.seq, group = group, facet_nrow = 2), "ggplot")
   # expect_s3_class(ggseqrfplot(biofam.seq, weighted = FALSE), "ggplot")
   # expect_s3_class(ggseqrfplot(biofam.seq, sortv = "from.start"), "ggplot")

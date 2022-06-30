@@ -26,7 +26,7 @@ default is the first ten (\code{1:10}); if set to 0 all sequences are displayed}
 
 \item{weighted}{Controls if weights (specified in \code{\link[TraMineR:seqdef]{TraMineR::seqdef}}) should be used. Default is \code{TRUE}, i.e. if available weights are used}
 
-\item{border}{if \code{TRUE} bars are plotted with black outline; default is \code{FALSE}}
+\item{border}{if \code{TRUE} bars are plotted with black outline; default is \code{FALSE} (also accepts \code{NULL})}
 
 \item{proportional}{if \code{TRUE} (default), the sequence heights are
 displayed proportional to their frequencies}

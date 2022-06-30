@@ -8,7 +8,7 @@
 #' @eval shared_params()
 #' @inheritParams TraMineR::seqrep
 #' @param diss pairwise dissimilarities between sequences in \code{seqdata} (see \code{TraMineRextras::seqdist})
-#' @param border if \code{TRUE} bars are plotted with black outline
+#' @param border if \code{TRUE} bars are plotted with black outline; default is \code{FALSE} (also accepts \code{NULL})
 #' @param proportional if \code{TRUE} (default), the sequence heights are
 #' displayed proportional to the number of represented sequences
 #' @param stats if \code{TRUE} (default), mean discrepancy in each subset
@@ -95,6 +95,8 @@ ggseqrplot <- function(seqdata,
     stop("nrep has to be a positive whole number")
   }
 
+  if (is.null(border)) border <- FALSE
+
   if (is.null(group)) group <- 1
 
   if (length(unique(group)) > 10 & is.null(facet_ncol)) {
@@ -104,6 +106,7 @@ ggseqrplot <- function(seqdata,
   if (length(unique(group)) <= 10 & is.null(facet_ncol)) {
     facet_ncol <- c(1,2,3,2,3,3,4,4,5,5)[length(unique(group))]
   }
+
 
   seq.rep <- purrr::map(
     sort(unique(group)),
@@ -304,11 +307,22 @@ ggseqrplot <- function(seqdata,
     }
   }
 
+  if (facet_ncol == 1 & length(unique(group)) > 1) {
+    patches <- vector(mode='character')
+
+    for (i in 1:length(unique(group))) {
+      patches <- paste0(patches, " + ",
+                        paste0("p2[[",i,"]] + p1[[",i,"]]", collapse = " + "))
+    }
+
+  }
+
   patches <- substring(patches, 4)
 
   prows <- ceiling(length(unique(group))/facet_ncol)
 
   heights <- as.character(rep(c(.75,1),prows))
+
 
   if (stats == TRUE) {
     patches <- glue::glue("{patches} + plot_layout(guides = 'collect', ncol = {facet_ncol}, heights = ")
@@ -318,6 +332,7 @@ ggseqrplot <- function(seqdata,
   }
 
   patches <- glue::glue("{patches} + patchwork::plot_annotation(theme = theme(legend.position = 'bottom'))")
+
 
 
   if (stats == FALSE & length(unique(group)) > 1) {
@@ -348,10 +363,16 @@ ggseqrplot <- function(seqdata,
   }
 
   if (length(unique(group)) > 6) {
-      usethis::ui_info(glue::glue("You are trying to render representative sequence plot for many groups.
+      usethis::ui_info(glue::glue("You are trying to render a representative sequence plot for many groups.
       The resulting output (if produced at all) might be hard to decipher.
       Consider reducing the number of distinct groups."))
   }
+
+  if (length(unique(group)) > 3) {
+      usethis::ui_info(glue::glue("You are trying to render a representative sequence plot for many groups using just one column.
+      The resulting output (if produced at all) might be hard to decipher.
+      Consider reducing the number of distinct groups or increase facet_ncol."))
+    }
 
   return(rplot)
 
