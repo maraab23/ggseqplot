@@ -6,3 +6,7 @@ The warning is referring to a known issue
 resolved soon once gtools has a new maintainer 
 (see https://github.com/r-gregmisc/gtools/issues/15)
 
+## Revision since inital submission
+
+- Fixed invalid URI scheme
+

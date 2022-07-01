@@ -57,7 +57,7 @@ how to refine base R plots just for the single purpose of visualizing
 sequence data.
 
 
-Currently, [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) contains the 
+[`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) contains the 
 following functions:
 
 
@@ -78,7 +78,7 @@ send me an
 [email](mailto:marcel.raab@ifb.uni-bamberg.de?subject=ggseqplot%3A%20feature%20request).
 
 
-A complementing [vignette]((https://maraab23.github.io/ggseqplot/articles/ggseqplot.html)) outlines how [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) reshapes sequence data
+A complementing [vignette](https://maraab23.github.io/ggseqplot/articles/ggseqplot.html) outlines how [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) reshapes sequence data
 generated with [`{TraMineR}`](http://traminer.unige.ch){target="\_blank"} functions to visualize them using
 [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="\_blank"}. Moreover, it 
 illustrates how to adjust the baseline output using familiar

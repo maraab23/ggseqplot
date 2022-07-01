@@ -46,8 +46,8 @@ target="_blank"><code>{ggplot2}</code></a> and prefer to draw on the
 related skills and experiences instead of learning how to refine base R
 plots just for the single purpose of visualizing sequence data.
 
-Currently, [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/)
-contains the following functions:
+[`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) contains the
+following functions:
 
 -   `ggseqdplot` (equivalent to `TraMineR::seqdplot`)
 -   `ggseqeplot` (equivalent to `TraMineRextras::seqplot.tentrop`)
@@ -66,7 +66,7 @@ send me an
 [email](mailto:marcel.raab@ifb.uni-bamberg.de?subject=ggseqplot%3A%20feature%20request).
 
 A complementing
-[vignette]((https://maraab23.github.io/ggseqplot/articles/ggseqplot.html))
+[vignette](https://maraab23.github.io/ggseqplot/articles/ggseqplot.html)
 outlines how [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/)
 reshapes sequence data generated with <a href="http://traminer.unige.ch"
 target="_blank"><code>{TraMineR}</code></a> functions to visualize them
