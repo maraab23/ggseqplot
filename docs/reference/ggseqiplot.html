@@ -36,6 +36,9 @@ TraMineR::seqplot
 <li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
+</li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -75,45 +78,64 @@ of base R's <code><a href="https://rdrr.io/r/base/plot.html" class="external-lin
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">ggseqiplot</span><span class="op">(</span>
-  <span class="va">seqdata</span>,
-  no.n <span class="op">=</span> <span class="cn">FALSE</span>,
-  group <span class="op">=</span> <span class="cn">NULL</span>,
-  sortv <span class="op">=</span> <span class="cn">NULL</span>,
-  weighted <span class="op">=</span> <span class="cn">TRUE</span>,
-  border <span class="op">=</span> <span class="cn">FALSE</span>,
-  facet_scale <span class="op">=</span> <span class="st">"free_y"</span>,
-  facet_ncol <span class="op">=</span> <span class="cn">NULL</span>,
-  facet_nrow <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ggseqiplot</span><span class="op">(</span></span>
+<span>  <span class="va">seqdata</span>,</span>
+<span>  no.n <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  group <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  sortv <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  weighted <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  border <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  facet_scale <span class="op">=</span> <span class="st">"free_y"</span>,</span>
+<span>  facet_ncol <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  facet_nrow <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>seqdata</dt>
 <dd><p>State sequence object (class <code>stslist</code>) created with the <code><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">TraMineR::seqdef</a></code> function.</p></dd>
+
+
 <dt>no.n</dt>
 <dd><p>specifies if number of (weighted) sequences is shown (default is <code>TRUE</code>)</p></dd>
+
+
 <dt>group</dt>
 <dd><p>A vector of the same length as the sequence data indicating group membership. When not NULL, a distinct plot is generated for each level of group.</p></dd>
+
+
 <dt>sortv</dt>
 <dd><p>Vector of numerical values sorting the sequences or a sorting
 method (either <code>"from.start"</code> or <code>"from.end"</code>). See details.</p></dd>
+
+
 <dt>weighted</dt>
 <dd><p>Controls if weights (specified in <code><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">TraMineR::seqdef</a></code>) should be used. Default is <code>TRUE</code>, i.e. if available weights are used</p></dd>
+
+
 <dt>border</dt>
 <dd><p>if <code>TRUE</code> bars are plotted with black outline; default is <code>FALSE</code> (also accepts <code>NULL</code>)</p></dd>
+
+
 <dt>facet_scale</dt>
 <dd><p>Specifies if y-scale in faceted plot should be free
 (<code>"free_y"</code> is default) or <code>"fixed"</code></p></dd>
+
+
 <dt>facet_ncol</dt>
 <dd><p>Number of columns in faceted (i.e. grouped) plot</p></dd>
+
+
 <dt>facet_nrow</dt>
 <dd><p>Number of rows in faceted (i.e. grouped) plot</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A sequence index plot. If stored as object the resulting list object
+    
+
+<p>A sequence index plot. If stored as object the resulting list object
 also contains the data (spell format) used for rendering the plot.</p>
     </div>
     <div class="section level2">
@@ -163,28 +185,28 @@ when <code>border=TRUE</code>. You can change the ratio either by adding code to
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Brzinsky-Fay C (2014).
 “Graphical Representation of Transitions and Sequences.”
-In Blanchard P, B昼㹣hlmann F, Gauthier J (eds.), <em>Advances in Sequence Analysis: Theory, Method, Applications</em>,  Life Course Research and Social Policies, 265--284.
+In Blanchard P, Bühlmann F, Gauthier J (eds.), <em>Advances in Sequence Analysis: Theory, Method, Applications</em>,  Life Course Research and Social Policies, 265--284.
 Springer, Cham.
-doi: <a href="https://doi.org/10.1007/978-3-319-04969-4_14" class="external-link">10.1007/978-3-319-04969-4_14</a>
+<a href="https://doi.org/10.1007/978-3-319-04969-4_14" class="external-link">doi:10.1007/978-3-319-04969-4_14</a>
 .<br><br> Fasang AE, Liao TF (2014).
 “Visualizing Sequences in the Social Sciences: Relative Frequency Sequence Plots.”
 <em>Sociological Methods &amp; Research</em>, <b>43</b>(4), 643--676.
-doi: <a href="https://doi.org/10.1177/0049124113506563" class="external-link">10.1177/0049124113506563</a>
-.<br><br> Gabadinho A, Ritschard G, M昼㹣ller NS, Studer M (2011).
+<a href="https://doi.org/10.1177/0049124113506563" class="external-link">doi:10.1177/0049124113506563</a>
+.<br><br> Gabadinho A, Ritschard G, Müller NS, Studer M (2011).
 “Analyzing and Visualizing State Sequences in R with TraMineR.”
 <em>Journal of Statistical Software</em>, <b>40</b>(4), 1--37.
-doi: <a href="https://doi.org/10.18637/jss.v040.i04" class="external-link">10.18637/jss.v040.i04</a>
+<a href="https://doi.org/10.18637/jss.v040.i04" class="external-link">doi:10.18637/jss.v040.i04</a>
 .<br><br> Raab M, Struffolino E (2022).
 <em>Sequence Analysis</em>, volume 190 of <em>Quantitative Applications in the Social Sciences</em>.
 SAGE, Thousand Oaks, CA.
 <a href="https://sa-book.github.io/" class="external-link">https://sa-book.github.io/</a>.<br><br> Scherer S (2001).
 “Early Career Patterns: A Comparison of Great Britain and West Germany.”
 <em>European Sociological Review</em>, <b>17</b>(2), 119--144.
-doi: <a href="https://doi.org/10.1093/esr/17.2.119" class="external-link">10.1093/esr/17.2.119</a>
+<a href="https://doi.org/10.1093/esr/17.2.119" class="external-link">doi:10.1093/esr/17.2.119</a>
 .<br><br> Wickham H (2016).
 <em>ggplot2: Elegant Graphics for Data Analysis</em>,  Use R!, 2nd ed. edition.
 Springer, Cham.
-doi: <a href="https://doi.org/10.1007/978-3-319-24277-4" class="external-link">10.1007/978-3-319-24277-4</a>
+<a href="https://doi.org/10.1007/978-3-319-24277-4" class="external-link">doi:10.1007/978-3-319-24277-4</a>
 .</p>
     </div>
     <div class="section level2">
@@ -194,20 +216,20 @@ doi: <a href="https://doi.org/10.1007/978-3-319-24277-4" class="external-link">1
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Examples from TraMineR::seqplot</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://traminer.unige.ch" class="external-link">TraMineR</a></span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># actcal data set</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">actcal</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># We use only a sample of 300 cases</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">actcal</span> <span class="op">&lt;-</span> <span class="va">actcal</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">actcal</span><span class="op">)</span>, <span class="fl">300</span><span class="op">)</span>, <span class="op">]</span></span>
-<span class="r-in"><span class="va">actcal.lab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"&gt; 37 hours"</span>, <span class="st">"19-36 hours"</span>, <span class="st">"1-18 hours"</span>, <span class="st">"no work"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">actcal.seq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">seqdef</a></span><span class="op">(</span><span class="va">actcal</span>, <span class="fl">13</span><span class="op">:</span><span class="fl">24</span>, labels <span class="op">=</span> <span class="va">actcal.lab</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Examples from TraMineR::seqplot</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://traminer.unige.ch" class="external-link">TraMineR</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># actcal data set</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">actcal</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># We use only a sample of 300 cases</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">actcal</span> <span class="op">&lt;-</span> <span class="va">actcal</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">actcal</span><span class="op">)</span>, <span class="fl">300</span><span class="op">)</span>, <span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">actcal.lab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"&gt; 37 hours"</span>, <span class="st">"19-36 hours"</span>, <span class="st">"1-18 hours"</span>, <span class="st">"no work"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">actcal.seq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">seqdef</a></span><span class="op">(</span><span class="va">actcal</span>, <span class="fl">13</span><span class="op">:</span><span class="fl">24</span>, labels <span class="op">=</span> <span class="va">actcal.lab</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] 4 distinct states appear in the data: </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>      1 = A</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>      2 = B</span>
@@ -221,10 +243,10 @@ doi: <a href="https://doi.org/10.1007/978-3-319-24277-4" class="external-link">1
 <span class="r-msg co"><span class="r-pr">#&gt;</span>      4  D           D        no work</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] 300 sequences in the data set</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] min/max sequence length: 12/12</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># ex1 using weights</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ex1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ex1.seq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">seqdef</a></span><span class="op">(</span><span class="va">ex1</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">13</span>, weights <span class="op">=</span> <span class="va">ex1</span><span class="op">$</span><span class="va">weights</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># ex1 using weights</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ex1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ex1.seq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">seqdef</a></span><span class="op">(</span><span class="va">ex1</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">13</span>, weights <span class="op">=</span> <span class="va">ex1</span><span class="op">$</span><span class="va">weights</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] found missing values ('NA') in sequence data</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] preparing 7 sequences</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] coding void elements with '%' and missing values with '*'</span>
@@ -244,30 +266,30 @@ doi: <a href="https://doi.org/10.1007/978-3-319-24277-4" class="external-link">1
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] sum of weights: 60 - min/max: 0/29.3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] 7 sequences in the data set</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] min/max sequence length: 0/13</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># sequences sorted by age in 2000 and grouped by sex</span></span>
-<span class="r-in"><span class="co"># with TraMineR::seqplot</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">seqIplot</a></span><span class="op">(</span><span class="va">actcal.seq</span>, group <span class="op">=</span> <span class="va">actcal</span><span class="op">$</span><span class="va">sex</span>, sortv <span class="op">=</span> <span class="va">actcal</span><span class="op">$</span><span class="va">age00</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># sequences sorted by age in 2000 and grouped by sex</span></span></span>
+<span class="r-in"><span><span class="co"># with TraMineR::seqplot</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">seqIplot</a></span><span class="op">(</span><span class="va">actcal.seq</span>, group <span class="op">=</span> <span class="va">actcal</span><span class="op">$</span><span class="va">sex</span>, sortv <span class="op">=</span> <span class="va">actcal</span><span class="op">$</span><span class="va">age00</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ggseqiplot-1.png" alt="" width="768" height="474"></span>
-<span class="r-in"><span class="co"># with ggseqplot</span></span>
-<span class="r-in"><span class="fu">ggseqiplot</span><span class="op">(</span><span class="va">actcal.seq</span>, group <span class="op">=</span> <span class="va">actcal</span><span class="op">$</span><span class="va">sex</span>, sortv <span class="op">=</span> <span class="va">actcal</span><span class="op">$</span><span class="va">age00</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># with ggseqplot</span></span></span>
+<span class="r-in"><span><span class="fu">ggseqiplot</span><span class="op">(</span><span class="va">actcal.seq</span>, group <span class="op">=</span> <span class="va">actcal</span><span class="op">$</span><span class="va">sex</span>, sortv <span class="op">=</span> <span class="va">actcal</span><span class="op">$</span><span class="va">age00</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ggseqiplot-2.png" alt="" width="768" height="474"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># sequences of unequal length with missing state, and weights</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">seqIplot</a></span><span class="op">(</span><span class="va">ex1.seq</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># sequences of unequal length with missing state, and weights</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">seqIplot</a></span><span class="op">(</span><span class="va">ex1.seq</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ggseqiplot-3.png" alt="" width="768" height="474"></span>
-<span class="r-in"><span class="fu">ggseqiplot</span><span class="op">(</span><span class="va">ex1.seq</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">ggseqiplot</span><span class="op">(</span><span class="va">ex1.seq</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ggseqiplot-4.png" alt="" width="768" height="474"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># ... turn weights off and add border</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">seqIplot</a></span><span class="op">(</span><span class="va">ex1.seq</span>, weighted <span class="op">=</span> <span class="cn">FALSE</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># ... turn weights off and add border</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">seqIplot</a></span><span class="op">(</span><span class="va">ex1.seq</span>, weighted <span class="op">=</span> <span class="cn">FALSE</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ggseqiplot-5.png" alt="" width="768" height="474"></span>
-<span class="r-in"><span class="fu">ggseqiplot</span><span class="op">(</span><span class="va">ex1.seq</span>, weighted <span class="op">=</span> <span class="cn">FALSE</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">ggseqiplot</span><span class="op">(</span><span class="va">ex1.seq</span>, weighted <span class="op">=</span> <span class="cn">FALSE</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ggseqiplot-6.png" alt="" width="768" height="474"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -279,7 +301,7 @@ doi: <a href="https://doi.org/10.1007/978-3-319-24277-4" class="external-link">1
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

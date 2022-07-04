@@ -9,4 +9,6 @@ resolved soon once gtools has a new maintainer
 ## Revision since inital submission
 
 - Fixed invalid URI scheme
+- Revised description (quotations, spaces, and functions with parentheses)
+- Revised vignette (restore options)
 

@@ -19,6 +19,9 @@ knitr::opts_chunk$set(
   fig.width=8,
   fig.height=4.94
 )
+
+old <- options()        
+on.exit(options(old))
 options(rmarkdown.html_vignette.check_title = FALSE)
 
 pkgs <- c("colorspace", "ggplot2", "ggthemes", "ggseqplot", "hrbrthemes", 

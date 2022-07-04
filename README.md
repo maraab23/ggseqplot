@@ -87,5 +87,5 @@ devtools::install_github("maraab23/ggseqplot")
 
 ## Acknowledgements
 
-I’d like to thank Gilbert Ritschard, Tim Liao, and Emanuela Struffolino
-for their comments on earlier version of this library.
+I want to thank like to thank Gilbert Ritschard, Tim Liao, and Emanuela
+Struffolino for their comments on earlier versions of this library.

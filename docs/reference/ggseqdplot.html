@@ -34,6 +34,9 @@ function that is used by TraMineR::seqplot
 <li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
+</li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -72,52 +75,77 @@ function that is used by <code><a href="https://rdrr.io/pkg/TraMineR/man/seqplot
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">ggseqdplot</span><span class="op">(</span>
-  <span class="va">seqdata</span>,
-  no.n <span class="op">=</span> <span class="cn">FALSE</span>,
-  group <span class="op">=</span> <span class="cn">NULL</span>,
-  weighted <span class="op">=</span> <span class="cn">TRUE</span>,
-  with.missing <span class="op">=</span> <span class="cn">FALSE</span>,
-  border <span class="op">=</span> <span class="cn">FALSE</span>,
-  with.entropy <span class="op">=</span> <span class="cn">FALSE</span>,
-  linetype <span class="op">=</span> <span class="st">"dashed"</span>,
-  linecolor <span class="op">=</span> <span class="st">"black"</span>,
-  linewidth <span class="op">=</span> <span class="fl">1</span>,
-  facet_ncol <span class="op">=</span> <span class="cn">NULL</span>,
-  facet_nrow <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ggseqdplot</span><span class="op">(</span></span>
+<span>  <span class="va">seqdata</span>,</span>
+<span>  no.n <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  group <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  weighted <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  with.missing <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  border <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  with.entropy <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  linetype <span class="op">=</span> <span class="st">"dashed"</span>,</span>
+<span>  linecolor <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>  linewidth <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  facet_ncol <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  facet_nrow <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>seqdata</dt>
 <dd><p>State sequence object (class <code>stslist</code>) created with the <code><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">TraMineR::seqdef</a></code> function.</p></dd>
+
+
 <dt>no.n</dt>
 <dd><p>specifies if number of (weighted) sequences is shown (default is <code>TRUE</code>)</p></dd>
+
+
 <dt>group</dt>
 <dd><p>A vector of the same length as the sequence data indicating group membership. When not NULL, a distinct plot is generated for each level of group.</p></dd>
+
+
 <dt>weighted</dt>
 <dd><p>Controls if weights (specified in <code><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">TraMineR::seqdef</a></code>) should be used. Default is <code>TRUE</code>, i.e. if available weights are used</p></dd>
+
+
 <dt>with.missing</dt>
 <dd><p>Specifies if missing states should be considered when computing the state distributions (default is <code>FALSE</code>).</p></dd>
+
+
 <dt>border</dt>
 <dd><p>if <code>TRUE</code> bars are plotted with black outline; default is <code>FALSE</code> (also accepts <code>NULL</code>)</p></dd>
+
+
 <dt>with.entropy</dt>
 <dd><p>add line plot of cross-sectional entropies at each sequence position</p></dd>
+
+
 <dt>linetype</dt>
 <dd><p>The linetype for the entropy subplot (<code>with.entropy==TRUE</code>) can be specified with an integer (0-6) or name (0 = blank, 1 = solid, 2 = dashed, 3 = dotted, 4 = dotdash, 5 = longdash, 6 = twodash); ; default is <code>"dashed"</code></p></dd>
+
+
 <dt>linecolor</dt>
 <dd><p>Specifies the color of the entropy line if <code>with.entropy==TRUE</code>; default is <code>"black"</code></p></dd>
+
+
 <dt>linewidth</dt>
 <dd><p>Specifies the width of the entropy line if <code>with.entropy==TRUE</code>; default is <code>1</code></p></dd>
+
+
 <dt>facet_ncol</dt>
 <dd><p>Number of columns in faceted (i.e. grouped) plot</p></dd>
+
+
 <dt>facet_nrow</dt>
 <dd><p>Number of rows in faceted (i.e. grouped) plot</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A sequence distribution plot created by using <code><a href="https://ggplot2.tidyverse.org/reference/ggplot2-package.html" class="external-link">ggplot2</a></code>.
+    
+
+<p>A sequence distribution plot created by using <code><a href="https://ggplot2.tidyverse.org/reference/ggplot2-package.html" class="external-link">ggplot2</a></code>.
 If stored as object the resulting list object (of class gg and ggplot) also
 contains the data used for rendering the plot.</p>
     </div>
@@ -157,27 +185,27 @@ the respective functions).</p>
     <p>Blossfeld H (1987).
 “Labor-Market Entry and the Sexual Segregation of Careers in the Federal Republic of Germany.”
 <em>American Journal of Sociology</em>, <b>93</b>(1), 89--118.
-doi: <a href="https://doi.org/10.1086/228707" class="external-link">10.1086/228707</a>
+<a href="https://doi.org/10.1086/228707" class="external-link">doi:10.1086/228707</a>
 .<br><br> Brzinsky-Fay C (2014).
 “Graphical Representation of Transitions and Sequences.”
 In Blanchard P, Bühlmann F, Gauthier J (eds.), <em>Advances in Sequence Analysis: Theory, Method, Applications</em>,  Life Course Research and Social Policies, 265--284.
 Springer, Cham.
-doi: <a href="https://doi.org/10.1007/978-3-319-04969-4_14" class="external-link">10.1007/978-3-319-04969-4_14</a>
+<a href="https://doi.org/10.1007/978-3-319-04969-4_14" class="external-link">doi:10.1007/978-3-319-04969-4_14</a>
 .<br><br> Fasang AE, Liao TF (2014).
 “Visualizing Sequences in the Social Sciences: Relative Frequency Sequence Plots.”
 <em>Sociological Methods &amp; Research</em>, <b>43</b>(4), 643--676.
-doi: <a href="https://doi.org/10.1177/0049124113506563" class="external-link">10.1177/0049124113506563</a>
+<a href="https://doi.org/10.1177/0049124113506563" class="external-link">doi:10.1177/0049124113506563</a>
 .<br><br> Gabadinho A, Ritschard G, Müller NS, Studer M (2011).
 “Analyzing and Visualizing State Sequences in R with TraMineR.”
 <em>Journal of Statistical Software</em>, <b>40</b>(4), 1--37.
-doi: <a href="https://doi.org/10.18637/jss.v040.i04" class="external-link">10.18637/jss.v040.i04</a>
+<a href="https://doi.org/10.18637/jss.v040.i04" class="external-link">doi:10.18637/jss.v040.i04</a>
 .<br><br> Raab M, Struffolino E (2022).
 <em>Sequence Analysis</em>, volume 190 of <em>Quantitative Applications in the Social Sciences</em>.
 SAGE, Thousand Oaks, CA.
 <a href="https://sa-book.github.io/" class="external-link">https://sa-book.github.io/</a>.<br><br> Wickham H (2016).
 <em>ggplot2: Elegant Graphics for Data Analysis</em>,  Use R!, 2nd ed. edition.
 Springer, Cham.
-doi: <a href="https://doi.org/10.1007/978-3-319-24277-4" class="external-link">10.1007/978-3-319-24277-4</a>
+<a href="https://doi.org/10.1007/978-3-319-24277-4" class="external-link">doi:10.1007/978-3-319-24277-4</a>
 .<br><br> Wilke C (2019).
 <em>Fundamentals of Data Visualization: A Primer on Making Informative and Compelling Figures</em>.
 O'Reilly Media, Sebastopol, CA.
@@ -190,29 +218,29 @@ ISBN 978-1-4920-3108-6.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Examples from TraMineR::seqplot</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://traminer.unige.ch" class="external-link">TraMineR</a></span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Examples from TraMineR::seqplot</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://traminer.unige.ch" class="external-link">TraMineR</a></span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> TraMineR stable version 2.2-3 (Built: 2022-03-25)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> TraMineR stable version 2.2-4 (Built: 2022-06-27)</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Website: http://traminer.unige.ch</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Please type 'citation("TraMineR")' for citation information.</span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Examples from TraMineR::seqplot</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># actcal data set</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">actcal</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># We use only a sample of 300 cases</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">actcal</span> <span class="op">&lt;-</span> <span class="va">actcal</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">actcal</span><span class="op">)</span>, <span class="fl">300</span><span class="op">)</span>, <span class="op">]</span></span>
-<span class="r-in"><span class="va">actcal.lab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"&gt; 37 hours"</span>, <span class="st">"19-36 hours"</span>, <span class="st">"1-18 hours"</span>, <span class="st">"no work"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">actcal.seq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">seqdef</a></span><span class="op">(</span><span class="va">actcal</span>, <span class="fl">13</span><span class="op">:</span><span class="fl">24</span>, labels <span class="op">=</span> <span class="va">actcal.lab</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Examples from TraMineR::seqplot</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># actcal data set</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">actcal</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># We use only a sample of 300 cases</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">actcal</span> <span class="op">&lt;-</span> <span class="va">actcal</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">actcal</span><span class="op">)</span>, <span class="fl">300</span><span class="op">)</span>, <span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">actcal.lab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"&gt; 37 hours"</span>, <span class="st">"19-36 hours"</span>, <span class="st">"1-18 hours"</span>, <span class="st">"no work"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">actcal.seq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">seqdef</a></span><span class="op">(</span><span class="va">actcal</span>, <span class="fl">13</span><span class="op">:</span><span class="fl">24</span>, labels <span class="op">=</span> <span class="va">actcal.lab</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] 4 distinct states appear in the data: </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>      1 = A</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>      2 = B</span>
@@ -226,34 +254,34 @@ ISBN 978-1-4920-3108-6.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>      4  D           D        no work</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] 300 sequences in the data set</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] min/max sequence length: 12/12</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># state distribution plots; grouped by sex</span></span>
-<span class="r-in"><span class="co"># with TraMineR::seqplot</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">seqdplot</a></span><span class="op">(</span><span class="va">actcal.seq</span>, group <span class="op">=</span> <span class="va">actcal</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># state distribution plots; grouped by sex</span></span></span>
+<span class="r-in"><span><span class="co"># with TraMineR::seqplot</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">seqdplot</a></span><span class="op">(</span><span class="va">actcal.seq</span>, group <span class="op">=</span> <span class="va">actcal</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ggseqdplot-1.png" alt="" width="768" height="474"></span>
-<span class="r-in"><span class="co"># with ggseqplot</span></span>
-<span class="r-in"><span class="fu">ggseqdplot</span><span class="op">(</span><span class="va">actcal.seq</span>, group <span class="op">=</span> <span class="va">actcal</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># with ggseqplot</span></span></span>
+<span class="r-in"><span><span class="fu">ggseqdplot</span><span class="op">(</span><span class="va">actcal.seq</span>, group <span class="op">=</span> <span class="va">actcal</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ggseqdplot-2.png" alt="" width="768" height="474"></span>
-<span class="r-in"><span class="co"># with ggseqplot applying a few additional arguments, e.g. entropy line</span></span>
-<span class="r-in"><span class="fu">ggseqdplot</span><span class="op">(</span><span class="va">actcal.seq</span>, group <span class="op">=</span> <span class="va">actcal</span><span class="op">$</span><span class="va">sex</span>,</span>
-<span class="r-in">           no.n <span class="op">=</span> <span class="cn">TRUE</span>, with.entropy <span class="op">=</span> <span class="cn">TRUE</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># with ggseqplot applying a few additional arguments, e.g. entropy line</span></span></span>
+<span class="r-in"><span><span class="fu">ggseqdplot</span><span class="op">(</span><span class="va">actcal.seq</span>, group <span class="op">=</span> <span class="va">actcal</span><span class="op">$</span><span class="va">sex</span>,</span></span>
+<span class="r-in"><span>           no.n <span class="op">=</span> <span class="cn">TRUE</span>, with.entropy <span class="op">=</span> <span class="cn">TRUE</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ggseqdplot-3.png" alt="" width="768" height="474"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># make use of ggplot functions for modifying the plot</span></span>
-<span class="r-in"><span class="fu">ggseqdplot</span><span class="op">(</span><span class="va">actcal.seq</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html" class="external-link">scale_x_discrete</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="va">month.abb</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"State distribution plot"</span>, x <span class="op">=</span> <span class="st">"Month"</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html" class="external-link">guides</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guide_legend.html" class="external-link">guide_legend</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Alphabet"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">30</span>,</span>
-<span class="r-in">                                  margin <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">margin</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">20</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">    plot.title.position <span class="op">=</span> <span class="st">"plot"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># make use of ggplot functions for modifying the plot</span></span></span>
+<span class="r-in"><span><span class="fu">ggseqdplot</span><span class="op">(</span><span class="va">actcal.seq</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html" class="external-link">scale_x_discrete</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="va">month.abb</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"State distribution plot"</span>, x <span class="op">=</span> <span class="st">"Month"</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html" class="external-link">guides</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guide_legend.html" class="external-link">guide_legend</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Alphabet"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">30</span>,</span></span>
+<span class="r-in"><span>                                  margin <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">margin</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">20</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    plot.title.position <span class="op">=</span> <span class="st">"plot"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Scale for 'x' is already present. Adding another scale for 'x', which will</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> replace the existing scale.</span>
 <span class="r-plt img"><img src="ggseqdplot-4.png" alt="" width="768" height="474"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -265,7 +293,7 @@ ISBN 978-1-4920-3108-6.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>
