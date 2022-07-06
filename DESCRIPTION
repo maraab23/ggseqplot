@@ -13,6 +13,7 @@ Description: A set of wrapper functions that mainly re-produces some of the
   can be added and tweaked using '+' and regular 'ggplot2' functions. 
 URL: https://github.com/maraab23/ggseqplot
 BugReports: https://github.com/maraab23/ggseqplot/issues
+Depends: R (>= 4.1.0)
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
