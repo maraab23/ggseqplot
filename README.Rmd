@@ -89,7 +89,13 @@ functions (and add-ons).
 
 ## Installation
 
-You can install [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) by typing:
+You can install the CRAN version of [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) by typing:
+
+``` r
+install.packages("ggseqplot")
+```
+
+The development version can be installed with:
 
 ``` r
 devtools::install_github("maraab23/ggseqplot")
