@@ -7,6 +7,8 @@
 #'
 #' @eval shared_params()
 #' @param no.n specifies if number of (weighted) sequences is shown (default is \code{TRUE})
+#' @param dissect if \code{"row"} or \code{"col"} are specified separate distribution plots instead of a stacked plot are displayed;
+#' \code{"row"} and \code{"col"} display the distributions in one row or one column respectively; default is \code{NULL}
 #' @param with.missing Specifies if missing states should be considered when computing the state distributions (default is \code{FALSE}).
 #' @param border if \code{TRUE} bars are plotted with black outline; default is \code{FALSE} (also accepts \code{NULL})
 #' @param with.entropy add line plot of cross-sectional entropies at each sequence position
@@ -27,11 +29,12 @@
 #' decades (see \insertCite{blossfeld1987;textual}{ggseqplot} for an early application),
 #' it should be noted that the size of the different bars in stacked bar charts
 #' might be difficult to compare - particularly if the alphabet comprises many
-#' states  \insertCite{wilke2019}{ggseqplot}. Moreover, it is important to keep
-#' in mind that this plot type does not visualize individual trajectories;
-#' instead it displays aggregated distributional information (repeated cross-sections).
-#' For a more detailed discussion of this  type of sequence visualization see,
-#' for example, \insertCite{brzinsky-fay2014;textual}{ggseqplot},
+#' states  \insertCite{wilke2019}{ggseqplot}. This issue can be addressed by breaking down
+#' the aggregated  distribution specifying the \code{dissect} argument.  Moreover, it
+#' is important to keep in mind that this plot type does not visualize individual
+#' trajectories; instead it displays aggregated distributional information
+#' (repeated cross-sections). For a more detailed discussion of this  type of
+#' sequence visualization see, for example, \insertCite{brzinsky-fay2014;textual}{ggseqplot},
 #' \insertCite{fasang2014;textual}{ggseqplot}, and \insertCite{raab2022;textual}{ggseqplot}.
 #'
 #' The function uses \code{\link[TraMineR:seqstatd]{TraMineR::seqstatd}} to obtain state
@@ -40,8 +43,12 @@
 #' the \code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function. The state distributions
 #' are reshaped into a a long data format to enable plotting with \code{\link[ggplot2]{ggplot2}}.
 #' The stacked bars are rendered by calling \code{\link[ggplot2]{geom_bar}}; if \code{entropy = TRUE}
-#' entropy values are plotted with \code{\link[ggplot2]{geom_line}}. The data
-#' and specifications used for rendering the plot can be obtained by storing the
+#' entropy values are plotted with \code{\link[ggplot2]{geom_line}}. If the \code{group} or the
+#' \code{dissect} argument are specified the sub-plots are produced by using
+#' \code{\link[ggplot2]{facet_wrap}}. If both are specified the plots are rendered with
+#' \code{\link[ggplot2]{facet_grid}}.
+#'
+#' The data and specifications used for rendering the plot can be obtained by storing the
 #' plot as an object. The appearance of the plot can be adjusted just like with
 #' every other ggplot (e.g., by changing the theme or the scale using \code{+} and
 #' the respective functions).
@@ -84,6 +91,9 @@
 #' ggseqdplot(actcal.seq, group = actcal$sex,
 #'            no.n = TRUE, with.entropy = TRUE, border = TRUE)
 #'
+#' # break down the stacked plot to ease comparisons of distributions
+#' ggseqdplot(actcal.seq, group = actcal$sex, dissect = "row")
+#'
 #' # make use of ggplot functions for modifying the plot
 #' ggseqdplot(actcal.seq) +
 #'   scale_x_discrete(labels = month.abb) +
@@ -98,6 +108,7 @@
 ggseqdplot <- function(seqdata,
                        no.n = FALSE,
                        group = NULL,
+                       dissect = NULL,
                        weighted = TRUE,
                        with.missing = FALSE,
                        border = FALSE,
@@ -111,6 +122,12 @@ ggseqdplot <- function(seqdata,
     stop("data are not stored as sequence object, use 'TraMineR::seqdef' to create one")
   }
 
+  if (!is.null(dissect) & with.entropy == TRUE) {
+    usethis::ui_warn(glue::glue('
+    You tried to render a disaggregated dplot using `dissect`, while also setting `with.entropy` to `TRUE`.
+    As the state-specific distrubution plots would repeatedly show the same entropy line, `with.entropy = TRUE` is ignored.'))
+    with.entropy <- FALSE
+  }
 
   if (!is.null(group) & (length(group) != nrow(seqdata))) {
     stop("length of group vector must match number of rows of seqdata")
@@ -298,6 +315,36 @@ ggseqdplot <- function(seqdata,
                 group = 1, size = linewidth, linetype = linetype
       ) +
       scale_color_identity(guide = "legend", name = NULL, labels = "Entropy")
+  }
+
+
+  if (grsize == 1 & !is.null(dissect)) {
+    suppressMessages(
+      ggdplot <- ggdplot +
+        {if(dissect == "row")facet_wrap(~rev(.data$state), nrow = 1)} +
+        {if(dissect == "col")facet_wrap(~rev(.data$state), ncol = 1)} +
+        scale_y_continuous(limits = c(0,1)) +
+        theme(panel.grid.major.x = element_blank(),
+              panel.grid.minor = element_blank(),
+              panel.spacing = unit(2, "lines"),
+              strip.text = element_blank())
+    )
+  }
+
+
+  if (grsize > 1 & !is.null(dissect)) {
+    suppressMessages(
+      ggdplot <- ggdplot +
+        {if(dissect == "row")facet_grid(vars(.data$grouplab), vars(rev(.data$state)), switch = "y")} +
+        {if(dissect == "col")facet_grid(vars(.data$state), vars(.data$grouplab), switch = "y")} +
+        scale_y_continuous(limits = c(0,1)) +
+        theme(panel.grid.major.x = element_blank(),
+              panel.grid.minor = element_blank(),
+              panel.spacing = unit(2, "lines"),
+              strip.placement = "outside") +
+        {if(dissect == "col")theme(strip.text.y = element_blank())} +
+        {if(dissect == "row")theme(strip.text.x = element_blank())}
+    )
   }
 
 

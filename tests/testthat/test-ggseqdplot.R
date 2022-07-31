@@ -32,6 +32,7 @@ test_that("Executions stops if input data are not of class stslist", {
 test_that("arguments are specified correctly (length, type, ...)", {
   expect_error(ggseqdplot(actcal.seq, group = group, facet_ncol = 5.5))
   expect_error(ggseqdplot(actcal.seq, group = group, facet_nrow = 5.5))
+  expect_warning(ggseqdplot(actcal.seq, dissect = "row", with.entropy = T))
 })
 
 
@@ -57,6 +58,9 @@ test_that("Executions stops if logical arguments take wrong values", {
 
 test_that("check if output of ggseqdplot is ggplot", {
   expect_s3_class(ggseqdplot(actcal.seq), "ggplot")
+  expect_s3_class(ggseqdplot(actcal.seq, dissect = "col"), "ggplot")
+  expect_s3_class(ggseqdplot(actcal.seq, group = group, dissect = "col"), "ggplot")
+  expect_s3_class(ggseqdplot(actcal.seq, group = group, dissect = "row"), "ggplot")
   expect_s3_class(ggseqdplot(actcal.seq, no.n= TRUE), "ggplot")
   expect_s3_class(ggseqdplot(ex1.seq), "ggplot")
   expect_s3_class(ggseqdplot(ex1.seq, group = c(1, 1, 1, 2, 2, 2, 2)), "ggplot")

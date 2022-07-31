@@ -1,3 +1,6 @@
+# ggseqplot 0.7.0 <br>(development version)
+
+* Added option to break down dplots by state (`dissect`)
 
 # ggseqplot 0.6.2.9000 <br>(development version)
 

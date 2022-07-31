@@ -8,6 +8,7 @@ ggseqdplot(
   seqdata,
   no.n = FALSE,
   group = NULL,
+  dissect = NULL,
   weighted = TRUE,
   with.missing = FALSE,
   border = FALSE,
@@ -25,6 +26,9 @@ ggseqdplot(
 \item{no.n}{specifies if number of (weighted) sequences is shown (default is \code{TRUE})}
 
 \item{group}{A vector of the same length as the sequence data indicating group membership. When not NULL, a distinct plot is generated for each level of group.}
+
+\item{dissect}{if \code{"row"} or \code{"col"} are specified separate distribution plots instead of a stacked plot are displayed;
+\code{"row"} and \code{"col"} display the distributions in one row or one column respectively; default is \code{NULL}}
 
 \item{weighted}{Controls if weights (specified in \code{\link[TraMineR:seqdef]{TraMineR::seqdef}}) should be used. Default is \code{TRUE}, i.e. if available weights are used}
 
@@ -62,11 +66,12 @@ Although this type of plot has been used in the life course studies for several
 decades (see \insertCite{blossfeld1987;textual}{ggseqplot} for an early application),
 it should be noted that the size of the different bars in stacked bar charts
 might be difficult to compare - particularly if the alphabet comprises many
-states  \insertCite{wilke2019}{ggseqplot}. Moreover, it is important to keep
-in mind that this plot type does not visualize individual trajectories;
-instead it displays aggregated distributional information (repeated cross-sections).
-For a more detailed discussion of this  type of sequence visualization see,
-for example, \insertCite{brzinsky-fay2014;textual}{ggseqplot},
+states  \insertCite{wilke2019}{ggseqplot}. This issue can be addressed by breaking down
+the aggregated  distribution specifying the \code{dissect} argument.  Moreover, it
+is important to keep in mind that this plot type does not visualize individual
+trajectories; instead it displays aggregated distributional information
+(repeated cross-sections). For a more detailed discussion of this  type of
+sequence visualization see, for example, \insertCite{brzinsky-fay2014;textual}{ggseqplot},
 \insertCite{fasang2014;textual}{ggseqplot}, and \insertCite{raab2022;textual}{ggseqplot}.
 
 The function uses \code{\link[TraMineR:seqstatd]{TraMineR::seqstatd}} to obtain state
@@ -75,8 +80,12 @@ are stored as state sequence object (class \code{stslist}) created with
 the \code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function. The state distributions
 are reshaped into a a long data format to enable plotting with \code{\link[ggplot2]{ggplot2}}.
 The stacked bars are rendered by calling \code{\link[ggplot2]{geom_bar}}; if \code{entropy = TRUE}
-entropy values are plotted with \code{\link[ggplot2]{geom_line}}. The data
-and specifications used for rendering the plot can be obtained by storing the
+entropy values are plotted with \code{\link[ggplot2]{geom_line}}. If the \code{group} or the
+\code{dissect} argument are specified the sub-plots are produced by using
+\code{\link[ggplot2]{facet_wrap}}. If both are specified the plots are rendered with
+\code{\link[ggplot2]{facet_grid}}.
+
+The data and specifications used for rendering the plot can be obtained by storing the
 plot as an object. The appearance of the plot can be adjusted just like with
 every other ggplot (e.g., by changing the theme or the scale using \code{+} and
 the respective functions).
@@ -112,6 +121,9 @@ ggseqdplot(actcal.seq, group = actcal$sex)
 # with ggseqplot applying a few additional arguments, e.g. entropy line
 ggseqdplot(actcal.seq, group = actcal$sex,
            no.n = TRUE, with.entropy = TRUE, border = TRUE)
+
+# break down the stacked plot to ease comparisons of distributions
+ggseqdplot(actcal.seq, group = actcal$sex, dissect = "row")
 
 # make use of ggplot functions for modifying the plot
 ggseqdplot(actcal.seq) +
