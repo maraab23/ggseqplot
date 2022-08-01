@@ -1,8 +1,8 @@
-# ggseqplot 0.7.0 <br>(development version)
+# ggseqplot 0.7.0 
 
 * Added option to break down dplots by state (`dissect`)
 
-# ggseqplot 0.6.2.9000 <br>(development version)
+# ggseqplot 0.6.2.9000 <br><small>(development version)</small>
 
 * Set minimum R version because of R's new pipe (#1, @cbrueffer)
 

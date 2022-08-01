@@ -1,14 +1,9 @@
 ## R CMD check results
-There were no ERRORs but 1 WARNING. 
 
-The warning is referring to a known issue 
-(package dependency warning "orphaned package: 'gtools'" ) which should be
-resolved soon once gtools has a new maintainer 
-(see https://github.com/r-gregmisc/gtools/issues/15)
+Runs without errors, warnings, and notes.
 
-## Revision since inital submission
 
-- Fixed invalid URI scheme
-- Revised description (quotations, spaces, and functions with parentheses)
-- Revised vignette (restore options)
+## Changes since release 0.6.2
 
+- Changed minimum required R version to 4.1.0 because of R's pipe operator
+- Added additional argument (`dissect`) to `ggseqdplot`(minor change)
