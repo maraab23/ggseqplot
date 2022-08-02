@@ -415,6 +415,7 @@ ggseqmtplot(actcal.seq, no.n = TRUE, error.bar = "SE")
 ggseqmtplot(actcal.seq, no.n = TRUE, error.bar = "SE") +
  coord_flip() +
  theme(axis.text.y=element_blank(),
+       axis.ticks.y = element_blank(),
        panel.grid.major.y = element_blank(),
        legend.position = "top")
 ```
@@ -480,7 +481,7 @@ ggseqrfplot(biofam.seq, diss = diss, k = 12) &
 
 If you want to manipulate the appearance of a specific plot, however, your default 
 code might not work. If you want to change the labels of the index plot, for instance,
-this code will not produce the desired result, because `scale_x_discrete` will
+the following code will not produce the desired result, because `scale_x_discrete` will
 change the appearance of the boxplot, i.e. the last plot used when composing the plot
 with [`{patchwork}`](https://patchwork.data-imaginist.com/index.html){target="_blank"}.
 

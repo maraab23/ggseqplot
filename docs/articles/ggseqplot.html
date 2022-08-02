@@ -516,6 +516,7 @@ the flipped version:</p>
 <span><span class="fu"><a href="../reference/ggseqmtplot.html">ggseqmtplot</a></span><span class="op">(</span><span class="va">actcal.seq</span>, no.n <span class="op">=</span> <span class="cn">TRUE</span>, error.bar <span class="op">=</span> <span class="st">"SE"</span><span class="op">)</span> <span class="op">+</span></span>
 <span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html" class="external-link">coord_flip</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text.y<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>       axis.ticks.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>       panel.grid.major.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>       legend.position <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ggseqplot_files/figure-html/unnamed-chunk-7-2.png" width="768"></p>
@@ -570,7 +571,7 @@ corresponding functions are not added by <code>+</code> but with
 <span><span class="co">#&gt;  [&gt;] 76 distinct  sequences</span></span>
 <span><span class="co">#&gt;  [&gt;] min/max sequence lengths: 16/16</span></span>
 <span><span class="co">#&gt;  [&gt;] computing distances using the LCS metric</span></span>
-<span><span class="co">#&gt;  [&gt;] elapsed time: 0.03 secs</span></span>
+<span><span class="co">#&gt;  [&gt;] elapsed time: 0.04 secs</span></span>
 <span></span>
 <span><span class="co">## Relative Frequency Sequence Plot</span></span>
 <span><span class="co">## default version</span></span>
@@ -594,9 +595,10 @@ corresponding functions are not added by <code>+</code> but with
 <p><img src="ggseqplot_files/figure-html/unnamed-chunk-9-2.png" width="768"></p>
 <p>If you want to manipulate the appearance of a specific plot, however,
 your default code might not work. If you want to change the labels of
-the index plot, for instance, this code will not produce the desired
-result, because <code>scale_x_discrete</code> will change the appearance
-of the boxplot, i.e. the last plot used when composing the plot with <a href="https://patchwork.data-imaginist.com/index.html" target="_blank" class="external-link"><code>{patchwork}</code></a>.</p>
+the index plot, for instance, the following code will not produce the
+desired result, because <code>scale_x_discrete</code> will change the
+appearance of the boxplot, i.e. the last plot used when composing the
+plot with <a href="https://patchwork.data-imaginist.com/index.html" target="_blank" class="external-link"><code>{patchwork}</code></a>.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggseqrfplot.html">ggseqrfplot</a></span><span class="op">(</span><span class="va">biofam.seq</span>, diss <span class="op">=</span> <span class="va">diss</span>, k <span class="op">=</span> <span class="fl">12</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html" class="external-link">scale_x_discrete</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fl">15</span><span class="op">:</span><span class="fl">30</span><span class="op">)</span></span>
@@ -651,7 +653,7 @@ row. Hence the index plots are the subplots 3 and 4</p>
 <span><span class="co">#&gt;  [&gt;] 186 distinct  sequences</span></span>
 <span><span class="co">#&gt;  [&gt;] min/max sequence lengths: 12/12</span></span>
 <span><span class="co">#&gt;  [&gt;] computing distances using the LCS metric</span></span>
-<span><span class="co">#&gt;  [&gt;] elapsed time: 0.23 secs</span></span>
+<span><span class="co">#&gt;  [&gt;] elapsed time: 0.38 secs</span></span>
 <span></span>
 <span><span class="co">## original plot</span></span>
 <span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggseqrplot.html">ggseqrplot</a></span><span class="op">(</span><span class="va">actcal.seq</span>, </span>
