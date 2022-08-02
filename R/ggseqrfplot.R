@@ -154,7 +154,7 @@ ggseqrfplot <- function(seqdata,
         scale_y_continuous(
           breaks = ybrks,
           labels = ylabels,
-          expand = expansion(add = c(0, 0))
+          expand = expansion(add = 0)
         ) +
         labs(y = ylab)
     )
@@ -178,7 +178,10 @@ ggseqrfplot <- function(seqdata,
       axis.text.y = element_blank(),
       axis.ticks.y = element_blank(),
       axis.title.y = element_blank(),
-      panel.grid.minor.y = element_blank()
+      axis.line.x = element_line(size = .3),
+      axis.ticks.x = element_line(size = .3),
+      panel.grid.major = element_blank(),
+      panel.grid.minor = element_blank()
     )
 
   if (which.plot == "diss.to.med") {
@@ -188,7 +191,7 @@ ggseqrfplot <- function(seqdata,
       scale_y_continuous(
         breaks = ylabels,
         labels = ylabels,
-        expand = expansion(add = c(0, 0))
+        expand = expansion(add = 0)
       ) +
       labs(y = ylab, x = "") +
       theme_minimal()

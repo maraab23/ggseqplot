@@ -192,10 +192,10 @@ ggseqmsplot <- function(seqdata,
                       values = cpal) +
     scale_y_continuous(
       limits = c(0,1),
-      expand = expansion(add = c(.01, 0))
+      expand = expansion(add = 0)
     ) +
     scale_x_discrete(
-      expand = expansion(add = .15),
+      expand = expansion(add = 0),
       breaks = kbreaks,
       labels = klabels,
       guide = guide_axis(check.overlap = TRUE)
@@ -208,7 +208,9 @@ ggseqmsplot <- function(seqdata,
       panel.grid.major.x = element_blank(),
       legend.position = "bottom",
       legend.title = element_blank(),
-      legend.margin = margin(-0.2, 0, 0, -0.2, unit = "cm")
+      legend.margin = margin(-0.2, 0, 0, -0.2, unit = "cm"),
+      axis.line.x = element_line(size = .3),
+      axis.ticks = element_line(size = .3)
     )
 
 

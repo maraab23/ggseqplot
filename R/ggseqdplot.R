@@ -277,7 +277,7 @@ ggseqdplot <- function(seqdata,
 
   ggdplot <- ggdplot +
     scale_fill_manual(values = cpal) +
-    scale_y_continuous(expand = expansion(add = c(.01, 0))) +
+    scale_y_continuous(expand = expansion(add = 0)) +
     scale_x_discrete(
       expand = expansion(add = .15),
       breaks = kbreaks,
@@ -289,6 +289,8 @@ ggseqdplot <- function(seqdata,
     theme_minimal() +
     theme(
       axis.title.y = element_text(vjust = +3),
+      axis.line.x = element_line(size = .3),
+      axis.ticks = element_line(size = .3),
       legend.position = "bottom",
       legend.title = element_blank(),
       legend.margin = margin(-0.2, 0, 0, -0.2, unit = "cm")

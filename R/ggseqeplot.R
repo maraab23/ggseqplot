@@ -167,6 +167,7 @@ ggseqeplot <- function(seqdata,
 
   ggeplot <- ggeplot +
     scale_y_continuous(
+      expand = expansion(add = 0),
       limits = c(0, 1),
       breaks = seq(0, 1, by = .2)
     ) +
@@ -187,7 +188,10 @@ ggseqeplot <- function(seqdata,
       axis.title.y = element_text(vjust = +3),
       legend.position = "bottom",
       legend.title = element_blank(),
-      legend.text = element_text(size = 11)
+      legend.text = element_text(size = 11),
+      panel.grid.major.x = element_blank(),
+      axis.line.x = element_line(size = .3),
+      axis.ticks = element_line(size = .3)
     )
 
   ggeplot <- ggeplot +

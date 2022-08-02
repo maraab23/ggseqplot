@@ -319,7 +319,7 @@ ggseqiplot <- function(seqdata,
     scalebreaks,
     scalelabels,
     ~ scale_y_continuous(
-      expand = expansion(add = c(0, 0)),
+      expand = expansion(add = 0),
       breaks = .x,
       labels = .y,
       guide = guide_axis(check.overlap = TRUE)
@@ -485,13 +485,15 @@ ggseqiplot <- function(seqdata,
         breaks = kbreaks,
         labels = klabels,
         guide = guide_axis(check.overlap = TRUE),
-        expand = expansion(mult = c(.02, 0))
+        expand = expansion(add = 0 )
       ) +
       labs(x = "") +
       theme(
         axis.title.y = element_text(vjust = +3),
         panel.grid.minor = element_blank(),
-        plot.margin = margin(15, 15, 10, 15)
+        plot.margin = margin(15, 15, 10, 15),
+        axis.line.x = element_line(size = .3),
+        axis.ticks = element_line(size = .3)
       )
   )
 

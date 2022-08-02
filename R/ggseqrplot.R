@@ -213,7 +213,7 @@ ggseqrplot <- function(seqdata,
                             breaks = ybreaks[[.y]],
                             labels = labs[[.y]],
                             guide = guide_axis(check.overlap = TRUE),
-                            expand = expansion(add = c(0, 0))
+                            expand = expansion(add = 0)
                           ) +
                           labs(subtitle = glue::glue("Coverage = {coverage[[.y]]}")) +
                           theme(

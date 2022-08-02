@@ -184,7 +184,7 @@ ggseqfplot <- function(seqdata,
 
   scales <- purrr::map(1:length(unique(group)),
                        ~scale_y_continuous(
-                         expand = expansion(mult = .01),
+                         expand = expansion(add = 0),
                          breaks = ylb[[.x]]$ybreaks,
                          labels = ylb[[.x]]$ylabs,
                          guide = guide_axis(check.overlap = TRUE)))

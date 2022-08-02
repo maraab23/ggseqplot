@@ -1,3 +1,7 @@
+# ggseqplot 0.7.1
+
+* Tweaking the theme: adding ticks and x axis line
+
 # ggseqplot 0.7.0 
 
 * Added option to break down dplots by state (`dissect`)

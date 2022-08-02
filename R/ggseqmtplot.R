@@ -160,6 +160,7 @@ ggseqmtplot <- function(seqdata,
     geom_bar(aes(y = .data$Mean), stat="identity",
              color = ifelse(border == TRUE, "black",
                             "transparent")) +
+    scale_y_continuous(expand = expansion(add = 0)) +
     scale_fill_manual(drop = FALSE,
                       values = cpal) +
     labs(x = "", y = ylabspec) +
@@ -206,7 +207,9 @@ ggseqmtplot <- function(seqdata,
 
   ggmtplot <- ggmtplot +
     theme(axis.title.y = element_text(vjust = +3),
-          plot.margin = margin(15, 15, 10, 15))
+          plot.margin = margin(15, 15, 10, 15),
+          axis.line.x = element_line(size = .3),
+          axis.ticks = element_line(size = .3))
 
 
   return(ggmtplot)
