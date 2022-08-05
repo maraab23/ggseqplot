@@ -1,3 +1,8 @@
+# ggseqplot 0.7.2
+
+* fixed sorting issue for y-axis labels in grouped iplots
+* allow for additional facet_wrap arguments to change plot appearance 
+
 # ggseqplot 0.7.1
 
 * Tweaking the theme: adding ticks and x axis line

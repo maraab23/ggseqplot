@@ -16,6 +16,9 @@
 #' @param linecolor Specifies the color of the entropy line if \code{with.entropy==TRUE}; default is \code{"black"}
 #' @param linewidth Specifies the width of the entropy line if \code{with.entropy==TRUE}; default is \code{1}
 #' @eval shared_facet()
+#' @param ... if group is specified additional arguments of \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap}}
+#' such as \code{"labeller"} or \code{"strip.position"} can be used to change the appearance of the plot. Does
+#' not work if \code{dissect} is used
 #'
 #' @return A sequence distribution plot created by using \code{\link[ggplot2]{ggplot2}}.
 #' If stored as object the resulting list object (of class gg and ggplot) also
@@ -117,7 +120,8 @@ ggseqdplot <- function(seqdata,
                        linecolor = "black",
                        linewidth = 1,
                        facet_ncol = NULL,
-                       facet_nrow = NULL) {
+                       facet_nrow = NULL,
+                       ...) {
   if (!inherits(seqdata, "stslist")) {
     stop("data are not stored as sequence object, use 'TraMineR::seqdef' to create one")
   }
@@ -304,7 +308,8 @@ ggseqdplot <- function(seqdata,
       facet_wrap(~ .data$grouplab,
                  scales = "free_y",
                  ncol = facet_ncol,
-                 nrow = facet_nrow
+                 nrow = facet_nrow,
+                 ...
       ) +
       labs(x = "", y = "Rel. Freq.") +
       theme(panel.spacing = unit(2, "lines"),

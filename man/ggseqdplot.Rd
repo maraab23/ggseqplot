@@ -17,7 +17,8 @@ ggseqdplot(
   linecolor = "black",
   linewidth = 1,
   facet_ncol = NULL,
-  facet_nrow = NULL
+  facet_nrow = NULL,
+  ...
 )
 }
 \arguments{
@@ -47,6 +48,10 @@ ggseqdplot(
 \item{facet_ncol}{Number of columns in faceted (i.e. grouped) plot}
 
 \item{facet_nrow}{Number of rows in faceted (i.e. grouped) plot}
+
+\item{...}{if group is specified additional arguments of \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap}}
+such as \code{"labeller"} or \code{"strip.position"} can be used to change the appearance of the plot. Does
+not work if \code{dissect} is used}
 }
 \value{
 A sequence distribution plot created by using \code{\link[ggplot2]{ggplot2}}.

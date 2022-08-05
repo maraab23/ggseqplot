@@ -14,6 +14,8 @@
 #' @param facet_scale Specifies if y-scale in faceted plot should be free
 #' (\code{"free_y"} is default) or \code{"fixed"}
 #' @eval shared_facet()
+#' @param ... if group is specified additional arguments of \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap}}
+#' such as \code{"labeller"} or \code{"strip.position"} can be used to change the appearance of the plot
 #'
 #' @return A sequence index plot. If stored as object the resulting list object
 #' also contains the data (spell format) used for rendering the plot.
@@ -113,7 +115,8 @@ ggseqiplot <- function(seqdata,
                        border = FALSE,
                        facet_scale = "free_y",
                        facet_ncol = NULL,
-                       facet_nrow = NULL) {
+                       facet_nrow = NULL,
+                       ...) {
   if (!inherits(seqdata, "stslist")) {
     stop("data are not stored as sequence object, use 'TraMineR::seqdef' to create one")
   }
@@ -178,7 +181,7 @@ ggseqiplot <- function(seqdata,
   if (is.null(sortv) == FALSE) {
     auxid <- auxid |>
       dplyr::mutate(sortv = {{ sortv }}) |>
-      dplyr::arrange(sortv) |>
+      dplyr::arrange(.data$sortv) |>
       dplyr::mutate(idnew = dplyr::row_number())
   } else {
     auxid$sortv <- auxid$idnew
@@ -267,14 +270,14 @@ ggseqiplot <- function(seqdata,
 
 
   scalebreaks <- purrr::map(
-    unique(group),
+    sort(unique(group)),
     ~ ybrks |>
       dplyr::filter(.data$group == .x) |>
       dplyr::pull(.data$breaks)
   )
 
   scalelabels <- purrr::map(
-    unique(group),
+    sort(unique(group)),
     ~ ybrks |>
       dplyr::filter(.data$group == .x) |>
       dplyr::transmute(laby = dplyr::row_number()) |>
@@ -452,7 +455,8 @@ ggseqiplot <- function(seqdata,
         facet_wrap(~ .data$grouplab,
                    scales = facet_scale,
                    ncol = facet_ncol,
-                   nrow = facet_nrow
+                   nrow = facet_nrow,
+                   ...
         ) +
         labs(y = ifelse(weighted == TRUE,
                         "# weighted sequences",
@@ -491,6 +495,7 @@ ggseqiplot <- function(seqdata,
       theme(
         axis.title.y = element_text(vjust = +3),
         panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank(),
         plot.margin = margin(15, 15, 10, 15),
         axis.line.x = element_line(size = .3),
         axis.ticks = element_line(size = .3)

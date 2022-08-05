@@ -7,4 +7,4 @@ Runs without errors, warnings, and notes.
 
 - Changed minimum required R version to 4.1.0 because of R's pipe operator
 - Added additional argument (`dissect`) to `ggseqdplot`(minor change)
-- Changed some theme arguments of the plots (minor change)
+- Changed theme and added facet_wrap arguments (minor change)
