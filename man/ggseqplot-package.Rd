@@ -6,7 +6,8 @@
 \alias{ggseqplot-package}
 \title{ggseqplot: Render Sequence Plots using ggplot2}
 \description{
-\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 
 This library provides a set of wrapper functions that reproduce some of the sequence plots from \code{\link[TraMineR:seqplot]{TraMineR::seqplot}} and \code{\link[TraMineRextras]{TraMineRextras}} using \code{\link[ggplot2]{ggplot2}}. These plots are produced on the basis of a sequence object defined with \code{\link[TraMineR:seqdef]{TraMineR::seqdef}}. The package automates the reshaping and plotting of sequence data. Resulting plots are of class ggplot, i.e. components can be added and tweaked using `+` and regular ggplot2 functions.
 
