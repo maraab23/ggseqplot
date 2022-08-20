@@ -7,7 +7,8 @@
 #' \insertCite{gabadinho2011}{ggseqplot}.
 #'
 #' @eval shared_params()
-#' @param no.n specifies if number of (weighted) sequences is shown (default is \code{TRUE})
+#' @param no.n specifies if number of (weighted) sequences is shown as part of
+#' the y-axis title or group/facet title (default is \code{TRUE})
 #' @param sortv Vector of numerical values sorting the sequences or a sorting
 #' method (either \code{"from.start"} or \code{"from.end"}). See details.
 #' @param border if \code{TRUE} bars are plotted with black outline; default is \code{FALSE} (also accepts \code{NULL})
@@ -149,6 +150,15 @@ ggseqiplot <- function(seqdata,
     stop("`facet_nrow` must be NULL or an integer.")
   }
 
+  if (is.factor(group)) {
+    group <- forcats::fct_drop(group)
+    grinorder <- levels(group)
+  } else {
+    grinorder <- factor(unique(group))
+  }
+  if (is.null(group)) grinorder <- factor(1)
+
+
   auxid <- dplyr::tibble(id = as.character(attributes(seqdata)$row.names)) |>
     dplyr::mutate(
       idnew = dplyr::row_number(),
@@ -257,7 +267,7 @@ ggseqiplot <- function(seqdata,
 
 
   ylabspec <- purrr::map(
-    unique(group),
+    grinorder,
     ~ dt2 |>
       dplyr::filter(.data$group == .x) |>
       dplyr::summarise(
@@ -270,14 +280,14 @@ ggseqiplot <- function(seqdata,
 
 
   scalebreaks <- purrr::map(
-    sort(unique(group)),
+    grinorder,
     ~ ybrks |>
       dplyr::filter(.data$group == .x) |>
       dplyr::pull(.data$breaks)
   )
 
   scalelabels <- purrr::map(
-    sort(unique(group)),
+    grinorder,
     ~ ybrks |>
       dplyr::filter(.data$group == .x) |>
       dplyr::transmute(laby = dplyr::row_number()) |>
@@ -343,8 +353,8 @@ ggseqiplot <- function(seqdata,
   }
 
   grouplabspec <- dplyr::tibble(
-    group = unique(group),
-    grouplab = ylabspec
+    group = forcats::fct_inorder(grinorder),
+    grouplab = forcats::fct_inorder(ylabspec)
   )
 
   if (no.n == TRUE) {
@@ -354,7 +364,13 @@ ggseqiplot <- function(seqdata,
   }
 
   suppressMessages(
-    if (nrow(grouplabspec) > 1) dt2 <- dt2 |> dplyr::full_join(grouplabspec)
+    if (nrow(grouplabspec) > 1) {
+
+      if (!is.factor(dt2$group)) dt2$group <- factor(dt2$group)
+
+      dt2 <- dt2 |>
+        dplyr::full_join(grouplabspec)
+    }
   )
 
 

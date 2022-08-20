@@ -91,6 +91,16 @@ The development version can be installed with:
 devtools::install_github("maraab23/ggseqplot")
 ```
 
+The development version (0.7.2.9000) is addressing an issue regarding
+the sorting order in grouped plots. In the current regular version
+(0.7.2), the grouped plots are always arranged in alphabetical order.
+The development version respects the order imposed by the user (i.e.,
+the order of factor levels if grouping variable is a factor). Once I had
+the time to test the the code more extensively, I will submit the
+improved version to CRAN. Note that at this point, the dev version might
+still have some unknown issues induced by the code revision addressing
+the group order issue.
+
 ## Acknowledgements
 
 I want to thank like to thank Gilbert Ritschard, Tim Liao, and Emanuela

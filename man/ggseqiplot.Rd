@@ -20,7 +20,8 @@ ggseqiplot(
 \arguments{
 \item{seqdata}{State sequence object (class \code{stslist}) created with the \code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function.}
 
-\item{no.n}{specifies if number of (weighted) sequences is shown (default is \code{TRUE})}
+\item{no.n}{specifies if number of (weighted) sequences is shown as part of
+the y-axis title or group/facet title (default is \code{TRUE})}
 
 \item{group}{A vector of the same length as the sequence data indicating group membership. When not NULL, a distinct plot is generated for each level of group.}
 

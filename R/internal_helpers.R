@@ -14,13 +14,13 @@ shared_facet <- function() {
 }
 
 
-xandgrouplab <- function(seqdata, weighted, no.n, group, ylabprefix) {
+xandgrouplab <- function(seqdata, weighted, no.n, group, grinorder, ylabprefix) {
   if (weighted == FALSE) {
     attributes(seqdata)$weights <- rep(1, nrow(seqdata))
   }
 
   ylabspec <- purrr::map(
-    unique(group),
+    grinorder,
     ~ sum(attributes(seqdata[group == .x,])$weights)
   ) |>
     unlist()
@@ -30,14 +30,14 @@ xandgrouplab <- function(seqdata, weighted, no.n, group, ylabprefix) {
   } else if (length(ylabspec) == 1 & weighted == FALSE) {
     ylabspec <- glue::glue("{ylabprefix} (n={ylabspec})")
   } else if (weighted == TRUE) {
-    ylabspec <- glue::glue("{unique(group)} (weighted n={round(ylabspec,2)})")
+    ylabspec <- glue::glue("{grinorder} (weighted n={round(ylabspec,2)})")
   } else {
-    ylabspec <- glue::glue("{unique(group)} (n={ylabspec})")
+    ylabspec <- glue::glue("{grinorder} (n={ylabspec})")
   }
 
   grouplabspec <- dplyr::tibble(
-    group = unique(group),
-    grouplab = ylabspec
+    group = forcats::fct_inorder(grinorder),
+    grouplab = forcats::fct_inorder(ylabspec)
   )
 
   if (no.n == TRUE) {

@@ -1,3 +1,9 @@
+# ggseqplot
+
+# ggseqplot 0.7.2.9000 <br><small>(development version)</small>
+
+* the group argument now respects order of grouping variable when rendering faceted plots
+
 # ggseqplot 0.7.2
 
 * fixed sorting issue for y-axis labels in grouped iplots

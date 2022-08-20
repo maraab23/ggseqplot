@@ -12,6 +12,7 @@ ggseqfplot(
   border = FALSE,
   proportional = TRUE,
   ylabs = "total",
+  no.coverage = FALSE,
   facet_ncol = NULL,
   facet_nrow = NULL
 )
@@ -34,6 +35,10 @@ displayed proportional to their frequencies}
 \item{ylabs}{defines appearance of y-axis labels; default (\code{"total"})
 only labels min and max (i.e. cumulative relative frequency); if \code{"share"} labels indicate
 relative frequency of each displayed sequence (note: overlapping labels are removed)}
+
+\item{no.coverage}{specifies if information on total coverage is shown as
+caption or as part of the group/facet label if \code{ylabs == "share"}
+(default is \code{TRUE})}
 
 \item{facet_ncol}{Number of columns in faceted (i.e. grouped) plot}
 

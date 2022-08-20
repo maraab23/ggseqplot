@@ -98,6 +98,14 @@ ggseqtrplot <- function(seqdata,
     stop("labsize must be a single number")
   }
 
+  if (is.factor(group)) {
+    group <- forcats::fct_drop(group)
+    grinorder <- levels(group)
+  } else {
+    grinorder <- factor(unique(group))
+  }
+  if (is.null(group)) grinorder <- factor(1)
+
   if (is.null(group)) group <- 1
 
   if (weighted == FALSE) {
@@ -136,12 +144,12 @@ ggseqtrplot <- function(seqdata,
 
 
   if (dss == TRUE) {
-    transmat <- purrr::map(unique(group),
+    transmat <- purrr::map(grinorder,
                            ~TraMineR::seqtrate(TraMineR::seqdss(seqdata[group == .x,]),
                                                weighted = weighted,
                                                with.missing = with.missing))
   } else {
-    transmat <- purrr::map(unique(group),
+    transmat <- purrr::map(grinorder,
                            ~TraMineR::seqtrate(seqdata[group == .x,],
                                                weighted = weighted,
                                                with.missing = with.missing))
@@ -201,7 +209,7 @@ ggseqtrplot <- function(seqdata,
 
   if (grsize > 1) {
     ggtrplot <- ggtrplot +
-      facet_wrap(~.data$grlab,
+      facet_wrap(~forcats::fct_inorder(.data$grlab),
                  ncol = facet_ncol,
                  nrow = facet_nrow) +
       theme(panel.spacing = unit(2, "lines"),

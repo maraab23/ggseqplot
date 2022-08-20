@@ -15,6 +15,9 @@
 #' @param ylabs defines appearance of y-axis labels; default (\code{"total"})
 #' only labels min and max (i.e. cumulative relative frequency); if \code{"share"} labels indicate
 #' relative frequency of each displayed sequence (note: overlapping labels are removed)
+#' @param no.coverage specifies if information on total coverage is shown as
+#' caption or as part of the group/facet label if \code{ylabs == "share"}
+#' (default is \code{TRUE})
 #' @eval shared_facet()
 #'
 #' @details The subset of displayed sequences is obtained by an internal call of
@@ -86,6 +89,7 @@ ggseqfplot <- function(seqdata,
                        border = FALSE,
                        proportional = TRUE,
                        ylabs = "total",
+                       no.coverage = FALSE,
                        facet_ncol = NULL,
                        facet_nrow = NULL) {
 
@@ -107,6 +111,14 @@ ggseqfplot <- function(seqdata,
 
   if (is.null(attributes(seqdata)$weights)) weighted <- FALSE
 
+  if (is.factor(group)) {
+    group <- forcats::fct_drop(group)
+    grinorder <- levels(group)
+  } else {
+    grinorder <- unique(group)
+  }
+  if (is.null(group)) grinorder <- factor(1)
+
   if (is.null(group)) group <- 1
 
   if (!is.null(facet_ncol) && as.integer(facet_ncol) != facet_ncol) {
@@ -117,12 +129,12 @@ ggseqfplot <- function(seqdata,
     stop("`facet_nrow` must be NULL or an integer.")
   }
 
-  fplotdata <- purrr::map(sort(unique(group)),
+  fplotdata <- purrr::map(grinorder,
                           ~seqtab(seqdata[group == .x,],
                                   weighted = weighted,
                                   idxs = ranks))
 
-  group <- rep(sort(unique(group)), each = max(ranks))
+  group <- rep(grinorder, each = max(ranks))
 
   coverage <- purrr::map(fplotdata,
                          ~attributes(.x)$freq$Percent) |>
@@ -178,13 +190,13 @@ ggseqfplot <- function(seqdata,
     return(ylb)
   }
 
-  ylb <- purrr::map(sort(unique(group)),
+  ylb <- purrr::map(grinorder,
                     ~ylb(coverage = coverage[group == .x],
                          fplotdata = fplotdata[group == .x,]))
 
   scales <- purrr::map(1:length(unique(group)),
                        ~scale_y_continuous(
-                         expand = expansion(add = 0),
+                         expand = expansion(mult  = c(0,.001)),
                          breaks = ylb[[.x]]$ybreaks,
                          labels = ylb[[.x]]$ylabs,
                          guide = guide_axis(check.overlap = TRUE)))
@@ -200,41 +212,68 @@ ggseqfplot <- function(seqdata,
         labs(y = ifelse(ylabs == "total",
                         "Relative frequency (total)",
                         "Relative frequency (per sequence)"))
+
     )
-  } else {
+  }
+
+  if (length(unique(group)) == 1 & ylabs == "share") {
+    ggfplot <- ggfplot +
+      labs(caption = paste0("total coverage = ", ylb[[1]]$totalcov,"%"))
+  }
+
+
+  if (length(unique(group)) == 1 & no.coverage == TRUE) {
+    ggfplot <- ggfplot + labs(caption = NULL)
+  }
+
+  if (length(unique(group)) > 1) {
+    facetlabs <- purrr::map(ylb,
+                            ~ .$totalcov) |>
+      unlist()
+
+    facetlabs <- paste0(grinorder,"\n(total coverage = ",facetlabs,"%)")
+
+    if (no.coverage == TRUE) facetlabs <- grinorder
+    if (ylabs == "total") facetlabs <- grinorder
+
+    names(facetlabs) <- grinorder
+
+
     suppressMessages(
       ggfplot <- ggseqiplot(fplotdata,
                             border = border,
                             group = group,
                             weighted = proportional,
                             facet_ncol = facet_ncol,
-                            facet_nrow = facet_nrow) +
+                            facet_nrow = facet_nrow,
+                            no.n = TRUE,
+                            labeller = labeller(grouplab = facetlabs)) +
         ggh4x::facetted_pos_scales(y = scales) +
         labs(y = ifelse(ylabs == "total",
                         "Relative frequency (total)",
                         "Relative frequency (per sequence)"))
     )
 
-    if (ylabs == "total") {
-      ggfplot$data$grouplab <- sub("\\n.*", "",
-                                   ggfplot$data$grouplab)
-      ggfplot$data$grouplab <- sub("[ (].*", "",
-                                   ggfplot$data$grouplab)
-    } else {
-
-      grouplab <- purrr::imap(sort(unique(group)),
-                              ~glue::glue("{.x}
-                        (total coverage = {ylb[[.y]]$totalcov}%)")) |>
-        unlist()
-
-      grouplab <- dplyr::tibble(group = sort(unique(group)),
-                                grouplab = grouplab)
-
-      ggfplot$data <- dplyr::full_join(dplyr::select(ggfplot$data, -.data$grouplab),
-                                       grouplab, by = "group")
-
-
-    }
+    # if (ylabs == "total") {
+    #   ggfplot$data$grouplab <- sub("\\n.*", "",
+    #                                ggfplot$data$grouplab)
+    #   ggfplot$data$grouplab <- sub("[ (].*", "",
+    #                                ggfplot$data$grouplab)
+    # } else {
+    #
+    #   grouplab <- purrr::imap(grinorder,
+    #                           ~glue::glue("{.x}
+    #                     (total coverage = {ylb[[.y]]$totalcov}%)")) |>
+    #     unlist()
+    #
+    #   grouplab <- dplyr::tibble(group = grinorder,
+    #                             grouplab = grouplab)
+    #
+    #   ggfplot$data <- dplyr::full_join(dplyr::select(ggfplot$data, -.data$grouplab),
+    #                                    grouplab, by = "group")
+    #
+    #
+    # }
 
   }
 

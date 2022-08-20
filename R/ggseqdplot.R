@@ -156,8 +156,15 @@ ggseqdplot <- function(seqdata,
     stop("`facet_nrow` must be NULL or an integer.")
   }
 
+  if (is.factor(group)) {
+    group <- forcats::fct_drop(group)
+    grinorder <- levels(group)
+  } else {
+    grinorder <- factor(unique(group))
+  }
+
   statefreqs <- purrr::map(
-    unique(group),
+    grinorder,
     ~ TraMineR::seqstatd(seqdata[group == .x, ],
                          weighted = weighted,
                          with.missing = with.missing
@@ -165,11 +172,12 @@ ggseqdplot <- function(seqdata,
       dplyr::as_tibble(rownames = "state") |>
       dplyr::mutate(group = .x, .before = 1)
   ) |>
-    dplyr::bind_rows()
+    dplyr::bind_rows() |>
+    dplyr::mutate(group = factor(.data$group, levels = grinorder))
 
   if (with.entropy == TRUE) {
     stateentropy <- purrr::map(
-      unique(group),
+      grinorder,
       ~ TraMineR::seqstatd(seqdata[group == .x, ],
                            weighted = weighted,
                            with.missing = with.missing
@@ -177,7 +185,8 @@ ggseqdplot <- function(seqdata,
         dplyr::as_tibble(rownames = "k") |>
         dplyr::mutate(group = .x, .before = 1)
     ) |>
-      dplyr::bind_rows()
+      dplyr::bind_rows() |>
+      dplyr::mutate(group = factor(.data$group, levels = grinorder))
   }
 
 
@@ -185,7 +194,10 @@ ggseqdplot <- function(seqdata,
                                 weighted = weighted,
                                 no.n = no.n,
                                 group = group,
+                                grinorder = grinorder,
                                 ylabprefix = "Rel. Freq.")
+
+
   grouplabspec <- xandgrouplabs[[1]]
   ylabspec <- xandgrouplabs[[2]]
 
