@@ -1,10 +1,9 @@
-# ggseqplot (development version)
-
 # ggseqplot
 
-# ggseqplot 0.7.2.9000 <br><small>(development version)</small>
+# ggseqplot 0.7.2.9001 <br><small>(development version)</small>
 
 * the group argument now respects order of grouping variable when rendering faceted plots
+* updated tests
 
 # ggseqplot 0.7.2
 
