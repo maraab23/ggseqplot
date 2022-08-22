@@ -123,8 +123,6 @@ ggseqmtplot <- function(seqdata,
   } else {
     grinorder <- factor(unique(group))
   }
-  if (is.null(group)) grinorder <- factor(1)
-
 
   xandgrouplabs <- xandgrouplab(seqdata = seqdata,
                                 weighted = weighted,

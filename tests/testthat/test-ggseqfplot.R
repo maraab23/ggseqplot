@@ -55,7 +55,10 @@ test_that("Executions stops if logical arguments take wrong values", {
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 test_that("check if output of ggseqfplot is ggplot", {
-  #expect_s3_class(ggseqfplot(actcal.seq), "ggplot")
+  expect_s3_class(ggseqfplot(actcal.seq, no.coverage = TRUE), "ggplot")
+  expect_s3_class(ggseqfplot(actcal.seq,
+                             group = group,
+                             no.coverage = TRUE), "ggplot")
   expect_s3_class(ggseqfplot(actcal.seq, ylabs = "share"), "ggplot")
   expect_s3_class(ggseqfplot(actcal.seq, ylabs = "share",
                              proportional = FALSE,
