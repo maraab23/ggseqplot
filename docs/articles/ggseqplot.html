@@ -35,7 +35,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ggseqplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.2.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.2.9020</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -177,7 +177,7 @@ packages</strong>
 <span></span>
 <span><span class="co">## Save package names as a vector of strings</span></span>
 <span><span class="va">pkgs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"colorspace"</span>, <span class="st">"ggplot2"</span>, <span class="st">"ggthemes"</span>, <span class="st">"hrbrthemes"</span>, </span>
-<span>          <span class="st">"patchwork"</span>, <span class="st">"TraMineR"</span>, <span class="st">"TraMineRextras"</span><span class="op">)</span></span>
+<span>          <span class="st">"patchwork"</span>, <span class="st">"purrr"</span>, <span class="st">"TraMineR"</span>, <span class="st">"TraMineRextras"</span><span class="op">)</span></span>
 <span></span>
 <span></span>
 <span><span class="co">## Install uninstalled packages</span></span>
@@ -280,8 +280,7 @@ stores the data as its first element (named <code>data</code>).</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 1     &gt; 37 hours aug00 8     0.420 Rel. Freq. (n=2000)</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 1     &gt; 37 hours sep00 9     0.418 Rel. Freq. (n=2000)</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 1     &gt; 37 hours oct00 10    0.418 Rel. Freq. (n=2000)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 38 more rows</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 38 more rows</span></span></span></code></pre></div>
 <p>Once the data are in the right shape <a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a>
 functions produce graphs using <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> functions. In the case of the
 state distribution plot, for instance, <code>ggseqdplot</code> renders
@@ -576,9 +575,9 @@ corresponding functions are not added by <code>+</code> but with
 <span><span class="co">## Relative Frequency Sequence Plot</span></span>
 <span><span class="co">## default version</span></span>
 <span><span class="fu"><a href="../reference/ggseqrfplot.html">ggseqrfplot</a></span><span class="op">(</span><span class="va">biofam.seq</span>, diss <span class="op">=</span> <span class="va">diss</span>, k <span class="op">=</span> <span class="fl">12</span><span class="op">)</span> </span>
-<span><span class="co">#&gt;  [&gt;] Using k=12 frequency groups</span></span>
-<span><span class="co">#&gt;  [&gt;] Pseudo/median-based-R2: 0.5391125</span></span>
-<span><span class="co">#&gt;  [&gt;] Pseudo/median-based-F statistic: 9.357815</span></span></code></pre></div>
+<span><span class="co">#&gt;  [&gt;] Using k=12 frequency groups with grp.meth='prop'</span></span>
+<span><span class="co">#&gt;  [&gt;] Pseudo/medoid-based-R2: 0.367766</span></span>
+<span><span class="co">#&gt;  [&gt;] Pseudo/medoid-based-F statistic: 5.268049, p-value: 1.655783e-06</span></span></code></pre></div>
 <p><img src="ggseqplot_files/figure-html/unnamed-chunk-9-1.png" width="768"></p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
@@ -589,31 +588,31 @@ corresponding functions are not added by <code>+</code> but with
 <span>        legend.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>        plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span><span class="op">)</span> <span class="op">&amp;</span></span>
 <span>  <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_annotation.html" class="external-link">plot_annotation</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Relative Frequency Sequence Plot"</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [&gt;] Using k=12 frequency groups</span></span>
-<span><span class="co">#&gt;  [&gt;] Pseudo/median-based-R2: 0.5391125</span></span>
-<span><span class="co">#&gt;  [&gt;] Pseudo/median-based-F statistic: 9.357815</span></span></code></pre></div>
+<span><span class="co">#&gt;  [&gt;] Using k=12 frequency groups with grp.meth='prop'</span></span>
+<span><span class="co">#&gt;  [&gt;] Pseudo/medoid-based-R2: 0.367766</span></span>
+<span><span class="co">#&gt;  [&gt;] Pseudo/medoid-based-F statistic: 5.268049, p-value: 1.655783e-06</span></span></code></pre></div>
 <p><img src="ggseqplot_files/figure-html/unnamed-chunk-9-2.png" width="768"></p>
 <p>If you want to manipulate the appearance of a specific plot, however,
 your default code might not work. If you want to change the labels of
-the index plot, for instance, the following code will not produce the
-desired result, because <code>scale_x_discrete</code> will change the
-appearance of the boxplot, i.e. the last plot used when composing the
-plot with <a href="https://patchwork.data-imaginist.com/index.html" target="_blank" class="external-link"><code>{patchwork}</code></a>.</p>
+the index plot, for instance, the following code will <em>not</em>
+produce the desired result, because <code>scale_x_discrete</code> will
+change the appearance of the boxplot, i.e. the last plot used when
+composing the plot with <a href="https://patchwork.data-imaginist.com/index.html" target="_blank" class="external-link"><code>{patchwork}</code></a>.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggseqrfplot.html">ggseqrfplot</a></span><span class="op">(</span><span class="va">biofam.seq</span>, diss <span class="op">=</span> <span class="va">diss</span>, k <span class="op">=</span> <span class="fl">12</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html" class="external-link">scale_x_discrete</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fl">15</span><span class="op">:</span><span class="fl">30</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [&gt;] Using k=12 frequency groups</span></span>
-<span><span class="co">#&gt;  [&gt;] Pseudo/median-based-R2: 0.5391125</span></span>
-<span><span class="co">#&gt;  [&gt;] Pseudo/median-based-F statistic: 9.357815</span></span></code></pre></div>
+<span><span class="co">#&gt;  [&gt;] Using k=12 frequency groups with grp.meth='prop'</span></span>
+<span><span class="co">#&gt;  [&gt;] Pseudo/medoid-based-R2: 0.367766</span></span>
+<span><span class="co">#&gt;  [&gt;] Pseudo/medoid-based-F statistic: 5.268049, p-value: 1.655783e-06</span></span></code></pre></div>
 <p><img src="ggseqplot_files/figure-html/unnamed-chunk-10-1.png" width="768"></p>
 <p>The appearance of the subplots, however, can be changed once you save
 the composite plot and then adjust its components.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## save &amp; view original plot</span></span>
 <span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggseqrfplot.html">ggseqrfplot</a></span><span class="op">(</span><span class="va">biofam.seq</span>, diss <span class="op">=</span> <span class="va">diss</span>, k <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [&gt;] Using k=12 frequency groups</span></span>
-<span><span class="co">#&gt;  [&gt;] Pseudo/median-based-R2: 0.5391125</span></span>
-<span><span class="co">#&gt;  [&gt;] Pseudo/median-based-F statistic: 9.357815</span></span>
+<span><span class="co">#&gt;  [&gt;] Using k=12 frequency groups with grp.meth='prop'</span></span>
+<span><span class="co">#&gt;  [&gt;] Pseudo/medoid-based-R2: 0.367766</span></span>
+<span><span class="co">#&gt;  [&gt;] Pseudo/medoid-based-F statistic: 5.268049, p-value: 1.655783e-06</span></span>
 <span><span class="va">p</span></span></code></pre></div>
 <p><img src="ggseqplot_files/figure-html/unnamed-chunk-11-1.png" width="768"></p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
@@ -653,7 +652,7 @@ row. Hence the index plots are the subplots 3 and 4</p>
 <span><span class="co">#&gt;  [&gt;] 186 distinct  sequences</span></span>
 <span><span class="co">#&gt;  [&gt;] min/max sequence lengths: 12/12</span></span>
 <span><span class="co">#&gt;  [&gt;] computing distances using the LCS metric</span></span>
-<span><span class="co">#&gt;  [&gt;] elapsed time: 0.25 secs</span></span>
+<span><span class="co">#&gt;  [&gt;] elapsed time: 0.21 secs</span></span>
 <span></span>
 <span><span class="co">## original plot</span></span>
 <span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggseqrplot.html">ggseqrplot</a></span><span class="op">(</span><span class="va">actcal.seq</span>, </span>
@@ -687,6 +686,71 @@ row. Hence the index plots are the subplots 3 and 4</p>
 <span></span>
 <span><span class="va">p</span></span></code></pre></div>
 <p><img src="ggseqplot_files/figure-html/unnamed-chunk-12-2.png" width="768"></p>
+</div>
+<div class="section level4">
+<h4 id="example-6-what-about-grouped-rfplots">Example 6: What about grouped rfplots?<a class="anchor" aria-label="anchor" href="#example-6-what-about-grouped-rfplots"></a>
+</h4>
+<p>Grouped rfplots are currently not implemented for
+<code>ggseqrfplot</code> and have to be created manually using the <a href="https://patchwork.data-imaginist.com/index.html" target="_blank" class="external-link"><code>{patchwork}</code></a> library.</p>
+<p>In the following example we</p>
+<ol style="list-style-type: decimal">
+<li>create rfplots for our groups (here “Men” and “Women”), then proceed
+by</li>
+<li>slightly misusing <a href="https://patchwork.data-imaginist.com/index.html" target="_blank" class="external-link"><code>{patchwork}</code></a>’s tag annotation assigning
+group-specific tags for the first plot in each row of the final
+patchwork plot,</li>
+<li>removing the legend from the upper plot panel
+(<code>p$man</code>),</li>
+<li>and arranging the adjusted patches in a final plot with two stacked
+panels.</li>
+</ol>
+<p>Technically speaking the resulting plot is a nested patchwork plot.
+According to the documentation of <a href="https://patchwork.data-imaginist.com/index.html" target="_blank" class="external-link"><code>{patchwork}</code></a></p>
+<blockquote>
+<p>[i]t is important to note that plot annotations only have an effect
+on the top-level patchwork. Any annotation added to nested patchworks
+are (currently) lost. If you need to have annotations for a nested
+patchwork you’ll need to wrap it in wrap_elements() with the side-effect
+that alignment no longer works.<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;&lt;a href="https://patchwork.data-imaginist.com/articles/guides/annotation.html#titles-subtitles-and-captions" class="external-link uri"&gt;https://patchwork.data-imaginist.com/articles/guides/annotation.html#titles-subtitles-and-captions&lt;/a&gt;&lt;/p&gt;'><sup>1</sup></a></p>
+</blockquote>
+<p>For this reason the group-specific titles were not added with
+<code><a href="https://patchwork.data-imaginist.com/reference/plot_annotation.html" class="external-link">patchwork::plot_annotation</a></code> or <code><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggplot2::ggtitle</a></code>
+and we reverted to the use of tags instead.</p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">diss</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqdist.html" class="external-link">seqdist</a></span><span class="op">(</span><span class="va">biofam.seq</span>, method <span class="op">=</span> <span class="st">"LCS"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [&gt;] 100 sequences with 8 distinct states</span></span>
+<span><span class="co">#&gt;  [&gt;] creating a 'sm' with a substitution cost of 2</span></span>
+<span><span class="co">#&gt;  [&gt;] creating 8x8 substitution-cost matrix using 2 as constant value</span></span>
+<span><span class="co">#&gt;  [&gt;] 76 distinct  sequences</span></span>
+<span><span class="co">#&gt;  [&gt;] min/max sequence lengths: 16/16</span></span>
+<span><span class="co">#&gt;  [&gt;] computing distances using the LCS metric</span></span>
+<span><span class="co">#&gt;  [&gt;] elapsed time: 0.01 secs</span></span>
+<span></span>
+<span><span class="va">sex</span> <span class="op">&lt;-</span> <span class="va">biofam</span><span class="op">[</span><span class="fl">501</span><span class="op">:</span><span class="fl">600</span>, <span class="st">"sex"</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">map2</span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span>, <span class="co"># input x</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Men"</span>, <span class="st">"Women"</span><span class="op">)</span>, <span class="co"># input y</span></span>
+<span>  <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggseqrfplot.html">ggseqrfplot</a></span><span class="op">(</span><span class="va">biofam.seq</span><span class="op">[</span><span class="va">sex</span> <span class="op">==</span> <span class="va">x</span>,<span class="op">]</span>,</span>
+<span>                     diss <span class="op">=</span> <span class="va">diss</span><span class="op">[</span><span class="va">sex</span> <span class="op">==</span> <span class="va">x</span>,<span class="va">sex</span> <span class="op">==</span> <span class="va">x</span><span class="op">]</span>,</span>
+<span>                     k <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
+<span>    <span class="va">p</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">p</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>tag <span class="op">=</span> <span class="va">y</span><span class="op">)</span></span>
+<span>    <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span>
+<span>    <span class="op">}</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="co">#&gt;  [&gt;] Using k=12 frequency groups with grp.meth='prop'</span></span>
+<span><span class="co">#&gt;  [&gt;] Pseudo/medoid-based-R2: 0.5448432</span></span>
+<span><span class="co">#&gt;  [&gt;] Pseudo/medoid-based-F statistic: 3.408139, p-value: 0.003407164</span></span>
+<span><span class="co">#&gt;  [&gt;] Using k=12 frequency groups with grp.meth='prop'</span></span>
+<span><span class="co">#&gt;  [&gt;] Pseudo/medoid-based-R2: 0.5263291</span></span>
+<span><span class="co">#&gt;  [&gt;] Pseudo/medoid-based-F statistic: 5.687386, p-value: 4.537004e-06</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span></span>
+<span></span>
+<span><span class="op">(</span><span class="va">p</span><span class="op">$</span><span class="va">man</span> <span class="op">&amp;</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="va">p</span><span class="op">$</span><span class="va">woman</span></span></code></pre></div>
+<p><img src="ggseqplot_files/figure-html/unnamed-chunk-13-1.png" width="768"></p>
 <hr>
 </div>
 </div>
@@ -729,6 +793,7 @@ Wickham, H. (2016). <em>ggplot2: Elegant graphics for data analysis</em>
 </div>
 </div>
 </div>
+
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
 </div>

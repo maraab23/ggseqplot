@@ -5,34 +5,89 @@
 \title{Relative Frequency Sequence Plot}
 \usage{
 ggseqrfplot(
-  seqdata,
-  k = floor(nrow(seqdata)/10),
-  diss,
+  seqdata = NULL,
+  diss = NULL,
+  k = NULL,
   sortv = NULL,
+  weighted = TRUE,
+  grp.meth = "prop",
+  squared = FALSE,
+  pow = NULL,
+  seqrfobject = NULL,
   border = FALSE,
   ylab = NULL,
   yaxis = TRUE,
+  which.plot = "both",
+  quality = TRUE,
   box.color = NULL,
   box.fill = NULL,
   box.alpha = NULL,
-  which.plot = "both",
-  quality = TRUE
+  outlier.jitter.height = 0,
+  outlier.color = NULL,
+  outlier.fill = NULL,
+  outlier.shape = 19,
+  outlier.size = 1.5,
+  outlier.stroke = 0.5,
+  outlier.alpha = NULL
 )
 }
 \arguments{
-\item{seqdata}{State sequence object (class \code{stslist}) created with the \code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function.}
+\item{seqdata}{State sequence object (class \code{stslist}) created with the
+\code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function. \code{seqdata} is
+ignored if \code{seqrfobject} is specified.}
 
-\item{k}{integer specifying the number of frequency groups}
+\item{diss}{pairwise dissimilarities between sequences in \code{seqdata}
+(see \code{\link[TraMineR:seqdist]{TraMineR::seqdist}}). \code{diss} is
+ignored if \code{seqrfobject} is specified.}
 
-\item{diss}{pairwise dissimilarities between sequences in \code{seqdata} (see \code{TraMineRextras::seqdist})}
+\item{k}{integer specifying the number of frequency groups. When \code{NULL},
+\code{k} is set as the minimum between 100 and the sum of weights over 10.
+\code{k} is ignored if \code{seqrfobject} is specified.}
 
-\item{sortv}{optional sorting variable that may be used to compute the frequency groups. If  \code{NULL} (default), an MDS is used. Ties are randomly ordered.}
+\item{sortv}{optional sorting vector of length \code{nrow(diss)} that may be
+used to compute the frequency groups. If \code{NULL} (default), the first MDS
+factor of \code{diss} (\code{diss^2} when \code{squared=TRUE}) is used. Ties
+are randomly ordered. Also allows for the usage of the string inputs:
+\code{"from.start"} or \code{"from.end"} (see \code{\link{ggseqiplot}}).
+\code{sortv} is ignored if \code{seqrfobject} is specified.}
 
-\item{border}{if \code{TRUE} bars of index plot are plotted with black outline; default is \code{FALSE} (also accepts \code{NULL})}
+\item{weighted}{Controls if weights (specified in
+\code{\link[TraMineR:seqdef]{TraMineR::seqdef}}) should be used. Default is
+\code{TRUE}, i.e. if available weights are used.}
 
-\item{ylab}{character string specifying title of y-axis. If \code{NULL} axis title is "Frequency group"}
+\item{grp.meth}{Character string. One of \code{"prop"}, \code{"first"},
+and \code{"random"}. Grouping method. See details. \code{grp.meth} is ignored
+if \code{seqrfobject} is specified.}
 
-\item{yaxis}{Controls if a y-axis is plotted. When set as \code{TRUE}, index of frequency groups is displayed.}
+\item{squared}{Logical. Should medoids (and computation of \code{sortv} when
+applicable) be based on squared dissimilarities? (default is \code{FALSE}).
+\code{squared} is ignored if \code{seqrfobject} is specified.}
+
+\item{pow}{Dissimilarity power exponent (typically 1 or 2) for computation of
+pseudo R2 and F. When \code{NULL}, pow is set as 1 when \code{squared = FALSE},
+and as 2 otherwise. \code{pow} is ignored if \code{seqrfobject} is specified.}
+
+\item{seqrfobject}{object of class \code{seqrf} generated with
+\code{\link[TraMineR:seqrf]{TraMineR::seqrf}}. Default is \code{NULL};
+either \code{seqrfobject} or \code{seqdata} and \code{diss} have to specified}
+
+\item{border}{if \code{TRUE} bars of index plot are plotted with black outline;
+default is \code{FALSE} (also accepts \code{NULL})}
+
+\item{ylab}{character string specifying title of y-axis. If \code{NULL} axis
+title is "Frequency group"}
+
+\item{yaxis}{Controls if a y-axis is plotted. When set as \code{TRUE}, index
+of frequency groups is displayed.}
+
+\item{which.plot}{character string specifying which components of relative
+frequency sequence plot should be displayed. Default is \code{"both"}. If set
+to \code{"medoids"} only the index plot of medoids is shown.
+If \code{"diss.to.med"} only the box plots of the group-specific distances to
+the medoids are shown.}
+
+\item{quality}{specifies if representation quality is shown as figure caption;
+default is \code{TRUE}}
 
 \item{box.color}{specifies color of boxplot borders; default is "black}
 
@@ -40,30 +95,59 @@ ggseqrfplot(
 
 \item{box.alpha}{specifies alpha value of boxplot fill color; default is 1}
 
-\item{which.plot}{character string specifying which components of relative frequency sequence plot should be displayed.
-Default is \code{"both"}. If set to \code{"medoids"} only the index plot of medoids is shown. If \code{"diss.to.med"} only
-the box plots of the group-specific distances to the medoids are shown.}
+\item{outlier.jitter.height}{if greater than 0 outliers are jittered vertically.
+If greater than .375 height is automatically adjusted to be aligned with the box width.}
 
-\item{quality}{specifies if representation quality is shown as figure caption; default is \code{TRUE}}
+\item{outlier.color, outlier.fill, outlier.shape, outlier.size, outlier.stroke, outlier.alpha}{parameters to change the appearance of the outliers. Uses defaults of
+\code{\link[ggplot2:geom_boxplot]{ggplot2::geom_boxplot}}}
 }
 \value{
 A relative frequency sequence plot using \code{\link[ggplot2]{ggplot}}.
 }
 \description{
-Function for rendering sequence index plots with \code{\link[ggplot2]{ggplot2}} instead of base
-R's \code{\link[base]{plot}} function that is used by \code{\link[TraMineRextras:seqplot.rf]{TraMineRextras::seqplot.rf}}.
-Note that \code{ggseqrfplot} uses \code{\link[patchwork]{patchwork}} to combine the different components of the plot.
-For further details on relative frequency sequence plots see documentation of \code{\link[TraMineRextras:seqplot.rf]{TraMineRextras::seqplot.rf}}.
+Function for rendering sequence index plots with \code{\link[ggplot2]{ggplot2}}
+instead of base R's \code{\link[base]{plot}} function that is used by
+\code{\link[TraMineR:seqrfplot]{TraMineR::seqrfplot}}. Note that \code{ggseqrfplot}
+uses \code{\link[patchwork]{patchwork}} to combine the different components of
+the plot. The function and the documentation draw heavily from
+\code{\link[TraMineR:seqrf]{TraMineR::seqrf}}.
 }
 \details{
-Note that an identical function call might produce different results
-if \code{sortv} has ties, because the sequences are sorted randomly within
-each set of ties (see \code{\link[base]{rank}}; \code{ties.method="random"})
+This function renders relative frequency sequence plots using either an internal
+call of \code{\link[TraMineR:seqrf]{TraMineR::seqrf}} or by using an object of
+class \code{"seqrf"} generated with \code{\link[TraMineR:seqrf]{TraMineR::seqrf}}.
+
+For further details on the technicalities we refer to the excellent documentation
+of \code{\link[TraMineR:seqrf]{TraMineR::seqrf}}. A detailed account of
+relative frequency index plot can be found in the original contribution by
+\insertCite{fasang2014;textual}{ggseqplot}.
+
+\code{ggseqrfplot} renders the medoid sequences extracted by
+\code{\link[TraMineR:seqrf]{TraMineR::seqrf}} with an internal call of
+\code{ggseqiplot}. For the box plot depicting the distances to the medoids
+\code{ggseqrfplot} uses \code{\link[ggplot2]{geom_boxplot}} and
+\code{\link[ggplot2]{geom_jitter}}. The latter is used for plotting the outliers.
+
+Note that \code{ggseqrfplot} renders in the box plots analogous to the those
+produced by \code{\link[TraMineR:seqrfplot]{TraMineR::seqrfplot}}. Actually,
+the box plots produced with \code{\link[TraMineR:seqrfplot]{TraMineR::seqrfplot}}
+and  \code{\link[ggplot2:geom_boxplot]{ggplot2::geom_boxplot}}
+might slightly differ due to differences in the underlying computations of
+\code{\link[grDevices:boxplot.stats]{grDevices::boxplot.stats}} and
+\code{\link[ggplot2:stat_boxplot]{ggplot2::stat_boxplot}}.
+
+Note that \code{ggseqrfplot} uses \code{\link[patchwork]{patchwork}} to combine
+the different components of the plot. If you want to adjust the appearance of
+the composed plot, for instance by changing the plot theme, you should consult
+the documentation material of \code{\link[patchwork]{patchwork}}.
+
+At this point \code{ggseqrfplot} does not support a grouping option. For
+plotting multiple groups, I recommend to produce group specific seqrfobjects or
+plots and to arrange them in a common plot using \code{\link[patchwork]{patchwork}}.
 }
 \examples{
-## From TraMineRextras::seqplot.rf
+## From TraMineR::seqprf
 library(TraMineR)
-library(TraMineRextras)
 library(patchwork)
 library(ggplot2)
 
@@ -76,32 +160,36 @@ biofam.lab <- c("Parent", "Left", "Married", "Left+Marr",
 ## Here, we use only 100 cases selected such that all elements
 ## of the alphabet be present.
 ## (More cases and a larger k would be necessary to get a meaningful example.)
-biofam.seq <- seqdef(biofam[501:600, ], 10:25, labels = biofam.lab)
+biofam.seq <- seqdef(biofam[501:600, 10:25], labels=biofam.lab,
+                     weights=biofam[501:600,"wp00tbgs"])
 diss <- seqdist(biofam.seq, method = "LCS")
 
 
 ## Using 12 groups and default MDS sorting
-## ... with TraMineRextras::seqplot.rf
-seqplot.rf(biofam.seq, diss = diss, k = 12)
+## and original method by Fasang and Liao (2014)
+
+## ... with TraMineR::seqrfplot (weights have to be turned off)
+seqrfplot(biofam.seq, weighted = FALSE, diss = diss, k = 12,
+          grp.meth="first", which.plot = "both")
 
 ## ... with ggseqrfplot
-ggseqrfplot(biofam.seq, diss = diss, k = 12)
-
+ggseqrfplot(biofam.seq, weighted = FALSE, diss = diss, k = 12)
 
 ## With a user specified sorting variable
-## Here time spent in parental home
+## Here time spent in parental home, which has ties
 parentTime <- seqistatd(biofam.seq)[, 1]
+b.srf <- seqrf(biofam.seq, diss=diss, k=12, sortv=parentTime)
 
-## ... with TraMineRextras::seqplot.rf
-set.seed(123)
-seqplot.rf(biofam.seq, diss = diss, k = 12,
-  sortv = parentTime, main = "Sorted by parent time")
+## ... with TraMineR
+plot(b.srf, which.plot="both")
 
-## ... with ggseqrfplot
-set.seed(123)
-ggseqrfplot(biofam.seq, diss = diss, k = 12, sortv = parentTime) +
-  plot_annotation(title = "Sorted by parent time",
-     theme = theme(plot.title = element_text(hjust = 0.5, size = 18)))
+## ... with ggseqrfplot (and some extra annotation using patchwork)
+ggseqrfplot(seqrfobject = b.srf) +
+ plot_annotation(title = "Sorted by time spent in parental home",
+                 theme = theme(plot.title = element_text(hjust = 0.5, size = 18)))
+}
+\references{
+\insertAllCited{}
 }
 \author{
 Marcel Raab

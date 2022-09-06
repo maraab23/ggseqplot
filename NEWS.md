@@ -1,5 +1,11 @@
 # ggseqplot
 
+# ggseqplot 0.7.2.9020 <br><small>(development version)</small>
+
+* complete revision of ggseqrfplot after TraMineR release 2.2-5
+* added TraMineR as dependency 
+* tests still need to be updated 
+
 # ggseqplot 0.7.2.9001 <br><small>(development version)</small>
 
 * the group argument now respects order of grouping variable when rendering faceted plots
