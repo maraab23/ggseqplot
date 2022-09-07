@@ -63,7 +63,6 @@ the respective functions).
 
 # Examples from TraMineR::seqplot
 
-library(TraMineR)
 library(ggplot2)
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

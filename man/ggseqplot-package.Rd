@@ -13,6 +13,7 @@ A set of wrapper functions that mainly re-produces some of the sequence plots re
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://maraab23.github.io/ggseqplot/}
   \item \url{https://github.com/maraab23/ggseqplot}
   \item Report bugs at \url{https://github.com/maraab23/ggseqplot/issues}
 }

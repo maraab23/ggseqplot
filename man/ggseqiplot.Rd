@@ -101,8 +101,6 @@ when \code{border=TRUE}. You can change the ratio either by adding code to
 
 # Examples from TraMineR::seqplot
 
-library(TraMineR)
-
 # actcal data set
 data(actcal)
 

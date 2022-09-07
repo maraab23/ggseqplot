@@ -91,7 +91,6 @@ of the plot. If you want to adjust the appearance of the composed plot, for inst
 plot theme, you should consult the documentation material of \code{\link[patchwork]{patchwork}}.
 }
 \examples{
-library(TraMineR)
 ## Defining a sequence object with the data in columns 10 to 25
 ## (family status from age 15 to 30) in the biofam data set
 data(biofam)

@@ -47,7 +47,6 @@
 #'   \insertAllCited{}
 #'
 #' @examples
-#' library(TraMineR)
 #' ## Defining a sequence object with the data in columns 10 to 25
 #' ## (family status from age 15 to 30) in the biofam data set
 #' data(biofam)

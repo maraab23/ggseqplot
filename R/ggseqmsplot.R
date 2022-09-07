@@ -39,7 +39,6 @@
 #'
 #' # Examples from TraMineR::seqplot
 #'
-#' library(TraMineR)
 #' library(ggplot2)
 #'
 #' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

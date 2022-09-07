@@ -25,7 +25,7 @@ on.exit(options(old))
 options(rmarkdown.html_vignette.check_title = FALSE)
 
 pkgs <- c("colorspace", "ggplot2", "ggthemes", "ggseqplot", "hrbrthemes", 
-          "patchwork", "purrr", "TraMineR", "TraMineRextras")
+          "patchwork", "purrr", "TraMineRextras")
 
 # Load all packages to library and adjust options
 lapply(pkgs, library, character.only = TRUE)
@@ -132,7 +132,7 @@ the examples.
 
 ## Save package names as a vector of strings
 pkgs <- c("colorspace", "ggplot2", "ggthemes", "hrbrthemes", 
-          "patchwork", "purrr", "TraMineR", "TraMineRextras")
+          "patchwork", "purrr", "TraMineRextras")
 
 
 ## Install uninstalled packages

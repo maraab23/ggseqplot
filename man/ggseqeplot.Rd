@@ -61,9 +61,6 @@ the respective functions).
 
 # Examples from TraMineR::seqplot
 
-library(TraMineR)
-library(ggplot2)
-
 # actcal data set
 data(actcal)
 

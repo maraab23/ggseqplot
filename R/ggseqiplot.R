@@ -74,8 +74,6 @@
 #'
 #' # Examples from TraMineR::seqplot
 #'
-#' library(TraMineR)
-#'
 #' # actcal data set
 #' data(actcal)
 #'

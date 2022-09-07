@@ -2,12 +2,6 @@
 
 # Examples from TraMineR::seqplot
 
-library(TraMineR)
-
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-# Examples from TraMineR::seqplot
-
 # actcal data set
 data(actcal)
 

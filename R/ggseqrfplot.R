@@ -90,7 +90,8 @@
 #' At this point \code{ggseqrfplot} does not support a grouping option. For
 #' plotting multiple groups, I recommend to produce group specific seqrfobjects or
 #' plots and to arrange them in a common plot using \code{\link[patchwork]{patchwork}}.
-#'
+#' See Example 6 in the vignette for further details:
+#' \code{vignette("ggseqplot", package = "ggseqplot")}
 #'
 #' @return A relative frequency sequence plot using \code{\link[ggplot2]{ggplot}}.
 #' @export
@@ -102,11 +103,11 @@
 #'   \insertAllCited{}
 #'
 #' @examples
-#' ## From TraMineR::seqprf
-#' library(TraMineR)
+#' ## Load additional libraries
 #' library(patchwork)
 #' library(ggplot2)
 #'
+#' ## From TraMineR::seqprf
 #' ## Defining a sequence object with the data in columns 10 to 25
 #' ## (family status from age 15 to 30) in the biofam data set
 #' data(biofam)
@@ -178,20 +179,31 @@ ggseqrfplot <- function(seqdata = NULL,
     )
   }
 
+  if (!is.null(seqdata) & !inherits(seqdata, "stslist") & !inherits(seqdata, "seqrf") & inherits(seqrfobject, "seqrf")) {
+    usethis::ui_info(
+      "you specified {usethis::ui_code('seqdata')} which are not stored as sequence object
+     and a valid {usethis::ui_code('seqrfobject')}; the {usethis::ui_code('seqdata')};
+     as well as the potentially specified parameters
+     {usethis::ui_code(c('k', 'sortv', 'weighted', 'grp.meth', 'squared', 'pow'))}
+     will be ignored; the plot will be rendered for the {usethis::ui_field('seqrfobject')}"
+    )
+  }
+
   if (inherits(seqdata, "stslist") & !is.null(seqrfobject) & !inherits(seqrfobject, "seqrf")) {
     usethis::ui_info(
-      "you specified a {usethis::ui_code('seqrfobject')} & {usethis::ui_code('seqdata')};
+    "you specified a {usethis::ui_code('seqrfobject')} & {usethis::ui_code('seqdata')};
     the {usethis::ui_code('seqrfobject')} is not of class {usethis::ui_code('seqrf')} and will be ignored;
     the plot will be rendered for the {usethis::ui_field('seqdata')} if the other parameters are specified correctly"
     )
   }
 
-  if (!is.null(seqdata) & !inherits(seqdata, "stslist") & !inherits(seqdata, "seqrf")) {
+  if (!is.null(seqdata) & !inherits(seqdata, "stslist") & !inherits(seqdata, "seqrf") & !inherits(seqrfobject, "seqrf")) {
     stop(
-    "you specified seqdata which are not stored as sequence object;
-use 'TraMineR::seqdef' to create a sequence object of class 'stslist')"
+    "you specified seqdata which are not stored as sequence object and no valid seqrfobject;
+use 'TraMineR::seqdef' to create a sequence object of class 'stslist' or specify a valid seqrfobject)"
     )
   }
+
 
   if (!is.null(seqdata) & !inherits(seqdata, "stslist") & inherits(seqdata, "seqrf")) {
     stop(
@@ -200,7 +212,7 @@ use 'TraMineR::seqdef' to create a sequence object of class 'stslist')"
     )
   }
 
-  if (is.null(seqrfobject) & !is.null(seqdata) & !inherits(seqdata, "stslist")) {
+  if (is.null(seqrfobject) & (is.null(seqdata) | !inherits(seqdata, "stslist"))) {
     stop(
       "no seqrfobject specified & seqdata are either not specified or not
   stored as sequence object; use 'TraMineR::seqdef' to create one"

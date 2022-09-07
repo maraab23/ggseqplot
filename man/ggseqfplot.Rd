@@ -75,7 +75,6 @@ been achieved by utilizing the very helpful \code{\link[ggh4x]{ggh4x}} library.
 
 # Examples from TraMineR::seqplot
 
-library(TraMineR)
 library(ggplot2)
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

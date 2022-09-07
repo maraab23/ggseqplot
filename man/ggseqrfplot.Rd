@@ -144,13 +144,15 @@ the documentation material of \code{\link[patchwork]{patchwork}}.
 At this point \code{ggseqrfplot} does not support a grouping option. For
 plotting multiple groups, I recommend to produce group specific seqrfobjects or
 plots and to arrange them in a common plot using \code{\link[patchwork]{patchwork}}.
+See Example 6 in the vignette for further details:
+\code{vignette("ggseqplot", package = "ggseqplot")}
 }
 \examples{
-## From TraMineR::seqprf
-library(TraMineR)
+## Load additional libraries
 library(patchwork)
 library(ggplot2)
 
+## From TraMineR::seqprf
 ## Defining a sequence object with the data in columns 10 to 25
 ## (family status from age 15 to 30) in the biofam data set
 data(biofam)

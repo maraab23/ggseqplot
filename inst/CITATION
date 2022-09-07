@@ -1,0 +1,12 @@
+citHeader("To cite ggseqplot in publications, please use:")
+
+citEntry(
+  entry = "Manual",
+  author = "Marcel Raab",
+  title = "ggseqplot: Render Sequence Plots using 'ggplot2'",
+  year = "2022",
+  url = "https://maraab23.github.io/ggseqplot/, https://github.com/maraab23/ggseqplot",
+  textVersion = "Raab, M. (2022): ggseqplot: Render Sequence Plots using 'ggplot2'. https://maraab23.github.io/ggseqplot/, https://github.com/maraab23/ggseqplot"
+)
+
+
