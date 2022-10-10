@@ -311,7 +311,7 @@ See Example 6 in the vignette for further details:
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] 76 distinct  sequences </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] min/max sequence lengths: 16/16</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] computing distances using the LCS metric</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] elapsed time: 0.04 secs</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] elapsed time: 0.01 secs</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Using 12 groups and default MDS sorting</span></span></span>
@@ -326,10 +326,10 @@ See Example 6 in the vignette for further details:
 <span class="r-plt img"><img src="ggseqrfplot-1.png" alt="" width="768" height="474"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># ... with ggseqrfplot</span></span></span>
-<span class="r-in"><span><span class="fu">ggseqrfplot</span><span class="op">(</span><span class="va">biofam.seq</span>, weighted <span class="op">=</span> <span class="cn">FALSE</span>, diss <span class="op">=</span> <span class="va">diss</span>, k <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Using k=12 frequency groups with grp.meth='prop'</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Pseudo/medoid-based-R2: 0.45323</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Pseudo/medoid-based-F statistic: 6.63138, p-value: 5.825085e-08</span>
+<span class="r-in"><span><span class="fu">ggseqrfplot</span><span class="op">(</span><span class="va">biofam.seq</span>, weighted <span class="op">=</span> <span class="cn">FALSE</span>, diss <span class="op">=</span> <span class="va">diss</span>, k <span class="op">=</span> <span class="fl">12</span>, grp.meth<span class="op">=</span><span class="st">"first"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Using k=12 frequency groups with grp.meth='first'</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Pseudo/medoid-based-R2: 0.4620155</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Pseudo/medoid-based-F statistic: 6.870317, p-value: 3.09994e-08</span>
 <span class="r-plt img"><img src="ggseqrfplot-2.png" alt="" width="768" height="474"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># With a user specified sorting variable</span></span></span>

@@ -131,7 +131,7 @@
 #'           grp.meth="first", which.plot = "both")
 #'
 #' # ... with ggseqrfplot
-#' ggseqrfplot(biofam.seq, weighted = FALSE, diss = diss, k = 12)
+#' ggseqrfplot(biofam.seq, weighted = FALSE, diss = diss, k = 12, grp.meth="first")
 #'
 #' # With a user specified sorting variable
 #' # Here time spent in parental home, which has ties
