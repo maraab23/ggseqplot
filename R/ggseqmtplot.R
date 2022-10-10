@@ -45,15 +45,9 @@
 #'   \insertAllCited{}
 #'
 #' @examples
-#' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#'
-#' # Examples from TraMineR::seqplot
-#'
+#' # Use examples from TraMineR & load ggplot for fine-tuning the plot
+#' library(TraMineR)
 #' library(ggplot2)
-#'
-#' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#'
-#' # Examples from TraMineR::seqplot
 #'
 #' # actcal data set
 #' data(actcal)
@@ -63,8 +57,6 @@
 #' actcal <- actcal[sample(nrow(actcal), 300), ]
 #' actcal.lab <- c("> 37 hours", "19-36 hours", "1-18 hours", "no work")
 #' actcal.seq <- seqdef(actcal, 13:24, labels = actcal.lab)
-#'
-#' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #'
 #' # modal state sequence plot; grouped by sex
 #' # with TraMineR::seqplot

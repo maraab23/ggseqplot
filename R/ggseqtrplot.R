@@ -41,7 +41,8 @@
 #' @examples
 #' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #'
-#' # Examples from TraMineR::seqplot
+#' # Use example data from TraMineR
+#' library(TraMineR)
 #'
 #' # biofam data set
 #' data(biofam)
@@ -51,9 +52,6 @@
 #' biofam.lab <- c("Parent", "Left", "Married", "Left+Marr",
 #'                 "Child", "Left+Child", "Left+Marr+Child", "Divorced")
 #' biofam.seq <- seqdef(biofam, 10:25, labels=biofam.lab, weights = biofam$wp00tbgs)
-#'
-#'
-#' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #'
 #' # Basic transition rate plot (with adjusted x-axis labels)
 #' ggseqtrplot(biofam.seq, x_n.dodge = 2)

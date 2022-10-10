@@ -148,47 +148,48 @@ See Example 6 in the vignette for further details:
 \code{vignette("ggseqplot", package = "ggseqplot")}
 }
 \examples{
-## Load additional libraries
+# Use examples from TraMineR & load additional libraries for fine-tuning the plots
+library(TraMineR)
 library(patchwork)
 library(ggplot2)
 
-## From TraMineR::seqprf
-## Defining a sequence object with the data in columns 10 to 25
-## (family status from age 15 to 30) in the biofam data set
+# From TraMineR::seqprf
+# Defining a sequence object with the data in columns 10 to 25
+# (family status from age 15 to 30) in the biofam data set
 data(biofam)
 biofam.lab <- c("Parent", "Left", "Married", "Left+Marr",
   "Child", "Left+Child", "Left+Marr+Child", "Divorced")
 
-## Here, we use only 100 cases selected such that all elements
-## of the alphabet be present.
-## (More cases and a larger k would be necessary to get a meaningful example.)
+# Here, we use only 100 cases selected such that all elements
+# of the alphabet be present.
+# (More cases and a larger k would be necessary to get a meaningful example.)
 biofam.seq <- seqdef(biofam[501:600, 10:25], labels=biofam.lab,
                      weights=biofam[501:600,"wp00tbgs"])
 diss <- seqdist(biofam.seq, method = "LCS")
 
 
-## Using 12 groups and default MDS sorting
-## and original method by Fasang and Liao (2014)
+# Using 12 groups and default MDS sorting
+# and original method by Fasang and Liao (2014)
 
-## ... with TraMineR::seqrfplot (weights have to be turned off)
+# ... with TraMineR::seqrfplot (weights have to be turned off)
 seqrfplot(biofam.seq, weighted = FALSE, diss = diss, k = 12,
           grp.meth="first", which.plot = "both")
 
-## ... with ggseqrfplot
+# ... with ggseqrfplot
 ggseqrfplot(biofam.seq, weighted = FALSE, diss = diss, k = 12)
 
-## With a user specified sorting variable
-## Here time spent in parental home, which has ties
+# With a user specified sorting variable
+# Here time spent in parental home, which has ties
 parentTime <- seqistatd(biofam.seq)[, 1]
 b.srf <- seqrf(biofam.seq, diss=diss, k=12, sortv=parentTime)
 
-## ... with TraMineR
+# ... with TraMineR
 plot(b.srf, which.plot="both")
 
-## ... with ggseqrfplot (and some extra annotation using patchwork)
+# ... with ggseqrfplot (and some extra annotation using patchwork)
 ggseqrfplot(seqrfobject = b.srf) +
- plot_annotation(title = "Sorted by time spent in parental home",
-                 theme = theme(plot.title = element_text(hjust = 0.5, size = 18)))
+  plot_annotation(title = "Sorted by time spent in parental home",
+                  theme = theme(plot.title = element_text(hjust = 0.5, size = 18)))
 }
 \references{
 \insertAllCited{}

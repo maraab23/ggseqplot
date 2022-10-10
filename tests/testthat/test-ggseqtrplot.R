@@ -1,3 +1,5 @@
+# Example data come from TraMineR
+library(TraMineR)
 # biofam data set
 data(biofam)
 # We use only a sample of 300 cases

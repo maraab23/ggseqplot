@@ -35,7 +35,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ggseqplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -137,7 +137,7 @@ contains the following plot types:</p>
 the following articles/book chapters: Brzinsky-Fay <span class="citation">(2014)</span>, Fasang and Liao <span class="citation">(2014)</span> and Chapter 2 of Raab &amp; Struffolino
 <span class="citation">(2022)</span>.</p>
 <p>With the exception of the transition rate plot all of the plots
-listed above can be also produced with <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a> and <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineRextras}</code></a>. In total, those two
+listed above can be also produced with <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a>. In total, those two
 libraries provide a much more comprehensive set of plots and often allow
 for more options than {ggseqplot}. Hence, if you are an experienced user
 base R’s <code>plot</code> (which is used to render the <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a> plots), there is no real
@@ -177,7 +177,7 @@ packages</strong>
 <span></span>
 <span><span class="co">## Save package names as a vector of strings</span></span>
 <span><span class="va">pkgs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"colorspace"</span>, <span class="st">"ggplot2"</span>, <span class="st">"ggthemes"</span>, <span class="st">"hrbrthemes"</span>, </span>
-<span>          <span class="st">"patchwork"</span>, <span class="st">"purrr"</span>, <span class="st">"TraMineRextras"</span><span class="op">)</span></span>
+<span>          <span class="st">"patchwork"</span>, <span class="st">"purrr"</span>, <span class="st">"TraMineR"</span><span class="op">)</span></span>
 <span></span>
 <span></span>
 <span><span class="co">## Install uninstalled packages</span></span>
@@ -189,7 +189,7 @@ packages</strong>
 <span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">pkgs</span>, <span class="va">library</span>, character.only <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## Don't forget to load ggseqplot</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/maraab23/ggseqplot" class="external-link">ggseqplot</a></span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://maraab23.github.io/ggseqplot/">ggseqplot</a></span><span class="op">)</span></span></code></pre></div>
 </details><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span></span>
@@ -349,8 +349,7 @@ labels)<br><a href="https://patchwork.data-imaginist.com/index.html" target="_bl
 </tr>
 <tr class="odd">
 <td><code>ggseqrfplot</code></td>
-<td>tweaked version of:<br><code><a href="https://rdrr.io/pkg/TraMineRextras/man/seqplot-rf.html" class="external-link">TraMineRextras::seqplot.rf</a></code>
-</td>
+<td><code><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">TraMineR::seqrfplot</a></code></td>
 <td>
 <code><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html" class="external-link">ggplot2::geom_rect</a></code><br><code><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">ggplot2::geom_boxplot</a></code><br><a href="https://patchwork.data-imaginist.com/index.html" target="_blank" class="external-link"><code>{patchwork}</code></a> (to combine plots)</td>
 </tr>
@@ -652,7 +651,7 @@ row. Hence the index plots are the subplots 3 and 4</p>
 <span><span class="co">#&gt;  [&gt;] 186 distinct  sequences</span></span>
 <span><span class="co">#&gt;  [&gt;] min/max sequence lengths: 12/12</span></span>
 <span><span class="co">#&gt;  [&gt;] computing distances using the LCS metric</span></span>
-<span><span class="co">#&gt;  [&gt;] elapsed time: 0.27 secs</span></span>
+<span><span class="co">#&gt;  [&gt;] elapsed time: 0.34 secs</span></span>
 <span></span>
 <span><span class="co">## original plot</span></span>
 <span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggseqrplot.html">ggseqrplot</a></span><span class="op">(</span><span class="va">actcal.seq</span>, </span>

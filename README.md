@@ -19,13 +19,10 @@ target="_blank"><code>{TraMineR}</code></a>’s `seqplot` using
 <a href="https://ggplot2.tidyverse.org/"
 target="_blank"><code>{ggplot2}</code></a>. These plots are produced on
 the basis of state sequence objects defined with `TraMineR::seqdef`. The
-package automates the reshaping and plotting of sequence data.
-
-Being a set of wrapper functions this library literally builds on the
-excellent work of the <a href="http://traminer.unige.ch"
-target="_blank"><code>{TraMineR}</code></a>,
+package automates the reshaping and plotting of sequence data. This
+library literally builds on the excellent work of the
 <a href="http://traminer.unige.ch"
-target="_blank"><code>{TraMineRExtras}</code></a>, and
+target="_blank"><code>{TraMineR}</code></a> and
 <a href="https://ggplot2.tidyverse.org/"
 target="_blank"><code>{ggplot2}</code></a> developers and uses several
 of the their functions to produce ggplot2-flavored figures.
@@ -91,17 +88,7 @@ The development version can be installed with:
 devtools::install_github("maraab23/ggseqplot")
 ```
 
-The development version (0.7.2.9000) is addressing an issue regarding
-the sorting order in grouped plots. In the current regular version
-(0.7.2), the grouped plots are always arranged in alphabetical order.
-The development version respects the order imposed by the user (i.e.,
-the order of factor levels if grouping variable is a factor). Once I had
-the time to test the the code more extensively, I will submit the
-improved version to CRAN. Note that at this point, the dev version might
-still have some unknown issues induced by the code revision addressing
-the group order issue.
-
 ## Acknowledgements
 
-I want to thank like to thank Gilbert Ritschard, Tim Liao, and Emanuela
+I would like to thank Gilbert Ritschard, Tim Liao, and Emanuela
 Struffolino for their comments on earlier versions of this library.

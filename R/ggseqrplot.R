@@ -47,29 +47,31 @@
 #'   \insertAllCited{}
 #'
 #' @examples
-#' ## Defining a sequence object with the data in columns 10 to 25
-#' ## (family status from age 15 to 30) in the biofam data set
+#' # Use examples from TraMineR
+#' library(TraMineR)
+#' # Defining a sequence object with the data in columns 10 to 25
+#' # (family status from age 15 to 30) in the biofam data set
 #' data(biofam)
 #' biofam.lab <- c("Parent", "Left", "Married", "Left+Marr",
 #' "Child", "Left+Child", "Left+Marr+Child", "Divorced")
 #' biofam.seq <- seqdef(biofam, 10:25, labels=biofam.lab)
 #'
-#' ## Computing the distance matrix
+#' # Computing the distance matrix
 #' costs <- seqsubm(biofam.seq, method="TRATE")
 #' biofam.om <- seqdist(biofam.seq, method="OM", sm=costs)
 #'
-#' ## Representative sequence  plot (using defaults)
-#' ## ... with TraMineR::seqplot
+#' # Representative sequence  plot (using defaults)
+#' # ... with TraMineR::seqplot
 #' seqrplot(biofam.seq, diss = biofam.om)
 #'
-#' ## ... with ggseqrplot
+#' # ... with ggseqrplot
 #' ggseqrplot(biofam.seq, diss = biofam.om)
 #'
-#' ## using group argument
-#' ## ... with TraMineR::seqplot
+#' # using group argument
+#' # ... with TraMineR::seqplot
 #' seqrplot(biofam.seq, diss = biofam.om, group = biofam$sex)
 #'
-#' ## ... with ggseqrplot
+#' # ... with ggseqrplot
 #' ggseqrplot(biofam.seq, diss = biofam.om, group = biofam$sex)
 
 ggseqrplot <- function(seqdata,

@@ -1,6 +1,6 @@
 Package: ggseqplot
 Title: Render Sequence Plots using 'ggplot2'
-Version: 0.8.0
+Version: 0.8.1
 Authors@R: 
   person("Marcel", "Raab", , "marcel.raab@gmail.com", role = c("aut", "cre"),
          comment = c(ORCID = "0000-0002-3097-1591"))
@@ -14,8 +14,7 @@ Description: A set of wrapper functions that mainly re-produces some of the
 URL: https://maraab23.github.io/ggseqplot/, https://github.com/maraab23/ggseqplot
 BugReports: https://github.com/maraab23/ggseqplot/issues
 Depends: 
-    R (>= 4.1.0),
-    TraMineR (>= 2.2-5)
+    R (>= 4.1.0)
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -34,6 +33,7 @@ Imports:
     purrr,
     Rdpack,
     tidyr,
+    TraMineR (>= 2.2-5),
     usethis
 Suggests: 
     covr,
@@ -41,7 +41,6 @@ Suggests:
     hrbrthemes,
     knitr,
     rmarkdown,
-    testthat (>= 3.0.0),
-    TraMineRextras
+    testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Config/testthat/edition: 3

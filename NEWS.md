@@ -1,3 +1,10 @@
+# ggseqplot 0.8.1
+
+* reverted TraMiner to Import 
+* removed unnecessary Suggests from TraMineRextras
+* revised vignette, tests, and documentation accordingly
+* harmonized example code
+
 # ggseqplot 0.8.0
 
 * complete revision of `ggseqrfplot` after `{TraMineR}` release 2.2-5 

@@ -1,7 +1,5 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-# Examples from TraMineR::seqplot
-
+# Example data come from TraMineR
+library(TraMineR)
 # actcal data set
 data(actcal)
 

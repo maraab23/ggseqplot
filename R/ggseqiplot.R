@@ -70,9 +70,8 @@
 #'   \insertAllCited{}
 #'
 #' @examples
-#' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#'
-#' # Examples from TraMineR::seqplot
+#' # Use examples from TraMineR
+#' library(TraMineR)
 #'
 #' # actcal data set
 #' data(actcal)
@@ -86,9 +85,6 @@
 #' # ex1 using weights
 #' data(ex1)
 #' ex1.seq <- seqdef(ex1, 1:13, weights = ex1$weights)
-#'
-#' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#'
 #'
 #' # sequences sorted by age in 2000 and grouped by sex
 #' # with TraMineR::seqplot

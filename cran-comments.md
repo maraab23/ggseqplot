@@ -21,8 +21,7 @@ Found the following files/directories:
 As noted in [R-hub issue #503](https://github.com/r-hub/rhub/issues/503), this could be due to a bug/crash in MiKTeX and can likely be ignored.
 
 
-## Changes since release 0.7.2
+## Changes since release 0.8.0
 
-- Added TraMineR (>= 2.2-5) to dependencies; updated documentation/vignette accordingly 
-- Completely revised `ggseqrfplot` to reflect new TraMineR release
-- fixed sorting order for functions which allow for group argument (minor change)
+- Removed TraMineRextras from Suggests
+- Removed TraMineR from Depends (reverted to Imports); updated documentation/vignette accordingly 

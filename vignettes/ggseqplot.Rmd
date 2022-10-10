@@ -25,7 +25,7 @@ on.exit(options(old))
 options(rmarkdown.html_vignette.check_title = FALSE)
 
 pkgs <- c("colorspace", "ggplot2", "ggthemes", "ggseqplot", "hrbrthemes", 
-          "patchwork", "purrr", "TraMineRextras")
+          "patchwork", "purrr", "TraMineR")
 
 # Load all packages to library and adjust options
 lapply(pkgs, library, character.only = TRUE)
@@ -79,8 +79,7 @@ Fasang and Liao [-@fasang2014] and Chapter 2 of Raab & Struffolino
 
 With the exception of the transition rate plot all of the plots listed
 above can be also produced with
-[`{TraMineR}`](http://traminer.unige.ch){target="_blank"} and
-[`{TraMineRextras}`](http://traminer.unige.ch){target="_blank"}. In
+[`{TraMineR}`](http://traminer.unige.ch){target="_blank"}. In
 total, those two libraries provide a much more comprehensive set of
 plots and often allow for more options than {ggseqplot}. Hence, if you
 are an experienced user base R's `plot` (which is used to render the
@@ -132,7 +131,7 @@ the examples.
 
 ## Save package names as a vector of strings
 pkgs <- c("colorspace", "ggplot2", "ggthemes", "hrbrthemes", 
-          "patchwork", "purrr", "TraMineRextras")
+          "patchwork", "purrr", "TraMineR")
 
 
 ## Install uninstalled packages
@@ -239,7 +238,7 @@ function calls used to render different plot types with [`{ggseqplot}`](https://
 | `ggseqiplot`         | `TraMineR::seqformat`                                        | `ggplot2::geom_rect`                                                                                                                    |
 | `ggseqfplot`         | `TraMineR::seqtab`                                           | `ggplot2::geom_rect`<br>[`{ggh4x}`](https://teunbrand.github.io/ggh4x/){target="_blank"} (for the axis labeling if group has been specified)                                                   |
 | `ggseqrplot`         | `TraMineR::seqrep`                                           | `ggplot2::geom_rect`<br>`ggrepel::geom_text_repel`<br>[`{ggtext}`](https://wilkelab.org/ggtext/){target="_blank"} (for optional colored axis labels)<br>[`{patchwork}`](https://patchwork.data-imaginist.com/index.html){target="_blank"} (to combine plots) |
-| `ggseqrfplot`        | tweaked version of:<br>`TraMineRextras::seqplot.rf` | `ggplot2::geom_rect`<br>`ggplot2::geom_boxplot`<br>[`{patchwork}`](https://patchwork.data-imaginist.com/index.html){target="_blank"} (to combine plots)                                                              |
+| `ggseqrfplot`        | `TraMineR::seqrfplot` | `ggplot2::geom_rect`<br>`ggplot2::geom_boxplot`<br>[`{patchwork}`](https://patchwork.data-imaginist.com/index.html){target="_blank"} (to combine plots)                                                              |
 
 The appearance of most of the plots generated with [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) 
 can be adjusted just like every other ggplot (e.g., by changing the theme 

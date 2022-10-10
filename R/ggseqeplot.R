@@ -41,9 +41,8 @@
 #'   \insertAllCited{}
 #'
 #' @examples
-#' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#'
-#' # Examples from TraMineR::seqplot
+#' # Use examples from TraMineR
+#' library('TraMineR')
 #'
 #' # actcal data set
 #' data(actcal)
@@ -54,9 +53,6 @@
 #' actcal.lab <- c("> 37 hours", "19-36 hours", "1-18 hours", "no work")
 #' actcal.seq <- seqdef(actcal, 13:24, labels = actcal.lab)
 #'
-#' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#'
-#'
 #' # sequences sorted by age in 2000 and grouped by sex
 #' # with TraMineR::seqplot (entropies shown in two separate plots)
 #' seqHtplot(actcal.seq, group = actcal$sex)
@@ -64,7 +60,7 @@
 #' ggseqeplot(actcal.seq, group = actcal$sex)
 #' ggseqeplot(actcal.seq, group = actcal$sex, gr.linetype = TRUE)
 #'
-#' #manual color specification
+#' # manual color specification
 #' ggseqeplot(actcal.seq, linecolor = "darkgreen")
 #' ggseqeplot(actcal.seq, group = actcal$sex,
 #'            linecolor = c("#3D98D3FF", "#FF363CFF"))
