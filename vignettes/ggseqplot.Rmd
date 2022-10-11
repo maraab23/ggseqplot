@@ -5,7 +5,7 @@ vignette: >
   %\VignetteIndexEntry{Introduction to ggseqplot}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
-csl: https://www.zotero.org/styles/apa
+csl: apa.csl
 bibliography: references.bib
 editor_options: 
   markdown: 
@@ -231,7 +231,7 @@ function calls used to render different plot types with [`{ggseqplot}`](https://
 | ggseqplot function | TraMineR function                                  | ggplot2 geoms and extensions                                                                                            |
 |---------------|----------------|-----------------------------------------|
 | `ggseqdplot`         | `TraMineR::seqstatd`                                         | `ggplot2::geom_bar`<br>optional: `geom_line`                                                                                            |
-| `ggseqplot`          | `TraMineR::seqstatd`                                         | `ggplot2::geom_line`                                                                                                                    |
+| `ggseqeplot`          | `TraMineR::seqstatd`                                         | `ggplot2::geom_line`                                                                                                                    |
 | `ggseqmsplot`        | `TraMineR::seqmodst`                                         | `ggplot2::geom_bar`                                                                                                                     |
 | `ggseqmtplot`        | `TraMineR::seqmeant`                                         | `ggplot2::geom_bar`                                                                                                                     |
 | `ggseqtrplot`        | `TraMineR::seqtrate`                                         | `ggplot2::geom_tile`                                                                                                                    |

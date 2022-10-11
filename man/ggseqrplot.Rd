@@ -24,7 +24,7 @@ ggseqrplot(
 \arguments{
 \item{seqdata}{State sequence object (class \code{stslist}) created with the \code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function.}
 
-\item{diss}{pairwise dissimilarities between sequences in \code{seqdata} (see \code{TraMineRextras::seqdist})}
+\item{diss}{pairwise dissimilarities between sequences in \code{seqdata} (see \code{TraMineR::seqdist})}
 
 \item{group}{A vector of the same length as the sequence data indicating group membership. When not NULL, a distinct plot is generated for each level of group.}
 

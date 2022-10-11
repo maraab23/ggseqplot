@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-A set of wrapper functions that mainly re-produces some of the sequence plots rendered with TraMineR::seqplot() and 'TraMineRextras'. Whereas 'TraMineR' uses base R to produce the plots this library draws on 'ggplot2'. The plots are produced on the basis of a sequence object defined with TraMineR::seqdef(). The package automates the reshaping and plotting of sequence data. Resulting plots are of class 'ggplot', i.e. components can be added and tweaked using '+' and regular 'ggplot2' functions.
+A set of wrapper functions that mainly re-produces most of the sequence plots rendered with TraMineR::seqplot(). Whereas 'TraMineR' uses base R to produce the plots this library draws on 'ggplot2'. The plots are produced on the basis of a sequence object defined with TraMineR::seqdef(). The package automates the reshaping and plotting of sequence data. Resulting plots are of class 'ggplot', i.e. components can be added and tweaked using '+' and regular 'ggplot2' functions.
 }
 \seealso{
 Useful links:
