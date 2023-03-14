@@ -1,4 +1,3 @@
-citHeader("To cite ggseqplot in publications, please use:")
 
 bibentry(
   bibtype = "Manual",
