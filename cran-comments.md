@@ -8,9 +8,8 @@ Runs without errors, warnings, and notes.
 
 0 errors; 0 warnings
 
-Two notes on possibly invalid URLS: both URLS are fine
+Two notes  on Windows (Server 2022, R-devel 64-bit): 
 
-One note that is only found on Windows (Server 2022, R-devel 64-bit): 
 
 ```
 * checking for detritus in the temp directory ... NOTE
@@ -21,7 +20,15 @@ Found the following files/directories:
 As noted in [R-hub issue #503](https://github.com/r-hub/rhub/issues/503), this could be due to a bug/crash in MiKTeX and can likely be ignored.
 
 
-## Changes since release 0.8.0
+```
+* checking HTML version of manual ... NOTE
+Skipping checking HTML validation: no command 'tidy' found
+Skipping checking math rendering: package 'V8' unavailable
+```
 
-- Removed TraMineRextras from Suggests
-- Removed TraMineR from Depends (reverted to Imports); updated documentation/vignette accordingly 
+Unrelated to package
+
+
+## Changes since release 0.8.1
+
+- Updated to geom_line aes argument "linewidth" due to new release of ggplot2
