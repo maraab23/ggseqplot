@@ -1,3 +1,7 @@
+# ggseqplot 0.8.2
+
+* replaced "size" with "linewidth" due to ggplot2 update
+
 # ggseqplot 0.8.1
 
 * reverted TraMiner to Import 

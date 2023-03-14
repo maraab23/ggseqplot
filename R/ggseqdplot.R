@@ -322,7 +322,7 @@ ggseqdplot <- function(seqdata,
   if (with.entropy == TRUE) {
     ggdplot <- ggdplot +
       geom_line(aes(x = .data$x, y = .data$entropy, color = linecolor),
-                group = 1, size = linewidth, linetype = linetype
+                group = 1, linewidth = linewidth, linetype = linetype
       ) +
       scale_color_identity(guide = "legend", name = NULL, labels = "Entropy")
   }

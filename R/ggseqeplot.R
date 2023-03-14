@@ -149,12 +149,12 @@ ggseqeplot <- function(seqdata,
       ggplot(aes(x = .data$x, y = .data$entropy, group = .data$group)) +
       geom_line(aes(color = .data$group,
                     linetype = .data$group),
-                size = linewidth)
+                linewidth =  linewidth)
   } else {
     ggeplot <- eplotdata |>
       ggplot(aes(x = .data$x, y = .data$entropy, group = .data$group)) +
       geom_line(aes(color = .data$group),
-                size = linewidth)
+                linewidth =  linewidth)
   }
 
   ggeplot <- ggeplot +
