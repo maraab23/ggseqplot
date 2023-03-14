@@ -1,6 +1,7 @@
 # ggseqplot 0.8.2
 
 * replaced "size" with "linewidth" due to ggplot2 update
+* removed startup message
 
 # ggseqplot 0.8.1
 

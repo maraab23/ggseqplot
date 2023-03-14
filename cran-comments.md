@@ -32,3 +32,5 @@ Unrelated to package
 ## Changes since release 0.8.1
 
 - Updated to geom_line aes argument "linewidth" due to new release of ggplot2
+- removed startup message
+
