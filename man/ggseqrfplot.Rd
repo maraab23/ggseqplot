@@ -178,14 +178,10 @@ seqrfplot(biofam.seq, weighted = FALSE, diss = diss, k = 12,
 # ... with ggseqrfplot
 ggseqrfplot(biofam.seq, weighted = FALSE, diss = diss, k = 12, grp.meth="first")
 
-# With a user specified sorting variable
-# Here time spent in parental home, which has ties
+# Arrange sequences by a user specified sorting variable:
+# time spent in parental home; has ties
 parentTime <- seqistatd(biofam.seq)[, 1]
 b.srf <- seqrf(biofam.seq, diss=diss, k=12, sortv=parentTime)
-
-# ... with TraMineR
-plot(b.srf, which.plot="both")
-
 # ... with ggseqrfplot (and some extra annotation using patchwork)
 ggseqrfplot(seqrfobject = b.srf) +
   plot_annotation(title = "Sorted by time spent in parental home",

@@ -99,6 +99,7 @@
 #'     plot.title.position = "plot")
 #'
 #' @import ggplot2
+#' @importFrom rlang .data
 ggseqdplot <- function(seqdata,
                        no.n = FALSE,
                        group = NULL,
@@ -204,9 +205,10 @@ ggseqdplot <- function(seqdata,
                        levels = TraMineR::alphabet(seqdata),
                        labels = attributes(seqdata)$labels
         ),
-        state = forcats::fct_explicit_na(.data$state,
-                                         na_level = "Missing"
+        state = forcats::fct_na_value_to_level(.data$state,
+                                                level = "Missing"
         ),
+        state = forcats::fct_drop(.data$state, "Missing"), # shouldn't be necessary
         state = forcats::fct_rev(.data$state)
       ) |>
       tidyr::pivot_longer(
@@ -296,8 +298,8 @@ ggseqdplot <- function(seqdata,
     theme_minimal() +
     theme(
       axis.title.y = element_text(vjust = +3),
-      axis.line.x = element_line(size = .3),
-      axis.ticks = element_line(size = .3),
+      axis.line.x = element_line(linewidth = .3),
+      axis.ticks = element_line(linewidth = .3),
       legend.position = "bottom",
       legend.title = element_blank(),
       legend.margin = margin(-0.2, 0, 0, -0.2, unit = "cm")

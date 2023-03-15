@@ -102,6 +102,7 @@
 #'
 #' @import ggplot2
 #' @importFrom Rdpack reprompt
+#' @importFrom rlang .data
 ggseqiplot <- function(seqdata,
                        no.n = FALSE,
                        group = NULL,
@@ -193,16 +194,17 @@ ggseqiplot <- function(seqdata,
 
   suppressMessages(
     spelldata <- TraMineR::seqformat(seqdata, to = "SPELL") |>
-      dplyr::full_join(auxid) |>
+      dplyr::full_join(auxid, by = dplyr::join_by("id")) |>
       dplyr::select(.data$idnew, dplyr::everything()) |>
       dplyr::mutate(
         states = factor(.data$states,
                         levels = TraMineR::alphabet(seqdata),
                         labels = attributes(seqdata)$labels
         ),
-        states = forcats::fct_explicit_na(.data$states,
-                                          na_level = "Missing"
-        )
+        states = forcats::fct_na_value_to_level(.data$states,
+                                          level = "Missing"
+        ),
+        states = forcats::fct_drop(.data$states, "Missing") # shouldn't be necessary
       ) |>
       dplyr::group_by(.data$idnew) |>
       dplyr::mutate(spell = dplyr::row_number(), .after = 1) |>
@@ -507,8 +509,8 @@ ggseqiplot <- function(seqdata,
         panel.grid.minor = element_blank(),
         panel.grid.major = element_blank(),
         plot.margin = margin(15, 15, 10, 15),
-        axis.line.x = element_line(size = .3),
-        axis.ticks = element_line(size = .3)
+        axis.line.x = element_line(linewidth = .3),
+        axis.ticks = element_line(linewidth = .3)
       )
   )
 

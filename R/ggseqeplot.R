@@ -64,6 +64,7 @@
 #' ggseqeplot(actcal.seq, group = actcal$sex,
 #'            linecolor = c("#3D98D3FF", "#FF363CFF"))
 #' @import ggplot2
+#' @importFrom rlang .data
 ggseqeplot <- function(seqdata,
                        group = NULL,
                        weighted = TRUE,
@@ -182,8 +183,8 @@ ggseqeplot <- function(seqdata,
       legend.title = element_blank(),
       legend.text = element_text(size = 11),
       panel.grid.major.x = element_blank(),
-      axis.line.x = element_line(size = .3),
-      axis.ticks = element_line(size = .3)
+      axis.line.x = element_line(linewidth = .3),
+      axis.ticks = element_line(linewidth = .3)
     )
 
   ggeplot <- ggeplot +

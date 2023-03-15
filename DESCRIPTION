@@ -32,6 +32,7 @@ Imports:
     patchwork,
     purrr,
     Rdpack,
+    rlang,
     tidyr,
     TraMineR (>= 2.2-5),
     usethis

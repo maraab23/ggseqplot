@@ -96,27 +96,25 @@ library(TraMineR)
 # Defining a sequence object with the data in columns 10 to 25
 # (family status from age 15 to 30) in the biofam data set
 data(biofam)
+# Use sample of 300 cases
+set.seed(10)
+biofam <- biofam[sample(nrow(biofam),300),]
 biofam.lab <- c("Parent", "Left", "Married", "Left+Marr",
 "Child", "Left+Child", "Left+Marr+Child", "Divorced")
 biofam.seq <- seqdef(biofam, 10:25, labels=biofam.lab)
 
 # Computing the distance matrix
-costs <- seqsubm(biofam.seq, method="TRATE")
-biofam.om <- seqdist(biofam.seq, method="OM", sm=costs)
+biofam.dhd <- seqdist(biofam.seq, method="DHD")
 
 # Representative sequence  plot (using defaults)
 # ... with TraMineR::seqplot
-seqrplot(biofam.seq, diss = biofam.om)
+seqrplot(biofam.seq, diss = biofam.dhd)
 
 # ... with ggseqrplot
-ggseqrplot(biofam.seq, diss = biofam.om)
+ggseqrplot(biofam.seq, diss = biofam.dhd)
 
 # using group argument
-# ... with TraMineR::seqplot
-seqrplot(biofam.seq, diss = biofam.om, group = biofam$sex)
-
-# ... with ggseqrplot
-ggseqrplot(biofam.seq, diss = biofam.om, group = biofam$sex)
+ggseqrplot(biofam.seq, diss = biofam.dhd, group = biofam$sex)
 }
 \references{
 \insertAllCited{}

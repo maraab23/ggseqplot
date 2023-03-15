@@ -96,6 +96,7 @@
 #' @return A relative frequency sequence plot using \code{\link[ggplot2]{ggplot}}.
 #' @export
 #' @importFrom patchwork plot_layout
+#' @importFrom rlang .data
 #'
 #' @author Marcel Raab
 #'
@@ -133,14 +134,11 @@
 #' # ... with ggseqrfplot
 #' ggseqrfplot(biofam.seq, weighted = FALSE, diss = diss, k = 12, grp.meth="first")
 #'
-#' # With a user specified sorting variable
-#' # Here time spent in parental home, which has ties
+#' # Arrange sequences by a user specified sorting variable:
+#' # time spent in parental home; has ties
 #' parentTime <- seqistatd(biofam.seq)[, 1]
 #' b.srf <- seqrf(biofam.seq, diss=diss, k=12, sortv=parentTime)
-#'
-#' # ... with TraMineR
-#' plot(b.srf, which.plot="both")
-#'
+
 #' # ... with ggseqrfplot (and some extra annotation using patchwork)
 #' ggseqrfplot(seqrfobject = b.srf) +
 #'   plot_annotation(title = "Sorted by time spent in parental home",
@@ -393,8 +391,8 @@ use 'TraMineR::seqdef' to create a sequence object of class 'stslist' or specify
       axis.text.y = element_blank(),
       axis.ticks.y = element_blank(),
       axis.title.y = element_blank(),
-      axis.line.x = element_line(size = .3),
-      axis.ticks.x = element_line(size = .3),
+      axis.line.x = element_line(linewidth = .3),
+      axis.ticks.x = element_line(linewidth = .3),
       panel.grid.major = element_blank(),
       panel.grid.minor = element_blank()
     )
@@ -410,8 +408,8 @@ use 'TraMineR::seqdef' to create a sequence object of class 'stslist' or specify
       theme_minimal() +
       theme(
         axis.ticks.y = element_blank(),
-        axis.line.x = element_line(size = .3),
-        axis.ticks.x = element_line(size = .3),
+        axis.line.x = element_line(linewidth = .3),
+        axis.ticks.x = element_line(linewidth = .3),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank()
       )

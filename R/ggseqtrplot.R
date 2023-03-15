@@ -62,6 +62,7 @@
 #'
 #' @import ggplot2
 #' @importFrom Rdpack reprompt
+#' @importFrom rlang .data
 ggseqtrplot <- function(seqdata,
                         dss = TRUE,
                         group = NULL,

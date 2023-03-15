@@ -54,6 +54,8 @@
 #' ggseqmsplot(actcal.seq, group = actcal$sex)
 #' # with ggseqplot and some layout changes
 #' ggseqmsplot(actcal.seq, group = actcal$sex, no.n = TRUE, border = FALSE, facet_nrow = 2)
+#'
+#' @importFrom rlang .data
 ggseqmsplot <- function(seqdata,
                         no.n = FALSE,
                         barwidth = NULL,
@@ -127,8 +129,10 @@ ggseqmsplot <- function(seqdata,
     dplyr::mutate(state = factor(.data$state,
                                  levels = TraMineR::alphabet(seqdata),
                                  labels = attributes(seqdata)$labels),
-                  state = forcats::fct_explicit_na(.data$state,
-                                                   na_level="Missing"),
+                  state = forcats::fct_na_value_to_level(.data$state,
+                                                          level = "Missing"
+                  ),
+                  state = forcats::fct_drop(.data$state, "Missing"), # shouldn't be necessary
                   state = forcats::fct_rev(.data$state),
                   xlab = factor(.data$xlab))
 
@@ -208,8 +212,8 @@ ggseqmsplot <- function(seqdata,
       legend.position = "bottom",
       legend.title = element_blank(),
       legend.margin = margin(-0.2, 0, 0, -0.2, unit = "cm"),
-      axis.line.x = element_line(size = .3),
-      axis.ticks = element_line(size = .3)
+      axis.line.x = element_line(linewidth = .3),
+      axis.ticks = element_line(linewidth = .3)
     )
 
 

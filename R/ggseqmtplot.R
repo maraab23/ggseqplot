@@ -70,6 +70,8 @@
 #'        axis.ticks.y = element_blank(),
 #'        panel.grid.major.y = element_blank(),
 #'        legend.position = "top")
+#'
+#' @importFrom rlang .data
 ggseqmtplot <- function(seqdata,
                         no.n = FALSE,
                         group = NULL,
@@ -208,8 +210,8 @@ ggseqmtplot <- function(seqdata,
   ggmtplot <- ggmtplot +
     theme(axis.title.y = element_text(vjust = +3),
           plot.margin = margin(15, 15, 10, 15),
-          axis.line.x = element_line(size = .3),
-          axis.ticks = element_line(size = .3))
+          axis.line.x = element_line(linewidth = .3),
+          axis.ticks = element_line(linewidth = .3))
 
 
   return(ggmtplot)

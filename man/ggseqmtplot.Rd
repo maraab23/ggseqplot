@@ -99,6 +99,7 @@ ggseqmtplot(actcal.seq, no.n = TRUE, error.bar = "SE") +
        axis.ticks.y = element_blank(),
        panel.grid.major.y = element_blank(),
        legend.position = "top")
+
 }
 \references{
 \insertAllCited{}

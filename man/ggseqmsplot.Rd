@@ -78,6 +78,7 @@ seqmsplot(actcal.seq, group = actcal$sex)
 ggseqmsplot(actcal.seq, group = actcal$sex)
 # with ggseqplot and some layout changes
 ggseqmsplot(actcal.seq, group = actcal$sex, no.n = TRUE, border = FALSE, facet_nrow = 2)
+
 }
 \references{
 \insertAllCited{}
