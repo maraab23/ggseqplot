@@ -311,7 +311,7 @@ See Example 6 in the vignette for further details:
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] 76 distinct  sequences </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] min/max sequence lengths: 16/16</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] computing distances using the LCS metric</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] elapsed time: 0.04 secs</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] elapsed time: 0.02 secs</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Using 12 groups and default MDS sorting</span></span></span>
@@ -332,24 +332,19 @@ See Example 6 in the vignette for further details:
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Pseudo/medoid-based-F statistic: 6.870317, p-value: 3.09994e-08</span>
 <span class="r-plt img"><img src="ggseqrfplot-2.png" alt="" width="768" height="474"></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># With a user specified sorting variable</span></span></span>
-<span class="r-in"><span><span class="co"># Here time spent in parental home, which has ties</span></span></span>
+<span class="r-in"><span><span class="co"># Arrange sequences by a user specified sorting variable:</span></span></span>
+<span class="r-in"><span><span class="co"># time spent in parental home; has ties</span></span></span>
 <span class="r-in"><span><span class="va">parentTime</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqistatd.html" class="external-link">seqistatd</a></span><span class="op">(</span><span class="va">biofam.seq</span><span class="op">)</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] computing state distribution for 100 sequences ...</span>
 <span class="r-in"><span><span class="va">b.srf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/dissrf.html" class="external-link">seqrf</a></span><span class="op">(</span><span class="va">biofam.seq</span>, diss<span class="op">=</span><span class="va">diss</span>, k<span class="op">=</span><span class="fl">12</span>, sortv<span class="op">=</span><span class="va">parentTime</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Using k=12 frequency groups with grp.meth='prop'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Pseudo/medoid-based-R2: 0.3064171</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Pseudo/medoid-based-F statistic: 4.001018, p-value: 7.736543e-05</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># ... with TraMineR</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">b.srf</span>, which.plot<span class="op">=</span><span class="st">"both"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="ggseqrfplot-3.png" alt="" width="768" height="474"></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># ... with ggseqrfplot (and some extra annotation using patchwork)</span></span></span>
 <span class="r-in"><span><span class="fu">ggseqrfplot</span><span class="op">(</span>seqrfobject <span class="op">=</span> <span class="va">b.srf</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_annotation.html" class="external-link">plot_annotation</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Sorted by time spent in parental home"</span>,</span></span>
 <span class="r-in"><span>                  theme <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span>, size <span class="op">=</span> <span class="fl">18</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="ggseqrfplot-4.png" alt="" width="768" height="474"></span>
+<span class="r-plt img"><img src="ggseqrfplot-3.png" alt="" width="768" height="474"></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

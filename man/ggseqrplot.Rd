@@ -97,8 +97,8 @@ library(TraMineR)
 # (family status from age 15 to 30) in the biofam data set
 data(biofam)
 # Use sample of 300 cases
-set.seed(10)
-biofam <- biofam[sample(nrow(biofam),300),]
+set.seed(123)
+biofam <- biofam[sample(nrow(biofam),150),]
 biofam.lab <- c("Parent", "Left", "Married", "Left+Marr",
 "Child", "Left+Child", "Left+Marr+Child", "Divorced")
 biofam.seq <- seqdef(biofam, 10:25, labels=biofam.lab)
@@ -112,9 +112,6 @@ seqrplot(biofam.seq, diss = biofam.dhd)
 
 # ... with ggseqrplot
 ggseqrplot(biofam.seq, diss = biofam.dhd)
-
-# using group argument
-ggseqrplot(biofam.seq, diss = biofam.dhd, group = biofam$sex)
 }
 \references{
 \insertAllCited{}
