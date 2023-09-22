@@ -39,13 +39,9 @@
 #'   \insertAllCited{}
 #'
 #' @examples
-#' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#'
-#' # Use example data from TraMineR
-#' library(TraMineR)
-#'
-#' # biofam data set
+#' # Use example data from TraMineR: biofam data set
 #' data(biofam)
+#'
 #' # We use only a sample of 300 cases
 #' set.seed(10)
 #' biofam <- biofam[sample(nrow(biofam),300),]

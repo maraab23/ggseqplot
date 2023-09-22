@@ -1,3 +1,9 @@
+# ggseqplot 0.8.3
+
+* added missing minimum versions for dependencies & imports (ggplot2, dplyr, forcats)
+* changed default for sorting sequences in ggseqrfplot to match behavior TraMineR::seqrfplot
+* added `{TraMineR}` and `{ggplot2}` as dependencies 
+
 # ggseqplot 0.8.2
 
 * implemented changes required due to recent tidyverse updates

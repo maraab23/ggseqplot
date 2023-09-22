@@ -8,7 +8,7 @@ ggseqrfplot(
   seqdata = NULL,
   diss = NULL,
   k = NULL,
-  sortv = NULL,
+  sortv = "mds",
   weighted = TRUE,
   grp.meth = "prop",
   squared = FALSE,
@@ -45,9 +45,10 @@ ignored if \code{seqrfobject} is specified.}
 \code{k} is ignored if \code{seqrfobject} is specified.}
 
 \item{sortv}{optional sorting vector of length \code{nrow(diss)} that may be
-used to compute the frequency groups. If \code{NULL} (default), the first MDS
-factor of \code{diss} (\code{diss^2} when \code{squared=TRUE}) is used. Ties
-are randomly ordered. Also allows for the usage of the string inputs:
+used to compute the frequency groups. If \code{NULL}, the original data order
+is used. If \code{mds} (default), the first MDS factor of \code{diss}
+(\code{diss^2} when \code{squared=TRUE}) is used. Ties are randomly ordered.
+Also allows for the usage of the string inputs:
 \code{"from.start"} or \code{"from.end"} (see \code{\link{ggseqiplot}}).
 \code{sortv} is ignored if \code{seqrfobject} is specified.}
 
@@ -148,10 +149,8 @@ See Example 6 in the vignette for further details:
 \code{vignette("ggseqplot", package = "ggseqplot")}
 }
 \examples{
-# Use examples from TraMineR & load additional libraries for fine-tuning the plots
-library(TraMineR)
+# Load additional library for fine-tuning the plots
 library(patchwork)
-library(ggplot2)
 
 # From TraMineR::seqprf
 # Defining a sequence object with the data in columns 10 to 25

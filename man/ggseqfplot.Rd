@@ -71,11 +71,7 @@ y-axes in the faceted plots (i.e. plots with specified \code{group} argument). T
 been achieved by utilizing the very helpful \code{\link[ggh4x]{ggh4x}} library.
 }
 \examples{
-# Use examples from TraMineR & load ggplot for fine-tuning the plot
-library(TraMineR)
-library(ggplot2)
-
-# actcal data set
+# Use example data from TraMineR: actcal data set
 data(actcal)
 
 # We use only a sample of 300 cases

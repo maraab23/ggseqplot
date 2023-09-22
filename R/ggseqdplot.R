@@ -63,11 +63,7 @@
 #'   \insertAllCited{}
 #'
 #' @examples
-#' # Use examples from TraMineR & load ggplot for fine-tuning the plot
-#' library(TraMineR)
-#' library(ggplot2)
-#'
-#' # actcal data set
+#' # Use example data from TraMineR: actcal data set
 #' data(actcal)
 #'
 #' # We use only a sample of 300 cases
@@ -335,7 +331,8 @@ ggseqdplot <- function(seqdata,
       ggdplot <- ggdplot +
         {if(dissect == "row")facet_wrap(~rev(.data$state), nrow = 1)} +
         {if(dissect == "col")facet_wrap(~rev(.data$state), ncol = 1)} +
-        scale_y_continuous(limits = c(0,1)) +
+        scale_y_continuous(limits = c(0,1),
+                           expand = expansion(add = 0)) +
         theme(panel.grid.major.x = element_blank(),
               panel.grid.minor = element_blank(),
               panel.spacing = unit(2, "lines"),
@@ -349,7 +346,8 @@ ggseqdplot <- function(seqdata,
       ggdplot <- ggdplot +
         {if(dissect == "row")facet_grid(vars(.data$grouplab), vars(rev(.data$state)), switch = "y")} +
         {if(dissect == "col")facet_grid(vars(.data$state), vars(.data$grouplab), switch = "y")} +
-        scale_y_continuous(limits = c(0,1)) +
+        scale_y_continuous(limits = c(0,1),
+                           expand = expansion(add = 0)) +
         theme(panel.grid.major.x = element_blank(),
               panel.grid.minor = element_blank(),
               panel.spacing = unit(2, "lines"),

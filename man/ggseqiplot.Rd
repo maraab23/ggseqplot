@@ -97,10 +97,7 @@ when \code{border=TRUE}. You can change the ratio either by adding code to
 \code{\link[ggplot2]{ggsave}}.
 }
 \examples{
-# Use examples from TraMineR
-library(TraMineR)
-
-# actcal data set
+# Use example data from TraMineR: actcal data set
 data(actcal)
 
 # We use only a sample of 300 cases

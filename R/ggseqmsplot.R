@@ -35,10 +35,7 @@
 #'   \insertAllCited{}
 #'
 #' @examples
-#' # Use examples from TraMineR
-#' library(TraMineR)
-#'
-#' # actcal data set
+#' # Use example data from TraMineR: actcal data set
 #' data(actcal)
 #'
 #' # We use only a sample of 300 cases

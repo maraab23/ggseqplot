@@ -23,9 +23,10 @@
 #' (see \code{\link[TraMineR:seqdist]{TraMineR::seqdist}}). \code{diss} is
 #' ignored if \code{seqrfobject} is specified.
 #' @param sortv optional sorting vector of length \code{nrow(diss)} that may be
-#' used to compute the frequency groups. If \code{NULL} (default), the first MDS
-#' factor of \code{diss} (\code{diss^2} when \code{squared=TRUE}) is used. Ties
-#' are randomly ordered. Also allows for the usage of the string inputs:
+#' used to compute the frequency groups. If \code{NULL}, the original data order
+#' is used. If \code{mds} (default), the first MDS factor of \code{diss}
+#' (\code{diss^2} when \code{squared=TRUE}) is used. Ties are randomly ordered.
+#' Also allows for the usage of the string inputs:
 #' \code{"from.start"} or \code{"from.end"} (see \code{\link{ggseqiplot}}).
 #' \code{sortv} is ignored if \code{seqrfobject} is specified.
 #' @param grp.meth Character string. One of \code{"prop"}, \code{"first"},
@@ -104,10 +105,8 @@
 #'   \insertAllCited{}
 #'
 #' @examples
-#' # Use examples from TraMineR & load additional libraries for fine-tuning the plots
-#' library(TraMineR)
+#' # Load additional library for fine-tuning the plots
 #' library(patchwork)
-#' library(ggplot2)
 #'
 #' # From TraMineR::seqprf
 #' # Defining a sequence object with the data in columns 10 to 25
@@ -146,7 +145,7 @@
 ggseqrfplot <- function(seqdata = NULL,
                         diss = NULL,
                         k = NULL,
-                        sortv = NULL,
+                        sortv = "mds",
                         weighted = TRUE,
                         grp.meth = "prop",
                         squared = FALSE,
@@ -207,21 +206,21 @@ use 'TraMineR::seqdef' to create a sequence object of class 'stslist' or specify
   if (!is.null(seqdata) & !inherits(seqdata, "stslist") & inherits(seqdata, "seqrf")) {
     stop(
     "you specified seqdata which are of class 'seqrf';
-  probably you forgot to type 'seqrfobject = '"
+probably you forgot to type 'seqrfobject = '"
     )
   }
 
   if (is.null(seqrfobject) & (is.null(seqdata) | !inherits(seqdata, "stslist"))) {
     stop(
       "no seqrfobject specified & seqdata are either not specified or not
-  stored as sequence object; use 'TraMineR::seqdef' to create one"
+stored as sequence object; use 'TraMineR::seqdef' to create one"
       )
   }
 
   if (!inherits(seqrfobject, "seqrf") & is.null(diss)) {
     stop(
       "no seqrfobject specified & diss = NULL; provide a dissimilarity matrix
-  provide a dissimilarity matrix ('diss')"
+provide a dissimilarity matrix ('diss')"
       )
   }
 
