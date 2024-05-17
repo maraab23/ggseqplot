@@ -3,7 +3,7 @@ pkgdown: 2.0.9
 pkgdown_sha: ~
 articles:
   ggseqplot: ggseqplot.html
-last_built: 2024-05-17T16:42Z
+last_built: 2024-05-17T19:30Z
 urls:
   reference: https://maraab23.github.io/ggseqplot/reference
   article: https://maraab23.github.io/ggseqplot/articles
