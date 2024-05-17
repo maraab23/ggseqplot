@@ -89,6 +89,13 @@ ggseqeplot <- function(seqdata,
 
   grsize <- length(unique(group))
 
+  if ("haven_labelled" %in% class(group)) {
+    group_name <- deparse(substitute(group))
+    group <- haven::as_factor(group)
+    cli::cli_warn(c("i" = "group vector {.arg {group_name}} is of class {.cls haven_labelled} and has been converted into a factor"))
+  }
+
+
   if (length(linecolor) == 1 && linecolor == "Okabe-Ito") {
     cpal <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442",
               "#0072B2", "#D55E00", "#CC79A7", "#999999")

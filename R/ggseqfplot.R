@@ -98,6 +98,12 @@ ggseqfplot <- function(seqdata,
 
   if (is.null(attributes(seqdata)$weights)) weighted <- FALSE
 
+  if ("haven_labelled" %in% class(group)) {
+    group_name <- deparse(substitute(group))
+    group <- haven::as_factor(group)
+    cli::cli_warn(c("i" = "group vector {.arg {group_name}} is of class {.cls haven_labelled} and has been converted into a factor"))
+  }
+
   if (is.factor(group)) {
     group <- forcats::fct_drop(group)
     grinorder <- levels(group)

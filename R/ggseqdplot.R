@@ -134,6 +134,7 @@ ggseqdplot <- function(seqdata,
 
   if (is.null(attributes(seqdata)$weights)) weighted <- FALSE
 
+
   if (is.null(group)) group <- 1
 
   if (!is.null(facet_ncol) && as.integer(facet_ncol) != facet_ncol) {
@@ -142,6 +143,12 @@ ggseqdplot <- function(seqdata,
 
   if (!is.null(facet_nrow) && as.integer(facet_nrow) != facet_nrow) {
     stop("`facet_nrow` must be NULL or an integer.")
+  }
+
+  if ("haven_labelled" %in% class(group)) {
+    group_name <- deparse(substitute(group))
+    group <- haven::as_factor(group)
+    cli::cli_warn(c("i" = "group vector {.arg {group_name}} is of class {.cls haven_labelled} and has been converted into a factor"))
   }
 
   if (is.factor(group)) {

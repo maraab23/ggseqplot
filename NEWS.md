@@ -1,3 +1,5 @@
+# ggseqplot 0.8.4
+
 # ggseqplot 0.8.3
 
 * added missing minimum versions for dependencies & imports (ggplot2, dplyr, forcats)

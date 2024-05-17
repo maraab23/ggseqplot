@@ -102,6 +102,12 @@ ggseqrplot <- function(seqdata,
     facet_ncol <- c(1,2,3,2,3,3,4,4,5,5)[length(unique(group))]
   }
 
+  if ("haven_labelled" %in% class(group)) {
+    group_name <- deparse(substitute(group))
+    group <- haven::as_factor(group)
+    cli::cli_warn(c("i" = "group vector {.arg {group_name}} is of class {.cls haven_labelled} and has been converted into a factor"))
+  }
+
 
   seq.rep <- purrr::map(
     sort(unique(group)),
