@@ -1,5 +1,9 @@
 # ggseqplot 0.8.4
 
+* fixed #3: haven_labelled group vars are converted into factors before plotting
+* fixed #4: legends display key glyph for non-visited states (this wasn't the case anymore due to `{ggplot2}` release 3.5.0)
+
+
 # ggseqplot 0.8.3
 
 * added missing minimum versions for dependencies & imports (ggplot2, dplyr, forcats)

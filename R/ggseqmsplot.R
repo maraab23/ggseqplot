@@ -184,13 +184,16 @@ ggseqmsplot <- function(seqdata,
   if (border == FALSE) {
     ggmsplot <- msplotdata |>
       ggplot(aes(fill = .data$state, y = .data$value, x = .data$x)) +
-      geom_bar(stat="identity", width = barwidth)
+      geom_bar(stat="identity",
+               width = barwidth,
+               show.legend = T)
   } else {
     ggmsplot <- msplotdata |>
       ggplot(aes(fill = .data$state, y = .data$value, x = .data$x)) +
       geom_bar(stat="identity",
                width = barwidth,
-               color = "black")
+               color = "black",
+               show.legend = T)
   }
 
   ggmsplot <- ggmsplot +

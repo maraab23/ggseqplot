@@ -432,7 +432,7 @@ ggseqiplot <- function(seqdata,
                    ymin = .data$begin, ymax = .data$end,
                    fill = .data$states, colour = .data$states
         )) +
-        geom_rect() +
+        geom_rect(show.legend = T) +
         scale_fill_manual(values = cpal, drop = FALSE) +
         scale_color_manual(values = cpal, drop = FALSE) +
         theme_minimal() +
@@ -450,7 +450,8 @@ ggseqiplot <- function(seqdata,
                    ymin = .data$begin, ymax = .data$end,
                    fill = .data$states
         )) +
-        geom_rect(colour = "black") +
+        geom_rect(colour = "black",
+                  show.legend = T) +
         scale_fill_manual(values = cpal, drop = FALSE) +
         scale_color_manual(values = cpal, drop = FALSE) +
         theme_minimal() +

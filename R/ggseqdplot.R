@@ -276,14 +276,16 @@ ggseqdplot <- function(seqdata,
       ggplot(aes(fill = .data$state, y = .data$value, x = .data$x)) +
       geom_bar(
         stat = "identity",
-        width = 1
+        width = 1,
+        show.legend = T
       )
   } else {
     ggdplot <- dplotdata |>
       ggplot(aes(fill = .data$state, y = .data$value, x = .data$x)) +
       geom_bar(
         stat = "identity",
-        width = 1, color = "black"
+        width = 1, color = "black",
+        show.legend = T
       )
   }
 

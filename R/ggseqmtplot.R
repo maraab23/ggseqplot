@@ -163,7 +163,8 @@ ggseqmtplot <- function(seqdata,
     ggplot(aes(x = .data$state, fill = .data$labels)) +
     geom_bar(aes(y = .data$Mean), stat="identity",
              color = ifelse(border == TRUE, "black",
-                            "transparent")) +
+                            "transparent"),
+             show.legend = T) +
     scale_y_continuous(expand = expansion(add = 0)) +
     scale_fill_manual(drop = FALSE,
                       values = cpal) +
