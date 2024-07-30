@@ -5,7 +5,6 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="ggseqplot">
 <title>Introduction to ggseqplot • ggseqplot</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
@@ -17,64 +16,38 @@
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Poppins-0.4.9/font.css" rel="stylesheet">
 <link href="../deps/Fira_Code-0.4.9/font.css" rel="stylesheet">
-<!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to ggseqplot">
-<meta property="og:description" content="ggseqplot">
-<meta property="og:image" content="https://maraab23.github.io/ggseqplot/logo.png">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+<link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to ggseqplot">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
-    
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light" data-bs-theme="light"><div class="container">
-    
+
+    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="../index.html">ggseqplot</a>
 
     <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.4</small>
 
-    
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="active nav-item">
-  <a class="nav-link" href="../articles/ggseqplot.html">Get started</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="../reference/index.html">Reference</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="../news/index.html">Changelog</a>
-</li>
+<li class="active nav-item"><a class="nav-link" href="../articles/ggseqplot.html">Get started</a></li>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
-<form class="form-inline my-2 my-lg-0" role="search">
-        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
-</form>
-
-      <ul class="navbar-nav">
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://twitter.com/RaabM" aria-label="Twitter">
-    <span class="fa fa-twitter"></span>
-     
-  </a>
-</li>
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/maraab23/ggseqplot/" aria-label="github">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
+<ul class="navbar-nav">
+<li class="nav-item"><a class="external-link nav-link" href="https://twitter.com/RaabM" aria-label="Twitter"><span class="fa fa-twitter"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/maraab23/ggseqplot/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
-    
+
   </div>
 </nav><div class="container template-article">
 
@@ -86,7 +59,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Introduction to ggseqplot</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/maraab23/ggseqplot/blob/HEAD/vignettes/ggseqplot.Rmd" class="external-link"><code>vignettes/ggseqplot.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/maraab23/ggseqplot/blob/main/vignettes/ggseqplot.Rmd" class="external-link"><code>vignettes/ggseqplot.Rmd</code></a></small>
       <div class="d-none name"><code>ggseqplot.Rmd</code></div>
     </div>
 
@@ -259,11 +232,13 @@ reshaped into a long data set in which every row stores the (weighted)
 relative frequency of a given state at a given position along the
 sequence. The example data <code>actcal.seq</code> contain sequences of
 length 12 with an alphabet comprising 4 states. The reshaped data
-serving as source for the <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> call thus contain <span class="math inline">\(12\times4=48\)</span> rows. If a group vector is
-specified, the respective data will comprise 48 rows for each group. The
-data set produced by <code>ggseqdplot</code> can be accessed if the
-function’s output is assigned to an object. The resulting list object
-stores the data as its first element (named <code>data</code>).</p>
+serving as source for the <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> call thus contain
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>12</mn><mo>×</mo><mn>4</mn><mo>=</mo><mn>48</mn></mrow><annotation encoding="application/x-tex">12\times4=48</annotation></semantics></math>
+rows. If a group vector is specified, the respective data will comprise
+48 rows for each group. The data set produced by <code>ggseqdplot</code>
+can be accessed if the function’s output is assigned to an object. The
+resulting list object stores the data as its first element (named
+<code>data</code>).</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dplot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggseqdplot.html">ggseqdplot</a></span><span class="op">(</span><span class="va">actcal.seq</span><span class="op">)</span></span>
 <span><span class="va">dplot</span><span class="op">$</span><span class="va">data</span></span>
@@ -466,17 +441,15 @@ compute and display the transition rates of the STS sequences.</p>
 <span>                  labsize <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"STS Sequences"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.margin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">10</span>,<span class="fl">5</span>,<span class="fl">5</span><span class="op">)</span>, <span class="st">"points"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [&gt;] computing transition probabilities for states 0/1/2/3/4/5/6/7 ...</span></span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<span><span class="co">#&gt;  [&gt;] computing transition probabilities for states 0/1/2/3/4/5/6/7 ...</span></span>
+<span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggseqtrplot.html">ggseqtrplot</a></span><span class="op">(</span><span class="va">biofam.seq</span>, </span>
 <span>                  x_n.dodge <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>                  labsize <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"DSS Sequences"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.margin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">5</span>,<span class="fl">5</span>,<span class="fl">10</span><span class="op">)</span>, <span class="st">"points"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [&gt;] computing transition probabilities for states 0/1/2/3/4/5/6/7 ...</span></span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<span><span class="co">#&gt;  [&gt;] computing transition probabilities for states 0/1/2/3/4/5/6/7 ...</span></span>
+<span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">&amp;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span>,</span>
 <span>                                  hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -484,7 +457,7 @@ compute and display the transition rates of the STS sequences.</p>
 <p>Other than the grouped version of the plot this composed figure
 contains the y-axis title and labels twice. This can be changed with
 small adjustments of the corresponding <code>theme</code> arguments.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">p2</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span>, </span>
@@ -506,11 +479,11 @@ specification).</p>
 <p>In the example below we illustrate the procedure for a mean time plot
 and a sequence index plot. We always present both, the default plot and
 the flipped version:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## default plot</span></span>
 <span><span class="fu"><a href="../reference/ggseqmtplot.html">ggseqmtplot</a></span><span class="op">(</span><span class="va">actcal.seq</span>, no.n <span class="op">=</span> <span class="cn">TRUE</span>, error.bar <span class="op">=</span> <span class="st">"SE"</span><span class="op">)</span> </span></code></pre></div>
 <p><img src="ggseqplot_files/figure-html/unnamed-chunk-6-1.png" width="768"></p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co">## flipped version</span></span>
 <span><span class="fu"><a href="../reference/ggseqmtplot.html">ggseqmtplot</a></span><span class="op">(</span><span class="va">actcal.seq</span>, no.n <span class="op">=</span> <span class="cn">TRUE</span>, error.bar <span class="op">=</span> <span class="st">"SE"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -527,14 +500,14 @@ opinionated design choice. Most scholars prefer to display time on the
 horizontal axis. However, if you favor time to <em>run</em> from the
 bottom to the top (like in Piccarreta and Lior <span class="citation">(2010)</span>) instead of left to right, your
 preferences can be easily met.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## default plot</span></span>
 <span><span class="fu"><a href="../reference/ggseqiplot.html">ggseqiplot</a></span><span class="op">(</span><span class="va">actcal.seq</span>, sortv <span class="op">=</span> <span class="st">"from.end"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html" class="external-link">scale_x_discrete</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="va">month.abb</span><span class="op">)</span> </span>
 <span><span class="co">#&gt; Scale for <span style="color: #00BB00;">x</span> is already present.</span></span>
 <span><span class="co">#&gt; Adding another scale for <span style="color: #00BB00;">x</span>, which will replace the existing scale.</span></span></code></pre></div>
 <p><img src="ggseqplot_files/figure-html/unnamed-chunk-7-1.png" width="768"></p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co">## flipped version</span></span>
 <span><span class="fu"><a href="../reference/ggseqiplot.html">ggseqiplot</a></span><span class="op">(</span><span class="va">actcal.seq</span>, sortv <span class="op">=</span> <span class="st">"from.end"</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -562,7 +535,7 @@ the default <a href="https://ggplot2.tidyverse.org/" target="_blank" class="exte
 below we change the theme and add a title to the plot. Note that the
 corresponding functions are not added by <code>+</code> but with
 <code>&amp;</code> instead.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## compute dissimilarity matrix required for plot</span></span>
 <span><span class="va">diss</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqdist.html" class="external-link">seqdist</a></span><span class="op">(</span><span class="va">biofam.seq</span>, method <span class="op">=</span> <span class="st">"LCS"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [&gt;] 100 sequences with 8 distinct states</span></span>
@@ -571,9 +544,8 @@ corresponding functions are not added by <code>+</code> but with
 <span><span class="co">#&gt;  [&gt;] 76 distinct  sequences</span></span>
 <span><span class="co">#&gt;  [&gt;] min/max sequence lengths: 16/16</span></span>
 <span><span class="co">#&gt;  [&gt;] computing distances using the LCS metric</span></span>
-<span><span class="co">#&gt;  [&gt;] elapsed time: 0.018 secs</span></span></code></pre></div>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<span><span class="co">#&gt;  [&gt;] elapsed time: 0.017 secs</span></span>
+<span></span>
 <span><span class="co">## Relative Frequency Sequence Plot</span></span>
 <span><span class="co">## default version</span></span>
 <span><span class="fu"><a href="../reference/ggseqrfplot.html">ggseqrfplot</a></span><span class="op">(</span><span class="va">biofam.seq</span>, diss <span class="op">=</span> <span class="va">diss</span>, k <span class="op">=</span> <span class="fl">12</span><span class="op">)</span> </span>
@@ -581,7 +553,7 @@ corresponding functions are not added by <code>+</code> but with
 <span><span class="co">#&gt;  [&gt;] Pseudo/medoid-based-R2: 0.367766</span></span>
 <span><span class="co">#&gt;  [&gt;] Pseudo/medoid-based-F statistic: 5.268049, p-value: 1.655783e-06</span></span></code></pre></div>
 <p><img src="ggseqplot_files/figure-html/unnamed-chunk-8-1.png" width="768"></p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co">## adjusted version</span></span>
 <span><span class="fu"><a href="../reference/ggseqrfplot.html">ggseqrfplot</a></span><span class="op">(</span><span class="va">biofam.seq</span>, diss <span class="op">=</span> <span class="va">diss</span>, k <span class="op">=</span> <span class="fl">12</span><span class="op">)</span> <span class="op">&amp;</span></span>
@@ -600,7 +572,7 @@ the index plot, for instance, the following code will <em>not</em>
 produce the desired result, because <code>scale_x_discrete</code> will
 change the appearance of the boxplot, i.e. the last plot used when
 composing the plot with <a href="https://patchwork.data-imaginist.com/index.html" target="_blank" class="external-link"><code>{patchwork}</code></a>.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggseqrfplot.html">ggseqrfplot</a></span><span class="op">(</span><span class="va">biofam.seq</span>, diss <span class="op">=</span> <span class="va">diss</span>, k <span class="op">=</span> <span class="fl">12</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html" class="external-link">scale_x_discrete</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fl">15</span><span class="op">:</span><span class="fl">30</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [&gt;] Using k=12 frequency groups with grp.meth='prop'</span></span>
@@ -609,16 +581,15 @@ composing the plot with <a href="https://patchwork.data-imaginist.com/index.html
 <p><img src="ggseqplot_files/figure-html/unnamed-chunk-9-1.png" width="768"></p>
 <p>The appearance of the subplots, however, can be changed once you save
 the composite plot and then adjust its components.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## save &amp; view original plot</span></span>
 <span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggseqrfplot.html">ggseqrfplot</a></span><span class="op">(</span><span class="va">biofam.seq</span>, diss <span class="op">=</span> <span class="va">diss</span>, k <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [&gt;] Using k=12 frequency groups with grp.meth='prop'</span></span>
 <span><span class="co">#&gt;  [&gt;] Pseudo/medoid-based-R2: 0.367766</span></span>
-<span><span class="co">#&gt;  [&gt;] Pseudo/medoid-based-F statistic: 5.268049, p-value: 1.655783e-06</span></span></code></pre></div>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p</span></span></code></pre></div>
+<span><span class="co">#&gt;  [&gt;] Pseudo/medoid-based-F statistic: 5.268049, p-value: 1.655783e-06</span></span>
+<span><span class="va">p</span></span></code></pre></div>
 <p><img src="ggseqplot_files/figure-html/unnamed-chunk-10-1.png" width="768"></p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co">## change appearance of sub-plots</span></span>
 <span></span>
@@ -626,9 +597,8 @@ the composite plot and then adjust its components.</p>
 <span><span class="va">p</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">p</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html" class="external-link">scale_x_discrete</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fl">15</span><span class="op">:</span><span class="fl">30</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Scale for <span style="color: #00BB00;">x</span> is already present.</span></span>
-<span><span class="co">#&gt; Adding another scale for <span style="color: #00BB00;">x</span>, which will replace the existing scale.</span></span></code></pre></div>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<span><span class="co">#&gt; Adding another scale for <span style="color: #00BB00;">x</span>, which will replace the existing scale.</span></span>
+<span></span>
 <span><span class="co">## second component: boxplot</span></span>
 <span><span class="va">p</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">p</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Changed title"</span><span class="op">)</span></span>
 <span></span>
@@ -647,7 +617,7 @@ corresponding index plots. If we want to change the x-axis labels of the
 following plot, we have to extract and change the index plots which
 appear in the second row of the combined plot. The plots are arranged by
 row. Hence the index plots are the subplots 3 and 4</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Compute a pairwise dissimilarity matrix</span></span>
 <span><span class="va">diss</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqdist.html" class="external-link">seqdist</a></span><span class="op">(</span><span class="va">actcal.seq</span>, method <span class="op">=</span> <span class="st">"LCS"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [&gt;] 2000 sequences with 4 distinct states</span></span>
@@ -656,9 +626,8 @@ row. Hence the index plots are the subplots 3 and 4</p>
 <span><span class="co">#&gt;  [&gt;] 186 distinct  sequences</span></span>
 <span><span class="co">#&gt;  [&gt;] min/max sequence lengths: 12/12</span></span>
 <span><span class="co">#&gt;  [&gt;] computing distances using the LCS metric</span></span>
-<span><span class="co">#&gt;  [&gt;] elapsed time: 0.458 secs</span></span></code></pre></div>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<span><span class="co">#&gt;  [&gt;] elapsed time: 0.244 secs</span></span>
+<span></span>
 <span><span class="co">## original plot</span></span>
 <span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggseqrplot.html">ggseqrplot</a></span><span class="op">(</span><span class="va">actcal.seq</span>, </span>
 <span>                diss <span class="op">=</span> <span class="va">diss</span>,</span>
@@ -673,25 +642,22 @@ row. Hence the index plots are the subplots 3 and 4</p>
 <span><span class="co">#&gt;  [&gt;] max. distance: 24</span></span>
 <span><span class="co">#&gt;  [&gt;] neighborhood radius: 2.4</span></span>
 <span><span class="co">#&gt;  [&gt;] 3 representative(s) selected</span></span>
-<span><span class="co">#&gt;  [&gt;] 144 distinct sequence(s)</span></span></code></pre></div>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p</span></span></code></pre></div>
+<span><span class="co">#&gt;  [&gt;] 144 distinct sequence(s)</span></span>
+<span><span class="va">p</span></span></code></pre></div>
 <p><img src="ggseqplot_files/figure-html/unnamed-chunk-11-1.png" width="768"></p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co">## adjusted sequence index subplots</span></span>
 <span><span class="va">p</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">p</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html" class="external-link">scale_x_discrete</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="va">month.abb</span><span class="op">)</span> </span>
 <span><span class="co">#&gt; Scale for <span style="color: #00BB00;">x</span> is already present.</span></span>
-<span><span class="co">#&gt; Adding another scale for <span style="color: #00BB00;">x</span>, which will replace the existing scale.</span></span></code></pre></div>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<span><span class="co">#&gt; Adding another scale for <span style="color: #00BB00;">x</span>, which will replace the existing scale.</span></span>
+<span></span>
 <span><span class="va">p</span><span class="op">[[</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">p</span><span class="op">[[</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html" class="external-link">scale_x_discrete</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="va">month.abb</span><span class="op">)</span> </span>
 <span><span class="co">#&gt; Scale for <span style="color: #00BB00;">x</span> is already present.</span></span>
-<span><span class="co">#&gt; Adding another scale for <span style="color: #00BB00;">x</span>, which will replace the existing scale.</span></span></code></pre></div>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<span><span class="co">#&gt; Adding another scale for <span style="color: #00BB00;">x</span>, which will replace the existing scale.</span></span>
+<span></span>
 <span><span class="va">p</span></span></code></pre></div>
 <p><img src="ggseqplot_files/figure-html/unnamed-chunk-11-2.png" width="768"></p>
 </div>
@@ -724,7 +690,7 @@ that alignment no longer works.<a class="footnote-ref" tabindex="0" data-bs-togg
 <p>For this reason the group-specific titles were not added with
 <code><a href="https://patchwork.data-imaginist.com/reference/plot_annotation.html" class="external-link">patchwork::plot_annotation</a></code> or <code><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggplot2::ggtitle</a></code>
 and we reverted to the use of tags instead.</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">diss</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqdist.html" class="external-link">seqdist</a></span><span class="op">(</span><span class="va">biofam.seq</span>, method <span class="op">=</span> <span class="st">"LCS"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [&gt;] 100 sequences with 8 distinct states</span></span>
@@ -733,9 +699,8 @@ and we reverted to the use of tags instead.</p>
 <span><span class="co">#&gt;  [&gt;] 76 distinct  sequences</span></span>
 <span><span class="co">#&gt;  [&gt;] min/max sequence lengths: 16/16</span></span>
 <span><span class="co">#&gt;  [&gt;] computing distances using the LCS metric</span></span>
-<span><span class="co">#&gt;  [&gt;] elapsed time: 0.015 secs</span></span></code></pre></div>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<span><span class="co">#&gt;  [&gt;] elapsed time: 0.015 secs</span></span>
+<span></span>
 <span><span class="va">sex</span> <span class="op">&lt;-</span> <span class="va">biofam</span><span class="op">[</span><span class="fl">501</span><span class="op">:</span><span class="fl">600</span>, <span class="st">"sex"</span><span class="op">]</span></span>
 <span></span>
 <span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">map2</span><span class="op">(</span></span>
@@ -754,9 +719,8 @@ and we reverted to the use of tags instead.</p>
 <span><span class="co">#&gt;  [&gt;] Pseudo/medoid-based-F statistic: 3.408139, p-value: 0.003407164</span></span>
 <span><span class="co">#&gt;  [&gt;] Using k=12 frequency groups with grp.meth='prop'</span></span>
 <span><span class="co">#&gt;  [&gt;] Pseudo/medoid-based-R2: 0.5263291</span></span>
-<span><span class="co">#&gt;  [&gt;] Pseudo/medoid-based-F statistic: 5.687386, p-value: 4.537004e-06</span></span></code></pre></div>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<span><span class="co">#&gt;  [&gt;] Pseudo/medoid-based-F statistic: 5.687386, p-value: 4.537004e-06</span></span>
+<span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span></span>
 <span></span>
 <span><span class="op">(</span><span class="va">p</span><span class="op">$</span><span class="va">man</span> <span class="op">&amp;</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="va">p</span><span class="op">$</span><span class="va">woman</span></span></code></pre></div>
@@ -804,7 +768,7 @@ Wickham, H. (2016). <em>ggplot2: Elegant graphics for data analysis</em>
 </div>
 </div>
 
-  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
 
@@ -815,15 +779,15 @@ Wickham, H. (2016). <em>ggplot2: Elegant graphics for data analysis</em>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
 </div>
 
     </footer>
 </div>
 
-  
 
-  
+
+
 
   </body>
 </html>
