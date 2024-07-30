@@ -7,11 +7,11 @@
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/ggseqplot)](https://cran.r-project.org/package=ggseqplot)
-![CRAN
-Downloads](https://cranlogs.r-pkg.org/badges/grand-total/ggseqplot)
 [![R-CMD-check](https://github.com/maraab23/ggseqplot/workflows/R-CMD-check/badge.svg)](https://github.com/maraab23/ggseqplot/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/maraab23/ggseqplot/branch/main/graph/badge.svg)](https://app.codecov.io/gh/maraab23/ggseqplot?branch=main)
+[![CRAN
+Downloads](https://cranlogs.r-pkg.org/badges/grand-total/ggseqplot)](https://cranlogs.r-pkg.org/badges/grand-total/ggseqplot)
 <!-- badges: end -->
 
 The main goal of [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/)
