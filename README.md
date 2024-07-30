@@ -7,6 +7,8 @@
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/ggseqplot)](https://cran.r-project.org/package=ggseqplot)
+\[![CRAN
+Downloads](https://cranlogs.r-pkg.org/badges/grand-total/ggseqplot)
 [![R-CMD-check](https://github.com/maraab23/ggseqplot/workflows/R-CMD-check/badge.svg)](https://github.com/maraab23/ggseqplot/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/maraab23/ggseqplot/branch/main/graph/badge.svg)](https://app.codecov.io/gh/maraab23/ggseqplot?branch=main)
@@ -46,16 +48,16 @@ plots just for the single purpose of visualizing sequence data.
 [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) contains the
 following functions:
 
--   `ggseqdplot` (equivalent to `TraMineR::seqdplot`)
--   `ggseqeplot` (equivalent to `TraMineRextras::seqplot.tentrop`)
--   `ggseqmsplot` (equivalent to `TraMineR::seqmsplot`)
--   `ggseqmtplot` (equivalent to `TraMineR::seqmtplot`)
--   `ggstrqeplot` (based on transitions rates computed with
-    `TraMineR::seqtrate`)
--   `ggseqiplot` (equivalent to `TraMineR::seqIplot`)
--   `ggseqfplot` (equivalent to `TraMineR::seqfplot`)
--   `ggseqrplot` (equivalent to `TraMineR::seqrplot`)
--   `ggseqrfplot` (equivalent to `TraMineRextras::seqplot.rf`)
+- `ggseqdplot` (equivalent to `TraMineR::seqdplot`)
+- `ggseqeplot` (equivalent to `TraMineRextras::seqplot.tentrop`)
+- `ggseqmsplot` (equivalent to `TraMineR::seqmsplot`)
+- `ggseqmtplot` (equivalent to `TraMineR::seqmtplot`)
+- `ggstrqeplot` (based on transitions rates computed with
+  `TraMineR::seqtrate`)
+- `ggseqiplot` (equivalent to `TraMineR::seqIplot`)
+- `ggseqfplot` (equivalent to `TraMineR::seqfplot`)
+- `ggseqrplot` (equivalent to `TraMineR::seqrplot`)
+- `ggseqrfplot` (equivalent to `TraMineRextras::seqplot.rf`)
 
 If you have change requests or find errors, [create an
 issue](https://github.com/maraab23/ggseqplot/issues/new) on github or
