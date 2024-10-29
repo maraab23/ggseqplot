@@ -155,7 +155,7 @@ ggseqdplot <- function(seqdata,
     group <- forcats::fct_drop(group)
     grinorder <- levels(group)
   } else {
-    grinorder <- factor(unique(group))
+    grinorder <- factor(sort(unique(group)))
   }
 
   statefreqs <- purrr::map(
@@ -221,7 +221,7 @@ ggseqdplot <- function(seqdata,
         names_transform = list(k = as.integer)
       ) |>
       dplyr::mutate(k = factor(.data$k, labels = colnames(statefreqs)[-(1:2)])) |>
-      dplyr::mutate(x = factor(as.integer(.data$k)), .after = .data$k) |>
+      dplyr::mutate(x = factor(as.integer(.data$k)), .after = "k") |>
       dplyr::full_join(grouplabspec)
   )
 

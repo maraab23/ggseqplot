@@ -127,7 +127,10 @@ ggseqfplot <- function(seqdata,
                                   weighted = weighted,
                                   idxs = ranks))
 
-  group <- rep(grinorder, each = max(ranks))
+  gr_length <- purrr::map(fplotdata, nrow) |>
+    unlist()
+
+  group <- rep(grinorder, gr_length)
 
   coverage <- purrr::map(fplotdata,
                          ~attributes(.x)$freq$Percent) |>

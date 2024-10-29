@@ -127,8 +127,8 @@ ggseqeplot <- function(seqdata,
   ) |>
     dplyr::bind_rows() |>
     dplyr::mutate(k = factor(.data$k, levels = unique(.data$k))) |>
-    dplyr::mutate(x = factor(as.integer(.data$k)), .after = .data$k) |>
-    dplyr::rename(entropy = .data$value) |>
+    dplyr::mutate(x = factor(as.integer(.data$k)), .after = "k") |>
+    dplyr::rename(entropy = "value") |>
     dplyr::mutate(group = as.factor(group))
 
 

@@ -157,7 +157,7 @@ ggseqrplot <- function(seqdata,
                               `Mean dist. to representative seq.` = .data$MD
                             ) |>
                             dplyr::filter(.data$id != max(.data$id)) |>
-                            tidyr::pivot_longer(cols = -.data$id))
+                            tidyr::pivot_longer(cols = -"id"))
 
 
   rplotdata <- purrr::imap(sort(unique(group)),

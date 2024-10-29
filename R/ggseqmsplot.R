@@ -90,7 +90,7 @@ ggseqmsplot <- function(seqdata,
     group <- forcats::fct_drop(group)
     grinorder <- levels(group)
   } else {
-    grinorder <- factor(unique(group))
+    grinorder <- factor(sort(unique(group)))
   }
   if (is.null(group)) grinorder <- factor(1)
 

@@ -116,7 +116,7 @@ ggseqmtplot <- function(seqdata,
     group <- forcats::fct_drop(group)
     grinorder <- levels(group)
   } else {
-    grinorder <- factor(unique(group))
+    grinorder <- factor(sort(unique(group)))
   }
 
   xandgrouplabs <- xandgrouplab(seqdata = seqdata,

@@ -152,7 +152,7 @@ ggseqiplot <- function(seqdata,
     group <- forcats::fct_drop(group)
     grinorder <- levels(group)
   } else {
-    grinorder <- factor(unique(group))
+    grinorder <- factor(sort(unique(group)))
   }
   if (is.null(group)) grinorder <- factor(1)
 
@@ -198,7 +198,7 @@ ggseqiplot <- function(seqdata,
   suppressMessages(
     spelldata <- TraMineR::seqformat(seqdata, to = "SPELL") |>
       dplyr::full_join(auxid, by = dplyr::join_by("id")) |>
-      dplyr::select(.data$idnew, dplyr::everything()) |>
+      dplyr::select("idnew", dplyr::everything()) |>
       dplyr::mutate(
         states = factor(.data$states,
                         levels = TraMineR::alphabet(seqdata),
@@ -212,20 +212,20 @@ ggseqiplot <- function(seqdata,
       dplyr::group_by(.data$idnew) |>
       dplyr::mutate(spell = dplyr::row_number(), .after = 1) |>
       dplyr::as_tibble() |>
-      dplyr::rename(left = .data$begin, right = .data$end)
+      dplyr::rename(left = "begin", right = "end")
   )
 
 
   suppressMessages(
     dt <- spelldata |>
       dplyr::arrange(sortv) |>
-      dplyr::select(.data$idnew, .data$weight, group) |>
+      dplyr::select("idnew", "weight", group) |>
       dplyr::distinct(.data$idnew, .keep_all = TRUE) |>
       dplyr::ungroup() |>
       dplyr::group_by(group) |>
       dplyr::mutate(begin = 0, end = cumsum(.data$weight)) |>
       dplyr::ungroup() |>
-      dplyr::select(-.data$weight, -.data$group) |>
+      dplyr::select(-"weight", -"group") |>
       dplyr::full_join(spelldata, by = "idnew")
   )
 
@@ -407,14 +407,14 @@ ggseqiplot <- function(seqdata,
       aux = ifelse(.data$aux == 0, 1, .data$aux)
     ) |>
     tidyr::uncount(.data$aux) |>
-    dplyr::select(-.data$aux) |>
+    dplyr::select(-"aux") |> #.data$aux
     dplyr::group_by(.data$idnew) |>
     dplyr::mutate(
       left = dplyr::row_number() - 1,
       right = ifelse(.data$aux2 == 0, .data$left, .data$left + 1)
     ) |>
     dplyr::ungroup() |>
-    dplyr::select(-.data$aux2)
+    dplyr::select(-"aux2")
 
 
   dt2 <- dt2 |>

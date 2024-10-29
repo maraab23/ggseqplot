@@ -1,6 +1,6 @@
 Package: ggseqplot
 Title: Render Sequence Plots using 'ggplot2'
-Version: 0.8.4
+Version: 0.8.5
 Authors@R: 
   person("Marcel", "Raab", , "marcel.raab@gmail.com", role = c("aut", "cre"),
          comment = c(ORCID = "0000-0002-3097-1591"))
@@ -20,7 +20,7 @@ Depends:
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 RdMacros: Rdpack
 Imports: 
     cli,

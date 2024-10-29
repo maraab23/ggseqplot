@@ -335,7 +335,7 @@ provide a dissimilarity matrix ('diss')"
   dotdata <- purrr::imap(seqrfobject$rf$dist.list,
                          ~dplyr::tibble(k = .y, values = .x)) |>
     dplyr::bind_rows() |>
-    dplyr::left_join(dplyr::select(boxdata, .data$k, .data$ymin, .data$ymax), by = "k") |>
+    dplyr::left_join(dplyr::select(boxdata, "k", "ymin", "ymax"), by = "k") |>
     dplyr::filter(.data$values < .data$ymin | .data$values > .data$ymax)
 
 
@@ -350,8 +350,8 @@ provide a dissimilarity matrix ('diss')"
     dplyr::group_by(.data$k) |>
     dplyr::summarise(ymin = min(.data$aux_min),
                      ymax = max(.data$aux_max)) |>
-    dplyr::left_join(dplyr::select(boxdata, -c(.data$ymin,.data$ymax)), by = "k") |>
-    dplyr::relocate(.data$ymax, .after = .data$upper)
+    dplyr::left_join(dplyr::select(boxdata, -c("ymin","ymax")), by = "k") |>
+    dplyr::relocate("ymax", .after = "upper")
 
 
   p2 <- ggplot() +

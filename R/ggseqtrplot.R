@@ -101,11 +101,45 @@ ggseqtrplot <- function(seqdata,
     group <- forcats::fct_drop(group)
     grinorder <- levels(group)
   } else {
-    grinorder <- factor(unique(group))
+    grinorder <- factor(sort(unique(group)))
   }
   if (is.null(group)) grinorder <- factor(1)
 
   if (is.null(group)) group <- 1
+
+
+  if (dss == TRUE) {
+    aux <- purrr::map(grinorder,
+                      ~TraMineR::seqlength(TraMineR::seqdss(seqdata[group == .x,])) |>
+                        max()
+                      ) |>
+      unlist() |>
+      min()
+  } else {
+    aux <- purrr::map(grinorder,
+                      ~TraMineR::seqlength(seqdata[group == .x,]) |>
+                        max()
+                      ) |>
+      unlist() |>
+      min()
+  }
+
+  if (aux <= 1) {
+    if (dss == TRUE) {
+      cli::cli_abort(c(
+        "x" = "Cannot compute transitions rates for sequences if longest (group-specific) sequence length <= 1",
+        "i" = "consider using {.arg dss = FALSE} or different {.arg group} vector"
+      ))
+    } else {
+      cli::cli_abort(c(
+        "x" = "Cannot compute transitions rates if longest (group-specific) sequence length <= 1",
+        "i" = "In case of active grouping, consider using different {.arg group} vector"
+      ))
+    }
+  }
+
+
+
 
   if (weighted == FALSE) {
     weights <- 1
