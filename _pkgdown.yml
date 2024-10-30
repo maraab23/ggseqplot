@@ -1,39 +1,4 @@
-url: https://maraab23.github.io/ggseqplot
+url: ~
 template:
   bootstrap: 5
-  bslib:
-    base_font: {google: "Poppins"}
-    heading_font: {google: "Poppins"}
-    code_font: {google: "Fira Code"}
-figures:
-  fig.width: 8.000
-  fig.height: 4.94
 
-reference:
-- title: Summarization plots
-  contents:
-  - ggseqdplot
-  - ggseqeplot
-  - ggseqmsplot
-  - ggseqmtplot
-  - ggseqtrplot
-- title: Representation plots
-  contents:
-  - ggseqiplot
-  - ggseqfplot
-  - ggseqrplot
-  - ggseqrfplot
-
-
-navbar:
-  structure:
-    right: [twitter, github]
-  components:
-    twitter:
-      icon: fa-twitter
-      href: https://twitter.com/RaabM
-      aria-label: Twitter
-
-authors:
-  Marcel Raab:
-    href: https://marcelraab.de
