@@ -138,8 +138,11 @@ ggseqmtplot <- function(seqdata,
                              dplyr::mutate(group = .x,
                                            state =
                                              forcats::fct_inorder(
-                                               ifelse(dplyr::row_number() <= length(alphabet(seqdata)),
-                                                      alphabet(seqdata), "Missing")),
+                                               as.factor(
+                                                 ifelse(dplyr::row_number() <= length(alphabet(seqdata)),
+                                                        alphabet(seqdata), "Missing")
+                                                 )
+                                               ),
                                            labels = forcats::fct_inorder(
                                              ifelse(dplyr::row_number() <= length(alphabet(seqdata)),
                                                     attributes(seqdata)$labels, "Missing")))) |>

@@ -1,8 +1,12 @@
+# ggseqplot 0.8.6
+
+* fixed ggseqmtplot error if alphabet is numeric (raised and solved by Gilbert Ritschard)
+
 # ggseqplot 0.8.5
 
 * fixed #5: if group vector is numeric, grouped plots are now sorted by number instead of order of appearance
 * `.data` in `{tidyselect}` expressions was deprecated in `{tidyselect}` 1.2.0; update takes care of this change
-* fixed incorrect group handling in `ggseqfplot` (issue Reported by Gilbert Ritschard)
+* fixed incorrect group handling in `ggseqfplot` (issue reported by Gilbert Ritschard)
 
 # ggseqplot 0.8.4
 
