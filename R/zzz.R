@@ -1,6 +1,13 @@
+# both don't work
 .onLoad  <- function(libname, pkgname) {
 
-  requireNamespace("TraMineR", quietly = TRUE)
-
+  suppressPackageStartupMessages(requireNamespace("TraMineR", quietly = TRUE))
+  suppressPackageStartupMessages(library(TraMineR, quietly = TRUE))
 }
 
+
+.onAttach <- function(libname, pkgname) {
+
+  suppressPackageStartupMessages(requireNamespace("TraMineR", quietly = TRUE))
+  suppressPackageStartupMessages(library(TraMineR, quietly = TRUE))
+}
