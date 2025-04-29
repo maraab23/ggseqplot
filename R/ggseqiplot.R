@@ -148,10 +148,8 @@ ggseqiplot <- function(seqdata,
     cli::cli_warn(c("i" = "group vector {.arg {group_name}} is of class {.cls haven_labelled} and has been converted into a factor"))
   }
 
-  drop <- TRUE
-  if ("drop" %in% names(list(...))) drop <- list(...)[["drop"]]
   if (is.factor(group)) {
-    if (isTRUE(drop)) group <- forcats::fct_drop(group)
+    group <- forcats::fct_drop(group)
     grinorder <- levels(group)
   } else {
     grinorder <- factor(sort(unique(group)))
@@ -207,7 +205,7 @@ ggseqiplot <- function(seqdata,
                         labels = attributes(seqdata)$labels
         ),
         states = forcats::fct_na_value_to_level(.data$states,
-                                                level = "Missing"
+                                          level = "Missing"
         ),
         states = forcats::fct_drop(.data$states, "Missing") # shouldn't be necessary
       ) |>
@@ -266,18 +264,19 @@ ggseqiplot <- function(seqdata,
       )
     )
 
+
   ylabspec <- purrr::map(
     grinorder,
     ~ dt2 |>
       dplyr::filter(.data$group == .x) |>
       dplyr::summarise(
         group = dplyr::first(.data$group),
-        maxwgt = max(.data$end, 0, na.rm=TRUE), ##gr to avoid a warning
-        #maxwgt = max(.data$end),
+        maxwgt = max(.data$end),
         nseq = dplyr::n_distinct(.data$idnew)
       )
   ) |>
     dplyr::bind_rows()
+
 
   scalebreaks <- purrr::map(
     grinorder,
@@ -294,10 +293,7 @@ ggseqiplot <- function(seqdata,
       dplyr::pull()
   )
 
-  #grsize <- purrr::map(scalelabels, max) ## warning when x has only NAs
-  max0 <- function(x){max(0,x,na.rm=TRUE)} ## max0 to avoid warning
-  grsize <- purrr::map(scalelabels, max0)
-  grsize <- lapply(grsize, function(x){ifelse(x==0, NA, x)}) ## gr turning 0 back to NA
+  grsize <- purrr::map(scalelabels, max)
 
   scalelabels <- purrr::map(
     scalelabels,
@@ -322,7 +318,6 @@ ggseqiplot <- function(seqdata,
     ~ .x[.y]
   )
 
-
   if (facet_scale == "fixed") {
     maxyidx <- purrr::map(scalebreaks, max) |>
       unlist() |>
@@ -343,7 +338,6 @@ ggseqiplot <- function(seqdata,
     )
   )
 
-  ylabspec$group <- levels(group) ##gr because empty groups were labelled NA
 
   if (nrow(ylabspec) == 1 & weighted == TRUE) {
     ylabspec <- glue::glue("{ylabspec$nseq} sequences",
@@ -356,8 +350,6 @@ ggseqiplot <- function(seqdata,
   } else {
     ylabspec <- glue::glue("{ylabspec$group} (n={ylabspec$nseq})")
   }
-
-  grinorder <- factor(grinorder, levels = levels(group)) ##gr
 
   grouplabspec <- dplyr::tibble(
     group = forcats::fct_inorder(grinorder),
@@ -412,8 +404,7 @@ ggseqiplot <- function(seqdata,
     dplyr::mutate(
       aux = .data$right - .data$left,
       aux2 = .data$aux,
-      aux = ifelse(.data$aux == 0, 1, .data$aux),
-      aux = ifelse(is.na(.data$aux), 0, .data$aux) ## gr
+      aux = ifelse(.data$aux == 0, 1, .data$aux)
     ) |>
     tidyr::uncount(.data$aux) |>
     dplyr::select(-"aux") |> #.data$aux
@@ -427,10 +418,10 @@ ggseqiplot <- function(seqdata,
 
 
   dt2 <- dt2 |>
-    dplyr::mutate(x = rep(factor(1:length(attributes(seqdata)$names)),
-                          length.out = nrow(dt2)),
-                  left = .data$left +.5,
-                  right = .data$right +.5)
+      dplyr::mutate(x = rep(factor(1:length(attributes(seqdata)$names)),
+                            length.out = nrow(dt2)),
+                    left = .data$left +.5,
+                    right = .data$right +.5)
 
 
   if (border == FALSE) {
@@ -526,6 +517,7 @@ ggseqiplot <- function(seqdata,
         axis.ticks = element_line(linewidth = .3)
       )
   )
+
 
   return(ggiplot)
 }

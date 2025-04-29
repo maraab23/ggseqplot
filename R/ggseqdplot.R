@@ -151,11 +151,8 @@ ggseqdplot <- function(seqdata,
     cli::cli_warn(c("i" = "group vector {.arg {group_name}} is of class {.cls haven_labelled} and has been converted into a factor"))
   }
 
-  # seSOM prep by G. Ritschard: take care of empty groups
-  drop <- TRUE
-  if ("drop" %in% names(list(...))) drop <- list(...)[["drop"]]
   if (is.factor(group)) {
-    if (isTRUE(drop)) group <- forcats::fct_drop(group)
+    group <- forcats::fct_drop(group)
     grinorder <- levels(group)
   } else {
     grinorder <- factor(sort(unique(group)))
@@ -212,7 +209,7 @@ ggseqdplot <- function(seqdata,
                        labels = attributes(seqdata)$labels
         ),
         state = forcats::fct_na_value_to_level(.data$state,
-                                               level = "Missing"
+                                                level = "Missing"
         ),
         state = forcats::fct_drop(.data$state, "Missing"), # shouldn't be necessary
         state = forcats::fct_rev(.data$state)
@@ -375,4 +372,3 @@ ggseqdplot <- function(seqdata,
 
   return(ggdplot)
 }
-
