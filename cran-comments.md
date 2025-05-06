@@ -1,9 +1,9 @@
-# Resubmission note for release 0.8.5
+# Resubmission note for release 0.8.6
 
-## Changes since release 0.8.4
+## Changes since release 0.8.5
 
-- minor fixes for grouped plots 
-- updated of tidyselect expressions as required by tidyselect release 1.2.0 
+- minor fix for error in ggseqmtplot which occurred if alphabet was numeric 
+- revised and extended vignette 
 
 
 ## local R CMD check results
