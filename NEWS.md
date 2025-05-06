@@ -1,6 +1,7 @@
 # ggseqplot 0.8.6
 
 * fixed ggseqmtplot error if alphabet is numeric (raised and solved by Gilbert Ritschard)
+* revised and extended Vignette
 
 # ggseqplot 0.8.5
 

@@ -1,6 +1,9 @@
 ---
 title: "Introduction to ggseqplot"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 3
 vignette: >
   %\VignetteIndexEntry{Introduction to ggseqplot}
   %\VignetteEncoding{UTF-8}
@@ -11,6 +14,7 @@ editor_options:
   markdown: 
     wrap: 72
 ---
+
 
 ```{r prelude, include = FALSE}
 knitr::opts_chunk$set(
@@ -25,7 +29,7 @@ on.exit(options(old))
 options(rmarkdown.html_vignette.check_title = FALSE)
 
 pkgs <- c("colorspace", "ggplot2", "ggthemes", "ggseqplot", "hrbrthemes", 
-          "patchwork", "purrr", "TraMineR")
+          "patchwork", "forcats", "ggh4x", "purrr", "TraMineR")
 
 # Load all packages to library and adjust options
 lapply(pkgs, library, character.only = TRUE)
@@ -33,95 +37,82 @@ lapply(pkgs, library, character.only = TRUE)
 
 ```
 
-## Prelude
+# Prelude & Setup
 
 Following Fasang and Liao [-@fasang2014], we distinguish between
-sequence representation and summarization graphs. The latter aggregate
-and summarize the information stored in the sequence data without
-plotting actual observed sequences. Given the complexity of sequence
-data, these type of plots focus on one or two dimensions of information
-stored in sequence data [@brzinsky-fay2014]. Among the diverse members
-of the family of summarization graphs are sequence transitions plot,
-Kaplan-Meier survival curves, modal state plots, mean time plots, state
-distribution plots, and entropy plots [@fasang2014; @raab2022].
+**sequence representation** and **summarization** graphs. Summarization plots 
+aggregate information from the data without displaying individual sequences. 
+Given the complexity of sequence data, these plots focus on one or two 
+dimensions of information stored in sequence data [@brzinsky-fay2014]. Common 
+examples include transition plots, Kaplan-Meier curves, modal state plots, mean 
+time plots, state distribution plots, and entropy plots [@fasang2014; @raab2022].
 
-[`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) includes five summarization graphs:
+[`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) includes five types of summarization plots:
 
--   state distribution plots (`ggseqdplot`)
--   entropy line plots (`ggseqplot`)
--   modal state sequence plot (`ggseqmsplot`)
--   mean time plot (`ggseqmtplot`)
--   transition rate plots (`ggseqtrplot`)
+-   State distribution plots (`ggseqdplot`)
+-   Entropy line plots (`ggseqplot`)
+-   Modal state sequence plot (`ggseqmsplot`)
+-   Mean time plot (`ggseqmtplot`)
+-   Transition rate plots (`ggseqtrplot`)
 
-Whereas summarization graphs aggregate the sequence data, representation
-plots always display actually observed sequences. In the most basic form
-of the traditional sequence index plot all observed sequences are
-displayed. In data sets with several hundred cases this kind of
-visualization, however, cannot be reasonably applied because of the
-issue of overplotting. In such a scenario individual sequences are
-partly plotted on top of each other and the resulting graph would be an
-inaccurate representation of the underlying sequence data. In response
-to this issue alternative representation plots which only render a
-subset of the sequences have been suggested. [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) allows to
-render both the traditional sequence index plots and representation
-plots of subsets of sequences. Specifically, the library contains the
-following plot types:
+In contrast to summarization plots, representation plots visualize actually 
+observed sequences. The most basic version is the sequence index plot, which 
+displays all sequences in the dataset. However, this approach becomes impractical 
+with large datasets due to overplotting—individual sequences may overlap, making 
+the visualization misleading. To address this, alternative representations that 
+display only a subset of sequences have been proposed.  
 
--   sequence index plot (`ggseqiplot`)
--   sequence frequency plot (`ggseqfplot`)
--   representative sequence plot (`ggseqrplot`)
--   relative frequency sequence plot (`ggseqrfplot`)
+[`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) supports both full and subset-based representation plots, offering the following plot types:
 
-For a more detailed discussion of sequence visualization I recommend the
-following articles/book chapters: Brzinsky-Fay [-@brzinsky-fay2014],
-Fasang and Liao [-@fasang2014] and Chapter 2 of Raab & Struffolino
-[-@raab2022].
+-   Sequence index plot (`ggseqiplot`)
+-   Sequence frequency plot (`ggseqfplot`)
+-   Representative sequence plot (`ggseqrplot`)
+-   Relative frequency sequence plot (`ggseqrfplot`)
 
-With the exception of the transition rate plot all of the plots listed
-above can be also produced with
-[`{TraMineR}`](http://traminer.unige.ch){target="_blank"}. In
-total, those two libraries provide a much more comprehensive set of
-plots and often allow for more options than {ggseqplot}. Hence, if you
-are an experienced user base R's `plot` (which is used to render the
-[`{TraMineR}`](http://traminer.unige.ch){target="_blank"} plots), there
-is no real need to make yourself acquainted with [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/).
+For a deeper discussion of sequence data visualization, see Brzinsky-Fay 
+[-@brzinsky-fay2014], Fasang and Liao [-@fasang2014] and Chapter 2 of Raab & 
+Struffolino [-@raab2022].
 
-[`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) was written because like many other R users I prefer
+With the exception of transition rate plots, all of the plots listed
+above can also be produced with
+[`{TraMineR}`](http://traminer.unige.ch){target="_blank"}. In fact, 
+[`{TraMineR}`](http://traminer.unige.ch){target="_blank"} typically offers more 
+customization options—but only through base R's plotting system. If you are 
+comfortable using base R graphics, there may be little reason to switch to [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/).
+
+
+
+However, [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) was developed 
+precisely because many R users today prefer 
 [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="_blank"} to base
 R's `plot` environment for visualizing data.
 [`{TraMineR}`](http://traminer.unige.ch){target="_blank"}
 [@gabadinho2011] was developed before
 [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="_blank"}
 [@wickham2016] was as popular as it is today and back then many users
-were more familiar with coding base R plots. To date, however, many
-researchers and students are more accustomed to using
-[`{ggplot2}`](https://ggplot2.tidyverse.org/){target="_blank"} and
-prefer to draw on the related skills and experiences instead of learning
-how to refine base R plots just for the single purpose of visualizing
-sequence data.
+were more familiar with coding base R plots. Today, most researchers and students are more familiar with [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="_blank"} and would rather 
+build on existing skills instead of learning how to refine base R plots just for sequence visualizations.
 
-This vignette outlines how sequence data generated with
+This vignette demonstrates how sequence objects created via
 `TraMineR::seqdef` are reshaped to plot them as ggplot2-typed figures
-using [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/). More specifically,
-it gives an overview of the general procedure and depicts which 
-[`{TraMineR}`](http://traminer.unige.ch){target="_blank"} and [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="_blank"} functions are used
-to render the plots
+using [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/). 
 
+It outlines which functions from [`{TraMineR}`](http://traminer.unige.ch){target="_blank"} and the [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="_blank"} universe are involved in generating the visualizations.
 
-The vignette further illustrates how the appearance of plots produced with [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) can be changed using
+The vignette further illustrates how the appearance of plots produced with [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) can be customized using
 [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="_blank"} functions
 and extensions.
 
-## Setup example
 
-We start by loading the required libraries and defining the sequence
-data to be plotted. We draw in the examples from the
-[`{TraMineR}`](http://traminer.unige.ch){target="_blank"} for setting up
-the examples.
+### Setup example
+
+We begin by loading the required libraries and preparing the sequence data to be 
+visualized. The examples are based on data sets and examples provided by the
+[`{TraMineR}`](http://traminer.unige.ch){target="_blank"} package.
 
 \
 
-<details><summary>**Click to see code for installing and loading required packages**</summary>
+<details><summary>**Click to show code for installing and loading required packages**</summary>
 
 ```{r libraries, eval=FALSE}
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -130,8 +121,15 @@ the examples.
 
 
 ## Save package names as a vector of strings
-pkgs <- c("colorspace", "ggplot2", "ggthemes", "hrbrthemes", 
-          "patchwork", "purrr", "TraMineR")
+pkgs <- c("colorspace", # for using colors palettes
+          "forcats", # for dropping unused factor levels with `fct_drop`
+          "ggh4x", # for proportional panel sized with `force_panelsizes`
+          "ggplot2", # for using all the ggplot2 functions 
+          "ggthemes", # for getting access to the canva_palettes
+          "hrbrthemes", # for using the ggplot2 theme `theme_ipsum` 
+          "patchwork", # for working with plot types built with patchwork
+          "purrr", # used in the grouped rplot example
+          "TraMineR") # the ultimate sequence analysis suite
 
 
 ## Install uninstalled packages
@@ -182,54 +180,56 @@ ex1.seq <- seqdef(ex1, 1:13,
 
 ```
 
-Note that the default figure size in this document is specified as:
+**Note:** The default figure size in this document is 
 `fig.width=8, fig.height=4.94`
+<br><br><br>
 
-## Technicalities
+# Technicalities
 
-In general, all [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) functions operate in the similar way: they
-extract the data to be plotted using a state sequence object generated
-with `TraMineR::seqdef` as a staring point. The functions either simply
-use (a subset of) the sequence data stored in this object or call other
-[`{TraMineR}`](http://traminer.unige.ch){target="_blank"} functions such as `TraMineR::seqstatd` to obtain the
-information to be plotted. Under the hood [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) reshapes those
-data to visualize them using [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="_blank"} functions. Usually this means
-that the data have to be reshaped into a long (tidy) format.
+All functions in [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) follow a 
+similar structure: they take a state sequence object—created with 
+`TraMineR::seqdef`—as their starting point. The functions either operate directly 
+on the sequence data or use other [`{TraMineR}`](http://traminer.unige.ch){target="_blank"} functions, such as `TraMineR::seqstatd`, to derive the information to be visualized.
 
-The following example illustrates the procedure for the case of a state
-distribution plot. The cross-sectional state distributions across the
-positions of the sequence data can be obtained by:
+Internally, [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) reshapes the 
+data into a tidy (long) format before plotting them with [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="_blank"} functions. This 
+reshaping step is typically necessary for creating layered and faceted graphics 
+in the grammar of graphics framework.
+
+The following example demonstrates this process using a state distribution plot. 
+First, we compute the cross-sectional state distributions across the sequence 
+positions:
 
 ```{r seqstatd}
 seqstatd(actcal.seq)
 ```
 
-When calling `ggseqdplot` these distributional data are reshaped into a
-long data set in which every row stores the (weighted) relative
-frequency of a given state at a given position along the sequence. The
-example data `actcal.seq` contain sequences of length 12 with an
-alphabet comprising 4 states. The reshaped data serving as source for
-the [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="_blank"} call thus 
-contain $12\times4=48$ rows. If a group vector is specified, the respective data 
-will comprise 48 rows for each group. The data set produced by `ggseqdplot` can 
-be accessed if the function's output is assigned to an object. The resulting 
-list object stores the data as its first element (named `data`).
+When calling `ggseqdplot`, these distributional data are internally reshaped 
+into a long-format dataset, where each row represents the (weighted) relative 
+frequency of a specific state at a specific sequence position.
+
+For example, the `actcal.seq` data contain sequences of length 12 with an 
+alphabet of 4 states. The reshaped dataset used for plotting will therefore 
+consist of $12 \times 4 = 48$ rows. If a grouping variable is provided, the 
+resulting dataset will contain 48 rows per group. To inspect this internal data 
+structure, assign the plot output to an object. The resulting list object stores 
+the data as its first element (named `data`).
 
 ```{r dplot-data}
 dplot <- ggseqdplot(actcal.seq)
 dplot$data
 ```
 
-Once the data are in the right shape [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) functions produce
-graphs using [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="_blank"} functions. In the case of the state
-distribution plot, for instance, `ggseqdplot` renders stacked bar charts
-for each sequence position using `ggplot2::geom_bar`.
+Once the data are in the correct shape, [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) 
+uses standard [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="_blank"} 
+functions to create the visualizations. In the case of state distribution plots, 
+for instance, `ggseqdplot` renders stacked bar charts for each sequence position 
+using `ggplot2::geom_bar`.
 
-The following table gives an overview of the most important internal
-function calls used to render different plot types with [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/)
+The following table summarizes the core internal function calls for the various plot types available in [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/):
 
 | ggseqplot function | TraMineR function                                  | ggplot2 geoms and extensions                                                                                            |
-|---------------|----------------|-----------------------------------------|
+|:--------------|:---------------|:----------------------------------------|
 | `ggseqdplot`         | `TraMineR::seqstatd`                                         | `ggplot2::geom_bar`<br>optional: `geom_line`                                                                                            |
 | `ggseqeplot`          | `TraMineR::seqstatd`                                         | `ggplot2::geom_line`                                                                                                                    |
 | `ggseqmsplot`        | `TraMineR::seqmodst`                                         | `ggplot2::geom_bar`                                                                                                                     |
@@ -240,43 +240,43 @@ function calls used to render different plot types with [`{ggseqplot}`](https://
 | `ggseqrplot`         | `TraMineR::seqrep`                                           | `ggplot2::geom_rect`<br>`ggrepel::geom_text_repel`<br>[`{ggtext}`](https://wilkelab.org/ggtext/){target="_blank"} (for optional colored axis labels)<br>[`{patchwork}`](https://patchwork.data-imaginist.com/index.html){target="_blank"} (to combine plots) |
 | `ggseqrfplot`        | `TraMineR::seqrfplot` | `ggplot2::geom_rect`<br>`ggplot2::geom_boxplot`<br>[`{patchwork}`](https://patchwork.data-imaginist.com/index.html){target="_blank"} (to combine plots)                                                              |
 
-The appearance of most of the plots generated with [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) 
-can be adjusted just like every other ggplot (e.g., by changing the theme 
-or the scale using `+` and the respective functions). Representative sequence 
-plots and relative frequency sequence plots, however, behave differently because
-they are composed of multiple plots which are arranged by the 
+Most plots created with [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) 
+behave like regular ggplots. You can customize them by adding themes, adjusting 
+scales, or using other standard [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="_blank"} syntax via `+`.
+
+Representative sequence plots and relative frequency sequence plots, however, 
+behave differently because they are composed of multiple subplots which are 
+arranged using the 
 [`{patchwork}`](https://patchwork.data-imaginist.com/index.html){target="_blank"} 
 library. The following section illustrates how the appearance of the plots can
-be changed
+be changed.
+<br><br><br>  
 
-## Changing the appearance of plots
+# Changing the appearance of plots
 
-### The default case
+## The default case
 As mentioned above, most plots rendered by 
 [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) are of class 
-`c("gg", "ggplot")` and can be adjusted just like other plots rendered with 
+`c("gg", "ggplot")` and can be customized  just like any other plot created with 
 [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="_blank"} 
 
 
-#### Example 1: State distribution plot
+### Example 1: State distribution plot
 
-In our first example we illustrate this for state distribution plot.
-We start with the most basic version of the plot visualizing the
-state distributions of `actcal.seq` without changing any of the
-defaults. 
+We begin with a simple state distribution plot using the sequence object 
+`actcal.seq`, without modifying the default settings. 
 
 ```{r, dplot1}
-# ggseqplot::ggseqdplot
 ggseqdplot(actcal.seq)
 ```
 
-We proceed by illustrating how
+Next, we demonstrate how to refine the plot using a variety of
 [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="_blank"} functions
-& extensions can be used to refine the default outcome. Just like every
-other [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="_blank"}
-figure the appearance of plots generated with 
+and extensions. As with any other 
+[`{ggplot2}`](https://ggplot2.tidyverse.org/){target="_blank"}
+plot, the appearance of plots generated with 
 [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) functions
-can be dramatically changed with a few adjustments:
+can be  extensively customized:
 
 ```{r, message=FALSE, warning=FALSE}
 ggseqdplot(actcal.seq) +
@@ -285,21 +285,17 @@ ggseqdplot(actcal.seq) +
   labs(title = "State distribution plot",
        x = "Month") +
   guides(fill=guide_legend(title="Alphabet")) +
-  theme_ipsum(base_family = "") + # ensures that this works on different OS
+  theme_ipsum(base_family = "") +
   theme(plot.title = element_text(size = 30, 
                                   margin=margin(0,0,20,0)),
         plot.title.position = "plot")
 ```
 
-In the following example we again illustrate a few
-[`{ggplot2}`](https://ggplot2.tidyverse.org/){target="_blank"} functions
-& extensions by composing a figure comprising two plots produced with
-`ggseqdplot`. Both visualize the same data but only the first plot
-considers weights. In addition to state distributions the plots display
-the accompanying entropies as line plot (`geom_line`). Finally, the
-plots are brought together using the
+In the following example, we use two `ggseqdplot` calls to create plots of the 
+same data, one with and one without weights. We also display entropy lines 
+(`geom_line`) and combine the two plots using the
 [`{patchwork}`](https://patchwork.data-imaginist.com/index.html){target="_blank"} 
-library [@pedersen2020].
+package [@pedersen2020].
 
 ```{r, message=FALSE, warning=FALSE}
 # Save plot using weights
@@ -325,19 +321,15 @@ p1 + p2 +
 ```
 
 
-#### Example 2: Transition rate plot
+### Example 2: Transition rate plot
 
-The second set of examples illustrates how to refine a figure of combined 
-transition rate plots. `ggseqtrplot` calls `TraMineR::seqtrate` to obtain 
-the transition rates between the states of the alphabet. `TraMineR::seqtrate` 
-stores these rates in a symmetrical matrix which internally is reshaped into a 
-long format with one row for every combination of states (i.e., the squared
-size of the sequence alphabet) by `ggseqdplot`. The reshaped data are
-the input for a [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="_blank"} 
-call using `geom_tile`.
+In the next set of examples, we refine plots generated by `ggseqtrplot`, which 
+internally calls `TraMineR::seqtrate` to compute the transition rates between 
+states. These rates are returned in a symmetrical matrix and then reshaped into 
+long format within `ggseqtrplot` to be plotted with `ggplot2::geom_tile`.
 
-We start with a simple example that only takes the sequence data and the
-group argument as inputs. The output is a faceted plot visualizing two
+We begin with a basic example that visualizes transition rate matrices for two 
+groups defined by the sex variable The output is a faceted plot visualizing two
 transition rate matrices of DSS sequence data.
 
 ```{r}
@@ -345,15 +337,14 @@ ggseqtrplot(actcal.seq,
             group = actcal$sex)
 ```
 
-In the second example we specify additional arguments and utilize once
+In the second example, we add customizations and utilize once
 again the [`{patchwork}`](https://patchwork.data-imaginist.com/index.html){target="_blank"} 
-library to compose a figure that compares the
-transition matrices of sequence stored in the STS and the DSS format.
+library to compose a figure that compares the transition matrices of the same 
+sequence data in STS and DSS format.
 
-We use `x_n.dodge = 2` to prevent overlapping of the state labels of the
-x-axis, slightly reduce the labels size of the value labels displayed
-within the tiles, and use `dss = FALSE` to compute and display the
-transition rates of the STS sequences.
+We set `x_n.dodge = 2` to prevent overlapping x-axis labels, reduce the font 
+size of the value labels displayed within the tiles (`labsize = 3`), 
+and set `dss = FALSE` to switch to the STS format.
 
 ```{r}
 
@@ -376,9 +367,8 @@ p1 + p2 &
 
 ```
 
-Other than the grouped version of the plot this composed figure contains
-the y-axis title and labels twice. This can be changed with small
-adjustments of the corresponding `theme` arguments.
+In contrast to the grouped plot above, the combined figure contains duplicated 
+y-axis labels and titles. These can be removed using standard `ggplot2::theme()` arguments:
 
 ```{r}
 
@@ -391,20 +381,40 @@ p1 + p2 &
                                   hjust = 0.5))
 ```
 
+### Example 3: Sequence index plots of illustrative (very few) sequences 
+
+[`{TraMineR}`](http://traminer.unige.ch){target="_blank"} offers two types of sequence index plots: `TraMineR::seqiplot` for displaying a small selection of sequences (typically no more than 10), and `TraMineR::seqIplot` for plotting the full set of sequences. The former adds white space between the displayed sequences, making it well suited for illustrative purposes—for example, when showcasing a few hand-picked sequences in publications or teaching materials. While [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) does not provide built-in spacing between sequences, a similar effect can be achieved with a small trick: by assigning each sequence to its own group via the group argument, `ggseqiplot` uses `ggplot2::facet_wrap` to place each sequence in a separate panel, thereby visually separating them.
+
+In the example below, we display five sequences (`biofam.seq[2:6,]`) as a faceted plot, where each sequence forms its own group (`group = 1:5`) and is shown in a separate panel arranged in a single column (`facet_ncol = 1`). The remainder of the code applies visual fine-tuning: group labels are moved to the left (`strip.position = "left"`) and rotated (`strip.text.y.left = element_text(angle = 0)`); superfluous axis elements—such as y-axis labels (`axis.text.y = element_blank()`), ticks (`axis.ticks.y = element_blank()`), and the axis title (`labs(y = NULL)`)—are removed; and the white space between sequences is slightly reduced by adjusting vertical panel spacing (`panel.spacing.y = unit(1.5, "lines")`).
 
 
-#### Example 3: Flipping coordinates
+```{r}
+# plot a subset of 5 sequences from biofam.seq
+ggseqiplot(biofam.seq[2:6,],
+           group = 1:5,
+           facet_ncol = 1,
+           strip.position = "left",
+           no.n = TRUE,
+           border = TRUE, 
+           weighted = FALSE) +
+  labs(y = NULL) +
+  theme(strip.text.y.left = element_text(angle = 0),
+        panel.spacing.y = unit(1.5, "lines"),
+        axis.text.y =  element_blank(),
+        axis.ticks.y = element_blank())
+```
 
-We conclude this section by illustrating that it is also possible to flip
-the coordinates of the plots rendered by 
-[`{ggseqplot}`](https://maraab23.github.io/ggseqplot/), a procedure that is
-widely used in the [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="_blank"} 
-universe (although the coordinates could also be swapped in the `aes(x, y, ...)` 
-specification).
 
-In the example below we illustrate the procedure for a mean time plot and a 
-sequence index plot. We always present both, the default plot and the flipped 
-version:
+### Example 4: Flipping coordinates
+
+Another way to adjust the appearance of plots rendered by
+[`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) is to flip their 
+coordinates—an approach commonly used in the [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="_blank"} 
+ecosystem.
+
+In the example below, we illustrate coordinate flipping for both a mean time 
+plot and a sequence index plot. For each plot type, we show the default version 
+followed by its flipped counterpart:
 
 ```{r}
 ## default plot
@@ -419,13 +429,11 @@ ggseqmtplot(actcal.seq, no.n = TRUE, error.bar = "SE") +
        legend.position = "top")
 ```
 
-While in the example above the flipped plot might be in greater accordance to
-most people's aesthetic preferences, flipping the coordinates in the case of 
-sequence index plots might be a more of an opinionated design choice. Most 
-scholars prefer to display time on the horizontal axis. However, if you favor 
-time to *run* from the bottom to the top (like in Piccarreta and Lior 
-[-@piccarreta2010]) instead of left to right, your preferences can be easily 
-met. 
+While the flipped version above may be more in line with some users’ aesthetic 
+preferences, flipping coordinates for sequence index plots is a more opinionated 
+design choice.  Most researchers display time along the horizontal axis. However, 
+if you prefer time to *run*  vertically—bottom to top, as in Piccarreta and 
+Lior [@piccarreta2010]—this preference is easily accommodated: 
 
 ```{r}
 ## default plot
@@ -439,26 +447,52 @@ ggseqiplot(actcal.seq, sortv = "from.end") +
 
 ```
 
-### The special case of combined plots
 
-Two types of plots differ from the other 
-[`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) functions because they
-are composed by two subplots which are arranged to a joint figure with the 
-[`{patchwork}`](https://patchwork.data-imaginist.com/index.html){target="_blank"} 
-library. The output of those functions cannot be changed in the same
-was as for the other functions. For details on the 
-[`{patchwork}`](https://patchwork.data-imaginist.com/index.html){target="_blank"} 
-library we recommend the package's website. 
+### Example 5: Proportional panel sizes for grouped sequence plots
 
-#### Example 4: Annotation and themes
+A common use case—especially in the context of cluster analyses—is to display grouped sequence plots with panel sizes that reflect the relative size of each group. This makes the visualization more informative, as it visually communicates the prevalence of each group.
 
-Some of the adjustments of a combined 
+In the following example, we illustrate this approach using `actcal$sex` as the grouping variable. As before, the `group` argument is used to split the data into separate panels arranged in a single column (`facet_ncol = 1`). To scale the height of each panel proportionally to the group size, we compute the relative frequencies using:
+
+```{r}
+hghts <- table(fct_drop(actcal$sex)) / nrow(actcal.seq)
+```
+
+The `fct_drop()` function ensures that only those factor levels actually present in the data are considered when tabulating group sizes—this avoids reserving space for empty panels corresponding to unused levels. We then pass the resulting proportions to `ggh4x::force_panelsizes()` via the `rows` argument. This function adjusts the panel heights accordingly, so that larger groups occupy more vertical space in the plot. Finally, we reduce the spacing between panels using `theme(panel.spacing = unit(1, "lines"))` for a more compact appearance.
+
+
+
+```{r}
+## use ggh4x::force_panelsizes to get proportional panels
+ggseqiplot(actcal.seq, 
+           sortv = "from.end", 
+           group = actcal$sex,
+           facet_ncol = 1) +
+  force_panelsizes(rows = hghts) +
+  theme(panel.spacing = unit(1, "lines"))
+
+```
+
+
+
+## The special case of combined plots
+
+Two types of plots differ from the standard behavior of
+[`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) functions: they
+are composed by two subplots, which are arranged into a single figure using the 
 [`{patchwork}`](https://patchwork.data-imaginist.com/index.html){target="_blank"} 
-plot are pretty similar to the
-default [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="_blank"} procedure. 
-In the example below we change the theme and add a
-title to the plot. Note that the corresponding functions are not added by
-`+` but with `&` instead. 
+library. Because of this composition, their appearance cannot be adjusted in exactly the same way as plots returned directly as `ggplot` objects. For more details on the functionality and syntax of
+[`{patchwork}`](https://patchwork.data-imaginist.com/index.html){target="_blank"},  
+we refer readers to the to the package documentation. 
+
+### Example 6: Annotation and themes
+
+Despite their special structure, many aspects of combined
+[`{patchwork}`](https://patchwork.data-imaginist.com/index.html){target="_blank"}
+plots can still be customized in ways familiar from
+[`{ggplot2}`](https://ggplot2.tidyverse.org/){target="_blank"}. For example, 
+themes and plot annotations can be modified using the `&` operator 
+(instead of `+`, which is used for standard `ggplot` objects).
 
 
 ```{r}
@@ -478,19 +512,22 @@ ggseqrfplot(biofam.seq, diss = diss, k = 12) &
   plot_annotation(title = "Relative Frequency Sequence Plot")
 ```
 
-If you want to manipulate the appearance of a specific plot, however, your default 
-code might not work. If you want to change the labels of the index plot, for instance,
-the following code will *not* produce the desired result, because `scale_x_discrete` will
-change the appearance of the boxplot, i.e. the last plot used when composing the plot
-with [`{patchwork}`](https://patchwork.data-imaginist.com/index.html){target="_blank"}.
+If you want to manipulate the appearance of a specific subplot, however, the default
+approach might not work as expected. For example, if you aim to change the x-axis labels
+of the index plot, the following code will *not* yield the intended result:
 
 ```{r}
 ggseqrfplot(biofam.seq, diss = diss, k = 12) +
   scale_x_discrete(labels = 15:30)
 ```
 
-The appearance of the subplots, however, can be changed once you save the 
-composite plot and then adjust its components.
+In this case, `scale_x_discrete()` will be applied to the boxplot (i.e., the last plot
+constructed in the combined object), not to the index plot. This behavior arises because
+the `+` operator affects the final `ggplot` object passed into the patchwork layout.
+
+To adjust the appearance of individual subplots within a combined plot, you need to first
+save the composite plot object, access its components, and then modify them
+individually before reassembling the full plot.
 
 ```{r}
 ## save & view original plot
@@ -510,15 +547,21 @@ p[[2]] <- p[[2]] + labs(title = "Changed title")
 p
 ```
 
-#### Example 5: The complex case of grouped rplots
+### Example 7: The complex case of grouped rplots
 
-Note that things become a little bit more complex in the case of a grouped
-representative sequence plot. In such a plot each group contributes two subplots. 
-One providing information on the "quality" of the representative sequences, and 
-another one containing the corresponding index plots.
-If we want to change the x-axis labels of the following plot, we have to extract 
-and change the index plots which appear in the second row of the combined plot. 
-The plots are arranged by row. Hence the index plots are the subplots 3 and 4
+Things become a bit more complex when working with grouped representative sequence plots.
+In such plots, each group contributes two subplots: one showing information on the
+"quality" of the representative sequences (e.g., frequency, coverage, or centrality), and
+another displaying the corresponding index plots.
+
+If you want to adjust the x-axis labels, for example, you must specifically 
+target the index plots, which appear in the second row of the combined layout. 
+The subplots are arranged by row, so for a two-group example, the index plots 
+correspond to subplots 3 and 4.
+
+To apply the desired changes, you need to extract these components, modify them as needed,
+and then re-plot the final figure.
+
 
 ```{r}
 ## Compute a pairwise dissimilarity matrix
@@ -542,27 +585,25 @@ p
 
 ```
 
-#### Example 6: What about grouped rfplots?
+### Example 8: What about grouped rfplots?
 
-Grouped rfplots are currently not implemented for `ggseqrfplot` and have to be 
-created manually using the [`{patchwork}`](https://patchwork.data-imaginist.com/index.html){target="_blank"} 
+Grouped representative frequency plots are currently **not implemented** in 
+`ggseqrfplot` and must be assembled *manually* using the [`{patchwork}`](https://patchwork.data-imaginist.com/index.html){target="_blank"} 
 library.
 
-In the following example we 
+In the following example, we: 
 
-1. create rfplots for our groups (here "Men" and "Women"), then proceed by 
-2. slightly misusing [`{patchwork}`](https://patchwork.data-imaginist.com/index.html){target="_blank"}'s tag annotation assigning group-specific tags
-for the first plot in each row of the final patchwork plot,
-3. removing the legend from the upper plot panel (`p$man`),
-4. and arranging the adjusted patches in a final plot with two stacked panels.
+1. Create rfplots for each group (here: "Men" and "Women"),  
+2. Slightly *misuse* [`{patchwork}`](https://patchwork.data-imaginist.com/index.html){target="_blank"}'s tag annotation to assign group-specific labels to the first plot in each row,
+3. Remove the legend from the upper plot panel (`p$man`), and
+4. Combine the two plots in a final stacked figure using a nested patchwork layout. 
 
-Technically speaking the resulting plot is a nested patchwork plot. According to the documentation
-of [`{patchwork}`](https://patchwork.data-imaginist.com/index.html){target="_blank"}
+Technically,  the resulting plot is a nested patchwork plot. According to the  [`{patchwork}`](https://patchwork.data-imaginist.com/index.html){target="_blank"} 
+documentation,
 
 >[i]t is important to note that plot annotations only have an effect on the top-level patchwork. Any annotation added to nested patchworks are (currently) lost. If you need to have annotations for a nested patchwork you’ll need to wrap it in wrap_elements() with the side-effect that alignment no longer works.^[https://patchwork.data-imaginist.com/articles/guides/annotation.html#titles-subtitles-and-captions]
 
-For this reason the group-specific titles were not added with `patchwork::plot_annotation`
-or `ggplot2::ggtitle` and we reverted to the use of tags instead.
+For this reason, we refrained from using `patchwork::plot_annotation` or `ggplot2::ggtitle` to add group titles and used plot tags instead.
 
 ```{r}
 
@@ -589,9 +630,11 @@ names(p) <- levels(sex)
     
 ```
 
+This approach gives you full control over the layout and design of grouped rfplots, 
+even in the absence of direct support in the `ggseqrfplot` function.
 
 
 
 ------------------------------------------------------------------------
 
-## References
+# References

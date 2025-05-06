@@ -14,10 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Poppins-0.4.9/font.css" rel="stylesheet">
-<link href="../deps/Fira_Code-0.4.9/font.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to ggseqplot">
 </head>
 <body>
@@ -28,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ggseqplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.6</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,7 +40,9 @@
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
-<li class="nav-item"><a class="external-link nav-link" href="https://twitter.com/RaabM" aria-label="Twitter"><span class="fa fa-twitter"></span></a></li>
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
+</form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/maraab23/ggseqplot/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
@@ -66,81 +66,73 @@
     
     
 <div class="section level2">
-<h2 id="prelude">Prelude<a class="anchor" aria-label="anchor" href="#prelude"></a>
+<h2 id="prelude-setup">Prelude &amp; Setup<a class="anchor" aria-label="anchor" href="#prelude-setup"></a>
 </h2>
 <p>Following Fasang and Liao <span class="citation">(2014)</span>, we
-distinguish between sequence representation and summarization graphs.
-The latter aggregate and summarize the information stored in the
-sequence data without plotting actual observed sequences. Given the
-complexity of sequence data, these type of plots focus on one or two
-dimensions of information stored in sequence data <span class="citation">(Brzinsky-Fay, 2014)</span>. Among the diverse members
-of the family of summarization graphs are sequence transitions plot,
-Kaplan-Meier survival curves, modal state plots, mean time plots, state
-distribution plots, and entropy plots <span class="citation">(Fasang
-&amp; Liao, 2014; Raab &amp; Struffolino, 2022)</span>.</p>
-<p><a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a>
-includes five summarization graphs:</p>
+distinguish between <strong>sequence representation</strong> and
+<strong>summarization</strong> graphs. Summarization plots aggregate
+information from the data without displaying individual sequences. Given
+the complexity of sequence data, these plots focus on one or two
+dimensions of information stored in sequence data <span class="citation">(Brzinsky-Fay, 2014)</span>. Common examples include
+transition plots, Kaplan-Meier curves, modal state plots, mean time
+plots, state distribution plots, and entropy plots <span class="citation">(Fasang &amp; Liao, 2014; Raab &amp; Struffolino,
+2022)</span>.</p>
+<p><a href="https://maraab23.github.io/ggseqplot/" class="external-link"><code>{ggseqplot}</code></a>
+includes five types of summarization plots:</p>
 <ul>
-<li>state distribution plots (<code>ggseqdplot</code>)</li>
-<li>entropy line plots (<code>ggseqplot</code>)</li>
-<li>modal state sequence plot (<code>ggseqmsplot</code>)</li>
-<li>mean time plot (<code>ggseqmtplot</code>)</li>
-<li>transition rate plots (<code>ggseqtrplot</code>)</li>
+<li>State distribution plots (<code>ggseqdplot</code>)</li>
+<li>Entropy line plots (<code>ggseqplot</code>)</li>
+<li>Modal state sequence plot (<code>ggseqmsplot</code>)</li>
+<li>Mean time plot (<code>ggseqmtplot</code>)</li>
+<li>Transition rate plots (<code>ggseqtrplot</code>)</li>
 </ul>
-<p>Whereas summarization graphs aggregate the sequence data,
-representation plots always display actually observed sequences. In the
-most basic form of the traditional sequence index plot all observed
-sequences are displayed. In data sets with several hundred cases this
-kind of visualization, however, cannot be reasonably applied because of
-the issue of overplotting. In such a scenario individual sequences are
-partly plotted on top of each other and the resulting graph would be an
-inaccurate representation of the underlying sequence data. In response
-to this issue alternative representation plots which only render a
-subset of the sequences have been suggested. <a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a>
-allows to render both the traditional sequence index plots and
-representation plots of subsets of sequences. Specifically, the library
-contains the following plot types:</p>
+<p>In contrast to summarization plots, representation plots visualize
+actually observed sequences. The most basic version is the sequence
+index plot, which displays all sequences in the dataset. However, this
+approach becomes impractical with large datasets due to
+overplotting—individual sequences may overlap, making the visualization
+misleading. To address this, alternative representations that display
+only a subset of sequences have been proposed.</p>
+<p><a href="https://maraab23.github.io/ggseqplot/" class="external-link"><code>{ggseqplot}</code></a>
+supports both full and subset-based representation plots, offering the
+following plot types:</p>
 <ul>
-<li>sequence index plot (<code>ggseqiplot</code>)</li>
-<li>sequence frequency plot (<code>ggseqfplot</code>)</li>
-<li>representative sequence plot (<code>ggseqrplot</code>)</li>
-<li>relative frequency sequence plot (<code>ggseqrfplot</code>)</li>
+<li>Sequence index plot (<code>ggseqiplot</code>)</li>
+<li>Sequence frequency plot (<code>ggseqfplot</code>)</li>
+<li>Representative sequence plot (<code>ggseqrplot</code>)</li>
+<li>Relative frequency sequence plot (<code>ggseqrfplot</code>)</li>
 </ul>
-<p>For a more detailed discussion of sequence visualization I recommend
-the following articles/book chapters: Brzinsky-Fay <span class="citation">(2014)</span>, Fasang and Liao <span class="citation">(2014)</span> and Chapter 2 of Raab &amp; Struffolino
+<p>For a deeper discussion of sequence data visualization, see
+Brzinsky-Fay <span class="citation">(2014)</span>, Fasang and Liao <span class="citation">(2014)</span> and Chapter 2 of Raab &amp; Struffolino
 <span class="citation">(2022)</span>.</p>
-<p>With the exception of the transition rate plot all of the plots
-listed above can be also produced with <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a>. In total, those two
-libraries provide a much more comprehensive set of plots and often allow
-for more options than {ggseqplot}. Hence, if you are an experienced user
-base R’s <code>plot</code> (which is used to render the <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a> plots), there is no real
-need to make yourself acquainted with <a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a>.</p>
-<p><a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a>
-was written because like many other R users I prefer <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> to base R’s <code>plot</code>
+<p>With the exception of transition rate plots, all of the plots listed
+above can also be produced with <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a>. In fact, <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a> typically offers more
+customization options—but only through base R’s plotting system. If you
+are comfortable using base R graphics, there may be little reason to
+switch to <a href="https://maraab23.github.io/ggseqplot/" class="external-link"><code>{ggseqplot}</code></a>.</p>
+<p>However, <a href="https://maraab23.github.io/ggseqplot/" class="external-link"><code>{ggseqplot}</code></a>
+was developed precisely because many R users today prefer <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> to base R’s <code>plot</code>
 environment for visualizing data. <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a> <span class="citation">(Gabadinho et al., 2011)</span> was developed before <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> <span class="citation">(Wickham, 2016)</span> was as popular as it is today
-and back then many users were more familiar with coding base R plots. To
-date, however, many researchers and students are more accustomed to
-using <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> and prefer to draw on the
-related skills and experiences instead of learning how to refine base R
-plots just for the single purpose of visualizing sequence data.</p>
-<p>This vignette outlines how sequence data generated with
+and back then many users were more familiar with coding base R plots.
+Today, most researchers and students are more familiar with <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> and would rather build on
+existing skills instead of learning how to refine base R plots just for
+sequence visualizations.</p>
+<p>This vignette demonstrates how sequence objects created via
 <code><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">TraMineR::seqdef</a></code> are reshaped to plot them as ggplot2-typed
-figures using <a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a>.
-More specifically, it gives an overview of the general procedure and
-depicts which <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a> and <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> functions are used to render
-the plots</p>
+figures using <a href="https://maraab23.github.io/ggseqplot/" class="external-link"><code>{ggseqplot}</code></a>.</p>
+<p>It outlines which functions from <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a> and the <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> universe are involved in
+generating the visualizations.</p>
 <p>The vignette further illustrates how the appearance of plots produced
-with <a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a>
-can be changed using <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> functions and extensions.</p>
-</div>
-<div class="section level2">
-<h2 id="setup-example">Setup example<a class="anchor" aria-label="anchor" href="#setup-example"></a>
-</h2>
-<p>We start by loading the required libraries and defining the sequence
-data to be plotted. We draw in the examples from the <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a> for setting up the
-examples.</p>
+with <a href="https://maraab23.github.io/ggseqplot/" class="external-link"><code>{ggseqplot}</code></a>
+can be customized using <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> functions and extensions.</p>
+<div class="section level4">
+<h4 id="setup-example">Setup example<a class="anchor" aria-label="anchor" href="#setup-example"></a>
+</h4>
+<p>We begin by loading the required libraries and preparing the sequence
+data to be visualized. The examples are based on data sets and examples
+provided by the <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a> package.</p>
 <p><br></p>
-<details><summary><strong>Click to see code for installing and loading required
+<details><summary><strong>Click to show code for installing and loading required
 packages</strong>
 </summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span>
@@ -149,8 +141,15 @@ packages</strong>
 <span></span>
 <span></span>
 <span><span class="co">## Save package names as a vector of strings</span></span>
-<span><span class="va">pkgs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"colorspace"</span>, <span class="st">"ggplot2"</span>, <span class="st">"ggthemes"</span>, <span class="st">"hrbrthemes"</span>, </span>
-<span>          <span class="st">"patchwork"</span>, <span class="st">"purrr"</span>, <span class="st">"TraMineR"</span><span class="op">)</span></span>
+<span><span class="va">pkgs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"colorspace"</span>, <span class="co"># for using colors palettes</span></span>
+<span>          <span class="st">"forcats"</span>, <span class="co"># for dropping unused factor levels with `fct_drop`</span></span>
+<span>          <span class="st">"ggh4x"</span>, <span class="co"># for proportional panel sized with `force_panelsizes`</span></span>
+<span>          <span class="st">"ggplot2"</span>, <span class="co"># for using all the ggplot2 functions </span></span>
+<span>          <span class="st">"ggthemes"</span>, <span class="co"># for getting access to the canva_palettes</span></span>
+<span>          <span class="st">"hrbrthemes"</span>, <span class="co"># for using the ggplot2 theme `theme_ipsum` </span></span>
+<span>          <span class="st">"patchwork"</span>, <span class="co"># for working with plot types built with patchwork</span></span>
+<span>          <span class="st">"purrr"</span>, <span class="co"># used in the grouped rplot example</span></span>
+<span>          <span class="st">"TraMineR"</span><span class="op">)</span> <span class="co"># the ultimate sequence analysis suite</span></span>
 <span></span>
 <span></span>
 <span><span class="co">## Install uninstalled packages</span></span>
@@ -162,7 +161,7 @@ packages</strong>
 <span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">pkgs</span>, <span class="va">library</span>, character.only <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## Don't forget to load ggseqplot</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://maraab23.github.io/ggseqplot/">ggseqplot</a></span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://maraab23.github.io/ggseqplot/" class="external-link">ggseqplot</a></span><span class="op">)</span></span></code></pre></div>
 </details><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span></span>
@@ -192,20 +191,21 @@ packages</strong>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ex1</span><span class="op">)</span></span>
 <span><span class="va">ex1.seq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">seqdef</a></span><span class="op">(</span><span class="va">ex1</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">13</span>, </span>
 <span>                  weights<span class="op">=</span><span class="va">ex1</span><span class="op">$</span><span class="va">weights</span><span class="op">)</span></span></code></pre></div>
-<p>Note that the default figure size in this document is specified as:
-<code>fig.width=8, fig.height=4.94</code></p>
+<p><strong>Note:</strong> The default figure size in this document is
+<code>fig.width=8, fig.height=4.94</code> <br><br><br></p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="technicalities">Technicalities<a class="anchor" aria-label="anchor" href="#technicalities"></a>
 </h2>
-<p>In general, all <a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a>
+<p>In general, all <a href="https://maraab23.github.io/ggseqplot/" class="external-link"><code>{ggseqplot}</code></a>
 functions operate in the similar way: they extract the data to be
 plotted using a state sequence object generated with
 <code><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">TraMineR::seqdef</a></code> as a staring point. The functions either
 simply use (a subset of) the sequence data stored in this object or call
 other <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a> functions such as
 <code><a href="https://rdrr.io/pkg/TraMineR/man/seqstatd.html" class="external-link">TraMineR::seqstatd</a></code> to obtain the information to be plotted.
-Under the hood <a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a>
+Under the hood <a href="https://maraab23.github.io/ggseqplot/" class="external-link"><code>{ggseqplot}</code></a>
 reshapes those data to visualize them using <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> functions. Usually this means
 that the data have to be reshaped into a long (tidy) format.</p>
 <p>The following example illustrates the procedure for the case of a
@@ -256,13 +256,13 @@ resulting list object stores the data as its first element (named
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 1     &gt; 37 hours sep00 9     0.418 Rel. Freq. (n=2000)</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 1     &gt; 37 hours oct00 10    0.418 Rel. Freq. (n=2000)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 38 more rows</span></span></span></code></pre></div>
-<p>Once the data are in the right shape <a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a>
+<p>Once the data are in the right shape <a href="https://maraab23.github.io/ggseqplot/" class="external-link"><code>{ggseqplot}</code></a>
 functions produce graphs using <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> functions. In the case of the
 state distribution plot, for instance, <code>ggseqdplot</code> renders
 stacked bar charts for each sequence position using
 <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">ggplot2::geom_bar</a></code>.</p>
 <p>The following table gives an overview of the most important internal
-function calls used to render different plot types with <a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a></p>
+function calls used to render different plot types with <a href="https://maraab23.github.io/ggseqplot/" class="external-link"><code>{ggseqplot}</code></a></p>
 <table class="table">
 <colgroup>
 <col width="20%">
@@ -270,73 +270,74 @@ function calls used to render different plot types with <a href="https://maraab2
 <col width="56%">
 </colgroup>
 <thead><tr class="header">
-<th>ggseqplot function</th>
-<th>TraMineR function</th>
-<th>ggplot2 geoms and extensions</th>
+<th align="left">ggseqplot function</th>
+<th align="left">TraMineR function</th>
+<th align="left">ggplot2 geoms and extensions</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td><code>ggseqdplot</code></td>
-<td><code><a href="https://rdrr.io/pkg/TraMineR/man/seqstatd.html" class="external-link">TraMineR::seqstatd</a></code></td>
-<td>
+<td align="left"><code>ggseqdplot</code></td>
+<td align="left"><code><a href="https://rdrr.io/pkg/TraMineR/man/seqstatd.html" class="external-link">TraMineR::seqstatd</a></code></td>
+<td align="left">
 <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">ggplot2::geom_bar</a></code><br>optional:
 <code>geom_line</code>
 </td>
 </tr>
 <tr class="even">
-<td><code>ggseqeplot</code></td>
-<td><code><a href="https://rdrr.io/pkg/TraMineR/man/seqstatd.html" class="external-link">TraMineR::seqstatd</a></code></td>
-<td><code><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">ggplot2::geom_line</a></code></td>
+<td align="left"><code>ggseqeplot</code></td>
+<td align="left"><code><a href="https://rdrr.io/pkg/TraMineR/man/seqstatd.html" class="external-link">TraMineR::seqstatd</a></code></td>
+<td align="left"><code><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">ggplot2::geom_line</a></code></td>
 </tr>
 <tr class="odd">
-<td><code>ggseqmsplot</code></td>
-<td><code><a href="https://rdrr.io/pkg/TraMineR/man/seqmodst.html" class="external-link">TraMineR::seqmodst</a></code></td>
-<td><code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">ggplot2::geom_bar</a></code></td>
+<td align="left"><code>ggseqmsplot</code></td>
+<td align="left"><code><a href="https://rdrr.io/pkg/TraMineR/man/seqmodst.html" class="external-link">TraMineR::seqmodst</a></code></td>
+<td align="left"><code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">ggplot2::geom_bar</a></code></td>
 </tr>
 <tr class="even">
-<td><code>ggseqmtplot</code></td>
-<td><code><a href="https://rdrr.io/pkg/TraMineR/man/seqmeant.html" class="external-link">TraMineR::seqmeant</a></code></td>
-<td><code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">ggplot2::geom_bar</a></code></td>
+<td align="left"><code>ggseqmtplot</code></td>
+<td align="left"><code><a href="https://rdrr.io/pkg/TraMineR/man/seqmeant.html" class="external-link">TraMineR::seqmeant</a></code></td>
+<td align="left"><code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">ggplot2::geom_bar</a></code></td>
 </tr>
 <tr class="odd">
-<td><code>ggseqtrplot</code></td>
-<td><code><a href="https://rdrr.io/pkg/TraMineR/man/seqtrate.html" class="external-link">TraMineR::seqtrate</a></code></td>
-<td><code><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html" class="external-link">ggplot2::geom_tile</a></code></td>
+<td align="left"><code>ggseqtrplot</code></td>
+<td align="left"><code><a href="https://rdrr.io/pkg/TraMineR/man/seqtrate.html" class="external-link">TraMineR::seqtrate</a></code></td>
+<td align="left"><code><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html" class="external-link">ggplot2::geom_tile</a></code></td>
 </tr>
 <tr class="even">
-<td><code>ggseqiplot</code></td>
-<td><code><a href="https://rdrr.io/pkg/TraMineR/man/seqformat.html" class="external-link">TraMineR::seqformat</a></code></td>
-<td><code><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html" class="external-link">ggplot2::geom_rect</a></code></td>
+<td align="left"><code>ggseqiplot</code></td>
+<td align="left"><code><a href="https://rdrr.io/pkg/TraMineR/man/seqformat.html" class="external-link">TraMineR::seqformat</a></code></td>
+<td align="left"><code><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html" class="external-link">ggplot2::geom_rect</a></code></td>
 </tr>
 <tr class="odd">
-<td><code>ggseqfplot</code></td>
-<td><code><a href="https://rdrr.io/pkg/TraMineR/man/seqtab.html" class="external-link">TraMineR::seqtab</a></code></td>
-<td>
+<td align="left"><code>ggseqfplot</code></td>
+<td align="left"><code><a href="https://rdrr.io/pkg/TraMineR/man/seqtab.html" class="external-link">TraMineR::seqtab</a></code></td>
+<td align="left">
 <code><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html" class="external-link">ggplot2::geom_rect</a></code><br><a href="https://teunbrand.github.io/ggh4x/" target="_blank" class="external-link"><code>{ggh4x}</code></a> (for the axis labeling if group
 has been specified)</td>
 </tr>
 <tr class="even">
-<td><code>ggseqrplot</code></td>
-<td><code><a href="https://rdrr.io/pkg/TraMineR/man/seqrep.html" class="external-link">TraMineR::seqrep</a></code></td>
-<td>
+<td align="left"><code>ggseqrplot</code></td>
+<td align="left"><code><a href="https://rdrr.io/pkg/TraMineR/man/seqrep.html" class="external-link">TraMineR::seqrep</a></code></td>
+<td align="left">
 <code><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html" class="external-link">ggplot2::geom_rect</a></code><br><code><a href="https://ggrepel.slowkow.com/reference/geom_text_repel.html" class="external-link">ggrepel::geom_text_repel</a></code><br><a href="https://wilkelab.org/ggtext/" target="_blank" class="external-link"><code>{ggtext}</code></a> (for optional colored axis
 labels)<br><a href="https://patchwork.data-imaginist.com/index.html" target="_blank" class="external-link"><code>{patchwork}</code></a> (to combine plots)</td>
 </tr>
 <tr class="odd">
-<td><code>ggseqrfplot</code></td>
-<td><code><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">TraMineR::seqrfplot</a></code></td>
-<td>
+<td align="left"><code>ggseqrfplot</code></td>
+<td align="left"><code><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">TraMineR::seqrfplot</a></code></td>
+<td align="left">
 <code><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html" class="external-link">ggplot2::geom_rect</a></code><br><code><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">ggplot2::geom_boxplot</a></code><br><a href="https://patchwork.data-imaginist.com/index.html" target="_blank" class="external-link"><code>{patchwork}</code></a> (to combine plots)</td>
 </tr>
 </tbody>
 </table>
-<p>The appearance of most of the plots generated with <a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a>
+<p>The appearance of most of the plots generated with <a href="https://maraab23.github.io/ggseqplot/" class="external-link"><code>{ggseqplot}</code></a>
 can be adjusted just like every other ggplot (e.g., by changing the
 theme or the scale using <code>+</code> and the respective functions).
 Representative sequence plots and relative frequency sequence plots,
 however, behave differently because they are composed of multiple plots
 which are arranged by the <a href="https://patchwork.data-imaginist.com/index.html" target="_blank" class="external-link"><code>{patchwork}</code></a> library. The following
-section illustrates how the appearance of the plots can be changed</p>
+section illustrates how the appearance of the plots can be changed
+<br><br><br></p>
 </div>
 <div class="section level2">
 <h2 id="changing-the-appearance-of-plots">Changing the appearance of plots<a class="anchor" aria-label="anchor" href="#changing-the-appearance-of-plots"></a>
@@ -344,7 +345,7 @@ section illustrates how the appearance of the plots can be changed</p>
 <div class="section level3">
 <h3 id="the-default-case">The default case<a class="anchor" aria-label="anchor" href="#the-default-case"></a>
 </h3>
-<p>As mentioned above, most plots rendered by <a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a>
+<p>As mentioned above, most plots rendered by <a href="https://maraab23.github.io/ggseqplot/" class="external-link"><code>{ggseqplot}</code></a>
 are of class <code>c("gg", "ggplot")</code> and can be adjusted just
 like other plots rendered with <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a></p>
 <div class="section level4">
@@ -360,7 +361,7 @@ defaults.</p>
 <p><img src="ggseqplot_files/figure-html/dplot1-1.png" width="768"></p>
 <p>We proceed by illustrating how <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> functions &amp; extensions
 can be used to refine the default outcome. Just like every other <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> figure the appearance of
-plots generated with <a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a>
+plots generated with <a href="https://maraab23.github.io/ggseqplot/" class="external-link"><code>{ggseqplot}</code></a>
 functions can be dramatically changed with a few adjustments:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggseqdplot.html">ggseqdplot</a></span><span class="op">(</span><span class="va">actcal.seq</span><span class="op">)</span> <span class="op">+</span></span>
@@ -469,21 +470,67 @@ small adjustments of the corresponding <code>theme</code> arguments.</p>
 <p><img src="ggseqplot_files/figure-html/unnamed-chunk-5-1.png" width="768"></p>
 </div>
 <div class="section level4">
-<h4 id="example-3-flipping-coordinates">Example 3: Flipping coordinates<a class="anchor" aria-label="anchor" href="#example-3-flipping-coordinates"></a>
+<h4 id="example-3-sequence-index-plots-of-illustrative-very-few-sequences">Example 3: Sequence index plots of illustrative (very few)
+sequences<a class="anchor" aria-label="anchor" href="#example-3-sequence-index-plots-of-illustrative-very-few-sequences"></a>
+</h4>
+<p><a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a> offers two types of sequence
+index plots: <code><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">TraMineR::seqiplot</a></code> for displaying a small
+selection of sequences (typically no more than 10), and
+<code><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">TraMineR::seqIplot</a></code> for plotting the full set of sequences.
+The former adds white space between the displayed sequences, making it
+well suited for illustrative purposes—for example, when showcasing a few
+hand-picked sequences in publications or teaching materials. While <a href="https://maraab23.github.io/ggseqplot/" class="external-link"><code>{ggseqplot}</code></a>
+does not provide built-in spacing between sequences, a similar effect
+can be achieved with a small trick: by assigning each sequence to its
+own group via the group argument, <code>ggseqiplot</code> uses
+<code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">ggplot2::facet_wrap</a></code> to place each sequence in a separate
+panel, thereby visually separating them.</p>
+<p>In the example below, we display five sequences
+(<code>biofam.seq[2:6,]</code>) as a faceted plot, where each sequence
+forms its own group (<code>group = 1:5</code>) and is shown in a
+separate panel arranged in a single column
+(<code>facet_ncol = 1</code>). The remainder of the code applies visual
+fine-tuning: group labels are moved to the left
+(<code>strip.position = "left"</code>) and rotated
+(<code>strip.text.y.left = element_text(angle = 0)</code>); superfluous
+axis elements—such as y-axis labels
+(<code>axis.text.y = element_blank()</code>), ticks
+(<code>axis.ticks.y = element_blank()</code>), and the axis title
+(<code>labs(y = NULL)</code>)—are removed; and the white space between
+sequences is slightly reduced by adjusting vertical panel spacing
+(<code>panel.spacing.y = unit(1.5, "lines")</code>).</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># plot a subset of 5 sequences from biofam.seq</span></span>
+<span><span class="fu"><a href="../reference/ggseqiplot.html">ggseqiplot</a></span><span class="op">(</span><span class="va">biofam.seq</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">6</span>,<span class="op">]</span>,</span>
+<span>           group <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,</span>
+<span>           facet_ncol <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>           strip.position <span class="op">=</span> <span class="st">"left"</span>,</span>
+<span>           no.n <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>           border <span class="op">=</span> <span class="cn">TRUE</span>, </span>
+<span>           weighted <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>strip.text.y.left <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
+<span>        panel.spacing.y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="st">"lines"</span><span class="op">)</span>,</span>
+<span>        axis.text.y <span class="op">=</span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>        axis.ticks.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="ggseqplot_files/figure-html/unnamed-chunk-6-1.png" width="768"></p>
+</div>
+<div class="section level4">
+<h4 id="example-4-flipping-coordinates">Example 4: Flipping coordinates<a class="anchor" aria-label="anchor" href="#example-4-flipping-coordinates"></a>
 </h4>
 <p>We conclude this section by illustrating that it is also possible to
-flip the coordinates of the plots rendered by <a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a>,
+flip the coordinates of the plots rendered by <a href="https://maraab23.github.io/ggseqplot/" class="external-link"><code>{ggseqplot}</code></a>,
 a procedure that is widely used in the <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> universe (although the
 coordinates could also be swapped in the <code>aes(x, y, ...)</code>
 specification).</p>
 <p>In the example below we illustrate the procedure for a mean time plot
 and a sequence index plot. We always present both, the default plot and
 the flipped version:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## default plot</span></span>
 <span><span class="fu"><a href="../reference/ggseqmtplot.html">ggseqmtplot</a></span><span class="op">(</span><span class="va">actcal.seq</span>, no.n <span class="op">=</span> <span class="cn">TRUE</span>, error.bar <span class="op">=</span> <span class="st">"SE"</span><span class="op">)</span> </span></code></pre></div>
-<p><img src="ggseqplot_files/figure-html/unnamed-chunk-6-1.png" width="768"></p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<p><img src="ggseqplot_files/figure-html/unnamed-chunk-7-1.png" width="768"></p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co">## flipped version</span></span>
 <span><span class="fu"><a href="../reference/ggseqmtplot.html">ggseqmtplot</a></span><span class="op">(</span><span class="va">actcal.seq</span>, no.n <span class="op">=</span> <span class="cn">TRUE</span>, error.bar <span class="op">=</span> <span class="st">"SE"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -492,22 +539,22 @@ the flipped version:</p>
 <span>       axis.ticks.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>       panel.grid.major.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>       legend.position <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ggseqplot_files/figure-html/unnamed-chunk-6-2.png" width="768"></p>
+<p><img src="ggseqplot_files/figure-html/unnamed-chunk-7-2.png" width="768"></p>
 <p>While in the example above the flipped plot might be in greater
 accordance to most people’s aesthetic preferences, flipping the
-coordinates in the case of sequence index plots might be a more of an
+coordinates in the case of sequence index plots might be more of an
 opinionated design choice. Most scholars prefer to display time on the
 horizontal axis. However, if you favor time to <em>run</em> from the
 bottom to the top (like in Piccarreta and Lior <span class="citation">(2010)</span>) instead of left to right, your
 preferences can be easily met.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## default plot</span></span>
 <span><span class="fu"><a href="../reference/ggseqiplot.html">ggseqiplot</a></span><span class="op">(</span><span class="va">actcal.seq</span>, sortv <span class="op">=</span> <span class="st">"from.end"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html" class="external-link">scale_x_discrete</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="va">month.abb</span><span class="op">)</span> </span>
 <span><span class="co">#&gt; Scale for <span style="color: #00BB00;">x</span> is already present.</span></span>
 <span><span class="co">#&gt; Adding another scale for <span style="color: #00BB00;">x</span>, which will replace the existing scale.</span></span></code></pre></div>
-<p><img src="ggseqplot_files/figure-html/unnamed-chunk-7-1.png" width="768"></p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<p><img src="ggseqplot_files/figure-html/unnamed-chunk-8-1.png" width="768"></p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co">## flipped version</span></span>
 <span><span class="fu"><a href="../reference/ggseqiplot.html">ggseqiplot</a></span><span class="op">(</span><span class="va">actcal.seq</span>, sortv <span class="op">=</span> <span class="st">"from.end"</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -515,27 +562,63 @@ preferences can be easily met.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html" class="external-link">coord_flip</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Scale for <span style="color: #00BB00;">x</span> is already present.</span></span>
 <span><span class="co">#&gt; Adding another scale for <span style="color: #00BB00;">x</span>, which will replace the existing scale.</span></span></code></pre></div>
-<p><img src="ggseqplot_files/figure-html/unnamed-chunk-7-2.png" width="768"></p>
+<p><img src="ggseqplot_files/figure-html/unnamed-chunk-8-2.png" width="768"></p>
+</div>
+<div class="section level4">
+<h4 id="example-5-proportional-panel-sizes-for-grouped-sequence-plots">Example 5: Proportional panel sizes for grouped sequence plots<a class="anchor" aria-label="anchor" href="#example-5-proportional-panel-sizes-for-grouped-sequence-plots"></a>
+</h4>
+<p>A common use case—especially in the context of cluster analyses—is to
+display grouped sequence plots with panel sizes that reflect the
+relative size of each group. This makes the visualization more
+informative, as it visually communicates the prevalence of each
+group.</p>
+<p>In the following example, we illustrate this approach using
+<code>actcal$sex</code> as the grouping variable. As before, the
+<code>group</code> argument is used to split the data into separate
+panels arranged in a single column (<code>facet_ncol = 1</code>). To
+scale the height of each panel proportionally to the group size, we
+compute the relative frequencies using:</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">hghts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu">fct_drop</span><span class="op">(</span><span class="va">actcal</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">actcal.seq</span><span class="op">)</span></span></code></pre></div>
+<p>The <code>fct_drop()</code> function ensures that only those factor
+levels actually present in the data are considered when tabulating group
+sizes—this avoids reserving space for empty panels corresponding to
+unused levels. We then pass the resulting proportions to
+<code><a href="https://teunbrand.github.io/ggh4x/reference/force_panelsizes.html" class="external-link">ggh4x::force_panelsizes()</a></code> via the <code>rows</code>
+argument. This function adjusts the panel heights accordingly, so that
+larger groups occupy more vertical space in the plot. Finally, we reduce
+the spacing between panels using
+<code>theme(panel.spacing = unit(1, "lines"))</code> for a more compact
+appearance.</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## use ggh4x::force_panelsizes to get proportional panels</span></span>
+<span><span class="fu"><a href="../reference/ggseqiplot.html">ggseqiplot</a></span><span class="op">(</span><span class="va">actcal.seq</span>, </span>
+<span>           sortv <span class="op">=</span> <span class="st">"from.end"</span>, </span>
+<span>           group <span class="op">=</span> <span class="va">actcal</span><span class="op">$</span><span class="va">sex</span>,</span>
+<span>           facet_ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">force_panelsizes</span><span class="op">(</span>rows <span class="op">=</span> <span class="va">hghts</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>panel.spacing <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">1</span>, <span class="st">"lines"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="ggseqplot_files/figure-html/unnamed-chunk-10-1.png" width="768"></p>
 </div>
 </div>
 <div class="section level3">
 <h3 id="the-special-case-of-combined-plots">The special case of combined plots<a class="anchor" aria-label="anchor" href="#the-special-case-of-combined-plots"></a>
 </h3>
-<p>Two types of plots differ from the other <a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a>
+<p>Two types of plots differ from the other <a href="https://maraab23.github.io/ggseqplot/" class="external-link"><code>{ggseqplot}</code></a>
 functions because they are composed by two subplots which are arranged
 to a joint figure with the <a href="https://patchwork.data-imaginist.com/index.html" target="_blank" class="external-link"><code>{patchwork}</code></a> library. The output of
 those functions cannot be changed in the same was as for the other
 functions. For details on the <a href="https://patchwork.data-imaginist.com/index.html" target="_blank" class="external-link"><code>{patchwork}</code></a> library we recommend the
 package’s website.</p>
 <div class="section level4">
-<h4 id="example-4-annotation-and-themes">Example 4: Annotation and themes<a class="anchor" aria-label="anchor" href="#example-4-annotation-and-themes"></a>
+<h4 id="example-6-annotation-and-themes">Example 6: Annotation and themes<a class="anchor" aria-label="anchor" href="#example-6-annotation-and-themes"></a>
 </h4>
 <p>Some of the adjustments of a combined <a href="https://patchwork.data-imaginist.com/index.html" target="_blank" class="external-link"><code>{patchwork}</code></a> plot are pretty similar to
 the default <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> procedure. In the example
 below we change the theme and add a title to the plot. Note that the
 corresponding functions are not added by <code>+</code> but with
 <code>&amp;</code> instead.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## compute dissimilarity matrix required for plot</span></span>
 <span><span class="va">diss</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqdist.html" class="external-link">seqdist</a></span><span class="op">(</span><span class="va">biofam.seq</span>, method <span class="op">=</span> <span class="st">"LCS"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [&gt;] 100 sequences with 8 distinct states</span></span>
@@ -544,7 +627,7 @@ corresponding functions are not added by <code>+</code> but with
 <span><span class="co">#&gt;  [&gt;] 76 distinct  sequences</span></span>
 <span><span class="co">#&gt;  [&gt;] min/max sequence lengths: 16/16</span></span>
 <span><span class="co">#&gt;  [&gt;] computing distances using the LCS metric</span></span>
-<span><span class="co">#&gt;  [&gt;] elapsed time: 0.04 secs</span></span>
+<span><span class="co">#&gt;  [&gt;] elapsed time: 0.01 secs</span></span>
 <span></span>
 <span><span class="co">## Relative Frequency Sequence Plot</span></span>
 <span><span class="co">## default version</span></span>
@@ -552,8 +635,8 @@ corresponding functions are not added by <code>+</code> but with
 <span><span class="co">#&gt;  [&gt;] Using k=12 frequency groups with grp.meth='prop'</span></span>
 <span><span class="co">#&gt;  [&gt;] Pseudo/medoid-based-R2: 0.367766</span></span>
 <span><span class="co">#&gt;  [&gt;] Pseudo/medoid-based-F statistic: 5.268049, p-value: 1.655783e-06</span></span></code></pre></div>
-<p><img src="ggseqplot_files/figure-html/unnamed-chunk-8-1.png" width="768"></p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<p><img src="ggseqplot_files/figure-html/unnamed-chunk-11-1.png" width="768"></p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co">## adjusted version</span></span>
 <span><span class="fu"><a href="../reference/ggseqrfplot.html">ggseqrfplot</a></span><span class="op">(</span><span class="va">biofam.seq</span>, diss <span class="op">=</span> <span class="va">diss</span>, k <span class="op">=</span> <span class="fl">12</span><span class="op">)</span> <span class="op">&amp;</span></span>
@@ -565,31 +648,31 @@ corresponding functions are not added by <code>+</code> but with
 <span><span class="co">#&gt;  [&gt;] Using k=12 frequency groups with grp.meth='prop'</span></span>
 <span><span class="co">#&gt;  [&gt;] Pseudo/medoid-based-R2: 0.367766</span></span>
 <span><span class="co">#&gt;  [&gt;] Pseudo/medoid-based-F statistic: 5.268049, p-value: 1.655783e-06</span></span></code></pre></div>
-<p><img src="ggseqplot_files/figure-html/unnamed-chunk-8-2.png" width="768"></p>
+<p><img src="ggseqplot_files/figure-html/unnamed-chunk-11-2.png" width="768"></p>
 <p>If you want to manipulate the appearance of a specific plot, however,
 your default code might not work. If you want to change the labels of
 the index plot, for instance, the following code will <em>not</em>
 produce the desired result, because <code>scale_x_discrete</code> will
 change the appearance of the boxplot, i.e. the last plot used when
 composing the plot with <a href="https://patchwork.data-imaginist.com/index.html" target="_blank" class="external-link"><code>{patchwork}</code></a>.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggseqrfplot.html">ggseqrfplot</a></span><span class="op">(</span><span class="va">biofam.seq</span>, diss <span class="op">=</span> <span class="va">diss</span>, k <span class="op">=</span> <span class="fl">12</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html" class="external-link">scale_x_discrete</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fl">15</span><span class="op">:</span><span class="fl">30</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [&gt;] Using k=12 frequency groups with grp.meth='prop'</span></span>
 <span><span class="co">#&gt;  [&gt;] Pseudo/medoid-based-R2: 0.367766</span></span>
 <span><span class="co">#&gt;  [&gt;] Pseudo/medoid-based-F statistic: 5.268049, p-value: 1.655783e-06</span></span></code></pre></div>
-<p><img src="ggseqplot_files/figure-html/unnamed-chunk-9-1.png" width="768"></p>
+<p><img src="ggseqplot_files/figure-html/unnamed-chunk-12-1.png" width="768"></p>
 <p>The appearance of the subplots, however, can be changed once you save
 the composite plot and then adjust its components.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## save &amp; view original plot</span></span>
 <span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggseqrfplot.html">ggseqrfplot</a></span><span class="op">(</span><span class="va">biofam.seq</span>, diss <span class="op">=</span> <span class="va">diss</span>, k <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [&gt;] Using k=12 frequency groups with grp.meth='prop'</span></span>
 <span><span class="co">#&gt;  [&gt;] Pseudo/medoid-based-R2: 0.367766</span></span>
 <span><span class="co">#&gt;  [&gt;] Pseudo/medoid-based-F statistic: 5.268049, p-value: 1.655783e-06</span></span>
 <span><span class="va">p</span></span></code></pre></div>
-<p><img src="ggseqplot_files/figure-html/unnamed-chunk-10-1.png" width="768"></p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<p><img src="ggseqplot_files/figure-html/unnamed-chunk-13-1.png" width="768"></p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co">## change appearance of sub-plots</span></span>
 <span></span>
@@ -604,10 +687,10 @@ the composite plot and then adjust its components.</p>
 <span></span>
 <span><span class="co">## adjusted plot</span></span>
 <span><span class="va">p</span></span></code></pre></div>
-<p><img src="ggseqplot_files/figure-html/unnamed-chunk-10-2.png" width="768"></p>
+<p><img src="ggseqplot_files/figure-html/unnamed-chunk-13-2.png" width="768"></p>
 </div>
 <div class="section level4">
-<h4 id="example-5-the-complex-case-of-grouped-rplots">Example 5: The complex case of grouped rplots<a class="anchor" aria-label="anchor" href="#example-5-the-complex-case-of-grouped-rplots"></a>
+<h4 id="example-7-the-complex-case-of-grouped-rplots">Example 7: The complex case of grouped rplots<a class="anchor" aria-label="anchor" href="#example-7-the-complex-case-of-grouped-rplots"></a>
 </h4>
 <p>Note that things become a little bit more complex in the case of a
 grouped representative sequence plot. In such a plot each group
@@ -617,7 +700,7 @@ corresponding index plots. If we want to change the x-axis labels of the
 following plot, we have to extract and change the index plots which
 appear in the second row of the combined plot. The plots are arranged by
 row. Hence the index plots are the subplots 3 and 4</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Compute a pairwise dissimilarity matrix</span></span>
 <span><span class="va">diss</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqdist.html" class="external-link">seqdist</a></span><span class="op">(</span><span class="va">actcal.seq</span>, method <span class="op">=</span> <span class="st">"LCS"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [&gt;] 2000 sequences with 4 distinct states</span></span>
@@ -626,7 +709,7 @@ row. Hence the index plots are the subplots 3 and 4</p>
 <span><span class="co">#&gt;  [&gt;] 186 distinct  sequences</span></span>
 <span><span class="co">#&gt;  [&gt;] min/max sequence lengths: 12/12</span></span>
 <span><span class="co">#&gt;  [&gt;] computing distances using the LCS metric</span></span>
-<span><span class="co">#&gt;  [&gt;] elapsed time: 0.34 secs</span></span>
+<span><span class="co">#&gt;  [&gt;] elapsed time: 0.28 secs</span></span>
 <span></span>
 <span><span class="co">## original plot</span></span>
 <span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggseqrplot.html">ggseqrplot</a></span><span class="op">(</span><span class="va">actcal.seq</span>, </span>
@@ -644,8 +727,8 @@ row. Hence the index plots are the subplots 3 and 4</p>
 <span><span class="co">#&gt;  [&gt;] 3 representative(s) selected</span></span>
 <span><span class="co">#&gt;  [&gt;] 144 distinct sequence(s)</span></span>
 <span><span class="va">p</span></span></code></pre></div>
-<p><img src="ggseqplot_files/figure-html/unnamed-chunk-11-1.png" width="768"></p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<p><img src="ggseqplot_files/figure-html/unnamed-chunk-14-1.png" width="768"></p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co">## adjusted sequence index subplots</span></span>
 <span><span class="va">p</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">p</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span> <span class="op">+</span></span>
@@ -659,10 +742,10 @@ row. Hence the index plots are the subplots 3 and 4</p>
 <span><span class="co">#&gt; Adding another scale for <span style="color: #00BB00;">x</span>, which will replace the existing scale.</span></span>
 <span></span>
 <span><span class="va">p</span></span></code></pre></div>
-<p><img src="ggseqplot_files/figure-html/unnamed-chunk-11-2.png" width="768"></p>
+<p><img src="ggseqplot_files/figure-html/unnamed-chunk-14-2.png" width="768"></p>
 </div>
 <div class="section level4">
-<h4 id="example-6-what-about-grouped-rfplots">Example 6: What about grouped rfplots?<a class="anchor" aria-label="anchor" href="#example-6-what-about-grouped-rfplots"></a>
+<h4 id="example-8-what-about-grouped-rfplots">Example 8: What about grouped rfplots?<a class="anchor" aria-label="anchor" href="#example-8-what-about-grouped-rfplots"></a>
 </h4>
 <p>Grouped rfplots are currently not implemented for
 <code>ggseqrfplot</code> and have to be created manually using the <a href="https://patchwork.data-imaginist.com/index.html" target="_blank" class="external-link"><code>{patchwork}</code></a> library.</p>
@@ -690,7 +773,7 @@ that alignment no longer works.<a class="footnote-ref" tabindex="0" data-bs-togg
 <p>For this reason the group-specific titles were not added with
 <code><a href="https://patchwork.data-imaginist.com/reference/plot_annotation.html" class="external-link">patchwork::plot_annotation</a></code> or <code><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggplot2::ggtitle</a></code>
 and we reverted to the use of tags instead.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">diss</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqdist.html" class="external-link">seqdist</a></span><span class="op">(</span><span class="va">biofam.seq</span>, method <span class="op">=</span> <span class="st">"LCS"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [&gt;] 100 sequences with 8 distinct states</span></span>
@@ -724,12 +807,12 @@ and we reverted to the use of tags instead.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span></span>
 <span></span>
 <span><span class="op">(</span><span class="va">p</span><span class="op">$</span><span class="va">man</span> <span class="op">&amp;</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="va">p</span><span class="op">$</span><span class="va">woman</span></span></code></pre></div>
-<p><img src="ggseqplot_files/figure-html/unnamed-chunk-12-1.png" width="768"></p>
+<p><img src="ggseqplot_files/figure-html/unnamed-chunk-15-1.png" width="768"></p>
 <hr>
 </div>
 </div>
 </div>
-<div class="section level2 unnumbered">
+<div class="section level2">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
 <div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
@@ -775,7 +858,7 @@ Wickham, H. (2016). <em>ggplot2: Elegant graphics for data analysis</em>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by <a href="https://marcelraab.de" class="external-link">Marcel Raab</a>.</p>
+  <p>Developed by Marcel Raab.</p>
 </div>
 
 <div class="pkgdown-footer-right">
