@@ -14,18 +14,21 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/Roboto-0.4.9/font.css" rel="stylesheet">
+<link href="deps/Fira_Code-0.4.9/font.css" rel="stylesheet">
+<link href="deps/Roboto_Condensed-0.4.9/font.css" rel="stylesheet">
+<link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Render Sequence Plots using ggplot2">
 <meta name="description" content="A set of wrapper functions that mainly re-produces most of the sequence plots rendered with TraMineR::seqplot(). Whereas TraMineR uses base R to produce the plots this library draws on ggplot2. The plots are produced on the basis of a sequence object defined with TraMineR::seqdef(). The package automates the reshaping and plotting of sequence data. Resulting plots are of class ggplot, i.e. components can be added and tweaked using + and regular ggplot2 functions.">
 <meta property="og:description" content="A set of wrapper functions that mainly re-produces most of the sequence plots rendered with TraMineR::seqplot(). Whereas TraMineR uses base R to produce the plots this library draws on ggplot2. The plots are produced on the basis of a sequence object defined with TraMineR::seqdef(). The package automates the reshaping and plotting of sequence data. Resulting plots are of class ggplot, i.e. components can be added and tweaked using + and regular ggplot2 functions.">
-<meta property="og:image" content="/logo.png">
+<meta property="og:image" content="https://maraab23.github.io/ggseqplot/logo.png">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="dark" aria-label="Site navigation"><div class="container">
 
     <a class="navbar-brand me-2" href="index.html">ggseqplot</a>
 
@@ -61,9 +64,9 @@
 </div>
 <!-- badges: start -->
 
-<p>The main goal of <a href="https://maraab23.github.io/ggseqplot/" class="external-link"><code>{ggseqplot}</code></a> is to provide functions that reproduce the sequence plots from <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a>’s <code>seqplot</code> using <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a>. These plots are produced on the basis of state sequence objects defined with <code><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">TraMineR::seqdef</a></code>. The package automates the reshaping and plotting of sequence data. This library literally builds on the excellent work of the <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a> and <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> developers and uses several of the their functions to produce ggplot2-flavored figures.</p>
+<p>The main goal of <a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a> is to provide functions that reproduce the sequence plots from <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a>’s <code>seqplot</code> using <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a>. These plots are produced on the basis of state sequence objects defined with <code><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">TraMineR::seqdef</a></code>. The package automates the reshaping and plotting of sequence data. This library literally builds on the excellent work of the <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a> and <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> developers and uses several of the their functions to produce ggplot2-flavored figures.</p>
 <p>Note, that this library was not written because I personally dislike the plots produced by <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a>, but rather because I am normally using <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> instead of base R’s <code>plot</code> environment for visualizing data. <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a> was developed before <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> was as popular as it is today and back then many users were more familiar with coding base R plots. To date, however, many researchers and students are more accustomed to using <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> and prefer to draw on the related skills and experiences instead of learning how to refine base R plots just for the single purpose of visualizing sequence data.</p>
-<p><a href="https://maraab23.github.io/ggseqplot/" class="external-link"><code>{ggseqplot}</code></a> contains the following functions:</p>
+<p><a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a> contains the following functions:</p>
 <ul>
 <li>
 <code>ggseqdplot</code> (equivalent to <code><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">TraMineR::seqdplot</a></code>)</li>
@@ -85,11 +88,11 @@
 <code>ggseqrfplot</code> (equivalent to <code><a href="https://rdrr.io/pkg/TraMineRextras/man/seqplot-rf.html" class="external-link">TraMineRextras::seqplot.rf</a></code>)</li>
 </ul>
 <p>If you have change requests or find errors, <a href="https://github.com/maraab23/ggseqplot/issues/new" class="external-link">create an issue</a> on github or send me an <a href="mailto:marcel.raab@ifb.uni-bamberg.de?subject=ggseqplot%3A%20feature%20request">email</a>.</p>
-<p>A complementing <a href="https://maraab23.github.io/ggseqplot/articles/ggseqplot.html" class="external-link">vignette</a> outlines how <a href="https://maraab23.github.io/ggseqplot/" class="external-link"><code>{ggseqplot}</code></a> reshapes sequence data generated with <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a> functions to visualize them using <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a>. Moreover, it illustrates how to adjust the baseline output using familiar <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> functions (and add-ons).</p>
+<p>A complementing <a href="https://maraab23.github.io/ggseqplot/articles/ggseqplot.html">vignette</a> outlines how <a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a> reshapes sequence data generated with <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a> functions to visualize them using <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a>. Moreover, it illustrates how to adjust the baseline output using familiar <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> functions (and add-ons).</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the CRAN version of <a href="https://maraab23.github.io/ggseqplot/" class="external-link"><code>{ggseqplot}</code></a> by typing:</p>
+<p>You can install the CRAN version of <a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a> by typing:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"ggseqplot"</span><span class="op">)</span></span></code></pre></div>
 <p>The development version can be installed with:</p>
@@ -130,7 +133,8 @@
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Marcel Raab <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-3097-1591" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>
+<a href="https://marcelraab.de" class="external-link">Marcel Raab</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-3097-1591" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 </ul>
 </div>
 
@@ -150,7 +154,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Marcel Raab.</p>
+  <p>Developed by <a href="https://marcelraab.de" class="external-link">Marcel Raab</a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

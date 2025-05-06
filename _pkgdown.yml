@@ -1,6 +1,31 @@
 url: https://maraab23.github.io/ggseqplot/
+
+authors:
+  Marcel Raab:
+    href: https://marcelraab.de
+
 template:
   bootstrap: 5
+  bootswatch: flatly
+  bslib:
+    base_font: {google: "Roboto"}
+    heading_font: {google: "Roboto Condensed"}
+    code_font: {google: "Fira Code"}
   params:
     toc: true
+
+reference:
+- title: Summarization graphs
+- contents:
+  - ggseqdplot
+  - ggseqeplot
+  - ggseqmsplot
+  - ggseqmtplot
+  - ggseqtrplot
+- title: Representation graphs
+- contents:
+  - ggseqiplot
+  - ggseqfplot
+  - ggseqrplot
+  - ggseqrfplot
 
