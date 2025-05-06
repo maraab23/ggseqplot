@@ -76,7 +76,7 @@ dimensions of information stored in sequence data <span class="citation">(Brzins
 transition plots, Kaplan-Meier curves, modal state plots, mean time
 plots, state distribution plots, and entropy plots <span class="citation">(Fasang &amp; Liao, 2014; Raab &amp; Struffolino,
 2022)</span>.</p>
-<p><a href="https://maraab23.github.io/ggseqplot/" class="external-link"><code>{ggseqplot}</code></a>
+<p><a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a>
 includes five types of summarization plots:</p>
 <ul>
 <li>State distribution plots (<code>ggseqdplot</code>)</li>
@@ -92,7 +92,7 @@ approach becomes impractical with large datasets due to
 overplotting—individual sequences may overlap, making the visualization
 misleading. To address this, alternative representations that display
 only a subset of sequences have been proposed.</p>
-<p><a href="https://maraab23.github.io/ggseqplot/" class="external-link"><code>{ggseqplot}</code></a>
+<p><a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a>
 supports both full and subset-based representation plots, offering the
 following plot types:</p>
 <ul>
@@ -108,8 +108,8 @@ Brzinsky-Fay <span class="citation">(2014)</span>, Fasang and Liao <span class="
 above can also be produced with <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a>. In fact, <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a> typically offers more
 customization options—but only through base R’s plotting system. If you
 are comfortable using base R graphics, there may be little reason to
-switch to <a href="https://maraab23.github.io/ggseqplot/" class="external-link"><code>{ggseqplot}</code></a>.</p>
-<p>However, <a href="https://maraab23.github.io/ggseqplot/" class="external-link"><code>{ggseqplot}</code></a>
+switch to <a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a>.</p>
+<p>However, <a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a>
 was developed precisely because many R users today prefer <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> to base R’s <code>plot</code>
 environment for visualizing data. <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a> <span class="citation">(Gabadinho et al., 2011)</span> was developed before <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> <span class="citation">(Wickham, 2016)</span> was as popular as it is today
 and back then many users were more familiar with coding base R plots.
@@ -118,11 +118,11 @@ existing skills instead of learning how to refine base R plots just for
 sequence visualizations.</p>
 <p>This vignette demonstrates how sequence objects created via
 <code><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">TraMineR::seqdef</a></code> are reshaped to plot them as ggplot2-typed
-figures using <a href="https://maraab23.github.io/ggseqplot/" class="external-link"><code>{ggseqplot}</code></a>.</p>
+figures using <a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a>.</p>
 <p>It outlines which functions from <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a> and the <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> universe are involved in
 generating the visualizations.</p>
 <p>The vignette further illustrates how the appearance of plots produced
-with <a href="https://maraab23.github.io/ggseqplot/" class="external-link"><code>{ggseqplot}</code></a>
+with <a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a>
 can be customized using <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> functions and extensions.</p>
 <div class="section level4">
 <h4 id="setup-example">Setup example<a class="anchor" aria-label="anchor" href="#setup-example"></a>
@@ -160,7 +160,7 @@ packages</strong>
 <span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">pkgs</span>, <span class="va">library</span>, character.only <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## Don't forget to load ggseqplot</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://maraab23.github.io/ggseqplot/" class="external-link">ggseqplot</a></span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://maraab23.github.io/ggseqplot/">ggseqplot</a></span><span class="op">)</span></span></code></pre></div>
 </details><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span></span>
@@ -197,13 +197,13 @@ packages</strong>
 <div class="section level2">
 <h2 id="technicalities">Technicalities<a class="anchor" aria-label="anchor" href="#technicalities"></a>
 </h2>
-<p>All functions in <a href="https://maraab23.github.io/ggseqplot/" class="external-link"><code>{ggseqplot}</code></a>
+<p>All functions in <a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a>
 follow a similar structure: they take a state sequence object—created
 with <code><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">TraMineR::seqdef</a></code>—as their starting point. The
 functions either operate directly on the sequence data or use other <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a> functions, such as
 <code><a href="https://rdrr.io/pkg/TraMineR/man/seqstatd.html" class="external-link">TraMineR::seqstatd</a></code>, to derive the information to be
 visualized.</p>
-<p>Internally, <a href="https://maraab23.github.io/ggseqplot/" class="external-link"><code>{ggseqplot}</code></a>
+<p>Internally, <a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a>
 reshapes the data into a tidy (long) format before plotting them with <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> functions. This reshaping
 step is typically necessary for creating layered and faceted graphics in
 the grammar of graphics framework.</p>
@@ -255,13 +255,13 @@ the data as its first element (named <code>data</code>).</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 1     &gt; 37 hours sep00 9     0.418 Rel. Freq. (n=2000)</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 1     &gt; 37 hours oct00 10    0.418 Rel. Freq. (n=2000)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 38 more rows</span></span></span></code></pre></div>
-<p>Once the data are in the correct shape, <a href="https://maraab23.github.io/ggseqplot/" class="external-link"><code>{ggseqplot}</code></a>
+<p>Once the data are in the correct shape, <a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a>
 uses standard <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> functions to create the
 visualizations. In the case of state distribution plots, for instance,
 <code>ggseqdplot</code> renders stacked bar charts for each sequence
 position using <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">ggplot2::geom_bar</a></code>.</p>
 <p>The following table summarizes the core internal function calls for
-the various plot types available in <a href="https://maraab23.github.io/ggseqplot/" class="external-link"><code>{ggseqplot}</code></a>:</p>
+the various plot types available in <a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a>:</p>
 <table class="table">
 <colgroup>
 <col width="20%">
@@ -329,7 +329,7 @@ labels)<br><a href="https://patchwork.data-imaginist.com/index.html" target="_bl
 </tr>
 </tbody>
 </table>
-<p>Most plots created with <a href="https://maraab23.github.io/ggseqplot/" class="external-link"><code>{ggseqplot}</code></a>
+<p>Most plots created with <a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a>
 behave like regular ggplots. You can customize them by adding themes,
 adjusting scales, or using other standard <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> syntax via
 <code>+</code>.</p>
@@ -345,7 +345,7 @@ section illustrates how the appearance of the plots can be changed.
 <div class="section level3">
 <h3 id="the-default-case">The default case<a class="anchor" aria-label="anchor" href="#the-default-case"></a>
 </h3>
-<p>As mentioned above, most plots rendered by <a href="https://maraab23.github.io/ggseqplot/" class="external-link"><code>{ggseqplot}</code></a>
+<p>As mentioned above, most plots rendered by <a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a>
 are of class <code>c("gg", "ggplot")</code> and can be customized just
 like any other plot created with <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a></p>
 <div class="section level4">
@@ -359,7 +359,7 @@ settings.</p>
 <p><img src="ggseqplot_files/figure-html/dplot1-1.png" width="768"></p>
 <p>Next, we demonstrate how to refine the plot using a variety of <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> functions and extensions. As
 with any other <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> plot, the appearance of plots
-generated with <a href="https://maraab23.github.io/ggseqplot/" class="external-link"><code>{ggseqplot}</code></a>
+generated with <a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a>
 functions can be extensively customized:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggseqdplot.html">ggseqdplot</a></span><span class="op">(</span><span class="va">actcal.seq</span><span class="op">)</span> <span class="op">+</span></span>
@@ -472,7 +472,7 @@ selection of sequences (typically no more than 10), and
 <code><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">TraMineR::seqIplot</a></code> for plotting the full set of sequences.
 The former adds white space between the displayed sequences, making it
 well suited for illustrative purposes—for example, when showcasing a few
-hand-picked sequences in publications or teaching materials. While <a href="https://maraab23.github.io/ggseqplot/" class="external-link"><code>{ggseqplot}</code></a>
+hand-picked sequences in publications or teaching materials. While <a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a>
 does not provide built-in spacing between sequences, a similar effect
 can be achieved with a small trick: by assigning each sequence to its
 own group via the group argument, <code>ggseqiplot</code> uses
@@ -511,7 +511,7 @@ sequences is slightly reduced by adjusting vertical panel spacing
 <div class="section level4">
 <h4 id="example-4-flipping-coordinates">Example 4: Flipping coordinates<a class="anchor" aria-label="anchor" href="#example-4-flipping-coordinates"></a>
 </h4>
-<p>Another way to adjust the appearance of plots rendered by <a href="https://maraab23.github.io/ggseqplot/" class="external-link"><code>{ggseqplot}</code></a>
+<p>Another way to adjust the appearance of plots rendered by <a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a>
 is to flip their coordinates—an approach commonly used in the <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> ecosystem.</p>
 <p>In the example below, we illustrate coordinate flipping for both a
 mean time plot and a sequence index plot. For each plot type, we show
@@ -593,7 +593,7 @@ appearance.</p>
 <div class="section level3">
 <h3 id="the-special-case-of-combined-plots">The special case of combined plots<a class="anchor" aria-label="anchor" href="#the-special-case-of-combined-plots"></a>
 </h3>
-<p>Two types of plots differ from the standard behavior of <a href="https://maraab23.github.io/ggseqplot/" class="external-link"><code>{ggseqplot}</code></a>
+<p>Two types of plots differ from the standard behavior of <a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a>
 functions: they are composed by two subplots, which are arranged into a
 single figure using the <a href="https://patchwork.data-imaginist.com/index.html" target="_blank" class="external-link"><code>{patchwork}</code></a> library. Because of this
 composition, their appearance cannot be adjusted in exactly the same way
