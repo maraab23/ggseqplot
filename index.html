@@ -63,8 +63,9 @@
 </div>
 <!-- badges: start -->
 
+<!-- badges: end -->
 <p>The main goal of <a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a> is to provide functions that reproduce the sequence plots from <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a>’s <code>seqplot</code> using <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a>. These plots are produced on the basis of state sequence objects defined with <code><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">TraMineR::seqdef</a></code>. The package automates the reshaping and plotting of sequence data. This library literally builds on the excellent work of the <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a> and <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> developers and uses several of the their functions to produce ggplot2-flavored figures.</p>
-<p>Note, that this library was not written because I personally dislike the plots produced by <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a>, but rather because I am normally using <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> instead of base R’s <code>plot</code> environment for visualizing data. <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a> was developed before <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> was as popular as it is today and back then many users were more familiar with coding base R plots. To date, however, many researchers and students are more accustomed to using <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> and prefer to draw on the related skills and experiences instead of learning how to refine base R plots just for the single purpose of visualizing sequence data.</p>
+<p>Note, that this library was not written because I personally dislike the plots produced by <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a>, but rather because I normally use <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> instead of base R’s <code>plot</code> environment for data visualization. <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a> was developed before <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> became as popular as it is today, when most users were more familiar with base R plots. Today, however, many researchers and students prefer to use <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> and draw on their existing skills rather than learn base R graphics just to visualize sequence data.</p>
 <p><a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a> contains the following functions:</p>
 <ul>
 <li>
@@ -76,7 +77,7 @@
 <li>
 <code>ggseqmtplot</code> (equivalent to <code><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">TraMineR::seqmtplot</a></code>)</li>
 <li>
-<code>ggstrqeplot</code> (based on transitions rates computed with <code><a href="https://rdrr.io/pkg/TraMineR/man/seqtrate.html" class="external-link">TraMineR::seqtrate</a></code>)</li>
+<code>ggstrqeplot</code> (based on transitions rates from <code><a href="https://rdrr.io/pkg/TraMineR/man/seqtrate.html" class="external-link">TraMineR::seqtrate</a></code>)</li>
 <li>
 <code>ggseqiplot</code> (equivalent to <code><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">TraMineR::seqIplot</a></code>)</li>
 <li>
@@ -86,22 +87,33 @@
 <li>
 <code>ggseqrfplot</code> (equivalent to <code>TraMineRextras::seqplot.rf</code>)</li>
 </ul>
-<p>If you have change requests or find errors, <a href="https://github.com/maraab23/ggseqplot/issues/new" class="external-link">create an issue</a> on github or send me an <a href="mailto:marcel.raab@ifb.uni-bamberg.de?subject=ggseqplot%3A%20feature%20request">email</a>.</p>
-<p>A complementing <a href="https://maraab23.github.io/ggseqplot/articles/ggseqplot.html">vignette</a> outlines how <a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a> reshapes sequence data generated with <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a> functions to visualize them using <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a>. Moreover, it illustrates how to adjust the baseline output using familiar <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> functions (and add-ons).</p>
+<p>A complementing <a href="https://maraab23.github.io/ggseqplot/articles/ggseqplot.html">vignette</a> outlines how <a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a> reshapes sequence data generated with <a href="http://traminer.unige.ch" target="_blank" class="external-link"><code>{TraMineR}</code></a> functions for visualization with <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a>. It also shows how to customize the plots using familiar <a href="https://ggplot2.tidyverse.org/" target="_blank" class="external-link"><code>{ggplot2}</code></a> functions and extensions.</p>
+<p>If you find errors or have feature requests, feel free to <a href="https://github.com/maraab23/ggseqplot/issues/new" class="external-link">create an issue</a> on GitHub or send me an <a href="mailto:marcel.raab@ifb.uni-bamberg.de?subject=ggseqplot%3A%20feature%20request">email</a>.</p>
+<div class="section level2">
+<h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
+</h2>
+<p>If you use <a href="https://cran.r-project.org/package=ggseqplot" class="external-link"><code>{ggseqplot}</code></a> in your work, please cite it as:</p>
+<blockquote>
+<p>Raab, M. (2022). <em>ggseqplot: Render Sequence Plots using ‘ggplot2’</em>. <a href="https://doi.org/10.32614/CRAN.package.ggseqplot" class="external-link uri">https://doi.org/10.32614/CRAN.package.ggseqplot</a></p>
+</blockquote>
+<p>You can also retrieve the citation in R with:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"ggseqplot"</span><span class="op">)</span></span></code></pre></div>
+</div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the CRAN version of <a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a> by typing:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"ggseqplot"</span><span class="op">)</span></span></code></pre></div>
-<p>The development version can be installed with:</p>
+<p>You can install the CRAN version of <a href="https://maraab23.github.io/ggseqplot/"><code>{ggseqplot}</code></a> with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"ggseqplot"</span><span class="op">)</span></span></code></pre></div>
+<p>If a more recent version is available, you can install the development version from GitHub with:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"maraab23/ggseqplot"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="acknowledgements">Acknowledgements<a class="anchor" aria-label="anchor" href="#acknowledgements"></a>
 </h2>
-<p>I would like to thank Gilbert Ritschard, Tim Liao, and Emanuela Struffolino for their comments on earlier versions of this library.</p>
+<p>I would like to thank Gilbert Ritschard, Tim Liao, and Emanuela Struffolino for their helpful comments on earlier versions of this library.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
@@ -144,7 +156,8 @@
 <li><a href="https://github.com/maraab23/ggseqplot/actions" class="external-link"><img src="https://github.com/maraab23/ggseqplot/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://app.codecov.io/gh/maraab23/ggseqplot?branch=main" class="external-link"><img src="https://codecov.io/gh/maraab23/ggseqplot/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
 <li><a href="https://cranlogs.r-pkg.org/badges/grand-total/ggseqplot" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/grand-total/ggseqplot" alt="CRAN Downloads"></a></li>
-<li><a href="https://app.codecov.io/gh/maraab23/ggseqplot" class="external-link"><img src="https://codecov.io/gh/maraab23/ggseqplot/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://maraab23.github.io/ggseqplot/"><img src="https://img.shields.io/badge/docs-pkgdown-blue.svg" alt="pkgdown"></a></li>
+<li><a href="https://cran.r-project.org/web/licenses/GPL-3" class="external-link"><img src="https://img.shields.io/badge/license-GPL--3-blue.svg" alt="License: GPL-3"></a></li>
 </ul>
 </div>
 
