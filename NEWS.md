@@ -1,3 +1,7 @@
+# ggseqplot 0.8.7
+
+* fixed `default_aes` issue in anticipation of upcoming `{ggplot2}` ggplot2 u (#7, thanks to @teunbrand)
+
 # ggseqplot 0.8.6
 
 * fixed ggseqmtplot error if alphabet is numeric (raised and solved by Gilbert Ritschard)
