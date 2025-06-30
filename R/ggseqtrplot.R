@@ -85,7 +85,7 @@ ggseqtrplot <- function(seqdata,
 
   if (is.null(attributes(seqdata)$weights)) weighted <- FALSE
 
-  if (is.null(labsize)) labsize <- GeomLabel$default_aes$size
+  if (is.null(labsize)) labsize <- 11 / .pt
 
   if (!is.null(labsize) & (length(labsize) > 1 | !is.numeric(labsize))) {
     stop("labsize must be a single number")
