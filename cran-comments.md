@@ -1,9 +1,8 @@
-# Resubmission note for release 0.8.6
+# Resubmission note for release 0.8.7
 
-## Changes since release 0.8.5
+## Changes since release 0.8.6
 
-- minor fix for error in ggseqmtplot which occurred if alphabet was numeric 
-- revised and extended vignette 
+- minor fix of `default_aes` issue in `ggseqtrplot` required due to upcoming `{ggplot2}` release 
 
 
 ## local R CMD check results
