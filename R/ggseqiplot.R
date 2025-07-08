@@ -98,7 +98,6 @@
 #' ggseqiplot(ex1.seq, weighted = FALSE, border = TRUE)
 #'
 #' @import ggplot2
-#' @importFrom Rdpack reprompt
 #' @importFrom rlang .data
 ggseqiplot <- function(seqdata,
                        no.n = FALSE,
