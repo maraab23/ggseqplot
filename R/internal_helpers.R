@@ -25,9 +25,9 @@ xandgrouplab <- function(seqdata, weighted, no.n, group, grinorder, ylabprefix) 
   ) |>
     unlist()
 
-  if (length(ylabspec) == 1 & weighted == TRUE) {
+  if (length(ylabspec) == 1 && weighted == TRUE) {
     ylabspec <- glue::glue("{ylabprefix} (weighted n={round(ylabspec,2)})")
-  } else if (length(ylabspec) == 1 & weighted == FALSE) {
+  } else if (length(ylabspec) == 1 && weighted == FALSE) {
     ylabspec <- glue::glue("{ylabprefix} (n={ylabspec})")
   } else if (weighted == TRUE) {
     ylabspec <- glue::glue("{grinorder} (weighted n={round(ylabspec,2)})")

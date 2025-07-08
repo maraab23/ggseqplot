@@ -84,13 +84,13 @@ ggseqfplot <- function(seqdata,
     stop("data are not stored as sequence object, use 'TraMineR::seqdef' to create one")
   }
 
-  if (!is.null(group) & (length(group) != nrow(seqdata))) {
+  if (!is.null(group) && (length(group) != nrow(seqdata))) {
     stop("length of group vector must match number of rows of seqdata")
   }
 
-  if (is.null(border)) border <- FALSE
+  border <- border %||% FALSE
 
-  if (!is.logical(weighted) | !is.logical(proportional) |
+  if (!is.logical(weighted) || !is.logical(proportional) ||
       !is.logical(border)) {
     stop("the arguments `weighted`, `proportional`, and `border` have to be
          objects of type logical")
@@ -98,7 +98,7 @@ ggseqfplot <- function(seqdata,
 
   if (is.null(attributes(seqdata)$weights)) weighted <- FALSE
 
-  if ("haven_labelled" %in% class(group)) {
+  if (inherits(group, "haven_labelled")) {
     group_name <- deparse(substitute(group))
     group <- haven::as_factor(group)
     cli::cli_warn(c("i" = "group vector {.arg {group_name}} is of class {.cls haven_labelled} and has been converted into a factor"))
@@ -112,7 +112,7 @@ ggseqfplot <- function(seqdata,
   }
   if (is.null(group)) grinorder <- factor(1)
 
-  if (is.null(group)) group <- 1
+  group <- group %||% 1
 
   if (!is.null(facet_ncol) && as.integer(facet_ncol) != facet_ncol) {
     stop("`facet_ncol` must be NULL or an integer.")
@@ -212,13 +212,13 @@ ggseqfplot <- function(seqdata,
     )
   }
 
-  if (length(unique(group)) == 1 & ylabs == "share") {
+  if (length(unique(group)) == 1 && ylabs == "share") {
     ggfplot <- ggfplot +
       labs(caption = paste0("total coverage = ", ylb[[1]]$totalcov,"%"))
   }
 
 
-  if (length(unique(group)) == 1 & no.coverage == TRUE) {
+  if (length(unique(group)) == 1 && no.coverage == TRUE) {
     ggfplot <- ggfplot + labs(caption = NULL)
   }
 

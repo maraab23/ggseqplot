@@ -83,20 +83,20 @@ ggseqmtplot <- function(seqdata,
     stop("data are not stored as sequence object, use 'TraMineR::seqdef' to create one")
   }
 
-  if (!is.null(group) & (length(group) != nrow(seqdata))) {
+  if (!is.null(group) && (length(group) != nrow(seqdata))) {
     stop("length of group vector must match number of rows of seqdata")
   }
 
-  if (is.null(border)) border <- FALSE
+  border <- border %||% FALSE
 
-  if (!is.logical(weighted) | !is.logical(with.missing) |
-      !is.logical(border) | !is.logical(no.n)) {
+  if (!is.logical(weighted) || !is.logical(with.missing) ||
+      !is.logical(border) || !is.logical(no.n)) {
     stop("the arguments `no.n`, `weighted`, `with.missing`, and `border` have to be objects of type logical")
   }
 
   if (is.null(attributes(seqdata)$weights)) weighted <- FALSE
 
-  if (is.null(group)) group <- 1
+  group <- group %||% 1
 
   if (!is.null(facet_ncol) && as.integer(facet_ncol) != facet_ncol) {
     stop("`facet_ncol` must be NULL or an integer.")
@@ -106,7 +106,7 @@ ggseqmtplot <- function(seqdata,
     stop("`facet_nrow` must be NULL or an integer.")
   }
 
-  if ("haven_labelled" %in% class(group)) {
+  if (inherits(group, "haven_labelled")) {
     group_name <- deparse(substitute(group))
     group <- haven::as_factor(group)
     cli::cli_warn(c("i" = "group vector {.arg {group_name}} is of class {.cls haven_labelled} and has been converted into a factor"))
@@ -167,7 +167,7 @@ ggseqmtplot <- function(seqdata,
     geom_bar(aes(y = .data$Mean), stat="identity",
              color = ifelse(border == TRUE, "black",
                             "transparent"),
-             show.legend = T) +
+             show.legend = TRUE) +
     scale_y_continuous(expand = expansion(add = 0)) +
     scale_fill_manual(drop = FALSE,
                       values = cpal) +
@@ -198,7 +198,7 @@ ggseqmtplot <- function(seqdata,
     "errors", "deviations")}'
     )
 
-    if (error.caption == TRUE & !is.null(error.bar)) {
+    if (error.caption == TRUE && !is.null(error.bar)) {
       ggmtplot <- ggmtplot +
         labs(caption = captext)
     }

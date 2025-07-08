@@ -74,22 +74,22 @@ ggseqeplot <- function(seqdata,
   }
 
 
-  if (!is.null(group) & (length(group) != nrow(seqdata))) {
+  if (!is.null(group) && (length(group) != nrow(seqdata))) {
     stop("length of group vector must match number of rows of seqdata")
   }
 
 
-  if (!is.logical(weighted) | !is.logical(with.missing)) {
+  if (!is.logical(weighted) || !is.logical(with.missing)) {
     stop("the arguments `weighted`, and `with.missing` have to be objects of type logical")
   }
 
   if (is.null(attributes(seqdata)$weights)) weighted <- FALSE
 
-  if (is.null(group)) group <- 1
+  group <- group %||% 1
 
   grsize <- length(unique(group))
 
-  if ("haven_labelled" %in% class(group)) {
+  if (inherits(group, "haven_labelled")) {
     group_name <- deparse(substitute(group))
     group <- haven::as_factor(group)
     cli::cli_warn(c("i" = "group vector {.arg {group_name}} is of class {.cls haven_labelled} and has been converted into a factor"))

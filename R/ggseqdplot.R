@@ -114,7 +114,7 @@ ggseqdplot <- function(seqdata,
     stop("data are not stored as sequence object, use 'TraMineR::seqdef' to create one")
   }
 
-  if (!is.null(dissect) & with.entropy == TRUE) {
+  if (!is.null(dissect) && with.entropy == TRUE) {
     cli::cli_warn(c(
       "!" = "You tried to render a disaggregated dplot using `dissect`, while also setting `with.entropy` to `TRUE`",
       "i" = "As the state-specific distrubution plots would repeatedly show the same entropy line, `with.entropy = TRUE` is ignored."
@@ -122,21 +122,21 @@ ggseqdplot <- function(seqdata,
     with.entropy <- FALSE
   }
 
-  if (!is.null(group) & (length(group) != nrow(seqdata))) {
+  if (!is.null(group) && (length(group) != nrow(seqdata))) {
     stop("length of group vector must match number of rows of seqdata")
   }
 
-  if (is.null(border)) border <- FALSE
+  border <- border %||% FALSE
 
-  if (!is.logical(weighted) | !is.logical(with.missing) |
-      !is.logical(border) | !is.logical(no.n)) {
+  if (!is.logical(weighted) || !is.logical(with.missing) ||
+      !is.logical(border) || !is.logical(no.n)) {
     stop("the arguments `no.n`, `weighted`, `with.missing`, and `border` have to be objects of type logical")
   }
 
   if (is.null(attributes(seqdata)$weights)) weighted <- FALSE
 
 
-  if (is.null(group)) group <- 1
+  group <- group %||% 1
 
   if (!is.null(facet_ncol) && as.integer(facet_ncol) != facet_ncol) {
     stop("`facet_ncol` must be NULL or an integer.")
@@ -146,7 +146,7 @@ ggseqdplot <- function(seqdata,
     stop("`facet_nrow` must be NULL or an integer.")
   }
 
-  if ("haven_labelled" %in% class(group)) {
+  if (inherits(group, "haven_labelled")) {
     group_name <- deparse(substitute(group))
     group <- haven::as_factor(group)
     cli::cli_warn(c("i" = "group vector {.arg {group_name}} is of class {.cls haven_labelled} and has been converted into a factor"))
@@ -235,7 +235,7 @@ ggseqdplot <- function(seqdata,
   }
 
 
-  if ("Missing" %in% dplotdata$state == TRUE) {
+  if ("Missing" %in% dplotdata$state) {
     cpal <- c(
       attributes(seqdata)$cpal,
       attributes(seqdata)$missing.color
@@ -286,7 +286,7 @@ ggseqdplot <- function(seqdata,
       geom_bar(
         stat = "identity",
         width = 1, color = "black",
-        show.legend = T
+        show.legend = TRUE
       )
   }
 
@@ -336,7 +336,7 @@ ggseqdplot <- function(seqdata,
   }
 
 
-  if (grsize == 1 & !is.null(dissect)) {
+  if (grsize == 1 && !is.null(dissect)) {
     suppressMessages(
       ggdplot <- ggdplot +
         {if(dissect == "row")facet_wrap(~rev(.data$state), nrow = 1)} +
@@ -351,7 +351,7 @@ ggseqdplot <- function(seqdata,
   }
 
 
-  if (grsize > 1 & !is.null(dissect)) {
+  if (grsize > 1 && !is.null(dissect)) {
     suppressMessages(
       ggdplot <- ggdplot +
         {if(dissect == "row")facet_grid(vars(.data$grouplab), vars(rev(.data$state)), switch = "y")} +

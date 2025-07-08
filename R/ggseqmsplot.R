@@ -52,7 +52,7 @@
 #' # with ggseqplot and some layout changes
 #' ggseqmsplot(actcal.seq, group = actcal$sex, no.n = TRUE, border = FALSE, facet_nrow = 2)
 #'
-#' @importFrom rlang .data
+#' @importFrom rlang .data %||%
 ggseqmsplot <- function(seqdata,
                         no.n = FALSE,
                         barwidth = NULL,
@@ -66,21 +66,21 @@ ggseqmsplot <- function(seqdata,
     stop("data is not a sequence object, use 'TraMineR::seqdef' to create one")
   }
 
-  if (!is.null(group) & (length(group) != nrow(seqdata))) {
+  if (!is.null(group) && (length(group) != nrow(seqdata))) {
     stop("length of group vector must match number of rows of seqdata")
   }
 
-  if (is.null(border)) border <- FALSE
+  border <- border %||% FALSE
 
-  if (!is.logical(weighted) | !is.logical(with.missing) |
-      !is.logical(border) | !is.logical(no.n)) {
+  if (!is.logical(weighted) || !is.logical(with.missing) ||
+      !is.logical(border) || !is.logical(no.n)) {
     stop("the arguments `no.n`, `weighted`, `with.missing`, and `border` have to be objects of type logical")
   }
 
 
   if (is.null(attributes(seqdata)$weights)) weighted <- FALSE
 
-  if ("haven_labelled" %in% class(group)) {
+  if (inherits(group, "haven_labelled")) {
     group_name <- deparse(substitute(group))
     group <- haven::as_factor(group)
     cli::cli_warn(c("i" = "group vector {.arg {group_name}} is of class {.cls haven_labelled} and has been converted into a factor"))
@@ -94,7 +94,7 @@ ggseqmsplot <- function(seqdata,
   }
   if (is.null(group)) grinorder <- factor(1)
 
-  if (is.null(group)) group <- 1
+  group <- group %||% 1
 
 
   if (!is.null(facet_ncol) && as.integer(facet_ncol) != facet_ncol) {
@@ -105,7 +105,7 @@ ggseqmsplot <- function(seqdata,
     stop("`facet_nrow` must be NULL or an integer.")
   }
 
-  if (!is.null(barwidth) && (barwidth <= 0 | barwidth > 1)) {
+  if (!is.null(barwidth) && (barwidth <= 0 || barwidth > 1)) {
     stop("`barwidth` must be NULL or a value in the range (0, 1]")
   }
 
@@ -133,7 +133,7 @@ ggseqmsplot <- function(seqdata,
                                  levels = TraMineR::alphabet(seqdata),
                                  labels = attributes(seqdata)$labels),
                   state = forcats::fct_na_value_to_level(.data$state,
-                                                          level = "Missing"
+                                                         level = "Missing"
                   ),
                   state = forcats::fct_drop(.data$state, "Missing"), # shouldn't be necessary
                   state = forcats::fct_rev(.data$state),
@@ -154,7 +154,7 @@ ggseqmsplot <- function(seqdata,
     dplyr::full_join(grouplabspec, by = "group")
 
 
-  if("Missing" %in% msplotdata$state == TRUE) {
+  if("Missing" %in% msplotdata$state) {
     cpal <- c(attributes(seqdata)$cpal,
               attributes(seqdata)$missing.color)
   } else {

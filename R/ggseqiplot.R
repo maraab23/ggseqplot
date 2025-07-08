@@ -113,9 +113,9 @@ ggseqiplot <- function(seqdata,
     stop("data are not stored as sequence object, use 'TraMineR::seqdef' to create one")
   }
 
-  if (is.null(border)) border <- FALSE
+  border <- border %||% FALSE
 
-  if (!is.logical(weighted) | !is.logical(border)) {
+  if (!is.logical(weighted) || !is.logical(border)) {
     cli::cli_abort(c(
       "{.arg weighted} or {.arg border} must be of type logical."
     ))
@@ -142,7 +142,7 @@ ggseqiplot <- function(seqdata,
     stop("`facet_nrow` must be NULL or an integer.")
   }
 
-  if ("haven_labelled" %in% class(group)) {
+  if (inherits(group, "haven_labelled")) {
     group_name <- deparse(substitute(group))
     group <- haven::as_factor(group)
     cli::cli_warn(c("i" = "group vector {.arg {group_name}} is of class {.cls haven_labelled} and has been converted into a factor"))
@@ -164,7 +164,7 @@ ggseqiplot <- function(seqdata,
       group = NA
     )
 
-  if (is.null(group) == FALSE) auxid$group <- group
+  if (!is.null(group)) auxid$group <- group
 
 
   if (length(sortv) == 1 && sortv == "from.end") {
@@ -186,7 +186,7 @@ ggseqiplot <- function(seqdata,
       order()
   }
 
-  if (is.null(sortv) == FALSE) {
+  if (!is.null(sortv)) {
     auxid <- auxid |>
       dplyr::mutate(sortv = {{ sortv }}) |>
       dplyr::arrange(.data$sortv) |>
@@ -205,7 +205,7 @@ ggseqiplot <- function(seqdata,
                         labels = attributes(seqdata)$labels
         ),
         states = forcats::fct_na_value_to_level(.data$states,
-                                          level = "Missing"
+                                                level = "Missing"
         ),
         states = forcats::fct_drop(.data$states, "Missing") # shouldn't be necessary
       ) |>
@@ -253,7 +253,7 @@ ggseqiplot <- function(seqdata,
 
 
   if (is.null(group)) dt2$group <- 1
-  if (is.null(group)) group <- dt2$group
+  group <- group %||% dt2$group
 
   ybrks <- dt2 |>
     dplyr::distinct(.data$idnew, .keep_all = T) |>
@@ -339,10 +339,10 @@ ggseqiplot <- function(seqdata,
   )
 
 
-  if (nrow(ylabspec) == 1 & weighted == TRUE) {
+  if (nrow(ylabspec) == 1 && weighted == TRUE) {
     ylabspec <- glue::glue("{ylabspec$nseq} sequences",
                            "(weighted n={round(ylabspec$maxwgt,2)})")
-  } else if (nrow(ylabspec) == 1 & weighted == FALSE) {
+  } else if (nrow(ylabspec) == 1 && weighted == FALSE) {
     ylabspec <- glue::glue("# sequences (n = {ylabspec$nseq})")
   } else if (weighted == TRUE) {
     ylabspec <- glue::glue("{ylabspec$group} \n({ylabspec$nseq} sequences; ",
@@ -490,7 +490,7 @@ ggseqiplot <- function(seqdata,
     )
   }
 
-  if (grsize > 1 & facet_scale == "fixed" & weighted == TRUE) {
+  if (grsize > 1 && facet_scale == "fixed" && weighted == TRUE) {
     ggiplot <- ggiplot +
       labs(y = "weighted sequences") +
       theme(
