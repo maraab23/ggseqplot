@@ -116,8 +116,9 @@ ggseqiplot <- function(seqdata,
   if (is.null(border)) border <- FALSE
 
   if (!is.logical(weighted) | !is.logical(border)) {
-    stop(glue::glue("the arguments `weighted` or `border` have to \\
-    be objects of type logical"))
+    cli::cli_abort(c(
+      "{.arg weighted} or {.arg border} must be of type logical."
+    ))
   }
 
 
@@ -180,8 +181,8 @@ ggseqiplot <- function(seqdata,
   if (length(sortv) == 1 && sortv %in% c("from.start", "from.end")) {
     sortv <- sortx |>
       dplyr::mutate(idx = dplyr::row_number()) |>
-      dplyr::arrange(dplyr::across(-.data$idx)) |>
-      dplyr::pull(.data$idx) |>
+      dplyr::arrange(dplyr::across(-"idx")) |>
+      dplyr::pull("idx") |>
       order()
   }
 
@@ -197,7 +198,7 @@ ggseqiplot <- function(seqdata,
   suppressMessages(
     spelldata <- TraMineR::seqformat(seqdata, to = "SPELL") |>
       dplyr::full_join(auxid, by = dplyr::join_by("id")) |>
-      dplyr::select("idnew", dplyr::everything()) |>
+      dplyr::relocate("idnew", .before = 0) |>
       dplyr::mutate(
         states = factor(.data$states,
                         levels = TraMineR::alphabet(seqdata),
@@ -281,7 +282,7 @@ ggseqiplot <- function(seqdata,
     grinorder,
     ~ ybrks |>
       dplyr::filter(.data$group == .x) |>
-      dplyr::pull(.data$breaks)
+      dplyr::pull("breaks")
   )
 
   scalelabels <- purrr::map(
@@ -406,7 +407,7 @@ ggseqiplot <- function(seqdata,
       aux = ifelse(.data$aux == 0, 1, .data$aux)
     ) |>
     tidyr::uncount(.data$aux) |>
-    dplyr::select(-"aux") |> #.data$aux
+    dplyr::select(-"aux") |>
     dplyr::group_by(.data$idnew) |>
     dplyr::mutate(
       left = dplyr::row_number() - 1,

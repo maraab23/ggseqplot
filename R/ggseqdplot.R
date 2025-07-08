@@ -230,7 +230,7 @@ ggseqdplot <- function(seqdata,
     suppressMessages(
       eplotdata <- stateentropy |>
         dplyr::mutate(k = factor(.data$k, levels = unique(.data$k))) |>
-        dplyr::rename(entropy = .data$value)
+        dplyr::rename(entropy = "value")
     )
   }
 

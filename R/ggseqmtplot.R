@@ -185,12 +185,12 @@ ggseqmtplot <- function(seqdata,
       ggmtplot <- ggmtplot +
         geom_errorbar(aes(ymin = .data$Mean - .data$SE,
                           ymax= .data$Mean + .data$SE),
-                      width=0.1, alpha=0.6, size=1)
+                      width=0.1, alpha=0.6, linewidth=1)
     } else if (error.bar == "SD") {
       ggmtplot <- ggmtplot +
         geom_errorbar(aes(ymin = .data$Mean - .data$Stdev,
                           ymax = .data$Mean + .data$Stdev),
-                      width=0.1, alpha=0.6, size=1)
+                      width=0.1, alpha=0.6, linewidth=1)
     }
 
     captext <- glue::glue(

@@ -201,7 +201,7 @@ ggseqrplot <- function(seqdata,
                         ~ggplot_build(.x)$data[[1]] |>
                           dplyr::group_by(.data$label) |>
                           dplyr::summarise(col = dplyr::first(.data$fill)) |>
-                          dplyr::pull(.data$col))
+                          dplyr::pull("col"))
 
     labs <- purrr::map(color,
                        ~glue::glue("<b style='color:{.x}'>{1:length(.x)}</b>"))
