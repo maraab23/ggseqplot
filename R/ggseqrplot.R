@@ -364,16 +364,20 @@ ggseqrplot <- function(seqdata,
   }
 
   if (length(unique(group)) > 6) {
-      usethis::ui_info(glue::glue("You are trying to render a representative sequence plot for many groups.
-      The resulting output (if produced at all) might be hard to decipher.
-      Consider reducing the number of distinct groups."))
+    cli::cli_inform(c(
+      "!" = "You are trying to render a representative sequence plot for many groups.",
+      " " = "The resulting output (if produced at all) might be hard to decipher.",
+      "i" = "Consider reducing the number of distinct groups."
+    ))
   }
 
   if (length(unique(group)) > 3) {
-      usethis::ui_info(glue::glue("You are trying to render a representative sequence plot for many groups using just one column.
-      The resulting output (if produced at all) might be hard to decipher.
-      Consider reducing the number of distinct groups or increase facet_ncol."))
-    }
+    cli::cli_inform(c(
+      "!" = "You are trying to render a representative sequence plot for many groups using just one column.",
+      " " = "The resulting output (if produced at all) might be hard to decipher.",
+      "i" = "Consider reducing the number of distinct groups or increase {.arg facet_ncol}."
+    ))
+  }
 
   return(rplot)
 

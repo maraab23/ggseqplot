@@ -115,9 +115,10 @@ ggseqdplot <- function(seqdata,
   }
 
   if (!is.null(dissect) & with.entropy == TRUE) {
-    usethis::ui_warn(glue::glue('
-    You tried to render a disaggregated dplot using `dissect`, while also setting `with.entropy` to `TRUE`.
-    As the state-specific distrubution plots would repeatedly show the same entropy line, `with.entropy = TRUE` is ignored.'))
+    cli::cli_warn(c(
+      "!" = "You tried to render a disaggregated dplot using `dissect`, while also setting `with.entropy` to `TRUE`",
+      "i" = "As the state-specific distrubution plots would repeatedly show the same entropy line, `with.entropy = TRUE` is ignored."
+    ))
     with.entropy <- FALSE
   }
 

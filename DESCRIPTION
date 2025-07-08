@@ -34,8 +34,7 @@ Imports:
     patchwork,
     purrr,
     rlang,
-    tidyr,
-    usethis
+    tidyr
 Suggests: 
     ggthemes,
     hrbrthemes,

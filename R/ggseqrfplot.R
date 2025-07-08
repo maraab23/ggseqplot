@@ -167,32 +167,33 @@ ggseqrfplot <- function(seqdata = NULL,
                         outlier.stroke = 0.5,
                         outlier.alpha = NULL) {
 
-
+  # for the displayed message
+  ignored_params <- c("k", "sortv", "weighted", "grp.meth", "squared", "pow")
   if (inherits(seqrfobject, "seqrf") & inherits(seqdata, "stslist")) {
-    usethis::ui_info(
-    "you specified a {usethis::ui_code('seqrfobject')} & {usethis::ui_code('seqdata')};
-    the latter as well as the potentially specified parameters
-    {usethis::ui_code(c('k', 'sortv', 'weighted', 'grp.meth', 'squared', 'pow'))} will be ignored;
-    the plot will be rendered for the {usethis::ui_field('seqrfobject')}"
-    )
+    cli::cli_inform(c(
+      "i" = "You specified a {.code seqrfobject} & {.code seqdata};",
+      " " = "the latter as well as the potentially specified parameters",
+      " " = "{.code {ignored_params}} will be ignored;",
+      "i" = "The plot will be rendered for the {.field seqrfobject}."
+    ))
   }
 
   if (!is.null(seqdata) & !inherits(seqdata, "stslist") & !inherits(seqdata, "seqrf") & inherits(seqrfobject, "seqrf")) {
-    usethis::ui_info(
-      "you specified {usethis::ui_code('seqdata')} which are not stored as sequence object
-     and a valid {usethis::ui_code('seqrfobject')}; the {usethis::ui_code('seqdata')};
-     as well as the potentially specified parameters
-     {usethis::ui_code(c('k', 'sortv', 'weighted', 'grp.meth', 'squared', 'pow'))}
-     will be ignored; the plot will be rendered for the {usethis::ui_field('seqrfobject')}"
-    )
+    cli::cli_inform(c(
+      "i" = "You specified {.code seqdata} which are not stored as sequence object",
+      " " = "and a valid {.code seqrfobject}; the {.code seqdata};",
+      " " = "as well as the potentially specified parameters",
+      " " = "{.code {ignored_params}} will be ignored;",
+      "i" = "The plot will be rendered for the {.field seqrfobject}."
+    ))
   }
 
   if (inherits(seqdata, "stslist") & !is.null(seqrfobject) & !inherits(seqrfobject, "seqrf")) {
-    usethis::ui_info(
-    "you specified a {usethis::ui_code('seqrfobject')} & {usethis::ui_code('seqdata')};
-    the {usethis::ui_code('seqrfobject')} is not of class {usethis::ui_code('seqrf')} and will be ignored;
-    the plot will be rendered for the {usethis::ui_field('seqdata')} if the other parameters are specified correctly"
-    )
+    cli::cli_inform(c(
+      "i" = "You specified a {.code seqrfobject} & {.code seqdata};",
+      " " = "the {.code seqrfobject} is not of class {.cls seqref} and will be ignored;",
+      "i" = "The plot will be rendered for the {.field seqrfobject} if the other parameters are specified correctly."
+    ))
   }
 
   if (!is.null(seqdata) & !inherits(seqdata, "stslist") & !inherits(seqdata, "seqrf") & !inherits(seqrfobject, "seqrf")) {
