@@ -7,7 +7,7 @@
 #' \code{\link[TraMineR:seqplot]{TraMineR::seqplot}}
 #' \insertCite{gabadinho2011}{ggseqplot}.
 #'
-#' @eval shared_params()
+#' @inheritParams ggseqdplot
 #' @param no.n specifies if number of (weighted) sequences is shown
 #' (default is \code{TRUE})
 #' @param with.missing Specifies if missing states should be considered when
@@ -20,7 +20,6 @@
 #' default behavior can be turned off by setting the argument to  \code{"FALSE"}
 #' @param facet_scale Specifies if y-scale in faceted plot should be
 #' \code{"fixed"} (default) or \code{"free_y"}
-#' @eval shared_facet()
 #'
 #' @details The information on time spent in different states is obtained by an
 #' internal call of \code{\link[TraMineR:seqmeant]{TraMineR::seqmeant}}. This

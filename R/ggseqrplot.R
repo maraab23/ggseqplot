@@ -5,7 +5,7 @@
 #' R's \code{\link[base]{plot}} function that is used by
 #' \code{\link[TraMineR:seqplot]{TraMineR::seqplot}} \insertCite{gabadinho2011}{ggseqplot}.
 #'
-#' @eval shared_params()
+#' @inheritParams ggseqdplot
 #' @inheritParams TraMineR::seqrep
 #' @param diss pairwise dissimilarities between sequences in \code{seqdata} (see \code{TraMineR::seqdist})
 #' @param border if \code{TRUE} bars are plotted with black outline; default is \code{FALSE} (also accepts \code{NULL})

@@ -6,7 +6,7 @@
 #' \code{\link[TraMineR:seqplot]{TraMineR::seqplot}}
 #' \insertCite{gabadinho2011}{ggseqplot}.
 #'
-#' @eval shared_params()
+#' @inheritParams ggseqdplot
 #' @param no.n specifies if number of (weighted) sequences is shown as part of
 #' the y-axis title or group/facet title (default is \code{TRUE})
 #' @param sortv Vector of numerical values sorting the sequences or a sorting
@@ -14,7 +14,6 @@
 #' @param border if \code{TRUE} bars are plotted with black outline; default is \code{FALSE} (also accepts \code{NULL})
 #' @param facet_scale Specifies if y-scale in faceted plot should be free
 #' (\code{"free_y"} is default) or \code{"fixed"}
-#' @eval shared_facet()
 #' @param ... if group is specified additional arguments of \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap}}
 #' such as \code{"labeller"} or \code{"strip.position"} can be used to change the appearance of the plot
 #'

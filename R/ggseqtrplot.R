@@ -4,14 +4,13 @@
 #' computed by \code{\link[TraMineR:seqtrate]{TraMineR::seqtrate}} \insertCite{gabadinho2011}{ggseqplot}.
 #' Plot is generated using \code{\link[ggplot2]{ggplot2}} \insertCite{wickham2016}{ggseqplot}.
 #'
-#' @eval shared_params()
+#' @inheritParams ggseqdplot
 #' @param dss specifies if transition rates are computed for STS or DSS (default) sequences
 #' @param no.n specifies if number of (weighted) sequences is shown in grouped (faceted) graph
 #' @param with.missing Specifies if missing state should be considered when computing the transition rates (default is \code{FALSE}).
 #' @param labsize Specifies the font size of the labels within the tiles (if not specified ggplot2's default is used)
 #' @param axislabs specifies if sequence object's long "labels" (default) or the state names from its "alphabet" attribute should be used.
 #' @param x_n.dodge allows to print the labels of the x-axis in multiple rows to avoid overlapping.
-#' @eval shared_facet()
 #'
 #' @details The transition rates are obtained by an internal call of
 #' \code{\link[TraMineR:seqtrate]{TraMineR::seqtrate}}.

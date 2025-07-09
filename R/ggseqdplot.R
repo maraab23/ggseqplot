@@ -5,7 +5,9 @@
 #' function that is used by \code{\link[TraMineR:seqplot]{TraMineR::seqplot}}
 #' \insertCite{gabadinho2011}{ggseqplot}.
 #'
-#' @eval shared_params()
+#' @param seqdata State sequence object (class \code{stslist}) created with the \code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function.
+#' @param weighted Controls if weights (specified in \code{\link[TraMineR:seqdef]{TraMineR::seqdef}}) should be used. Default is \code{TRUE}, i.e. if available weights are used
+#' @param group A vector of the same length as the sequence data indicating group membership. When not NULL, a distinct plot is generated for each level of group.
 #' @param no.n specifies if number of (weighted) sequences is shown (default is \code{TRUE})
 #' @param dissect if \code{"row"} or \code{"col"} are specified separate distribution plots instead of a stacked plot are displayed;
 #' \code{"row"} and \code{"col"} display the distributions in one row or one column respectively; default is \code{NULL}
@@ -15,7 +17,8 @@
 #' @param linetype The linetype for the entropy subplot (\code{with.entropy==TRUE}) can be specified with an integer (0-6) or name (0 = blank, 1 = solid, 2 = dashed, 3 = dotted, 4 = dotdash, 5 = longdash, 6 = twodash); ; default is \code{"dashed"}
 #' @param linecolor Specifies the color of the entropy line if \code{with.entropy==TRUE}; default is \code{"black"}
 #' @param linewidth Specifies the width of the entropy line if \code{with.entropy==TRUE}; default is \code{1}
-#' @eval shared_facet()
+#' @param facet_ncol Number of columns in faceted (i.e. grouped) plot
+#' @param facet_nrow Number of rows in faceted (i.e. grouped) plot
 #' @param ... if group is specified additional arguments of \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap}}
 #' such as \code{"labeller"} or \code{"strip.position"} can be used to change the appearance of the plot. Does
 #' not work if \code{dissect} is used

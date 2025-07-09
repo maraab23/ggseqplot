@@ -6,7 +6,7 @@
 #' \code{\link[TraMineR:seqfplot]{TraMineR::seqplot}} /
 #' \code{\link[TraMineR:plot.stslist.freq]{TraMineR::plot.stslist.freq}} \insertCite{gabadinho2011}{ggseqplot}.
 #'
-#' @eval shared_params()
+#' @inheritParams ggseqdplot
 #' @param ranks specifies which of the most frequent sequences should be plotted;
 #' default is the first ten (\code{1:10}); if set to 0 all sequences are displayed
 #' @param border if \code{TRUE} bars are plotted with black outline; default is \code{FALSE} (also accepts \code{NULL})
@@ -18,7 +18,6 @@
 #' @param no.coverage specifies if information on total coverage is shown as
 #' caption or as part of the group/facet label if \code{ylabs == "share"}
 #' (default is \code{TRUE})
-#' @eval shared_facet()
 #'
 #' @details The subset of displayed sequences is obtained by an internal call of
 #' \code{\link[TraMineR:seqtab]{TraMineR::seqtab}}. The extracted sequences are plotted
