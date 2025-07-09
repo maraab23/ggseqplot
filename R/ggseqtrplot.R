@@ -56,6 +56,7 @@
 #' ggseqtrplot(biofam.seq, group=biofam$sex, x_n.dodge = 2, weighted = FALSE)
 #'
 #' @import ggplot2
+#' @importFrom Rdpack reprompt
 #' @importFrom rlang .data
 ggseqtrplot <- function(seqdata,
                         dss = TRUE,
