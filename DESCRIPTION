@@ -36,8 +36,7 @@ Imports:
     purrr,
     Rdpack,
     rlang,
-    tidyr,
-    usethis
+    tidyr
 Suggests: 
     covr,
     ggthemes,

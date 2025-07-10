@@ -167,35 +167,36 @@ ggseqrfplot <- function(seqdata = NULL,
                         outlier.stroke = 0.5,
                         outlier.alpha = NULL) {
 
-
-  if (inherits(seqrfobject, "seqrf") & inherits(seqdata, "stslist")) {
-    usethis::ui_info(
-    "you specified a {usethis::ui_code('seqrfobject')} & {usethis::ui_code('seqdata')};
-    the latter as well as the potentially specified parameters
-    {usethis::ui_code(c('k', 'sortv', 'weighted', 'grp.meth', 'squared', 'pow'))} will be ignored;
-    the plot will be rendered for the {usethis::ui_field('seqrfobject')}"
-    )
+  # for the displayed message
+  ignored_params <- c("k", "sortv", "weighted", "grp.meth", "squared", "pow")
+  if (inherits(seqrfobject, "seqrf") && inherits(seqdata, "stslist")) {
+    cli::cli_inform(c(
+      "i" = "You specified a {.code seqrfobject} & {.code seqdata};",
+      " " = "the latter as well as the potentially specified parameters",
+      " " = "{.code {ignored_params}} will be ignored;",
+      "i" = "The plot will be rendered for the {.field seqrfobject}."
+    ))
   }
 
-  if (!is.null(seqdata) & !inherits(seqdata, "stslist") & !inherits(seqdata, "seqrf") & inherits(seqrfobject, "seqrf")) {
-    usethis::ui_info(
-      "you specified {usethis::ui_code('seqdata')} which are not stored as sequence object
-     and a valid {usethis::ui_code('seqrfobject')}; the {usethis::ui_code('seqdata')};
-     as well as the potentially specified parameters
-     {usethis::ui_code(c('k', 'sortv', 'weighted', 'grp.meth', 'squared', 'pow'))}
-     will be ignored; the plot will be rendered for the {usethis::ui_field('seqrfobject')}"
-    )
+  if (!is.null(seqdata) && !inherits(seqdata, "stslist") && !inherits(seqdata, "seqrf") && inherits(seqrfobject, "seqrf")) {
+    cli::cli_inform(c(
+      "i" = "You specified {.code seqdata} which are not stored as sequence object",
+      " " = "and a valid {.code seqrfobject}; the {.code seqdata};",
+      " " = "as well as the potentially specified parameters",
+      " " = "{.code {ignored_params}} will be ignored;",
+      "i" = "The plot will be rendered for the {.field seqrfobject}."
+    ))
   }
 
-  if (inherits(seqdata, "stslist") & !is.null(seqrfobject) & !inherits(seqrfobject, "seqrf")) {
-    usethis::ui_info(
-    "you specified a {usethis::ui_code('seqrfobject')} & {usethis::ui_code('seqdata')};
-    the {usethis::ui_code('seqrfobject')} is not of class {usethis::ui_code('seqrf')} and will be ignored;
-    the plot will be rendered for the {usethis::ui_field('seqdata')} if the other parameters are specified correctly"
-    )
+  if (inherits(seqdata, "stslist") && !is.null(seqrfobject) && !inherits(seqrfobject, "seqrf")) {
+    cli::cli_inform(c(
+      "i" = "You specified a {.code seqrfobject} & {.code seqdata};",
+      " " = "the {.code seqrfobject} is not of class {.cls seqref} and will be ignored;",
+      "i" = "The plot will be rendered for the {.field seqrfobject} if the other parameters are specified correctly."
+    ))
   }
 
-  if (!is.null(seqdata) & !inherits(seqdata, "stslist") & !inherits(seqdata, "seqrf") & !inherits(seqrfobject, "seqrf")) {
+  if (!is.null(seqdata) && !inherits(seqdata, "stslist") && !inherits(seqdata, "seqrf") && !inherits(seqrfobject, "seqrf")) {
     stop(
     "you specified seqdata which are not stored as sequence object and no valid seqrfobject;
 use 'TraMineR::seqdef' to create a sequence object of class 'stslist' or specify a valid seqrfobject)"
@@ -203,30 +204,30 @@ use 'TraMineR::seqdef' to create a sequence object of class 'stslist' or specify
   }
 
 
-  if (!is.null(seqdata) & !inherits(seqdata, "stslist") & inherits(seqdata, "seqrf")) {
+  if (!is.null(seqdata) && !inherits(seqdata, "stslist") && inherits(seqdata, "seqrf")) {
     stop(
     "you specified seqdata which are of class 'seqrf';
 probably you forgot to type 'seqrfobject = '"
     )
   }
 
-  if (is.null(seqrfobject) & (is.null(seqdata) | !inherits(seqdata, "stslist"))) {
+  if (is.null(seqrfobject) && (is.null(seqdata) || !inherits(seqdata, "stslist"))) {
     stop(
       "no seqrfobject specified & seqdata are either not specified or not
 stored as sequence object; use 'TraMineR::seqdef' to create one"
       )
   }
 
-  if (!inherits(seqrfobject, "seqrf") & is.null(diss)) {
+  if (!inherits(seqrfobject, "seqrf") && is.null(diss)) {
     stop(
       "no seqrfobject specified & diss = NULL; provide a dissimilarity matrix
 provide a dissimilarity matrix ('diss')"
       )
   }
 
-  if (is.null(border)) border <- FALSE
+  border <- border %||% FALSE
 
-  if (!is.logical(yaxis) | !is.logical(quality)) {
+  if (!is.logical(yaxis) || !is.logical(quality)) {
     stop("the arguments `yaxis`, and `quality`  have to be objects of type logical")
   }
 
@@ -253,7 +254,7 @@ provide a dissimilarity matrix ('diss')"
 
   k <- nrow(seqdata)
 
-  if (is.null(ylab)) ylab <- "Frequency group"
+  ylab <- ylab %||% "Frequency group"
 
   ylabels <- pretty(1:k)
   ylabels[1] <- 1
@@ -270,13 +271,13 @@ provide a dissimilarity matrix ('diss')"
   ybrks <- ylabels
   #ybrks <- seq(step / 2, n - step / 2, by = step)[ylabels]
 
-  if (is.null(box.color)) box.color <- "black"
-  if (is.null(box.fill)) box.fill <- "white"
-  if (is.null(box.alpha)) box.alpha <- 1
+  box.color <- box.color %||% "black"
+  box.fill <- box.fill %||% "white"
+  box.alpha <- box.alpha %||% 1
 
-  if (is.null(outlier.color)) outlier.color <- "black"
-  if (is.null(outlier.fill)) outlier.fill <- "transparent"
-  if (is.null(outlier.alpha)) outlier.alpha <- 1
+  outlier.color <- outlier.color %||% "black"
+  outlier.fill <- outlier.fill %||% "transparent"
+  outlier.alpha <- outlier.alpha %||% 1
   if (outlier.jitter.height > .375) outlier.jitter.height <- .375
 
 

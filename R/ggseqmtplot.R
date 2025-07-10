@@ -7,7 +7,7 @@
 #' \code{\link[TraMineR:seqplot]{TraMineR::seqplot}}
 #' \insertCite{gabadinho2011}{ggseqplot}.
 #'
-#' @eval shared_params()
+#' @inheritParams ggseqdplot
 #' @param no.n specifies if number of (weighted) sequences is shown
 #' (default is \code{TRUE})
 #' @param with.missing Specifies if missing states should be considered when
@@ -20,7 +20,6 @@
 #' default behavior can be turned off by setting the argument to  \code{"FALSE"}
 #' @param facet_scale Specifies if y-scale in faceted plot should be
 #' \code{"fixed"} (default) or \code{"free_y"}
-#' @eval shared_facet()
 #'
 #' @details The information on time spent in different states is obtained by an
 #' internal call of \code{\link[TraMineR:seqmeant]{TraMineR::seqmeant}}. This
@@ -83,20 +82,20 @@ ggseqmtplot <- function(seqdata,
     stop("data are not stored as sequence object, use 'TraMineR::seqdef' to create one")
   }
 
-  if (!is.null(group) & (length(group) != nrow(seqdata))) {
+  if (!is.null(group) && (length(group) != nrow(seqdata))) {
     stop("length of group vector must match number of rows of seqdata")
   }
 
-  if (is.null(border)) border <- FALSE
+  border <- border %||% FALSE
 
-  if (!is.logical(weighted) | !is.logical(with.missing) |
-      !is.logical(border) | !is.logical(no.n)) {
+  if (!is.logical(weighted) || !is.logical(with.missing) ||
+      !is.logical(border) || !is.logical(no.n)) {
     stop("the arguments `no.n`, `weighted`, `with.missing`, and `border` have to be objects of type logical")
   }
 
   if (is.null(attributes(seqdata)$weights)) weighted <- FALSE
 
-  if (is.null(group)) group <- 1
+  group <- group %||% 1
 
   if (!is.null(facet_ncol) && as.integer(facet_ncol) != facet_ncol) {
     stop("`facet_ncol` must be NULL or an integer.")
@@ -106,7 +105,7 @@ ggseqmtplot <- function(seqdata,
     stop("`facet_nrow` must be NULL or an integer.")
   }
 
-  if ("haven_labelled" %in% class(group)) {
+  if (inherits(group, "haven_labelled")) {
     group_name <- deparse(substitute(group))
     group <- haven::as_factor(group)
     cli::cli_warn(c("i" = "group vector {.arg {group_name}} is of class {.cls haven_labelled} and has been converted into a factor"))
@@ -167,7 +166,7 @@ ggseqmtplot <- function(seqdata,
     geom_bar(aes(y = .data$Mean), stat="identity",
              color = ifelse(border == TRUE, "black",
                             "transparent"),
-             show.legend = T) +
+             show.legend = TRUE) +
     scale_y_continuous(expand = expansion(add = 0)) +
     scale_fill_manual(drop = FALSE,
                       values = cpal) +
@@ -185,12 +184,12 @@ ggseqmtplot <- function(seqdata,
       ggmtplot <- ggmtplot +
         geom_errorbar(aes(ymin = .data$Mean - .data$SE,
                           ymax= .data$Mean + .data$SE),
-                      width=0.1, alpha=0.6, size=1)
+                      width=0.1, alpha=0.6, linewidth=1)
     } else if (error.bar == "SD") {
       ggmtplot <- ggmtplot +
         geom_errorbar(aes(ymin = .data$Mean - .data$Stdev,
                           ymax = .data$Mean + .data$Stdev),
-                      width=0.1, alpha=0.6, size=1)
+                      width=0.1, alpha=0.6, linewidth=1)
     }
 
     captext <- glue::glue(
@@ -198,7 +197,7 @@ ggseqmtplot <- function(seqdata,
     "errors", "deviations")}'
     )
 
-    if (error.caption == TRUE & !is.null(error.bar)) {
+    if (error.caption == TRUE && !is.null(error.bar)) {
       ggmtplot <- ggmtplot +
         labs(caption = captext)
     }

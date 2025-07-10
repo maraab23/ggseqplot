@@ -4,14 +4,13 @@
 #' computed by \code{\link[TraMineR:seqtrate]{TraMineR::seqtrate}} \insertCite{gabadinho2011}{ggseqplot}.
 #' Plot is generated using \code{\link[ggplot2]{ggplot2}} \insertCite{wickham2016}{ggseqplot}.
 #'
-#' @eval shared_params()
+#' @inheritParams ggseqdplot
 #' @param dss specifies if transition rates are computed for STS or DSS (default) sequences
 #' @param no.n specifies if number of (weighted) sequences is shown in grouped (faceted) graph
 #' @param with.missing Specifies if missing state should be considered when computing the transition rates (default is \code{FALSE}).
 #' @param labsize Specifies the font size of the labels within the tiles (if not specified ggplot2's default is used)
 #' @param axislabs specifies if sequence object's long "labels" (default) or the state names from its "alphabet" attribute should be used.
 #' @param x_n.dodge allows to print the labels of the x-axis in multiple rows to avoid overlapping.
-#' @eval shared_facet()
 #'
 #' @details The transition rates are obtained by an internal call of
 #' \code{\link[TraMineR:seqtrate]{TraMineR::seqtrate}}.
@@ -76,22 +75,22 @@ ggseqtrplot <- function(seqdata,
     stop("data are not stored as sequence object, use 'TraMineR::seqdef' to create one")
 
 
-  if (!is.null(group) & (length(group) != nrow(seqdata)))
+  if (!is.null(group) && (length(group) != nrow(seqdata)))
     stop("length of group vector must match number of rows of seqdata")
 
 
-  if(!is.logical(weighted) | !is.logical(with.missing))
+  if(!is.logical(weighted) || !is.logical(with.missing))
     stop("the arguments `weighted` and `with.missing` have to be objects of type logical")
 
   if (is.null(attributes(seqdata)$weights)) weighted <- FALSE
 
-  if (is.null(labsize)) labsize <- 11 / .pt
+  labsize <- labsize %||% 11 / .pt
 
-  if (!is.null(labsize) & (length(labsize) > 1 | !is.numeric(labsize))) {
+  if (!is.null(labsize) && (length(labsize) > 1 || !is.numeric(labsize))) {
     stop("labsize must be a single number")
   }
 
-  if ("haven_labelled" %in% class(group)) {
+  if (inherits(group, "haven_labelled")) {
     group_name <- deparse(substitute(group))
     group <- haven::as_factor(group)
     cli::cli_warn(c("i" = "group vector {.arg {group_name}} is of class {.cls haven_labelled} and has been converted into a factor"))
@@ -105,7 +104,7 @@ ggseqtrplot <- function(seqdata,
   }
   if (is.null(group)) grinorder <- factor(1)
 
-  if (is.null(group)) group <- 1
+  group <- group %||% 1
 
 
   if (dss == TRUE) {

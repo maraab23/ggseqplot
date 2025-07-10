@@ -6,7 +6,7 @@
 #' \code{\link[TraMineR:seqplot]{TraMineR::seqplot}}
 #' \insertCite{gabadinho2011}{ggseqplot}.
 #'
-#' @eval shared_params()
+#' @inheritParams ggseqdplot
 #' @param no.n specifies if number of (weighted) sequences is shown as part of
 #' the y-axis title or group/facet title (default is \code{TRUE})
 #' @param sortv Vector of numerical values sorting the sequences or a sorting
@@ -14,7 +14,6 @@
 #' @param border if \code{TRUE} bars are plotted with black outline; default is \code{FALSE} (also accepts \code{NULL})
 #' @param facet_scale Specifies if y-scale in faceted plot should be free
 #' (\code{"free_y"} is default) or \code{"fixed"}
-#' @eval shared_facet()
 #' @param ... if group is specified additional arguments of \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap}}
 #' such as \code{"labeller"} or \code{"strip.position"} can be used to change the appearance of the plot
 #'
@@ -114,11 +113,12 @@ ggseqiplot <- function(seqdata,
     stop("data are not stored as sequence object, use 'TraMineR::seqdef' to create one")
   }
 
-  if (is.null(border)) border <- FALSE
+  border <- border %||% FALSE
 
-  if (!is.logical(weighted) | !is.logical(border)) {
-    stop(glue::glue("the arguments `weighted` or `border` have to \\
-    be objects of type logical"))
+  if (!is.logical(weighted) || !is.logical(border)) {
+    cli::cli_abort(c(
+      "{.arg weighted} or {.arg border} must be of type logical."
+    ))
   }
 
 
@@ -142,7 +142,7 @@ ggseqiplot <- function(seqdata,
     stop("`facet_nrow` must be NULL or an integer.")
   }
 
-  if ("haven_labelled" %in% class(group)) {
+  if (inherits(group, "haven_labelled")) {
     group_name <- deparse(substitute(group))
     group <- haven::as_factor(group)
     cli::cli_warn(c("i" = "group vector {.arg {group_name}} is of class {.cls haven_labelled} and has been converted into a factor"))
@@ -164,7 +164,7 @@ ggseqiplot <- function(seqdata,
       group = NA
     )
 
-  if (is.null(group) == FALSE) auxid$group <- group
+  if (!is.null(group)) auxid$group <- group
 
 
   if (length(sortv) == 1 && sortv == "from.end") {
@@ -181,12 +181,12 @@ ggseqiplot <- function(seqdata,
   if (length(sortv) == 1 && sortv %in% c("from.start", "from.end")) {
     sortv <- sortx |>
       dplyr::mutate(idx = dplyr::row_number()) |>
-      dplyr::arrange(dplyr::across(-.data$idx)) |>
-      dplyr::pull(.data$idx) |>
+      dplyr::arrange(dplyr::across(-"idx")) |>
+      dplyr::pull("idx") |>
       order()
   }
 
-  if (is.null(sortv) == FALSE) {
+  if (!is.null(sortv)) {
     auxid <- auxid |>
       dplyr::mutate(sortv = {{ sortv }}) |>
       dplyr::arrange(.data$sortv) |>
@@ -198,14 +198,14 @@ ggseqiplot <- function(seqdata,
   suppressMessages(
     spelldata <- TraMineR::seqformat(seqdata, to = "SPELL") |>
       dplyr::full_join(auxid, by = dplyr::join_by("id")) |>
-      dplyr::select("idnew", dplyr::everything()) |>
+      dplyr::relocate("idnew", .before = 0) |>
       dplyr::mutate(
         states = factor(.data$states,
                         levels = TraMineR::alphabet(seqdata),
                         labels = attributes(seqdata)$labels
         ),
         states = forcats::fct_na_value_to_level(.data$states,
-                                          level = "Missing"
+                                                level = "Missing"
         ),
         states = forcats::fct_drop(.data$states, "Missing") # shouldn't be necessary
       ) |>
@@ -253,7 +253,7 @@ ggseqiplot <- function(seqdata,
 
 
   if (is.null(group)) dt2$group <- 1
-  if (is.null(group)) group <- dt2$group
+  group <- group %||% dt2$group
 
   ybrks <- dt2 |>
     dplyr::distinct(.data$idnew, .keep_all = T) |>
@@ -282,7 +282,7 @@ ggseqiplot <- function(seqdata,
     grinorder,
     ~ ybrks |>
       dplyr::filter(.data$group == .x) |>
-      dplyr::pull(.data$breaks)
+      dplyr::pull("breaks")
   )
 
   scalelabels <- purrr::map(
@@ -339,10 +339,10 @@ ggseqiplot <- function(seqdata,
   )
 
 
-  if (nrow(ylabspec) == 1 & weighted == TRUE) {
+  if (nrow(ylabspec) == 1 && weighted == TRUE) {
     ylabspec <- glue::glue("{ylabspec$nseq} sequences",
                            "(weighted n={round(ylabspec$maxwgt,2)})")
-  } else if (nrow(ylabspec) == 1 & weighted == FALSE) {
+  } else if (nrow(ylabspec) == 1 && weighted == FALSE) {
     ylabspec <- glue::glue("# sequences (n = {ylabspec$nseq})")
   } else if (weighted == TRUE) {
     ylabspec <- glue::glue("{ylabspec$group} \n({ylabspec$nseq} sequences; ",
@@ -407,7 +407,7 @@ ggseqiplot <- function(seqdata,
       aux = ifelse(.data$aux == 0, 1, .data$aux)
     ) |>
     tidyr::uncount(.data$aux) |>
-    dplyr::select(-"aux") |> #.data$aux
+    dplyr::select(-"aux") |>
     dplyr::group_by(.data$idnew) |>
     dplyr::mutate(
       left = dplyr::row_number() - 1,
@@ -490,7 +490,7 @@ ggseqiplot <- function(seqdata,
     )
   }
 
-  if (grsize > 1 & facet_scale == "fixed" & weighted == TRUE) {
+  if (grsize > 1 && facet_scale == "fixed" && weighted == TRUE) {
     ggiplot <- ggiplot +
       labs(y = "weighted sequences") +
       theme(

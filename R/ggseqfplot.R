@@ -6,7 +6,7 @@
 #' \code{\link[TraMineR:seqfplot]{TraMineR::seqplot}} /
 #' \code{\link[TraMineR:plot.stslist.freq]{TraMineR::plot.stslist.freq}} \insertCite{gabadinho2011}{ggseqplot}.
 #'
-#' @eval shared_params()
+#' @inheritParams ggseqdplot
 #' @param ranks specifies which of the most frequent sequences should be plotted;
 #' default is the first ten (\code{1:10}); if set to 0 all sequences are displayed
 #' @param border if \code{TRUE} bars are plotted with black outline; default is \code{FALSE} (also accepts \code{NULL})
@@ -18,7 +18,6 @@
 #' @param no.coverage specifies if information on total coverage is shown as
 #' caption or as part of the group/facet label if \code{ylabs == "share"}
 #' (default is \code{TRUE})
-#' @eval shared_facet()
 #'
 #' @details The subset of displayed sequences is obtained by an internal call of
 #' \code{\link[TraMineR:seqtab]{TraMineR::seqtab}}. The extracted sequences are plotted
@@ -84,13 +83,13 @@ ggseqfplot <- function(seqdata,
     stop("data are not stored as sequence object, use 'TraMineR::seqdef' to create one")
   }
 
-  if (!is.null(group) & (length(group) != nrow(seqdata))) {
+  if (!is.null(group) && (length(group) != nrow(seqdata))) {
     stop("length of group vector must match number of rows of seqdata")
   }
 
-  if (is.null(border)) border <- FALSE
+  border <- border %||% FALSE
 
-  if (!is.logical(weighted) | !is.logical(proportional) |
+  if (!is.logical(weighted) || !is.logical(proportional) ||
       !is.logical(border)) {
     stop("the arguments `weighted`, `proportional`, and `border` have to be
          objects of type logical")
@@ -98,7 +97,7 @@ ggseqfplot <- function(seqdata,
 
   if (is.null(attributes(seqdata)$weights)) weighted <- FALSE
 
-  if ("haven_labelled" %in% class(group)) {
+  if (inherits(group, "haven_labelled")) {
     group_name <- deparse(substitute(group))
     group <- haven::as_factor(group)
     cli::cli_warn(c("i" = "group vector {.arg {group_name}} is of class {.cls haven_labelled} and has been converted into a factor"))
@@ -112,7 +111,7 @@ ggseqfplot <- function(seqdata,
   }
   if (is.null(group)) grinorder <- factor(1)
 
-  if (is.null(group)) group <- 1
+  group <- group %||% 1
 
   if (!is.null(facet_ncol) && as.integer(facet_ncol) != facet_ncol) {
     stop("`facet_ncol` must be NULL or an integer.")
@@ -212,13 +211,13 @@ ggseqfplot <- function(seqdata,
     )
   }
 
-  if (length(unique(group)) == 1 & ylabs == "share") {
+  if (length(unique(group)) == 1 && ylabs == "share") {
     ggfplot <- ggfplot +
       labs(caption = paste0("total coverage = ", ylb[[1]]$totalcov,"%"))
   }
 
 
-  if (length(unique(group)) == 1 & no.coverage == TRUE) {
+  if (length(unique(group)) == 1 && no.coverage == TRUE) {
     ggfplot <- ggfplot + labs(caption = NULL)
   }
 

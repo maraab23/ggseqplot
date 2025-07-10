@@ -5,7 +5,7 @@
 #' R's \code{\link[base]{plot}} function that is used by
 #' \code{\link[TraMineR:seqplot]{TraMineR::seqplot}} \insertCite{gabadinho2011}{ggseqplot}.
 #'
-#' @eval shared_params()
+#' @inheritParams ggseqdplot
 #' @inheritParams TraMineR::seqrep
 #' @param diss pairwise dissimilarities between sequences in \code{seqdata} (see \code{TraMineR::seqdist})
 #' @param border if \code{TRUE} bars are plotted with black outline; default is \code{FALSE} (also accepts \code{NULL})
@@ -86,23 +86,22 @@ ggseqrplot <- function(seqdata,
     stop("data are not stored as sequence object, use 'TraMineR::seqdef' to create one")
   }
 
-  if (!is.null(nrep) && (nrep%%1!=0 | nrep == 0)) {
+  if (!is.null(nrep) && (nrep%%1!=0 || nrep == 0)) {
     stop("nrep has to be a positive whole number")
   }
 
-  if (is.null(border)) border <- FALSE
+  border <- border %||% FALSE
+  group <- group %||% 1
 
-  if (is.null(group)) group <- 1
-
-  if (length(unique(group)) > 10 & is.null(facet_ncol)) {
+  if (length(unique(group)) > 10 && is.null(facet_ncol)) {
     facet_ncol <- 5
   }
 
-  if (length(unique(group)) <= 10 & is.null(facet_ncol)) {
+  if (length(unique(group)) <= 10 && is.null(facet_ncol)) {
     facet_ncol <- c(1,2,3,2,3,3,4,4,5,5)[length(unique(group))]
   }
 
-  if ("haven_labelled" %in% class(group)) {
+  if (inherits(group, "haven_labelled")) {
     group_name <- deparse(substitute(group))
     group <- haven::as_factor(group)
     cli::cli_warn(c("i" = "group vector {.arg {group_name}} is of class {.cls haven_labelled} and has been converted into a factor"))
@@ -125,8 +124,8 @@ ggseqrplot <- function(seqdata,
     unlist() |>
     max()
 
-  if (is.null(colored.stats) & nrow.aux <=10) colored.stats <- TRUE
-  if (is.null(colored.stats) & nrow.aux > 10) colored.stats <- FALSE
+  if (is.null(colored.stats) && nrow.aux <=10) colored.stats <- TRUE
+  if (is.null(colored.stats) &&  nrow.aux > 10) colored.stats <- FALSE
 
   if (proportional == TRUE) {
     for(i in 1:length(unique(group))) {
@@ -161,11 +160,11 @@ ggseqrplot <- function(seqdata,
 
 
   rplotdata <- purrr::imap(sort(unique(group)),
-                          ~rplotdata[[.y]] |>
-                            dplyr::mutate(group = .x, .before = 1))
+                           ~rplotdata[[.y]] |>
+                             dplyr::mutate(group = .x, .before = 1))
 
 
-  if (colored.stats == TRUE & stats == TRUE) {
+  if (colored.stats == TRUE && stats == TRUE) {
     p2 <- purrr::map(rplotdata,
                      ~ .x |>
                        ggplot(aes(
@@ -201,7 +200,7 @@ ggseqrplot <- function(seqdata,
                         ~ggplot_build(.x)$data[[1]] |>
                           dplyr::group_by(.data$label) |>
                           dplyr::summarise(col = dplyr::first(.data$fill)) |>
-                          dplyr::pull(.data$col))
+                          dplyr::pull("col"))
 
     labs <- purrr::map(color,
                        ~glue::glue("<b style='color:{.x}'>{1:length(.x)}</b>"))
@@ -308,7 +307,7 @@ ggseqrplot <- function(seqdata,
     }
   }
 
-  if (facet_ncol == 1 & length(unique(group)) > 1) {
+  if (facet_ncol == 1 && length(unique(group)) > 1) {
     patches <- vector(mode='character')
 
     for (i in 1:length(unique(group))) {
@@ -336,7 +335,7 @@ ggseqrplot <- function(seqdata,
 
 
 
-  if (stats == FALSE & length(unique(group)) > 1) {
+  if (stats == FALSE && length(unique(group)) > 1) {
     p1 <- purrr::map2(p1, sort(unique(group)),
                       ~ .x +
                         ggtitle(.y) +
@@ -364,16 +363,20 @@ ggseqrplot <- function(seqdata,
   }
 
   if (length(unique(group)) > 6) {
-      usethis::ui_info(glue::glue("You are trying to render a representative sequence plot for many groups.
-      The resulting output (if produced at all) might be hard to decipher.
-      Consider reducing the number of distinct groups."))
+    cli::cli_inform(c(
+      "!" = "You are trying to render a representative sequence plot for many groups.",
+      " " = "The resulting output (if produced at all) might be hard to decipher.",
+      "i" = "Consider reducing the number of distinct groups."
+    ))
   }
 
   if (length(unique(group)) > 3) {
-      usethis::ui_info(glue::glue("You are trying to render a representative sequence plot for many groups using just one column.
-      The resulting output (if produced at all) might be hard to decipher.
-      Consider reducing the number of distinct groups or increase facet_ncol."))
-    }
+    cli::cli_inform(c(
+      "!" = "You are trying to render a representative sequence plot for many groups using just one column.",
+      " " = "The resulting output (if produced at all) might be hard to decipher.",
+      "i" = "Consider reducing the number of distinct groups or increase {.arg facet_ncol}."
+    ))
+  }
 
   return(rplot)
 

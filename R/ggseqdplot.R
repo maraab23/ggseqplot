@@ -5,7 +5,9 @@
 #' function that is used by \code{\link[TraMineR:seqplot]{TraMineR::seqplot}}
 #' \insertCite{gabadinho2011}{ggseqplot}.
 #'
-#' @eval shared_params()
+#' @param seqdata State sequence object (class \code{stslist}) created with the \code{\link[TraMineR:seqdef]{TraMineR::seqdef}} function.
+#' @param weighted Controls if weights (specified in \code{\link[TraMineR:seqdef]{TraMineR::seqdef}}) should be used. Default is \code{TRUE}, i.e. if available weights are used
+#' @param group A vector of the same length as the sequence data indicating group membership. When not NULL, a distinct plot is generated for each level of group.
 #' @param no.n specifies if number of (weighted) sequences is shown (default is \code{TRUE})
 #' @param dissect if \code{"row"} or \code{"col"} are specified separate distribution plots instead of a stacked plot are displayed;
 #' \code{"row"} and \code{"col"} display the distributions in one row or one column respectively; default is \code{NULL}
@@ -15,7 +17,8 @@
 #' @param linetype The linetype for the entropy subplot (\code{with.entropy==TRUE}) can be specified with an integer (0-6) or name (0 = blank, 1 = solid, 2 = dashed, 3 = dotted, 4 = dotdash, 5 = longdash, 6 = twodash); ; default is \code{"dashed"}
 #' @param linecolor Specifies the color of the entropy line if \code{with.entropy==TRUE}; default is \code{"black"}
 #' @param linewidth Specifies the width of the entropy line if \code{with.entropy==TRUE}; default is \code{1}
-#' @eval shared_facet()
+#' @param facet_ncol Number of columns in faceted (i.e. grouped) plot
+#' @param facet_nrow Number of rows in faceted (i.e. grouped) plot
 #' @param ... if group is specified additional arguments of \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap}}
 #' such as \code{"labeller"} or \code{"strip.position"} can be used to change the appearance of the plot. Does
 #' not work if \code{dissect} is used
@@ -114,28 +117,29 @@ ggseqdplot <- function(seqdata,
     stop("data are not stored as sequence object, use 'TraMineR::seqdef' to create one")
   }
 
-  if (!is.null(dissect) & with.entropy == TRUE) {
-    usethis::ui_warn(glue::glue('
-    You tried to render a disaggregated dplot using `dissect`, while also setting `with.entropy` to `TRUE`.
-    As the state-specific distrubution plots would repeatedly show the same entropy line, `with.entropy = TRUE` is ignored.'))
+  if (!is.null(dissect) && with.entropy == TRUE) {
+    cli::cli_warn(c(
+      "!" = "You tried to render a disaggregated dplot using `dissect`, while also setting `with.entropy` to `TRUE`",
+      "i" = "As the state-specific distrubution plots would repeatedly show the same entropy line, `with.entropy = TRUE` is ignored."
+    ))
     with.entropy <- FALSE
   }
 
-  if (!is.null(group) & (length(group) != nrow(seqdata))) {
+  if (!is.null(group) && (length(group) != nrow(seqdata))) {
     stop("length of group vector must match number of rows of seqdata")
   }
 
-  if (is.null(border)) border <- FALSE
+  border <- border %||% FALSE
 
-  if (!is.logical(weighted) | !is.logical(with.missing) |
-      !is.logical(border) | !is.logical(no.n)) {
+  if (!is.logical(weighted) || !is.logical(with.missing) ||
+      !is.logical(border) || !is.logical(no.n)) {
     stop("the arguments `no.n`, `weighted`, `with.missing`, and `border` have to be objects of type logical")
   }
 
   if (is.null(attributes(seqdata)$weights)) weighted <- FALSE
 
 
-  if (is.null(group)) group <- 1
+  group <- group %||% 1
 
   if (!is.null(facet_ncol) && as.integer(facet_ncol) != facet_ncol) {
     stop("`facet_ncol` must be NULL or an integer.")
@@ -145,7 +149,7 @@ ggseqdplot <- function(seqdata,
     stop("`facet_nrow` must be NULL or an integer.")
   }
 
-  if ("haven_labelled" %in% class(group)) {
+  if (inherits(group, "haven_labelled")) {
     group_name <- deparse(substitute(group))
     group <- haven::as_factor(group)
     cli::cli_warn(c("i" = "group vector {.arg {group_name}} is of class {.cls haven_labelled} and has been converted into a factor"))
@@ -229,12 +233,12 @@ ggseqdplot <- function(seqdata,
     suppressMessages(
       eplotdata <- stateentropy |>
         dplyr::mutate(k = factor(.data$k, levels = unique(.data$k))) |>
-        dplyr::rename(entropy = .data$value)
+        dplyr::rename(entropy = "value")
     )
   }
 
 
-  if ("Missing" %in% dplotdata$state == TRUE) {
+  if ("Missing" %in% dplotdata$state) {
     cpal <- c(
       attributes(seqdata)$cpal,
       attributes(seqdata)$missing.color
@@ -285,7 +289,7 @@ ggseqdplot <- function(seqdata,
       geom_bar(
         stat = "identity",
         width = 1, color = "black",
-        show.legend = T
+        show.legend = TRUE
       )
   }
 
@@ -335,7 +339,7 @@ ggseqdplot <- function(seqdata,
   }
 
 
-  if (grsize == 1 & !is.null(dissect)) {
+  if (grsize == 1 && !is.null(dissect)) {
     suppressMessages(
       ggdplot <- ggdplot +
         {if(dissect == "row")facet_wrap(~rev(.data$state), nrow = 1)} +
@@ -350,7 +354,7 @@ ggseqdplot <- function(seqdata,
   }
 
 
-  if (grsize > 1 & !is.null(dissect)) {
+  if (grsize > 1 && !is.null(dissect)) {
     suppressMessages(
       ggdplot <- ggdplot +
         {if(dissect == "row")facet_grid(vars(.data$grouplab), vars(rev(.data$state)), switch = "y")} +
