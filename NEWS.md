@@ -1,3 +1,7 @@
+# ggseqplot (development version)
+
+* housekeeping update with a bunch of improvements of the code base (#8, by @olivroy)
+
 # ggseqplot 0.8.7
 
 * fixed `default_aes` issue in anticipation of upcoming `{ggplot2}` ggplot2 u (#7, thanks to @teunbrand)
