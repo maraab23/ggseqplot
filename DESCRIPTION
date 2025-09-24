@@ -40,7 +40,6 @@ Imports:
 Suggests: 
     covr,
     ggthemes,
-    hrbrthemes,
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)
