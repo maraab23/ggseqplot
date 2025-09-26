@@ -1,6 +1,7 @@
 # ggseqplot (development version)
 
-* housekeeping update with a bunch of improvements of the code base (#8, by @olivroy)
+* housekeeping update with a bunch of improvements of the code base (#8, thanks to @olivroy)
+* remove dependency on hrbrthemes, adjust vignette accordingly due to extrafont/CRAN issue (#10, thanks to @helske)
 
 # ggseqplot 0.8.7
 

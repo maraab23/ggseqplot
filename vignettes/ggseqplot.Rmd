@@ -351,7 +351,7 @@ library to compose a figure that compares the transition matrices of the same
 sequence data in STS and DSS format.
 
 We set `x_n.dodge = 2` to prevent overlapping x-axis labels, reduce the font 
-size of the value labels displayed within the tiles (`labsize = 3`), 
+size of the value labels displayed within the tiles (`labsize = 7`), 
 and set `dss = FALSE` to switch to the STS format.
 
 ```{r}
@@ -359,13 +359,13 @@ and set `dss = FALSE` to switch to the STS format.
 p1 <- ggseqtrplot(biofam.seq, 
                   dss = FALSE, 
                   x_n.dodge = 2,
-                  labsize = 3) +
+                  labsize = 7) +
   ggtitle("STS Sequences") +
   theme(plot.margin = unit(c(5,10,5,5), "points"))
 
 p2 <- ggseqtrplot(biofam.seq, 
                   x_n.dodge = 2,
-                  labsize = 3) +
+                  labsize = 7) +
     ggtitle("DSS Sequences") +
   theme(plot.margin = unit(c(5,5,5,10), "points"))
 
