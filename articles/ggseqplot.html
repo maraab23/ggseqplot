@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ggseqplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.7.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.7.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -436,21 +436,21 @@ that compares the transition matrices of the same sequence data in STS
 and DSS format.</p>
 <p>We set <code>x_n.dodge = 2</code> to prevent overlapping x-axis
 labels, reduce the font size of the value labels displayed within the
-tiles (<code>labsize = 3</code>), and set <code>dss = FALSE</code> to
+tiles (<code>labsize = 7</code>), and set <code>dss = FALSE</code> to
 switch to the STS format.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggseqtrplot.html">ggseqtrplot</a></span><span class="op">(</span><span class="va">biofam.seq</span>, </span>
 <span>                  dss <span class="op">=</span> <span class="cn">FALSE</span>, </span>
 <span>                  x_n.dodge <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>                  labsize <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>                  labsize <span class="op">=</span> <span class="fl">7</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"STS Sequences"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.margin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">10</span>,<span class="fl">5</span>,<span class="fl">5</span><span class="op">)</span>, <span class="st">"points"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [&gt;] computing transition probabilities for states 0/1/2/3/4/5/6/7 ...</span></span>
 <span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggseqtrplot.html">ggseqtrplot</a></span><span class="op">(</span><span class="va">biofam.seq</span>, </span>
 <span>                  x_n.dodge <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>                  labsize <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>                  labsize <span class="op">=</span> <span class="fl">7</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"DSS Sequences"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.margin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">5</span>,<span class="fl">5</span>,<span class="fl">10</span><span class="op">)</span>, <span class="st">"points"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [&gt;] computing transition probabilities for states 0/1/2/3/4/5/6/7 ...</span></span>
@@ -628,7 +628,7 @@ annotations can be modified using the <code>&amp;</code> operator
 <span><span class="co">#&gt;  [&gt;] 76 distinct  sequences</span></span>
 <span><span class="co">#&gt;  [&gt;] min/max sequence lengths: 16/16</span></span>
 <span><span class="co">#&gt;  [&gt;] computing distances using the LCS metric</span></span>
-<span><span class="co">#&gt;  [&gt;] elapsed time: 0.017 secs</span></span>
+<span><span class="co">#&gt;  [&gt;] elapsed time: 0.018 secs</span></span>
 <span></span>
 <span><span class="co">## Relative Frequency Sequence Plot</span></span>
 <span><span class="co">## default version</span></span>
@@ -723,7 +723,7 @@ modify them as needed, and then re-plot the final figure.</p>
 <span><span class="co">#&gt;  [&gt;] 186 distinct  sequences</span></span>
 <span><span class="co">#&gt;  [&gt;] min/max sequence lengths: 12/12</span></span>
 <span><span class="co">#&gt;  [&gt;] computing distances using the LCS metric</span></span>
-<span><span class="co">#&gt;  [&gt;] elapsed time: 0.278 secs</span></span>
+<span><span class="co">#&gt;  [&gt;] elapsed time: 0.281 secs</span></span>
 <span></span>
 <span><span class="co">## original plot</span></span>
 <span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggseqrplot.html">ggseqrplot</a></span><span class="op">(</span><span class="va">actcal.seq</span>, </span>
@@ -796,7 +796,7 @@ to add group titles and used plot tags instead.</p>
 <span><span class="co">#&gt;  [&gt;] 76 distinct  sequences</span></span>
 <span><span class="co">#&gt;  [&gt;] min/max sequence lengths: 16/16</span></span>
 <span><span class="co">#&gt;  [&gt;] computing distances using the LCS metric</span></span>
-<span><span class="co">#&gt;  [&gt;] elapsed time: 0.017 secs</span></span>
+<span><span class="co">#&gt;  [&gt;] elapsed time: 0.016 secs</span></span>
 <span></span>
 <span><span class="va">sex</span> <span class="op">&lt;-</span> <span class="va">biofam</span><span class="op">[</span><span class="fl">501</span><span class="op">:</span><span class="fl">600</span>, <span class="st">"sex"</span><span class="op">]</span></span>
 <span></span>
