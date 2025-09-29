@@ -1,9 +1,10 @@
-# Resubmission note for release 0.8.7
+# Resubmission note for release 0.8.8
 
-## Changes since release 0.8.6
+## Changes since release 0.8.7
 
-- minor fix of `default_aes` issue in `ggseqtrplot` required due to upcoming `{ggplot2}` release 
-
+* cleaning up the code base (thanks to @olivroy)
+* remove dependency on `hrbrthemes`, adjust vignette accordingly due to `extrafont`/CRAN issue (thanks to @helske)
+* fixed `ggtext::element_markdown()` problem in rplots by specifying theme argument 
 
 ## local R CMD check results
 
