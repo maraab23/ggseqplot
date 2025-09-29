@@ -218,7 +218,8 @@ ggseqrplot <- function(seqdata,
                           labs(subtitle = glue::glue("Coverage = {coverage[[.y]]}")) +
                           theme(
                             axis.title.y = element_blank(),
-                            axis.text.y = ggtext::element_markdown(size = 11),
+                            axis.text.y = ggtext::element_markdown(size = 11),  # ggplot2 < 3.5
+                            axis.text.y.left = ggtext::element_markdown(size = 11),
                             plot.subtitle = element_text(hjust = 0.5)
                           ))
     ) } else {
