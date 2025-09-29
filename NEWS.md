@@ -1,7 +1,7 @@
-# ggseqplot (development version)
+# ggseqplot 0.8.8
 
 * housekeeping update with a bunch of improvements of the code base (#8, thanks to @olivroy)
-* remove dependency on hrbrthemes, adjust vignette accordingly due to extrafont/CRAN issue (#10, thanks to @helske)
+* remove dependency on `hrbrthemes`, adjust vignette accordingly due to `extrafont`/CRAN issue (#10, thanks to @helske)
 * fixed `ggtext::element_markdown()` problem in rplots by specifying theme argument 
 
 # ggseqplot 0.8.7
