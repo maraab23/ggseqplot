@@ -12,6 +12,15 @@
 #' @param sortv Vector of numerical values sorting the sequences or a sorting
 #' method (either \code{"from.start"} or \code{"from.end"}). See details.
 #' @param border if \code{TRUE} bars are plotted with black outline; default is \code{FALSE} (also accepts \code{NULL})
+#' @param ytlab Specifies the type of y-axis labels. Options are:
+#' \itemize{
+#'   \item \code{NULL} (default): uses pretty breaks for sequential numbering
+#'   \item \code{"all"}: displays all sequences with sequential numbers (1, 2, 3, ...)
+#'   \item \code{"id"}: displays sequence IDs (rownames of \code{seqdata}) using pretty breaks
+#'   \item \code{"id-all"}: displays all sequences with their sequence IDs (rownames)
+#' }
+#' When using \code{"id"} or \code{"id-all"}, if \code{seqdata} has no rownames,
+#' sequential numbers are used as identifiers.
 #' @param facet_scale Specifies if y-scale in faceted plot should be free
 #' (\code{"free_y"} is default) or \code{"fixed"}
 #' @param ... if group is specified additional arguments of \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap}}
@@ -44,10 +53,12 @@
 #' If weights are specified for \code{seqdata} and \code{weighted=TRUE}
 #' the sequence height corresponds to its weight.
 #'
-#' If weights and a grouping variable are used, and \code{facet_scale="fixed"}
-#' the values of the y-axis are not labeled, because
-#' \code{\link[ggplot2]{ggplot2}} reasonably does not allow for varying scales
-#' when the facet scale is fixed.
+#' When using grouped plots (i.e., when \code{group} is specified) with
+#' \code{facet_scale = "fixed"}, the function internally uses \code{scales = "free_y"}
+#' in \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap}} but applies
+#' \code{\link[ggplot2:coord_cartesian]{coord_cartesian}} with fixed \code{ylim}
+#' to achieve the effect of a fixed y-scale across facets. This approach allows
+#' for consistent y-axis ranges while maintaining flexibility in the labeling.
 #'
 #' When a \code{sortv} is specified, the sequences are arranged in the order of
 #' its values. With \code{sortv="from.start"} sequence data are sorted
@@ -56,6 +67,19 @@
 #' ties. Likewise, \code{sortv="from.end"} sorts a reversed version of the
 #' sequence data, starting with the final sequence position turning to
 #' preceding positions in case of ties.
+#'
+#' When \code{ytlab} is set to \code{"id"}, \code{"all"}, \code{"id-all"}, the
+#' y-axis labeling behavior changes. With \code{"all"}, all sequences are labeled
+#' with sequential numbers (1, 2, 3, ...) instead of using pretty breaks. With
+#' \code{"id"}, the rownames of the sequence object are used as y-axis labels with
+#' pretty breaks. With \code{"id-all"}, all sequences are labeled with their rownames.
+#' If the sequence object has no rownames, sequential numbers (1, 2, 3, ...) are used
+#' as identifiers. These features are especially useful when working with sorted
+#' sequences or when displaying specific cases with meaningful identifiers. Note that
+#' with \code{"all"} and \code{"id-all"}, overlapping labels are automatically prevented
+#' to maintain readability. When there are many sequences and insufficient space, not
+#' all labels may be displayed. In such cases, consider increasing the plot height if you
+#' insist on seeing all labels displayed.
 #'
 #' Note that the default aspect ratio of \code{ggseqiplot} is different from
 #' \code{\link[TraMineR:seqIplot]{TraMineR::seqIplot}}. This is most obvious
@@ -96,6 +120,15 @@
 #' seqIplot(ex1.seq, weighted = FALSE, border = TRUE)
 #' ggseqiplot(ex1.seq, weighted = FALSE, border = TRUE)
 #'
+#' # Use sequence IDs as y-axis labels, and "fixed" y scale
+#' ggseqiplot(ex1.seq,group = c(1, 1, 1, 2, 2, 2, 2),
+#'            weighted = FALSE, border = TRUE, ytlab = "id", facet_scale = "fixed")
+#'
+#' # Display all sequences with sequential numbers and with ids
+#' ggseqiplot(actcal.seq[1:20, ], sortv = "from.end", ytlab = "all")
+#' ggseqiplot(actcal.seq[1:20, ], sortv = "from.end", ytlab = "id-all")
+#'
+#'
 #' @import ggplot2
 #' @importFrom Rdpack reprompt
 #' @importFrom rlang .data
@@ -105,6 +138,7 @@ ggseqiplot <- function(seqdata,
                        sortv = NULL,
                        weighted = TRUE,
                        border = FALSE,
+                       ytlab = NULL,
                        facet_scale = "free_y",
                        facet_ncol = NULL,
                        facet_nrow = NULL,
@@ -118,6 +152,12 @@ ggseqiplot <- function(seqdata,
   if (!is.logical(weighted) || !is.logical(border)) {
     cli::cli_abort(c(
       "{.arg weighted} or {.arg border} must be of type logical."
+    ))
+  }
+
+  if (!is.null(ytlab) &&!ytlab %in% c("id-all", "all", "id")) {
+    cli::cli_abort(c(
+      "{.arg ytlab} has to be either NULL or on of {.str id}, {.str all}, {.str id-all}."
     ))
   }
 
@@ -289,9 +329,18 @@ ggseqiplot <- function(seqdata,
     grinorder,
     ~ ybrks |>
       dplyr::filter(.data$group == .x) |>
-      dplyr::transmute(laby = dplyr::row_number()) |>
+      #dplyr::transmute(laby = dplyr::row_number()) |>
+      dplyr::transmute(laby = if (!is.null(ytlab) && ytlab %in% c("id", "id-all")) .data$id else dplyr::row_number()) |>
       dplyr::pull()
   )
+
+  scalelabels_new <- scalelabels
+
+  scalelabels <- purrr::map(scalelabels, ~ seq_along(.x))
+
+  scaleytotal <- list(scalebreaks = scalebreaks,
+                      scalelabels_new = scalelabels_new,
+                      scalelabels = scalelabels)
 
   grsize <- purrr::map(scalelabels, max)
 
@@ -318,18 +367,21 @@ ggseqiplot <- function(seqdata,
     ~ .x[.y]
   )
 
-  if (facet_scale == "fixed") {
-    maxyidx <- purrr::map(scalebreaks, max) |>
-      unlist() |>
-      which.max()
+  scalelabels_new <- purrr::map2(
+    scalelabels_new, scalelabels,
+    ~ .x[.y]
+  )
 
-    scalebreaks <- scalebreaks[maxyidx]
-    scalelabels <- scalelabels[maxyidx]
+  if (!is.null(ytlab) && ytlab %in% c("id-all", "all")) {
+    scalebreaks <- scaleytotal$scalebreaks
+    scalelabels_new <- scaleytotal$scalelabels_new
+    scalelabels <-  scaleytotal$scalelabels
   }
+
 
   scales <- purrr::map2(
     scalebreaks,
-    scalelabels,
+    scalelabels_new,
     ~ scale_y_continuous(
       expand = expansion(add = 0),
       breaks = .x,
@@ -361,6 +413,8 @@ ggseqiplot <- function(seqdata,
       dplyr::mutate(grouplab = .data$group)
     ylabspec <- "# sequences"
   }
+
+  if (!is.null(ytlab) && ytlab %in% c("id-all", "id")) ylabspec <- sub("# sequences", "Sequence IDs", ylabspec)
 
   suppressMessages(
     if (nrow(grouplabspec) > 1) {
@@ -423,6 +477,9 @@ ggseqiplot <- function(seqdata,
                     left = .data$left +.5,
                     right = .data$right +.5)
 
+  # for coord_cartesian ylim and fixed y-scale
+  max_y_limit <- max(dt2$end)
+
 
   if (border == FALSE) {
     suppressMessages(
@@ -469,14 +526,15 @@ ggseqiplot <- function(seqdata,
     suppressMessages(
       ggiplot <- ggiplot +
         facet_wrap(~ .data$grouplab,
-                   scales = facet_scale,
+                   scales = "free_y",
                    ncol = facet_ncol,
                    nrow = facet_nrow,
                    ...
         ) +
-        labs(y = ifelse(weighted == TRUE,
-                        "# weighted sequences",
-                        "# sequences"
+        labs(y = dplyr::case_when(
+          !is.null(ytlab) && ytlab == "id" ~ "Sequence IDs",
+          weighted == TRUE ~ "# weighted sequences",
+          .default = "# sequences"
         )) +
         theme(panel.spacing = unit(2, "lines"),
               strip.text.x = element_text(margin = margin( b = 10, t = 0))) +
@@ -490,13 +548,17 @@ ggseqiplot <- function(seqdata,
     )
   }
 
-  if (grsize > 1 && facet_scale == "fixed" && weighted == TRUE) {
+  # if (grsize > 1 && facet_scale == "fixed" && weighted == TRUE) {
+  if (grsize > 1 && weighted == TRUE) {
     ggiplot <- ggiplot +
       labs(y = "weighted sequences") +
-      theme(
-        axis.text.y = element_blank(),
-        axis.ticks.y = element_blank()
-      )
+      coord_cartesian(ylim = c(0, max_y_limit))
+  }
+
+  if (grsize > 1 && facet_scale == "fixed") {
+    ggiplot <- ggiplot +
+      labs(y = "weighted sequences") +
+      coord_cartesian(ylim = c(0.5, max_y_limit))
   }
 
   suppressMessages(

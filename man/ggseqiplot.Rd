@@ -11,6 +11,7 @@ ggseqiplot(
   sortv = NULL,
   weighted = TRUE,
   border = FALSE,
+  ytlab = NULL,
   facet_scale = "free_y",
   facet_ncol = NULL,
   facet_nrow = NULL,
@@ -31,6 +32,16 @@ method (either \code{"from.start"} or \code{"from.end"}). See details.}
 \item{weighted}{Controls if weights (specified in \code{\link[TraMineR:seqdef]{TraMineR::seqdef}}) should be used. Default is \code{TRUE}, i.e. if available weights are used}
 
 \item{border}{if \code{TRUE} bars are plotted with black outline; default is \code{FALSE} (also accepts \code{NULL})}
+
+\item{ytlab}{Specifies the type of y-axis labels. Options are:
+\itemize{
+\item \code{NULL} (default): uses pretty breaks for sequential numbering
+\item \code{"all"}: displays all sequences with sequential numbers (1, 2, 3, ...)
+\item \code{"id"}: displays sequence IDs (rownames of \code{seqdata}) using pretty breaks
+\item \code{"id-all"}: displays all sequences with their sequence IDs (rownames)
+}
+When using \code{"id"} or \code{"id-all"}, if \code{seqdata} has no rownames,
+sequential numbers are used as identifiers.}
 
 \item{facet_scale}{Specifies if y-scale in faceted plot should be free
 (\code{"free_y"} is default) or \code{"fixed"}}
@@ -77,10 +88,12 @@ because this allows for a straight forward implementation of weights.
 If weights are specified for \code{seqdata} and \code{weighted=TRUE}
 the sequence height corresponds to its weight.
 
-If weights and a grouping variable are used, and \code{facet_scale="fixed"}
-the values of the y-axis are not labeled, because
-\code{\link[ggplot2]{ggplot2}} reasonably does not allow for varying scales
-when the facet scale is fixed.
+When using grouped plots (i.e., when \code{group} is specified) with
+\code{facet_scale = "fixed"}, the function internally uses \code{scales = "free_y"}
+in \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap}} but applies
+\code{\link[ggplot2:coord_cartesian]{coord_cartesian}} with fixed \code{ylim}
+to achieve the effect of a fixed y-scale across facets. This approach allows
+for consistent y-axis ranges while maintaining flexibility in the labeling.
 
 When a \code{sortv} is specified, the sequences are arranged in the order of
 its values. With \code{sortv="from.start"} sequence data are sorted
@@ -89,6 +102,19 @@ first sequence position, drawing on succeeding positions in the case of
 ties. Likewise, \code{sortv="from.end"} sorts a reversed version of the
 sequence data, starting with the final sequence position turning to
 preceding positions in case of ties.
+
+When \code{ytlab} is set to \code{"id"}, \code{"all"}, \code{"id-all"}, the
+y-axis labeling behavior changes. With \code{"all"}, all sequences are labeled
+with sequential numbers (1, 2, 3, ...) instead of using pretty breaks. With
+\code{"id"}, the rownames of the sequence object are used as y-axis labels with
+pretty breaks. With \code{"id-all"}, all sequences are labeled with their rownames.
+If the sequence object has no rownames, sequential numbers (1, 2, 3, ...) are used
+as identifiers. These features are especially useful when working with sorted
+sequences or when displaying specific cases with meaningful identifiers. Note that
+with \code{"all"} and \code{"id-all"}, overlapping labels are automatically prevented
+to maintain readability. When there are many sequences and insufficient space, not
+all labels may be displayed. In such cases, consider increasing the plot height if you
+insist on seeing all labels displayed.
 
 Note that the default aspect ratio of \code{ggseqiplot} is different from
 \code{\link[TraMineR:seqIplot]{TraMineR::seqIplot}}. This is most obvious
@@ -123,6 +149,15 @@ ggseqiplot(ex1.seq)
 # ... turn weights off and add border
 seqIplot(ex1.seq, weighted = FALSE, border = TRUE)
 ggseqiplot(ex1.seq, weighted = FALSE, border = TRUE)
+
+# Use sequence IDs as y-axis labels, and "fixed" y scale
+ggseqiplot(ex1.seq,group = c(1, 1, 1, 2, 2, 2, 2),
+           weighted = FALSE, border = TRUE, ytlab = "id", facet_scale = "fixed")
+
+# Display all sequences with sequential numbers and with ids
+ggseqiplot(actcal.seq[1:20, ], sortv = "from.end", ytlab = "all")
+ggseqiplot(actcal.seq[1:20, ], sortv = "from.end", ytlab = "id-all")
+
 
 }
 \references{

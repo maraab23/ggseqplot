@@ -1,3 +1,7 @@
+# ggseqplot (development version)
+
+* added `ytlab` argument for `ggseqiplot` (requested by @helske,  #9); allows to use ID labels in index plots similar to `{TraMineR}` 
+
 # ggseqplot 0.8.8
 
 * housekeeping update with a bunch of improvements of the code base (#8, thanks to @olivroy)
