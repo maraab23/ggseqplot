@@ -19,7 +19,7 @@ TraMineR::seqplot
 
     <a class="navbar-brand me-2" href="../index.html">ggseqplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,7 +41,7 @@ TraMineR::seqplot
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Sequence Index Plot</h1>
-      <small class="dont-index">Source: <a href="https://github.com/maraab23/ggseqplot/blob/v0.8.8/R/ggseqiplot.R" class="external-link"><code>R/ggseqiplot.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/maraab23/ggseqplot/blob/main/R/ggseqiplot.R" class="external-link"><code>R/ggseqiplot.R</code></a></small>
       <div class="d-none name"><code>ggseqiplot.Rd</code></div>
     </div>
 
@@ -64,6 +64,7 @@ of base R's <code><a href="https://rdrr.io/r/base/plot.html" class="external-lin
 <span>  sortv <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  weighted <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  border <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  ytlab <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  facet_scale <span class="op">=</span> <span class="st">"free_y"</span>,</span>
 <span>  facet_ncol <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  facet_nrow <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -99,6 +100,15 @@ method (either <code>"from.start"</code> or <code>"from.end"</code>). See detail
 
 <dt id="arg-border">border<a class="anchor" aria-label="anchor" href="#arg-border"></a></dt>
 <dd><p>if <code>TRUE</code> bars are plotted with black outline; default is <code>FALSE</code> (also accepts <code>NULL</code>)</p></dd>
+
+
+<dt id="arg-ytlab">ytlab<a class="anchor" aria-label="anchor" href="#arg-ytlab"></a></dt>
+<dd><p>Specifies the type of y-axis labels. Options are:</p><ul><li><p><code>NULL</code> (default): uses pretty breaks for sequential numbering</p></li>
+<li><p><code>"all"</code>: displays all sequences with sequential numbers (1, 2, 3, ...)</p></li>
+<li><p><code>"id"</code>: displays sequence IDs (rownames of <code>seqdata</code>) using pretty breaks</p></li>
+<li><p><code>"id-all"</code>: displays all sequences with their sequence IDs (rownames)</p></li>
+</ul><p>When using <code>"id"</code> or <code>"id-all"</code>, if <code>seqdata</code> has no rownames,
+sequential numbers are used as identifiers.</p></dd>
 
 
 <dt id="arg-facet-scale">facet_scale<a class="anchor" aria-label="anchor" href="#arg-facet-scale"></a></dt>
@@ -150,10 +160,12 @@ ggplot2's <code><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html"
 because this allows for a straight forward implementation of weights.
 If weights are specified for <code>seqdata</code> and <code>weighted=TRUE</code>
 the sequence height corresponds to its weight.</p>
-<p>If weights and a grouping variable are used, and <code>facet_scale="fixed"</code>
-the values of the y-axis are not labeled, because
-<code><a href="https://ggplot2.tidyverse.org/reference/ggplot2-package.html" class="external-link">ggplot2</a></code> reasonably does not allow for varying scales
-when the facet scale is fixed.</p>
+<p>When using grouped plots (i.e., when <code>group</code> is specified) with
+<code>facet_scale = "fixed"</code>, the function internally uses <code>scales = "free_y"</code>
+in <code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">ggplot2::facet_wrap</a></code> but applies
+<code><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></code> with fixed <code>ylim</code>
+to achieve the effect of a fixed y-scale across facets. This approach allows
+for consistent y-axis ranges while maintaining flexibility in the labeling.</p>
 <p>When a <code>sortv</code> is specified, the sequences are arranged in the order of
 its values. With <code>sortv="from.start"</code> sequence data are sorted
 according to the states of the alphabet in ascending order starting with the
@@ -161,6 +173,18 @@ first sequence position, drawing on succeeding positions in the case of
 ties. Likewise, <code>sortv="from.end"</code> sorts a reversed version of the
 sequence data, starting with the final sequence position turning to
 preceding positions in case of ties.</p>
+<p>When <code>ytlab</code> is set to <code>"id"</code>, <code>"all"</code>, <code>"id-all"</code>, the
+y-axis labeling behavior changes. With <code>"all"</code>, all sequences are labeled
+with sequential numbers (1, 2, 3, ...) instead of using pretty breaks. With
+<code>"id"</code>, the rownames of the sequence object are used as y-axis labels with
+pretty breaks. With <code>"id-all"</code>, all sequences are labeled with their rownames.
+If the sequence object has no rownames, sequential numbers (1, 2, 3, ...) are used
+as identifiers. These features are especially useful when working with sorted
+sequences or when displaying specific cases with meaningful identifiers. Note that
+with <code>"all"</code> and <code>"id-all"</code>, overlapping labels are automatically prevented
+to maintain readability. When there are many sequences and insufficient space, not
+all labels may be displayed. In such cases, consider increasing the plot height if you
+insist on seeing all labels displayed.</p>
 <p>Note that the default aspect ratio of <code>ggseqiplot</code> is different from
 <code><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">TraMineR::seqIplot</a></code>. This is most obvious
 when <code>border=TRUE</code>. You can change the ratio either by adding code to
@@ -266,6 +290,18 @@ Springer, Cham.
 <span class="r-plt img"><img src="ggseqiplot-5.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu">ggseqiplot</span><span class="op">(</span><span class="va">ex1.seq</span>, weighted <span class="op">=</span> <span class="cn">FALSE</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ggseqiplot-6.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Use sequence IDs as y-axis labels, and "fixed" y scale</span></span></span>
+<span class="r-in"><span><span class="fu">ggseqiplot</span><span class="op">(</span><span class="va">ex1.seq</span>,group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>           weighted <span class="op">=</span> <span class="cn">FALSE</span>, border <span class="op">=</span> <span class="cn">TRUE</span>, ytlab <span class="op">=</span> <span class="st">"id"</span>, facet_scale <span class="op">=</span> <span class="st">"fixed"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="ggseqiplot-7.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Display all sequences with sequential numbers and with ids</span></span></span>
+<span class="r-in"><span><span class="fu">ggseqiplot</span><span class="op">(</span><span class="va">actcal.seq</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span>, <span class="op">]</span>, sortv <span class="op">=</span> <span class="st">"from.end"</span>, ytlab <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="ggseqiplot-8.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu">ggseqiplot</span><span class="op">(</span><span class="va">actcal.seq</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span>, <span class="op">]</span>, sortv <span class="op">=</span> <span class="st">"from.end"</span>, ytlab <span class="op">=</span> <span class="st">"id-all"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="ggseqiplot-9.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
