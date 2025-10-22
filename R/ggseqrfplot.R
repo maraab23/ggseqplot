@@ -105,7 +105,8 @@
 #'   \insertAllCited{}
 #'
 #' @examples
-#' # Load additional library for fine-tuning the plots
+#' library(TraMineR)
+#' library(ggplot2)
 #' library(patchwork)
 #'
 #' # From TraMineR::seqprf

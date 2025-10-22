@@ -66,6 +66,9 @@
 #'   \insertAllCited{}
 #'
 #' @examples
+#' library(TraMineR)
+#' library(ggplot2)
+#'
 #' # Use example data from TraMineR: actcal data set
 #' data(actcal)
 #'

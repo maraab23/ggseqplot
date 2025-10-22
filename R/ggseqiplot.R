@@ -93,6 +93,8 @@
 #'   \insertAllCited{}
 #'
 #' @examples
+#' library(TraMineR)
+#'
 #' # Use example data from TraMineR: actcal data set
 #' data(actcal)
 #'

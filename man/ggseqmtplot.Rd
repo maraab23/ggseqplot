@@ -74,6 +74,9 @@ every other ggplot (e.g., by changing the theme or the scale using \code{+}
 and the respective functions).
 }
 \examples{
+library(TraMineR)
+library(ggplot2)
+
 # Use example data from TraMineR: actcal data set
 data(actcal)
 

@@ -38,6 +38,8 @@
 #'   \insertAllCited{}
 #'
 #' @examples
+#' library(TraMineR)
+#'
 #' # Use example data from TraMineR: biofam data set
 #' data(biofam)
 #'

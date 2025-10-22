@@ -68,6 +68,8 @@ every other ggplot (e.g., by changing the theme or the scale using \code{+} and
 the respective functions).
 }
 \examples{
+library(TraMineR)
+
 # Use example data from TraMineR: biofam data set
 data(biofam)
 

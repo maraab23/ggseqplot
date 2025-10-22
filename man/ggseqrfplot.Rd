@@ -149,7 +149,8 @@ See Example 6 in the vignette for further details:
 \code{vignette("ggseqplot", package = "ggseqplot")}
 }
 \examples{
-# Load additional library for fine-tuning the plots
+library(TraMineR)
+library(ggplot2)
 library(patchwork)
 
 # From TraMineR::seqprf

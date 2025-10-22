@@ -123,6 +123,8 @@ when \code{border=TRUE}. You can change the ratio either by adding code to
 \code{\link[ggplot2]{ggsave}}.
 }
 \examples{
+library(TraMineR)
+
 # Use example data from TraMineR: actcal data set
 data(actcal)
 
