@@ -19,7 +19,7 @@ TraMineR::plot.stslist.freq (Gabadinho et al. 2011)
 
     <a class="navbar-brand me-2" href="../index.html">ggseqplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -164,14 +164,17 @@ Springer, Cham.
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Use example data from TraMineR: actcal data set</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://traminer.unige.ch" class="external-link">TraMineR</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Use example data from TraMineR: actcal data set</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">actcal</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># We use only a sample of 300 cases</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">actcal</span> <span class="op">&lt;-</span> <span class="va">actcal</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">actcal</span><span class="op">)</span>, <span class="fl">300</span><span class="op">)</span>, <span class="op">]</span></span></span>
 <span class="r-in"><span><span class="va">actcal.lab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"&gt; 37 hours"</span>, <span class="st">"19-36 hours"</span>, <span class="st">"1-18 hours"</span>, <span class="st">"no work"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">actcal.seq</span> <span class="op">&lt;-</span> <span class="fu">seqdef</span><span class="op">(</span><span class="va">actcal</span>, <span class="fl">13</span><span class="op">:</span><span class="fl">24</span>, labels <span class="op">=</span> <span class="va">actcal.lab</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">actcal.seq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">seqdef</a></span><span class="op">(</span><span class="va">actcal</span>, <span class="fl">13</span><span class="op">:</span><span class="fl">24</span>, labels <span class="op">=</span> <span class="va">actcal.lab</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] 4 distinct states appear in the data: </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>      1 = A</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>      2 = B</span>
@@ -188,7 +191,7 @@ Springer, Cham.
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># sequence frequency plot</span></span></span>
 <span class="r-in"><span><span class="co"># with TraMineR::seqplot</span></span></span>
-<span class="r-in"><span><span class="fu">seqfplot</span><span class="op">(</span><span class="va">actcal.seq</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">seqfplot</a></span><span class="op">(</span><span class="va">actcal.seq</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ggseqfplot-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># with ggseqplot</span></span></span>
 <span class="r-in"><span><span class="fu">ggseqfplot</span><span class="op">(</span><span class="va">actcal.seq</span><span class="op">)</span></span></span>
@@ -198,9 +201,9 @@ Springer, Cham.
 <span class="r-in"><span>           group <span class="op">=</span> <span class="va">actcal</span><span class="op">$</span><span class="va">sex</span>,</span></span>
 <span class="r-in"><span>           ranks <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,</span></span>
 <span class="r-in"><span>           ylabs <span class="op">=</span> <span class="st">"share"</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">scale_x_discrete</span><span class="op">(</span>breaks <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">12</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html" class="external-link">scale_x_discrete</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">12</span>,</span></span>
 <span class="r-in"><span>                   labels <span class="op">=</span> <span class="va">month.abb</span>,</span></span>
-<span class="r-in"><span>                   expand <span class="op">=</span> <span class="fu">expansion</span><span class="op">(</span>add <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>                   expand <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">expansion</a></span><span class="op">(</span>add <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Scale for <span style="color: #00BB00;">x</span> is already present.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Adding another scale for <span style="color: #00BB00;">x</span>, which will replace the existing scale.</span>
 <span class="r-plt img"><img src="ggseqfplot-3.png" alt="" width="700" height="433"></span>

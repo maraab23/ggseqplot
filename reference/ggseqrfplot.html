@@ -17,7 +17,7 @@ TraMineR::seqrf."><meta property="og:image" content="https://maraab23.github.io/
 
     <a class="navbar-brand me-2" href="../index.html">ggseqplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -245,7 +245,8 @@ See Example 6 in the vignette for further details:
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Load additional library for fine-tuning the plots</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://traminer.unige.ch" class="external-link">TraMineR</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># From TraMineR::seqprf</span></span></span>
@@ -258,7 +259,7 @@ See Example 6 in the vignette for further details:
 <span class="r-in"><span><span class="co"># Here, we use only 100 cases selected such that all elements</span></span></span>
 <span class="r-in"><span><span class="co"># of the alphabet be present.</span></span></span>
 <span class="r-in"><span><span class="co"># (More cases and a larger k would be necessary to get a meaningful example.)</span></span></span>
-<span class="r-in"><span><span class="va">biofam.seq</span> <span class="op">&lt;-</span> <span class="fu">seqdef</span><span class="op">(</span><span class="va">biofam</span><span class="op">[</span><span class="fl">501</span><span class="op">:</span><span class="fl">600</span>, <span class="fl">10</span><span class="op">:</span><span class="fl">25</span><span class="op">]</span>, labels<span class="op">=</span><span class="va">biofam.lab</span>,</span></span>
+<span class="r-in"><span><span class="va">biofam.seq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqdef.html" class="external-link">seqdef</a></span><span class="op">(</span><span class="va">biofam</span><span class="op">[</span><span class="fl">501</span><span class="op">:</span><span class="fl">600</span>, <span class="fl">10</span><span class="op">:</span><span class="fl">25</span><span class="op">]</span>, labels<span class="op">=</span><span class="va">biofam.lab</span>,</span></span>
 <span class="r-in"><span>                     weights<span class="op">=</span><span class="va">biofam</span><span class="op">[</span><span class="fl">501</span><span class="op">:</span><span class="fl">600</span>,<span class="st">"wp00tbgs"</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] 8 distinct states appear in the data: </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>      1 = 0</span>
@@ -282,21 +283,21 @@ See Example 6 in the vignette for further details:
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] sum of weights: 111.62 - min/max: 0/4.17260217666626</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] 100 sequences in the data set</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] min/max sequence length: 16/16</span>
-<span class="r-in"><span><span class="va">diss</span> <span class="op">&lt;-</span> <span class="fu">seqdist</span><span class="op">(</span><span class="va">biofam.seq</span>, method <span class="op">=</span> <span class="st">"LCS"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">diss</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqdist.html" class="external-link">seqdist</a></span><span class="op">(</span><span class="va">biofam.seq</span>, method <span class="op">=</span> <span class="st">"LCS"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] 100 sequences with 8 distinct states</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] creating a 'sm' with a substitution cost of 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] creating 8x8 substitution-cost matrix using 2 as constant value</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] 76 distinct  sequences </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] min/max sequence lengths: 16/16</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] computing distances using the LCS metric</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] elapsed time: 0.018 secs</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] elapsed time: 0.021 secs</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Using 12 groups and default MDS sorting</span></span></span>
 <span class="r-in"><span><span class="co"># and original method by Fasang and Liao (2014)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># ... with TraMineR::seqrfplot (weights have to be turned off)</span></span></span>
-<span class="r-in"><span><span class="fu">seqrfplot</span><span class="op">(</span><span class="va">biofam.seq</span>, weighted <span class="op">=</span> <span class="cn">FALSE</span>, diss <span class="op">=</span> <span class="va">diss</span>, k <span class="op">=</span> <span class="fl">12</span>,</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqplot.html" class="external-link">seqrfplot</a></span><span class="op">(</span><span class="va">biofam.seq</span>, weighted <span class="op">=</span> <span class="cn">FALSE</span>, diss <span class="op">=</span> <span class="va">diss</span>, k <span class="op">=</span> <span class="fl">12</span>,</span></span>
 <span class="r-in"><span>          grp.meth<span class="op">=</span><span class="st">"first"</span>, which.plot <span class="op">=</span> <span class="st">"both"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Using k=12 frequency groups with grp.meth='first'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Pseudo/medoid-based-R2: 0.4620155</span>
@@ -312,16 +313,16 @@ See Example 6 in the vignette for further details:
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Arrange sequences by a user specified sorting variable:</span></span></span>
 <span class="r-in"><span><span class="co"># time spent in parental home; has ties</span></span></span>
-<span class="r-in"><span><span class="va">parentTime</span> <span class="op">&lt;-</span> <span class="fu">seqistatd</span><span class="op">(</span><span class="va">biofam.seq</span><span class="op">)</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">parentTime</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/seqistatd.html" class="external-link">seqistatd</a></span><span class="op">(</span><span class="va">biofam.seq</span><span class="op">)</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] computing state distribution for 100 sequences ...</span>
-<span class="r-in"><span><span class="va">b.srf</span> <span class="op">&lt;-</span> <span class="fu">seqrf</span><span class="op">(</span><span class="va">biofam.seq</span>, diss<span class="op">=</span><span class="va">diss</span>, k<span class="op">=</span><span class="fl">12</span>, sortv<span class="op">=</span><span class="va">parentTime</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">b.srf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TraMineR/man/dissrf.html" class="external-link">seqrf</a></span><span class="op">(</span><span class="va">biofam.seq</span>, diss<span class="op">=</span><span class="va">diss</span>, k<span class="op">=</span><span class="fl">12</span>, sortv<span class="op">=</span><span class="va">parentTime</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Using k=12 frequency groups with grp.meth='prop'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Pseudo/medoid-based-R2: 0.3064171</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  [&gt;] Pseudo/medoid-based-F statistic: 4.001018, p-value: 7.736543e-05</span>
 <span class="r-in"><span><span class="co"># ... with ggseqrfplot (and some extra annotation using patchwork)</span></span></span>
 <span class="r-in"><span><span class="fu">ggseqrfplot</span><span class="op">(</span>seqrfobject <span class="op">=</span> <span class="va">b.srf</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_annotation.html" class="external-link">plot_annotation</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Sorted by time spent in parental home"</span>,</span></span>
-<span class="r-in"><span>                  theme <span class="op">=</span> <span class="fu">theme</span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span>, size <span class="op">=</span> <span class="fl">18</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>                  theme <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span>, size <span class="op">=</span> <span class="fl">18</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ggseqrfplot-3.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
