@@ -110,6 +110,7 @@ ggseqmsplot <- function(seqdata,
     stop("`barwidth` must be NULL or a value in the range (0, 1]")
   }
 
+  barwidth <- barwidth %||% ggplot2::GeomBar$default_aes$width
 
   msplotdata <- purrr::map(grinorder,
                            ~TraMineR::seqmodst(seqdata[group == .x,],
