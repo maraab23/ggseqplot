@@ -16,6 +16,9 @@ set.seed(123)
 group <- sample(1:5, nrow(biofam.seq), replace = TRUE)
 group2 <- sample(1:11, nrow(biofam.seq), replace = TRUE)
 
+group_labelled <- haven::labelled(as.integer(biofam$sex[501:600]),
+                                  labels = c("Male" = 1, "Female" = 2))
+
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -25,6 +28,14 @@ test_that("arguments are specified correctly (length, type, ...)", {
   expect_error(ggseqrplot(biofam, diss = diss))
 
 })
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+test_that("haven_labelled group is converted to factor with warning", {
+  expect_warning(ggseqrplot(biofam.seq, diss = diss,
+                            group = group_labelled))
+})
+
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

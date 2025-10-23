@@ -11,7 +11,12 @@ biofam.lab <- c(
 )
 biofam.seq <- seqdef(biofam, 10:25, labels = biofam.lab, weights = biofam$wp00tbgs)
 biofam2.seq <- seqdef(biofam, 10:25, labels = biofam.lab)
-group <- biofam$sex
+group <- as.integer(biofam$sex)
+
+group_labelled <- haven::labelled(as.integer(biofam$sex),
+                                  labels = c("Male" = 1, "Female" = 2))
+
+
 
 data(ex1)
 ex1.seq <- seqdef(ex1, 1:13, weights = ex1$weights)
@@ -25,6 +30,13 @@ test_that("arguments are specified correctly (length, type, ...)", {
   expect_error(ggseqeplot(biofam.seq, group = biofam$sex, linecolor = "green"))
   expect_error(ggseqeplot(biofam.seq, group = group[1:100]))
   expect_error(ggseqeplot(biofam.seq, weighted = group))
+})
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+test_that("haven_labelled group is converted to factor with warning", {
+  expect_warning(ggseqeplot(biofam.seq,
+                             group = group_labelled))
 })
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

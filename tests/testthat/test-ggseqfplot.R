@@ -12,6 +12,9 @@ actcal.seq <- seqdef(actcal, 13:24, labels = actcal.lab)
 
 group <- actcal$sex
 
+group_labelled <- haven::labelled(as.integer(actcal$sex),
+                                  labels = c("Male" = 6, "Female" = 7))
+
 data(ex1)
 ex1.seq <- seqdef(ex1, 1:13, weights = ex1$weights)
 
@@ -46,6 +49,14 @@ test_that("Executions stops if logical arguments take wrong values", {
 })
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+test_that("haven_labelled group is converted to factor with warning", {
+  expect_warning(ggseqfplot(actcal.seq,
+                            group = group_labelled))
+})
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 test_that("check if output of ggseqfplot is ggplot", {
   expect_s3_class(ggseqfplot(actcal.seq, no.coverage = TRUE), "ggplot")

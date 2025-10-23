@@ -13,6 +13,9 @@ biofam.seq <- seqdef(biofam, 10:25, labels = biofam.lab, weights = biofam$wp00tb
 biofam2.seq <- seqdef(biofam, 10:25, labels = biofam.lab)
 group <- biofam$sex
 
+group_labelled <- haven::labelled(c(1, 1, 2, 2, 1, 2),
+                                  labels = c("Male" = 1, "Female" = 2))
+
 
 data <- data.frame(
   id = 1:6,
@@ -43,6 +46,13 @@ test_that("arguments are specified correctly (length, type, ...)", {
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+test_that("haven_labelled group is converted to factor with warning", {
+  expect_warning(ggseqtrplot(biofam.seq[1:6, ],
+                             group = group_labelled))
+})
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 test_that("check if output of ggseqtrplot is ggplot", {
   expect_s3_class(ggseqtrplot(biofam.seq), "ggplot")
@@ -50,6 +60,8 @@ test_that("check if output of ggseqtrplot is ggplot", {
   expect_s3_class(ggseqtrplot(biofam.seq, axislabs = "alphabet"), "ggplot")
   expect_s3_class(ggseqtrplot(biofam.seq, dss = FALSE), "ggplot")
   expect_s3_class(ggseqtrplot(biofam.seq, group = group), "ggplot")
+  expect_s3_class(ggseqtrplot(biofam.seq,
+                              group = biofam$sex, dss = FALSE), "ggplot")
   expect_s3_class(ggseqtrplot(ex1.seq, weighted = FALSE), "ggplot")
   expect_s3_class(ggseqtrplot(ex1.seq, with.missing = TRUE), "ggplot")
   expect_s3_class(ggseqtrplot(ex1.seq, no.n = TRUE), "ggplot")
@@ -61,6 +73,7 @@ test_that("error when sequence length is too short", {
   expect_error(ggseqtrplot(short.seq[5:6,]))
   expect_error(ggseqtrplot(short.seq[5:6,], dss = FALSE))
   expect_error(ggseqtrplot(short.seq, group = short.group))
+  expect_error(ggseqtrplot(short.seq, group = short.group, dss = FALSE))
 })
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
