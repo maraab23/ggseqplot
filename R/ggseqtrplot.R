@@ -104,29 +104,25 @@ ggseqtrplot <- function(seqdata,
   } else {
     grinorder <- factor(sort(unique(group)))
   }
+
   if (is.null(group)) grinorder <- factor(1)
 
-  group <- group %||% 1
 
-
-  if (dss == TRUE) {
-    aux <- purrr::map(grinorder,
-                      ~TraMineR::seqlength(TraMineR::seqdss(seqdata[group == .x,])) |>
-                        max()
-                      ) |>
-      unlist() |>
-      min()
+  if (max(TraMineR::seqlength(seqdata)) == 1 | is.null(group)) {
+    aux <- max(TraMineR::seqlength(seqdata))
+  } else if (dss == TRUE) {
+    aux <- min(tapply(TraMineR::seqlength(TraMineR::seqdss(seqdata)), group, max))
   } else {
-    aux <- purrr::map(grinorder,
-                      ~TraMineR::seqlength(seqdata[group == .x,]) |>
-                        max()
-                      ) |>
-      unlist() |>
-      min()
+    aux <- min(tapply(TraMineR::seqlength(seqdata), group, max))
   }
 
+
   if (aux <= 1) {
-    if (dss == TRUE) {
+    if (max(TraMineR::seqlength(seqdata)) == 1) {
+      cli::cli_abort(c(
+        "x" = "Cannot compute transitions rates for sequences if longest sequence length <= 1"
+      ))
+    } else if (dss == TRUE) {
       cli::cli_abort(c(
         "x" = "Cannot compute transitions rates for sequences if longest (group-specific) sequence length <= 1",
         "i" = "consider using {.arg dss = FALSE} or different {.arg group} vector"
@@ -139,7 +135,7 @@ ggseqtrplot <- function(seqdata,
     }
   }
 
-
+  group <- group %||% 1
 
 
   if (weighted == FALSE) {

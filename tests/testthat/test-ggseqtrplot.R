@@ -13,6 +13,19 @@ biofam.seq <- seqdef(biofam, 10:25, labels = biofam.lab, weights = biofam$wp00tb
 biofam2.seq <- seqdef(biofam, 10:25, labels = biofam.lab)
 group <- biofam$sex
 
+
+data <- data.frame(
+  id = 1:6,
+  group = c(1L, 1L, 1L, 1L, 2L, 2L),
+  state1 = c("a", "b", "a", "a", "b", "c"),
+  state2 = c("c", "a", "c", "b", NA, NA),
+  state3 = c("b", "b", "c", NA, NA, NA)
+)
+
+short.seq <- seqdef(data, 3:5)
+short.group <- data$group
+
+
 data(ex1)
 ex1.seq <- seqdef(ex1, 1:13, weights = ex1$weights)
 
@@ -36,8 +49,18 @@ test_that("check if output of ggseqtrplot is ggplot", {
   expect_s3_class(ggseqtrplot(biofam2.seq), "ggplot")
   expect_s3_class(ggseqtrplot(biofam.seq, axislabs = "alphabet"), "ggplot")
   expect_s3_class(ggseqtrplot(biofam.seq, dss = FALSE), "ggplot")
-  expect_s3_class(ggseqtrplot(biofam.seq, group = biofam$sex), "ggplot")
+  expect_s3_class(ggseqtrplot(biofam.seq, group = group), "ggplot")
   expect_s3_class(ggseqtrplot(ex1.seq, weighted = FALSE), "ggplot")
   expect_s3_class(ggseqtrplot(ex1.seq, with.missing = TRUE), "ggplot")
   expect_s3_class(ggseqtrplot(ex1.seq, no.n = TRUE), "ggplot")
 })
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+test_that("error when sequence length is too short", {
+  expect_error(ggseqtrplot(short.seq[5:6,]))
+  expect_error(ggseqtrplot(short.seq[5:6,], dss = FALSE))
+  expect_error(ggseqtrplot(short.seq, group = short.group))
+})
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
