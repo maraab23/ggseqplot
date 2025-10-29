@@ -1,6 +1,9 @@
-# ggseqplot (development version)
+# ggseqplot 0.8.9
 
-* added `ytlab` argument for `ggseqiplot` (requested by @helske,  #9); allows to use ID labels in index plots similar to `{TraMineR}` 
+* added `ytlab` argument for `ggseqiplot` (requested by @helske, #9); allows to use ID labels in index plots similar to `{TraMineR}` 
+* fixed empty aesthetic warning in `ggseqmsplot`
+* moved `ggplot2` and `TraMineR` to Imports
+* behind the scenes: revised tests and added `revdepcheck`
 
 # ggseqplot 0.8.8
 

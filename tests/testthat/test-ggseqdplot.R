@@ -13,8 +13,10 @@ actcal.seq <- seqdef(actcal, 13:24, labels = actcal.lab)
 
 group <- actcal$sex
 
-group_labelled <- haven::labelled(as.integer(actcal$sex),
-                                  labels = c("Male" = 6, "Female" = 7))
+group_labelled <- haven::labelled(
+  as.integer(actcal$sex),
+  labels = c("Male" = 6, "Female" = 7)
+)
 
 data(ex1)
 ex1.seq <- seqdef(ex1, 1:13, weights = ex1$weights)
@@ -54,8 +56,7 @@ test_that("Executions stops if logical arguments take wrong values", {
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 test_that("haven_labelled group is converted to factor with warning", {
-  expect_warning(ggseqdplot(actcal.seq,
-                             group = group_labelled))
+  expect_warning(ggseqdplot(actcal.seq, group = group_labelled))
 })
 
 
@@ -64,9 +65,15 @@ test_that("haven_labelled group is converted to factor with warning", {
 test_that("check if output of ggseqdplot is ggplot", {
   expect_s3_class(ggseqdplot(actcal.seq), "ggplot")
   expect_s3_class(ggseqdplot(actcal.seq, dissect = "col"), "ggplot")
-  expect_s3_class(ggseqdplot(actcal.seq, group = group, dissect = "col"), "ggplot")
-  expect_s3_class(ggseqdplot(actcal.seq, group = group, dissect = "row"), "ggplot")
-  expect_s3_class(ggseqdplot(actcal.seq, no.n= TRUE), "ggplot")
+  expect_s3_class(
+    ggseqdplot(actcal.seq, group = group, dissect = "col"),
+    "ggplot"
+  )
+  expect_s3_class(
+    ggseqdplot(actcal.seq, group = group, dissect = "row"),
+    "ggplot"
+  )
+  expect_s3_class(ggseqdplot(actcal.seq, no.n = TRUE), "ggplot")
   expect_s3_class(ggseqdplot(ex1.seq), "ggplot")
   expect_s3_class(ggseqdplot(ex1.seq, group = c(1, 1, 1, 2, 2, 2, 2)), "ggplot")
   expect_s3_class(ggseqdplot(actcal.seq, border = NULL), "ggplot")

@@ -1,22 +1,20 @@
-# Resubmission note for release 0.8.8
+# Resubmission note for release 0.8.9
 
-## Changes since release 0.8.7
+## Changes since release 0.8.8
 
-* cleaning up the code base (thanks to @olivroy)
-* remove dependency on `hrbrthemes`, adjust vignette accordingly due to `extrafont`/CRAN issue (thanks to @helske)
-* fixed `ggtext::element_markdown()` problem in rplots by specifying theme argument 
-
-## local R CMD check results
-
-Runs without errors, warnings, and notes.
+* fixed empty aesthetic warning in `ggseqmsplot`
+* moved `ggplot2` and `TraMineR` from Depends to Imports
+* added `ytlab` argument for `ggseqiplot`
 
 
-## devtools::check_win_devel()
+## R CMD check results
 
-Runs without errors, warnings, and notes.
+0 errors | 0 warnings | 0 notes
 
 
-## rhub::rhub_check()
+## revdepcheck results
 
-Runs without errors, warnings, and notes.
+We checked 1 reverse dependenciy, comparing R CMD check results across CRAN and dev versions of this package.
 
+ * We saw 0 new problems
+ * We failed to check 0 packages
