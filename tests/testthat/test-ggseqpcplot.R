@@ -33,6 +33,7 @@ test_that("arguments are specified correctly (length, type, ...)", {
   )
   expect_error(ggseqpcplot(biofam.eseq, group = group[1:5]))
   expect_error(ggseqpcplot(biofam.seq, linewidth = -1))
+  expect_error(ggseqpcplot(biofam.seq, no.n = "yes"))
   expect_error(ggseqpcplot(biofam.seq, group = group, facet_ncol = 1.5))
   expect_error(ggseqpcplot(biofam.seq, group = group, facet_nrow = 1.5))
 })
@@ -61,6 +62,15 @@ test_that("plot data match TraMineR::seqpcplot", {
   expect_equal(nrow(pcdata), sum(pc$pts$n.1 > 0))
   expect_equal(sort(unique(pcdata$color)), sort(unique(as.vector(pc$pts$col.1))))
   expect_equal(levels(pcdata$group), pc$main)
+})
+
+test_that("no.n removes the number of sequences from the facet labels", {
+  expect_match(levels(ggseqpcplot(biofam.seq)$data$group), "n = ")
+  expect_equal(levels(ggseqpcplot(biofam.seq, group = group, no.n = TRUE)$data$group),
+               levels(factor(group)))
+  expect_s3_class(ggseqpcplot(biofam.seq, no.n = TRUE)$theme$strip.text.x,
+                  "element_blank")
+  expect_no_error(ggplotGrob(ggseqpcplot(biofam.seq, no.n = TRUE)))
 })
 
 test_that("plot renders without error", {

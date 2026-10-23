@@ -12,6 +12,9 @@
 #' \code{\link[TraMineR:seqecreate]{TraMineR::seqecreate}} function.
 #' @param group A vector of the same length as the sequence data indicating group
 #' membership. When not NULL, a distinct plot is generated for each level of group.
+#' @param no.n specifies if number of (weighted) sequences is shown above the
+#' plot (default is \code{FALSE}, i.e. the number is shown). If \code{TRUE} only
+#' the group labels are shown (or no label at all if \code{group} is not specified).
 #' @param linewidth Maximum width of the lines connecting the states/events, i.e.
 #' the width of the line representing the most frequent transition; default is \code{1}.
 #' The width of all other lines is scaled relative to this value.
@@ -84,6 +87,9 @@
 #'
 #' # distinct successive states (order on x-axis), grouped by sex
 #' ggseqpcplot(biofam.seq, group = biofam$sex[1:20], order.align = "first")
+#' # ... without number of sequences
+#' ggseqpcplot(biofam.seq, group = biofam$sex[1:20], order.align = "first",
+#'             no.n = TRUE)
 #'
 #' # event sequences
 #' biofam.eseq <- seqecreate(biofam.seq, tevent = "state")
@@ -93,6 +99,7 @@
 #' @importFrom rlang .data
 ggseqpcplot <- function(seqdata,
                         group = NULL,
+                        no.n = FALSE,
                         linewidth = 1,
                         facet_ncol = NULL,
                         facet_nrow = NULL,
@@ -110,6 +117,10 @@ ggseqpcplot <- function(seqdata,
 
   if (!is.numeric(linewidth) || linewidth <= 0) {
     stop("`linewidth` must be a positive number")
+  }
+
+  if (!is.logical(no.n)) {
+    stop("the argument `no.n` has to be an object of type logical")
   }
 
   if (!is.null(facet_ncol) && as.integer(facet_ncol) != facet_ncol) {
@@ -150,7 +161,12 @@ ggseqpcplot <- function(seqdata,
 
   # data for each group (TraMineR stores group-specific columns n.1, n.2, ...)
 
-  grouplabs <- factor(pc$main, levels = unique(pc$main))
+  # labels of the facets: TraMineR's titles ("group, n = ...") or group names only
+  if (no.n == TRUE) {
+    grouplabs <- factor(pc$grouplev, levels = unique(pc$grouplev))
+  } else {
+    grouplabs <- factor(pc$main, levels = unique(pc$main))
+  }
 
   squaredata <- purrr::map(pc$which, function(i) {
     pc$pts |>
@@ -267,12 +283,18 @@ ggseqpcplot <- function(seqdata,
     labs(x = pc$xlab, y = pc$ylab) +
     theme_minimal() +
     theme(
+      # no grid lines: the squares of the background grid take this role
       panel.grid = element_blank(),
-      panel.border = element_rect(fill = NA, color = "grey40", linewidth = .3),
       panel.spacing = unit(2, "lines"),
       strip.text.x = element_text(margin = margin(b = 10, t = 0)),
       plot.margin = margin(15, 15, 10, 15)
     )
+
+  # without groups there is no label left to show if no.n = TRUE
+  if (no.n == TRUE && is.null(group)) {
+    ggpcplot <- ggpcplot +
+      theme(strip.text.x = element_blank())
+  }
 
   return(ggpcplot)
 }

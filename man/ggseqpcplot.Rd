@@ -7,6 +7,7 @@
 ggseqpcplot(
   seqdata,
   group = NULL,
+  no.n = FALSE,
   linewidth = 1,
   facet_ncol = NULL,
   facet_nrow = NULL,
@@ -21,6 +22,10 @@ object (class \code{seqelist}) created with the
 
 \item{group}{A vector of the same length as the sequence data indicating group
 membership. When not NULL, a distinct plot is generated for each level of group.}
+
+\item{no.n}{specifies if number of (weighted) sequences is shown above the
+plot (default is \code{FALSE}, i.e. the number is shown). If \code{TRUE} only
+the group labels are shown (or no label at all if \code{group} is not specified).}
 
 \item{linewidth}{Maximum width of the lines connecting the states/events, i.e.
 the width of the line representing the most frequent transition; default is \code{1}.
@@ -99,6 +104,9 @@ ggseqpcplot(biofam.seq, order.align = "time")
 
 # distinct successive states (order on x-axis), grouped by sex
 ggseqpcplot(biofam.seq, group = biofam$sex[1:20], order.align = "first")
+# ... without number of sequences
+ggseqpcplot(biofam.seq, group = biofam$sex[1:20], order.align = "first",
+            no.n = TRUE)
 
 # event sequences
 biofam.eseq <- seqecreate(biofam.seq, tevent = "state")

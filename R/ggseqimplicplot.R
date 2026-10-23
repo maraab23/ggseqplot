@@ -65,27 +65,22 @@
 #' @examples
 #' library(TraMineR)
 #'
-#' # Use example data from TraMineR: biofam data set
-#' data(biofam)
-#'
-#' # We use only a sample of 300 cases
-#' set.seed(10)
-#' biofam <- biofam[sample(nrow(biofam), 300), ]
-#' biofam.lab <- c("Parent", "Left", "Married", "Left+Marr",
-#'                 "Child", "Left+Child", "Left+Marr+Child", "Divorced")
-#' biofam.seq <- seqdef(biofam, 10:25, labels = biofam.lab)
+#' # Use example data from TraMineR: mvad data set
+#' data(mvad)
+#' mvad.seq <- seqdef(mvad, 17:86)
 #'
 #' if (requireNamespace("TraMineRextras", quietly = TRUE)) {
-#'   # implicative statistic plot by language
+#'   # typical states of pupils with/without 5 or more GCSEs
 #'   # with TraMineRextras
-#'   implic <- TraMineRextras::seqimplic(biofam.seq, group = biofam$plingu02)
-#'   plot(implic)
+#'   mvad.si.gcse5eq <- TraMineRextras::seqimplic(mvad.seq, group = mvad$gcse5eq)
+#'   plot(mvad.si.gcse5eq, lwd = 3, conf.level = c(0.95, 0.99))
 #'
 #'   # with ggseqplot (using the seqimplic object ...)
-#'   ggseqimplicplot(seqimplicobject = implic)
+#'   ggseqimplicplot(seqimplicobject = mvad.si.gcse5eq,
+#'                   conf.level = c(0.95, 0.99))
 #'
 #'   # ... or using the sequence data and the group vector)
-#'   ggseqimplicplot(biofam.seq, group = biofam$plingu02,
+#'   ggseqimplicplot(mvad.seq, group = mvad$gcse5eq,
 #'                   conf.level = c(0.95, 0.99), facet_ncol = 1)
 #' }
 #'
@@ -227,14 +222,17 @@ ggseqimplicplot <- function(seqdata = NULL,
 
   ggimplicplot <- ggimplicplot +
     scale_color_manual(values = seqimplicobject$cpal, drop = FALSE) +
+    # extra space at the top for the labels of the confidence levels
     scale_y_continuous(limits = c(0, NA),
-                       expand = expansion(mult = c(0, .05))) +
+                       expand = expansion(mult = c(0, .1))) +
     scale_x_continuous(
       expand = expansion(add = .15),
       breaks = kbreaks,
       labels = klabels,
       guide = guide_axis(check.overlap = TRUE)
     ) +
+    # clip = "off": labels of the confidence levels are never cut off
+    coord_cartesian(clip = "off") +
     facet_wrap(~ .data$group,
                ncol = facet_ncol,
                nrow = facet_nrow) +
