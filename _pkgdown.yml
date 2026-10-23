@@ -22,12 +22,14 @@ reference:
   - ggseqmsplot
   - ggseqmtplot
   - ggseqtrplot
+  - ggseqimplicplot
 - title: Representation graphs
 - contents:
   - ggseqiplot
   - ggseqfplot
   - ggseqrplot
   - ggseqrfplot
+  - ggseqpcplot
 - title: Regression trees
 - contents:
   - ggseqtreeplot

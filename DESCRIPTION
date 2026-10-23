@@ -34,6 +34,7 @@ Imports:
     purrr,
     Rdpack,
     rlang,
+    stats,
     tidyr,
     TraMineR (>= 2.2-5)
 Suggests: 
@@ -41,7 +42,8 @@ Suggests:
     ggthemes,
     knitr,
     rmarkdown,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    TraMineRextras
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 Config/roxygen2/version: 8.1.1
