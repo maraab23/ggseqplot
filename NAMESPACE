@@ -14,5 +14,7 @@ import(TraMineR)
 import(ggplot2)
 importFrom(Rdpack,reprompt)
 importFrom(patchwork,plot_layout)
-importFrom(rlang,"%||%")
-importFrom(rlang,.data)
+importFrom(rlang,
+  "%||%",
+  .data
+)
