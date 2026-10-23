@@ -7,7 +7,7 @@
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/ggseqplot)](https://cran.r-project.org/package=ggseqplot)
-[![R-CMD-check](https://github.com/maraab23/ggseqplot/workflows/R-CMD-check/badge.svg)](https://github.com/maraab23/ggseqplot/actions)
+[![R-CMD-check](https://github.com/maraab23/ggseqplot/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/maraab23/ggseqplot/actions/workflows/check-standard.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/maraab23/ggseqplot/graph/badge.svg)](https://app.codecov.io/gh/maraab23/ggseqplot)
 [![CRAN
@@ -23,16 +23,17 @@ is to provide functions that reproduce the sequence plots from
 target="_blank"><code>{TraMineR}</code></a>’s `seqplot` using
 <a href="https://ggplot2.tidyverse.org/"
 target="_blank"><code>{ggplot2}</code></a>. These plots are produced on
-the basis of state sequence objects defined with `TraMineR::seqdef`. The
-package automates the reshaping and plotting of sequence data. This
-library literally builds on the excellent work of the
-<a href="http://traminer.unige.ch"
+the basis of state sequence objects defined with `TraMineR::seqdef`
+(and, for some functions, on the basis of event sequence objects or
+regression trees of sequences). The package automates the reshaping and
+plotting of sequence data. This library builds on the excellent work of
+the <a href="http://traminer.unige.ch"
 target="_blank"><code>{TraMineR}</code></a> and
 <a href="https://ggplot2.tidyverse.org/"
 target="_blank"><code>{ggplot2}</code></a> developers and uses several
 of their functions to produce ggplot2-flavored figures.
 
-Note, that this library was not written because I personally dislike the
+Note that this library was not written because I personally dislike the
 plots produced by <a href="http://traminer.unige.ch"
 target="_blank"><code>{TraMineR}</code></a>, but rather because I
 normally use <a href="https://ggplot2.tidyverse.org/"
@@ -55,13 +56,21 @@ following functions:
 - `ggseqeplot` (equivalent to `TraMineRextras::seqplot.tentrop`)
 - `ggseqmsplot` (equivalent to `TraMineR::seqmsplot`)
 - `ggseqmtplot` (equivalent to `TraMineR::seqmtplot`)
-- `ggseqtrplot` (based on transitions rates from `TraMineR::seqtrate`)
+- `ggseqtrplot` (based on transition rates from `TraMineR::seqtrate`)
 - `ggseqiplot` (equivalent to `TraMineR::seqIplot`)
 - `ggseqfplot` (equivalent to `TraMineR::seqfplot`)
 - `ggseqrplot` (equivalent to `TraMineR::seqrplot`)
 - `ggseqrfplot` (equivalent to `TraMineRextras::seqplot.rf`)
 
-A complementing
+The development version on GitHub additionally contains:
+
+- `ggseqimplicplot` (equivalent to the plot method of
+  `TraMineRextras::seqimplic`)
+- `ggseqpcplot` (equivalent to `TraMineR::seqpcplot`)
+- `ggseqtreeplot` (equivalent to `TraMineR::seqtreedisplay`, but without
+  requiring an installation of GraphViz)
+
+A complementary
 [vignette](https://maraab23.github.io/ggseqplot/articles/ggseqplot.html)
 outlines how [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/)
 reshapes sequence data generated with <a href="http://traminer.unige.ch"
@@ -112,3 +121,12 @@ devtools::install_github("maraab23/ggseqplot")
 I would like to thank Gilbert Ritschard, Tim Liao, and Emanuela
 Struffolino for their helpful comments on earlier versions of this
 library.
+
+## Use of generative AI
+
+The functions `ggseqimplicplot`, `ggseqpcplot`, and `ggseqtreeplot`
+(added in the development version 0.8.9.9000) were written with the
+assistance of the AI coding tool
+<a href="https://claude.com/claude-code" target="_blank">Claude Code</a>
+(Anthropic). The generated code, documentation, and tests were reviewed,
+revised, and tested by the package maintainer.

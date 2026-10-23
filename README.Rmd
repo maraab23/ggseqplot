@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 
 [![CRAN status](https://www.r-pkg.org/badges/version/ggseqplot)](https://cran.r-project.org/package=ggseqplot)
-[![R-CMD-check](https://github.com/maraab23/ggseqplot/workflows/R-CMD-check/badge.svg)](https://github.com/maraab23/ggseqplot/actions)
+[![R-CMD-check](https://github.com/maraab23/ggseqplot/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/maraab23/ggseqplot/actions/workflows/check-standard.yaml)
 [![Codecov test coverage](https://codecov.io/gh/maraab23/ggseqplot/graph/badge.svg)](https://app.codecov.io/gh/maraab23/ggseqplot)
 [![CRAN Downloads](https://cranlogs.r-pkg.org/badges/grand-total/ggseqplot)](https://cranlogs.r-pkg.org/badges/grand-total/ggseqplot)
 [![pkgdown](https://img.shields.io/badge/docs-pkgdown-blue.svg)](https://maraab23.github.io/ggseqplot/)
@@ -33,14 +33,15 @@ provide functions that reproduce the sequence plots from
 [`{TraMineR}`](http://traminer.unige.ch){target="\_blank"}'s `seqplot`
 using [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="\_blank"}.
 These plots are produced on the basis of state sequence objects defined with
-`TraMineR::seqdef`. The package automates the reshaping and plotting of
-sequence data. This library literally builds on the excellent work of the
+`TraMineR::seqdef` (and, for some functions, on the basis of event sequence
+objects or regression trees of sequences). The package automates the reshaping and plotting of
+sequence data. This library builds on the excellent work of the
 [`{TraMineR}`](http://traminer.unige.ch){target="\_blank"} and
 [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="\_blank"}
 developers and uses several of their functions to produce
 ggplot2-flavored figures.
 
-Note, that this library was not written because I personally dislike the
+Note that this library was not written because I personally dislike the
 plots produced by
 [`{TraMineR}`](http://traminer.unige.ch){target="\_blank"}, but rather
 because I normally use
@@ -63,14 +64,21 @@ following functions:
 -   `ggseqeplot` (equivalent to `TraMineRextras::seqplot.tentrop`)
 -   `ggseqmsplot` (equivalent to `TraMineR::seqmsplot`)
 -   `ggseqmtplot` (equivalent to `TraMineR::seqmtplot`)
--   `ggseqtrplot` (based on transitions rates from `TraMineR::seqtrate`)
+-   `ggseqtrplot` (based on transition rates from `TraMineR::seqtrate`)
 -   `ggseqiplot` (equivalent to `TraMineR::seqIplot`)
 -   `ggseqfplot` (equivalent to `TraMineR::seqfplot`)
 -   `ggseqrplot` (equivalent to `TraMineR::seqrplot`)
 -   `ggseqrfplot` (equivalent to `TraMineRextras::seqplot.rf`)
 
+The development version on GitHub additionally contains:
 
-A complementing [vignette](https://maraab23.github.io/ggseqplot/articles/ggseqplot.html) outlines how [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) reshapes sequence data
+-   `ggseqimplicplot` (equivalent to the plot method of `TraMineRextras::seqimplic`)
+-   `ggseqpcplot` (equivalent to `TraMineR::seqpcplot`)
+-   `ggseqtreeplot` (equivalent to `TraMineR::seqtreedisplay`, but without
+    requiring an installation of GraphViz)
+
+
+A complementary [vignette](https://maraab23.github.io/ggseqplot/articles/ggseqplot.html) outlines how [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) reshapes sequence data
 generated with [`{TraMineR}`](http://traminer.unige.ch){target="\_blank"} functions for
 visualization with [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="\_blank"}. 
 It also shows how to customize the plots using familiar
@@ -115,6 +123,15 @@ devtools::install_github("maraab23/ggseqplot")
 
 ## Acknowledgements
 
-I would like to thank Gilbert Ritschard, Tim Liao, and Emanuela Struffolino for 
-their helpful comments on earlier versions of this library. 
+I would like to thank Gilbert Ritschard, Tim Liao, and Emanuela Struffolino for
+their helpful comments on earlier versions of this library.
+
+
+## Use of generative AI
+
+The functions `ggseqimplicplot`, `ggseqpcplot`, and `ggseqtreeplot` (added in
+the development version 0.8.9.9000) were written with the assistance of the
+AI coding tool [Claude Code](https://claude.com/claude-code){target="\_blank"}
+(Anthropic). The generated code, documentation, and tests were reviewed,
+revised, and tested by the package maintainer.
 
