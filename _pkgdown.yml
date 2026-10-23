@@ -28,4 +28,7 @@ reference:
   - ggseqfplot
   - ggseqrplot
   - ggseqrfplot
+- title: Regression trees
+- contents:
+  - ggseqtreeplot
 
