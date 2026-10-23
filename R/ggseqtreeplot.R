@@ -24,7 +24,8 @@
 #' nodes (leaves) of the tree; the inner nodes are shown as text boxes. Default is \code{FALSE}.
 #' @param with.legend Specifies if a legend of the states is shown (default is \code{TRUE})
 #' @param with.quality Specifies if the global quality measures of the tree
-#' (Pseudo F, Pseudo R2, and Levene statistic) are shown below the tree (default is \code{TRUE}).
+#' (Pseudo F, Pseudo R2, and Levene statistic, rounded to two decimals) are
+#' shown below the tree (default is \code{TRUE}).
 #' The measures are rendered as plot tag and can be moved (see Details).
 #' @param quality.multiline If \code{TRUE} the global quality measures are
 #' printed in separate lines instead of one line, which is useful if they are
@@ -266,7 +267,7 @@ ggseqtreeplot <- function(tree,
       nodesplit = dplyr::if_else(
         .data$leaf,
         "",
-        glue::glue("Split: {.data$splitvar} (R\u00b2 = {treeformat(.data$splitr2)})")
+        glue::glue("Split: {.data$splitvar} (R\u00b2 = {sprintf('%.2f', .data$splitr2)})")
       )
     )
 
@@ -411,11 +412,11 @@ ggseqtreeplot <- function(tree,
 
     qualitytag <- glue::glue(
       "Global quality{sep_title}",
-      "Pseudo F: {format(qualitystats['Pseudo F', 1], digits = 3)}",
+      "Pseudo F: {sprintf('%.2f', qualitystats['Pseudo F', 1])}",
       "{stars(qualitystats['Pseudo F', 2])}{sep_stats}",
-      "Pseudo R\u00b2: {format(qualitystats['Pseudo R2', 1], digits = 3)}",
+      "Pseudo R\u00b2: {sprintf('%.2f', qualitystats['Pseudo R2', 1])}",
       "{stars(qualitystats['Pseudo R2', 2])}{sep_stats}",
-      "Levene: {format(qualitystats['Levene', 1], digits = 3)}",
+      "Levene: {sprintf('%.2f', qualitystats['Levene', 1])}",
       "{stars(qualitystats['Levene', 2])}"
     )
   }
@@ -502,7 +503,8 @@ nodeplotymax <- function(plot) {
 }
 
 
-# format numbers with 3 significant digits (each value separately to avoid padding)
+# format numbers with at most two decimals, without trailing zeros
+# (each value separately to avoid padding), e.g. 712, 22.92, 521.77
 treeformat <- function(x) {
-  purrr::map_chr(x, ~ format(.x, digits = 3))
+  purrr::map_chr(x, ~ format(round(.x, 2), scientific = FALSE))
 }

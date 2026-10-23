@@ -43,6 +43,8 @@ test_that("global quality is rendered as tag", {
   expect_match(ggseqtreeplot(mvad.tree, quality.multiline = TRUE)$labels$tag,
                "^Global quality\nPseudo F")
   expect_null(ggseqtreeplot(mvad.tree, with.quality = FALSE)$labels$tag)
+  expect_match(ggseqtreeplot(mvad.tree)$labels$tag,
+               "Pseudo F: [0-9]+\\.[0-9]{2}.*Pseudo R.: [0-9]+\\.[0-9]{2}.*Levene: [0-9]+\\.[0-9]{2}")
 })
 
 test_that("node.layers are added to the node plots", {

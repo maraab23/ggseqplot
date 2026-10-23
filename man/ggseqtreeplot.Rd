@@ -41,7 +41,8 @@ nodes (leaves) of the tree; the inner nodes are shown as text boxes. Default is 
 \item{with.legend}{Specifies if a legend of the states is shown (default is \code{TRUE})}
 
 \item{with.quality}{Specifies if the global quality measures of the tree
-(Pseudo F, Pseudo R2, and Levene statistic) are shown below the tree (default is \code{TRUE}).
+(Pseudo F, Pseudo R2, and Levene statistic, rounded to two decimals) are
+shown below the tree (default is \code{TRUE}).
 The measures are rendered as plot tag and can be moved (see Details).}
 
 \item{quality.multiline}{If \code{TRUE} the global quality measures are
