@@ -268,10 +268,11 @@ diss <- seqdist(biofam.seq, method = "LCS")
 #>  [>] 100 sequences with 8 distinct states
 #>  [>] creating a 'sm' with a substitution cost of 2
 #>  [>] creating 8x8 substitution-cost matrix using 2 as constant value
+#>  [>] checking 'sm' (size and triangle inequality)
 #>  [>] 76 distinct  sequences 
 #>  [>] min/max sequence lengths: 16/16
 #>  [>] computing distances using the LCS metric
-#>  [>] elapsed time: 0.017 secs
+#>  [>] elapsed time: 0.019 secs
 
 
 # Using 12 groups and default MDS sorting
@@ -298,8 +299,8 @@ parentTime <- seqistatd(biofam.seq)[, 1]
 #>  [>] computing state distribution for 100 sequences ...
 b.srf <- seqrf(biofam.seq, diss=diss, k=12, sortv=parentTime)
 #>  [>] Using k=12 frequency groups with grp.meth='prop'
-#>  [>] Pseudo/medoid-based-R2: 0.3064171
-#>  [>] Pseudo/medoid-based-F statistic: 4.001018, p-value: 7.736543e-05
+#>  [>] Pseudo/medoid-based-R2: 0.378624
+#>  [>] Pseudo/medoid-based-F statistic: 4.874653, p-value: 7.555085e-06
 # ... with ggseqrfplot (and some extra annotation using patchwork)
 ggseqrfplot(seqrfobject = b.srf) +
   plot_annotation(title = "Sorted by time spent in parental home",

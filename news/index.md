@@ -1,5 +1,26 @@
 # Changelog
 
+## ggseqplot 1.0.0
+
+- added `ggseqtreeplot` for rendering regression trees of sequences
+  ([`TraMineR::seqtree`](https://rdrr.io/pkg/TraMineR/man/seqtree.html))
+  without requiring GraphViz; the node plots can be adjusted with
+  `node.layers`, mean time plots can share a common y-axis
+  (`common.y = TRUE`), and the global quality measures can be placed
+  anywhere (rendered as plot tag)
+- added `ggseqimplicplot` for plotting the implicative statistic
+  computed with
+  [`TraMineRextras::seqimplic`](https://rdrr.io/pkg/TraMineRextras/man/seqimplic.html)
+- added `ggseqpcplot` for decorated parallel coordinate plots
+  (reproducing
+  [`TraMineR::seqpcplot`](https://rdrr.io/pkg/TraMineR/man/seqpcplot.html))
+- `ggplot2` (\>= 3.5.0) is now required (`ggseqtreeplot` uses
+  [`ggplot2::get_guide_data`](https://ggplot2.tidyverse.org/reference/get_guide_data.html))
+- `TraMineRextras` and `stats` are new imports
+- fixed R-CMD-check badge and updated README (new functions, note on the
+  use of generative AI)
+- behind the scenes: re-documented with `roxygen2` 8.1.1
+
 ## ggseqplot 0.8.9
 
 CRAN release: 2025-11-15
@@ -8,7 +29,7 @@ CRAN release: 2025-11-15
   [@helske](https://github.com/helske),
   [\#9](https://github.com/maraab23/ggseqplot/issues/9)); allows to use
   ID labels in index plots similar to
-  [TraMineR](http://traminer.unige.ch)
+  [TraMineR](https://traminer.unige.ch)
 - fixed empty aesthetic warning in `ggseqmsplot`
 - moved `ggplot2` and `TraMineR` to Imports
 - behind the scenes: revised tests and added `revdepcheck`
@@ -76,7 +97,7 @@ CRAN release: 2023-09-22
   dplyr, forcats)
 - changed default for sorting sequences in ggseqrfplot to match behavior
   TraMineR::seqrfplot
-- added [TraMineR](http://traminer.unige.ch) and
+- added [TraMineR](https://traminer.unige.ch) and
   [ggplot2](https://ggplot2.tidyverse.org) as dependencies
 
 ## ggseqplot 0.8.2
@@ -100,10 +121,10 @@ CRAN release: 2022-10-11
 CRAN release: 2022-09-07
 
 - complete revision of `ggseqrfplot` after
-  [TraMineR](http://traminer.unige.ch) release 2.2-5 (special thanks to
+  [TraMineR](https://traminer.unige.ch) release 2.2-5 (special thanks to
   Gilbert Ritschard for the support)
 
-- added [TraMineR](http://traminer.unige.ch) as dependency
+- added [TraMineR](https://traminer.unige.ch) as dependency
 
 - the group argument now respects order of grouping variable when
   rendering faceted plots (issue raised bv Lucille Mattijssen)

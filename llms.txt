@@ -2,24 +2,26 @@
 
 The main goal of [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/)
 is to provide functions that reproduce the sequence plots from
-[`{TraMineR}`](http://traminer.unige.ch)’s `seqplot` using
-[`{ggplot2}`](https://ggplot2.tidyverse.org/). These plots are produced
-on the basis of state sequence objects defined with
-[`TraMineR::seqdef`](https://rdrr.io/pkg/TraMineR/man/seqdef.html). The
-package automates the reshaping and plotting of sequence data. This
-library literally builds on the excellent work of the
-[`{TraMineR}`](http://traminer.unige.ch) and
+[`{TraMineR}`](https://cran.r-project.org/package=TraMineR)’s `seqplot`
+using [`{ggplot2}`](https://ggplot2.tidyverse.org/). These plots are
+produced on the basis of state sequence objects defined with
+[`TraMineR::seqdef`](https://rdrr.io/pkg/TraMineR/man/seqdef.html) (and,
+for some functions, on the basis of event sequence objects or regression
+trees of sequences). The package automates the reshaping and plotting of
+sequence data. This library builds on the excellent work of the
+[`{TraMineR}`](https://cran.r-project.org/package=TraMineR) and
 [`{ggplot2}`](https://ggplot2.tidyverse.org/) developers and uses
 several of their functions to produce ggplot2-flavored figures.
 
-Note, that this library was not written because I personally dislike the
-plots produced by [`{TraMineR}`](http://traminer.unige.ch), but rather
+Note that this library was not written because I personally dislike the
+plots produced by
+[`{TraMineR}`](https://cran.r-project.org/package=TraMineR), but rather
 because I normally use [`{ggplot2}`](https://ggplot2.tidyverse.org/)
 instead of base R’s `plot` environment for data visualization.
-[`{TraMineR}`](http://traminer.unige.ch) was developed before
-[`{ggplot2}`](https://ggplot2.tidyverse.org/) became as popular as it is
-today, when most users were more familiar with base R plots. Today,
-however, many researchers and students prefer to use
+[`{TraMineR}`](https://cran.r-project.org/package=TraMineR) was
+developed before [`{ggplot2}`](https://ggplot2.tidyverse.org/) became as
+popular as it is today, when most users were more familiar with base R
+plots. Today, however, many researchers and students prefer to use
 [`{ggplot2}`](https://ggplot2.tidyverse.org/) and draw on their existing
 skills rather than learn base R graphics just to visualize sequence
 data.
@@ -29,28 +31,37 @@ following functions:
 
 - `ggseqdplot` (equivalent to
   [`TraMineR::seqdplot`](https://rdrr.io/pkg/TraMineR/man/seqplot.html))
-- `ggseqeplot` (equivalent to `TraMineRextras::seqplot.tentrop`)
+- `ggseqeplot` (equivalent to
+  [`TraMineRextras::seqplot.tentrop`](https://rdrr.io/pkg/TraMineRextras/man/seqplot-tentrop.html))
 - `ggseqmsplot` (equivalent to
   [`TraMineR::seqmsplot`](https://rdrr.io/pkg/TraMineR/man/seqplot.html))
 - `ggseqmtplot` (equivalent to
   [`TraMineR::seqmtplot`](https://rdrr.io/pkg/TraMineR/man/seqplot.html))
-- `ggseqtrplot` (based on transitions rates from
+- `ggseqtrplot` (based on transition rates from
   [`TraMineR::seqtrate`](https://rdrr.io/pkg/TraMineR/man/seqtrate.html))
+- `ggseqimplicplot` (equivalent to the plot method of
+  [`TraMineRextras::seqimplic`](https://rdrr.io/pkg/TraMineRextras/man/seqimplic.html))
 - `ggseqiplot` (equivalent to
   [`TraMineR::seqIplot`](https://rdrr.io/pkg/TraMineR/man/seqplot.html))
 - `ggseqfplot` (equivalent to
   [`TraMineR::seqfplot`](https://rdrr.io/pkg/TraMineR/man/seqplot.html))
 - `ggseqrplot` (equivalent to
   [`TraMineR::seqrplot`](https://rdrr.io/pkg/TraMineR/man/seqplot.html))
-- `ggseqrfplot` (equivalent to `TraMineRextras::seqplot.rf`)
+- `ggseqrfplot` (equivalent to
+  [`TraMineRextras::seqplot.rf`](https://rdrr.io/pkg/TraMineRextras/man/seqplot-rf.html))
+- `ggseqpcplot` (equivalent to
+  [`TraMineR::seqpcplot`](https://rdrr.io/pkg/TraMineR/man/seqpcplot.html))
+- `ggseqtreeplot` (equivalent to
+  [`TraMineR::seqtreedisplay`](https://rdrr.io/pkg/TraMineR/man/seqtreedisplay.html),
+  but without requiring an installation of GraphViz)
 
-A complementing
+A complementary
 [vignette](https://maraab23.github.io/ggseqplot/articles/ggseqplot.html)
 outlines how [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/)
 reshapes sequence data generated with
-[`{TraMineR}`](http://traminer.unige.ch) functions for visualization
-with [`{ggplot2}`](https://ggplot2.tidyverse.org/). It also shows how to
-customize the plots using familiar
+[`{TraMineR}`](https://cran.r-project.org/package=TraMineR) functions
+for visualization with [`{ggplot2}`](https://ggplot2.tidyverse.org/). It
+also shows how to customize the plots using familiar
 [`{ggplot2}`](https://ggplot2.tidyverse.org/) functions and extensions.
 
 If you find errors or have feature requests, feel free to [create an
@@ -69,6 +80,7 @@ in your work, please cite it as:
 You can also retrieve the citation in R with:
 
 ``` r
+
 citation("ggseqplot")
 ```
 
@@ -78,6 +90,7 @@ You can install the CRAN version of
 [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) with:
 
 ``` r
+
 install.packages("ggseqplot")
 ```
 
@@ -85,6 +98,7 @@ If a more recent version is available, you can install the development
 version from GitHub with:
 
 ``` r
+
 devtools::install_github("maraab23/ggseqplot")
 ```
 
@@ -93,6 +107,14 @@ devtools::install_github("maraab23/ggseqplot")
 I would like to thank Gilbert Ritschard, Tim Liao, and Emanuela
 Struffolino for their helpful comments on earlier versions of this
 library.
+
+## Use of generative AI
+
+The functions `ggseqimplicplot`, `ggseqpcplot`, and `ggseqtreeplot`
+(added in version 1.0.0) were written with the assistance of the AI
+coding tool [Claude Code](https://claude.com/claude-code) (Anthropic).
+The generated code, documentation, and tests were reviewed, revised, and
+tested by the package maintainer.
 
 # Package index
 
@@ -108,6 +130,8 @@ library.
   : Mean time plot
 - [`ggseqtrplot()`](https://maraab23.github.io/ggseqplot/reference/ggseqtrplot.md)
   : Sequence Transition Rate Plot
+- [`ggseqimplicplot()`](https://maraab23.github.io/ggseqplot/reference/ggseqimplicplot.md)
+  : Implicative Statistic Plot
 
 ## Representation graphs
 
@@ -119,6 +143,13 @@ library.
   : Representative Sequence plot
 - [`ggseqrfplot()`](https://maraab23.github.io/ggseqplot/reference/ggseqrfplot.md)
   : Relative Frequency Sequence Plot
+- [`ggseqpcplot()`](https://maraab23.github.io/ggseqplot/reference/ggseqpcplot.md)
+  : Decorated Parallel Coordinate Plot
+
+## Regression trees
+
+- [`ggseqtreeplot()`](https://maraab23.github.io/ggseqplot/reference/ggseqtreeplot.md)
+  : Sequence Regression Tree Plot
 
 # Articles
 

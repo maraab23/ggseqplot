@@ -12,6 +12,8 @@
   : Mean time plot
 - [`ggseqtrplot()`](https://maraab23.github.io/ggseqplot/reference/ggseqtrplot.md)
   : Sequence Transition Rate Plot
+- [`ggseqimplicplot()`](https://maraab23.github.io/ggseqplot/reference/ggseqimplicplot.md)
+  : Implicative Statistic Plot
 
 ## Representation graphs
 
@@ -23,3 +25,10 @@
   : Representative Sequence plot
 - [`ggseqrfplot()`](https://maraab23.github.io/ggseqplot/reference/ggseqrfplot.md)
   : Relative Frequency Sequence Plot
+- [`ggseqpcplot()`](https://maraab23.github.io/ggseqplot/reference/ggseqpcplot.md)
+  : Decorated Parallel Coordinate Plot
+
+## Regression trees
+
+- [`ggseqtreeplot()`](https://maraab23.github.io/ggseqplot/reference/ggseqtreeplot.md)
+  : Sequence Regression Tree Plot

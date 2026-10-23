@@ -12,14 +12,15 @@ Kaplan-Meier curves, modal state plots, mean time plots, state
 distribution plots, and entropy plots (Fasang & Liao, 2014; Raab &
 Struffolino, 2022).
 
-[`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) includes five
+[`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) includes six
 types of summarization plots:
 
 - State distribution plots (`ggseqdplot`)
-- Entropy line plots (`ggseqplot`)
+- Entropy line plots (`ggseqeplot`)
 - Modal state sequence plot (`ggseqmsplot`)
 - Mean time plot (`ggseqmtplot`)
 - Transition rate plots (`ggseqtrplot`)
+- Implicative statistic plots (`ggseqimplicplot`)
 
 In contrast to summarization plots, representation plots visualize
 actually observed sequences. The most basic version is the sequence
@@ -37,6 +38,15 @@ types:
 - Sequence frequency plot (`ggseqfplot`)
 - Representative sequence plot (`ggseqrplot`)
 - Relative frequency sequence plot (`ggseqrfplot`)
+- Decorated parallel coordinate plot (`ggseqpcplot`)
+
+Regression tree plots (`ggseqtreeplot`) do not fit neatly into either
+category. They display the results of a regression tree of sequences
+([`TraMineR::seqtree`](https://rdrr.io/pkg/TraMineR/man/seqtree.html)),
+i.e., of a discrepancy analysis that partitions the sequences by
+covariates. Each node of the tree contains a sequence plot, which can be
+a summarization plot (e.g., a state distribution plot) or a
+representation plot (e.g., a sequence index plot).
 
 For a deeper discussion of sequence data visualization, see Brzinsky-Fay
 (2014), Fasang and Liao (2014) and Chapter 2 of Raab & Struffolino
@@ -44,23 +54,29 @@ For a deeper discussion of sequence data visualization, see Brzinsky-Fay
 
 With the exception of transition rate plots, all of the plots listed
 above can also be produced with
-[`{TraMineR}`](http://traminer.unige.ch). In fact,
-[`{TraMineR}`](http://traminer.unige.ch) typically offers more
-customization options—but only through base R’s plotting system. If you
-are comfortable using base R graphics, there may be little reason to
-switch to [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/).
+[`{TraMineR}`](https://cran.r-project.org/package=TraMineR) (or its
+companion package [TraMineRextras](http://traminer.unige.ch/)). Note,
+however, that
+[`TraMineR::seqtreedisplay`](https://rdrr.io/pkg/TraMineR/man/seqtreedisplay.html)
+requires an installation of GraphViz, whereas `ggseqtreeplot` does not.
+In fact, [`{TraMineR}`](https://cran.r-project.org/package=TraMineR)
+typically offers more customization options—but only through base R’s
+plotting system. If you are comfortable using base R graphics, there may
+be little reason to switch to
+[`{ggseqplot}`](https://maraab23.github.io/ggseqplot/).
 
 However, [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) was
 developed precisely because many R users today prefer
 [`{ggplot2}`](https://ggplot2.tidyverse.org/) to base R’s `plot`
 environment for visualizing data.
-[`{TraMineR}`](http://traminer.unige.ch) (Gabadinho et al., 2011) was
-developed before [`{ggplot2}`](https://ggplot2.tidyverse.org/) (Wickham,
-2016) was as popular as it is today and back then many users were more
-familiar with coding base R plots. Today, most researchers and students
-are more familiar with [`{ggplot2}`](https://ggplot2.tidyverse.org/) and
-would rather build on existing skills instead of learning how to refine
-base R plots just for sequence visualizations.
+[`{TraMineR}`](https://cran.r-project.org/package=TraMineR) (Gabadinho
+et al., 2011) was developed before
+[`{ggplot2}`](https://ggplot2.tidyverse.org/) (Wickham, 2016) was as
+popular as it is today and back then many users were more familiar with
+coding base R plots. Today, most researchers and students are more
+familiar with [`{ggplot2}`](https://ggplot2.tidyverse.org/) and would
+rather build on existing skills instead of learning how to refine base R
+plots just for sequence visualizations.
 
 This vignette demonstrates how sequence objects created via
 [`TraMineR::seqdef`](https://rdrr.io/pkg/TraMineR/man/seqdef.html) are
@@ -68,7 +84,7 @@ reshaped to plot them as ggplot2-typed figures using
 [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/).
 
 It outlines which functions from
-[`{TraMineR}`](http://traminer.unige.ch) and the
+[`{TraMineR}`](https://cran.r-project.org/package=TraMineR) and the
 [`{ggplot2}`](https://ggplot2.tidyverse.org/) universe are involved in
 generating the visualizations.
 
@@ -81,13 +97,15 @@ and extensions.
 
 We begin by loading the required libraries and preparing the sequence
 data to be visualized. The examples are based on data sets and examples
-provided by the [`{TraMineR}`](http://traminer.unige.ch) package.
+provided by the
+[`{TraMineR}`](https://cran.r-project.org/package=TraMineR) package.
 
   
 
 **Click to show code for installing and loading required packages**
 
 ``` r
+
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ## Load and download (if necessary) required packages ----
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -117,6 +135,7 @@ library(ggseqplot)
 ```
 
 ``` r
+
 
 
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -159,8 +178,9 @@ follow a similar structure: they take a state sequence object—created
 with
 [`TraMineR::seqdef`](https://rdrr.io/pkg/TraMineR/man/seqdef.html)—as
 their starting point. The functions either operate directly on the
-sequence data or use other [`{TraMineR}`](http://traminer.unige.ch)
-functions, such as
+sequence data or use other
+[`{TraMineR}`](https://cran.r-project.org/package=TraMineR) functions,
+such as
 [`TraMineR::seqstatd`](https://rdrr.io/pkg/TraMineR/man/seqstatd.html),
 to derive the information to be visualized.
 
@@ -175,6 +195,7 @@ distribution plot. First, we compute the cross-sectional state
 distributions across the sequence positions:
 
 ``` r
+
 seqstatd(actcal.seq)
 #>   [State frequencies]
 #>   jan00 feb00 mar00 apr00 may00 jun00 jul00 aug00 sep00 oct00 nov00 dec00
@@ -199,13 +220,14 @@ position.
 
 For example, the `actcal.seq` data contain sequences of length 12 with
 an alphabet of 4 states. The reshaped dataset used for plotting will
-therefore consist of $12 \times 4 = 48$ rows. If a grouping variable is
-provided, the resulting dataset will contain 48 rows per group. To
+therefore consist of $`12 \times 4 = 48`$ rows. If a grouping variable
+is provided, the resulting dataset will contain 48 rows per group. To
 inspect this internal data structure, assign the plot output to an
 object. The resulting list object stores the data as its first element
 (named `data`).
 
 ``` r
+
 dplot <- ggseqdplot(actcal.seq)
 dplot$data
 #> # A tibble: 48 × 6
@@ -267,6 +289,7 @@ We begin with a simple state distribution plot using the sequence object
 `actcal.seq`, without modifying the default settings.
 
 ``` r
+
 ggseqdplot(actcal.seq)
 ```
 
@@ -280,6 +303,7 @@ the appearance of plots generated with
 extensively customized:
 
 ``` r
+
 ggseqdplot(actcal.seq) +
   scale_fill_discrete_sequential("heat") +
   scale_x_discrete(labels = month.abb) +
@@ -305,6 +329,7 @@ entropy lines (`geom_line`) and combine the two plots using the
 (Pedersen, 2020).
 
 ``` r
+
 # Save plot using weights
 p1 <- ggseqdplot(ex1.seq, 
                  with.entropy = TRUE) + 
@@ -349,6 +374,7 @@ for two groups defined by the sex variable The output is a faceted plot
 visualizing two transition rate matrices of DSS sequence data.
 
 ``` r
+
 ggseqtrplot(actcal.seq, 
             group = actcal$sex)
 #>  [>] computing transition probabilities for states A/B/C/D ...
@@ -367,6 +393,7 @@ font size of the value labels displayed within the tiles
 (`labsize = 7`), and set `dss = FALSE` to switch to the STS format.
 
 ``` r
+
 
 p1 <- ggseqtrplot(biofam.seq, 
                   dss = FALSE, 
@@ -397,6 +424,7 @@ arguments:
 
 ``` r
 
+
 p2 <- p2 +
   theme(axis.text.y = element_blank(), 
         axis.title.y = element_blank())
@@ -410,8 +438,8 @@ p1 + p2 &
 
 #### Example 3: Sequence index plots of illustrative (very few) sequences
 
-[`{TraMineR}`](http://traminer.unige.ch) offers two types of sequence
-index plots:
+[`{TraMineR}`](https://cran.r-project.org/package=TraMineR) offers two
+types of sequence index plots:
 [`TraMineR::seqiplot`](https://rdrr.io/pkg/TraMineR/man/seqplot.html)
 for displaying a small selection of sequences (typically no more than
 10), and
@@ -442,6 +470,7 @@ slightly reduced by adjusting vertical panel spacing
 (`panel.spacing.y = unit(1.5, "lines")`).
 
 ``` r
+
 # plot a subset of 5 sequences from biofam.seq
 ggseqiplot(biofam.seq[2:6,],
            group = 1:5,
@@ -471,6 +500,7 @@ time plot and a sequence index plot. For each plot type, we show the
 default version followed by its flipped counterpart:
 
 ``` r
+
 ## default plot
 ggseqmtplot(actcal.seq, no.n = TRUE, error.bar = "SE") 
 ```
@@ -478,6 +508,7 @@ ggseqmtplot(actcal.seq, no.n = TRUE, error.bar = "SE")
 ![](ggseqplot_files/figure-html/unnamed-chunk-7-1.png)
 
 ``` r
+
 
 ## flipped version
 ggseqmtplot(actcal.seq, no.n = TRUE, error.bar = "SE") +
@@ -498,6 +529,7 @@ vertically—bottom to top, as in Piccarreta and Lior (Piccarreta & Lior,
 2010)—this preference is easily accommodated:
 
 ``` r
+
 ## default plot
 ggseqiplot(actcal.seq, sortv = "from.end") + 
   scale_x_discrete(labels = month.abb) 
@@ -508,6 +540,7 @@ ggseqiplot(actcal.seq, sortv = "from.end") +
 ![](ggseqplot_files/figure-html/unnamed-chunk-8-1.png)
 
 ``` r
+
 
 ## flipped version
 ggseqiplot(actcal.seq, sortv = "from.end") + 
@@ -533,6 +566,7 @@ split the data into separate panels arranged in a single column
 the group size, we compute the relative frequencies using:
 
 ``` r
+
 hghts <- table(fct_drop(actcal$sex)) / nrow(actcal.seq)
 ```
 
@@ -547,6 +581,7 @@ plot. Finally, we reduce the spacing between panels using
 `theme(panel.spacing = unit(1, "lines"))` for a more compact appearance.
 
 ``` r
+
 ## use ggh4x::force_panelsizes to get proportional panels
 ggseqiplot(actcal.seq, 
            sortv = "from.end", 
@@ -581,27 +616,30 @@ plot annotations can be modified using the `&` operator (instead of `+`,
 which is used for standard `ggplot` objects).
 
 ``` r
+
 ## compute dissimilarity matrix required for plot
 diss <- seqdist(biofam.seq, method = "LCS")
 #>  [>] 100 sequences with 8 distinct states
 #>  [>] creating a 'sm' with a substitution cost of 2
 #>  [>] creating 8x8 substitution-cost matrix using 2 as constant value
+#>  [>] checking 'sm' (size and triangle inequality)
 #>  [>] 76 distinct  sequences
 #>  [>] min/max sequence lengths: 16/16
 #>  [>] computing distances using the LCS metric
-#>  [>] elapsed time: 0.018 secs
+#>  [>] elapsed time: 0.019 secs
 
 ## Relative Frequency Sequence Plot
 ## default version
 ggseqrfplot(biofam.seq, diss = diss, k = 12) 
 #>  [>] Using k=12 frequency groups with grp.meth='prop'
-#>  [>] Pseudo/medoid-based-R2: 0.367766
-#>  [>] Pseudo/medoid-based-F statistic: 5.268049, p-value: 1.655783e-06
+#>  [>] Pseudo/medoid-based-R2: 0.4335861
+#>  [>] Pseudo/medoid-based-F statistic: 6.123948, p-value: 2.279351e-07
 ```
 
 ![](ggseqplot_files/figure-html/unnamed-chunk-11-1.png)
 
 ``` r
+
 
 ## adjusted version
 ggseqrfplot(biofam.seq, diss = diss, k = 12) &
@@ -616,8 +654,8 @@ ggseqrfplot(biofam.seq, diss = diss, k = 12) &
         axis.title = element_text(size = 9)) &
   plot_annotation(title = "Relative Frequency Sequence Plot")
 #>  [>] Using k=12 frequency groups with grp.meth='prop'
-#>  [>] Pseudo/medoid-based-R2: 0.367766
-#>  [>] Pseudo/medoid-based-F statistic: 5.268049, p-value: 1.655783e-06
+#>  [>] Pseudo/medoid-based-R2: 0.4335861
+#>  [>] Pseudo/medoid-based-F statistic: 6.123948, p-value: 2.279351e-07
 ```
 
 ![](ggseqplot_files/figure-html/unnamed-chunk-11-2.png)
@@ -628,11 +666,12 @@ to change the x-axis labels of the index plot, the following code will
 *not* yield the intended result:
 
 ``` r
+
 ggseqrfplot(biofam.seq, diss = diss, k = 12) +
   scale_x_discrete(labels = 15:30)
 #>  [>] Using k=12 frequency groups with grp.meth='prop'
-#>  [>] Pseudo/medoid-based-R2: 0.367766
-#>  [>] Pseudo/medoid-based-F statistic: 5.268049, p-value: 1.655783e-06
+#>  [>] Pseudo/medoid-based-R2: 0.4335861
+#>  [>] Pseudo/medoid-based-F statistic: 6.123948, p-value: 2.279351e-07
 ```
 
 ![](ggseqplot_files/figure-html/unnamed-chunk-12-1.png)
@@ -649,17 +688,19 @@ you need to first save the composite plot object, access its components,
 and then modify them individually before reassembling the full plot.
 
 ``` r
+
 ## save & view original plot
 p <- ggseqrfplot(biofam.seq, diss = diss, k = 12)
 #>  [>] Using k=12 frequency groups with grp.meth='prop'
-#>  [>] Pseudo/medoid-based-R2: 0.367766
-#>  [>] Pseudo/medoid-based-F statistic: 5.268049, p-value: 1.655783e-06
+#>  [>] Pseudo/medoid-based-R2: 0.4335861
+#>  [>] Pseudo/medoid-based-F statistic: 6.123948, p-value: 2.279351e-07
 p
 ```
 
 ![](ggseqplot_files/figure-html/unnamed-chunk-13-1.png)
 
 ``` r
+
 
 ## change appearance of sub-plots
 
@@ -695,15 +736,17 @@ To apply the desired changes, you need to extract these components,
 modify them as needed, and then re-plot the final figure.
 
 ``` r
+
 ## Compute a pairwise dissimilarity matrix
 diss <- seqdist(actcal.seq, method = "LCS")
 #>  [>] 2000 sequences with 4 distinct states
 #>  [>] creating a 'sm' with a substitution cost of 2
 #>  [>] creating 4x4 substitution-cost matrix using 2 as constant value
+#>  [>] checking 'sm' (size and triangle inequality)
 #>  [>] 186 distinct  sequences
 #>  [>] min/max sequence lengths: 12/12
 #>  [>] computing distances using the LCS metric
-#>  [>] elapsed time: 0.267 secs
+#>  [>] elapsed time: 0.311 secs
 
 ## original plot
 p <- ggseqrplot(actcal.seq, 
@@ -726,6 +769,7 @@ p
 ![](ggseqplot_files/figure-html/unnamed-chunk-14-1.png)
 
 ``` r
+
 
 ## adjusted sequence index subplots
 p[[3]] <- p[[3]] +
@@ -769,7 +813,7 @@ documentation,
 > on the top-level patchwork. Any annotation added to nested patchworks
 > are (currently) lost. If you need to have annotations for a nested
 > patchwork you’ll need to wrap it in wrap_elements() with the
-> side-effect that alignment no longer works.[¹](#fn1)
+> side-effect that alignment no longer works.[^1]
 
 For this reason, we refrained from using
 [`patchwork::plot_annotation`](https://patchwork.data-imaginist.com/reference/plot_annotation.html)
@@ -779,10 +823,12 @@ to add group titles and used plot tags instead.
 
 ``` r
 
+
 diss <- seqdist(biofam.seq, method = "LCS")
 #>  [>] 100 sequences with 8 distinct states
 #>  [>] creating a 'sm' with a substitution cost of 2
 #>  [>] creating 8x8 substitution-cost matrix using 2 as constant value
+#>  [>] checking 'sm' (size and triangle inequality)
 #>  [>] 76 distinct  sequences
 #>  [>] min/max sequence lengths: 16/16
 #>  [>] computing distances using the LCS metric
@@ -802,11 +848,11 @@ p <- map2(
     }
   )
 #>  [>] Using k=12 frequency groups with grp.meth='prop'
-#>  [>] Pseudo/medoid-based-R2: 0.5448432
-#>  [>] Pseudo/medoid-based-F statistic: 3.408139, p-value: 0.003407164
+#>  [>] Pseudo/medoid-based-R2: 0.5692031
+#>  [>] Pseudo/medoid-based-F statistic: 3.483373, p-value: 0.00344431
 #>  [>] Using k=12 frequency groups with grp.meth='prop'
-#>  [>] Pseudo/medoid-based-R2: 0.5263291
-#>  [>] Pseudo/medoid-based-F statistic: 5.687386, p-value: 4.537004e-06
+#>  [>] Pseudo/medoid-based-R2: 0.5908387
+#>  [>] Pseudo/medoid-based-F statistic: 6.16992, p-value: 3.74131e-06
 
 names(p) <- levels(sex)
 
@@ -823,16 +869,16 @@ grouped rfplots, even in the absence of direct support in the
 
 ## References
 
-Brzinsky-Fay, C. (2014). *Graphical Representation of Transitions and
-Sequences* (P. Blanchard, F. Bühlmann, & J.-A. Gauthier, Eds.; pp.
+Brzinsky-Fay, C. (2014). *Graphical representation of transitions and
+sequences* (P. Blanchard, F. Bühlmann, & J.-A. Gauthier, Eds.; pp.
 265–284). Springer. <https://doi.org/10.1007/978-3-319-04969-4_14>
 
-Fasang, A. E., & Liao, T. F. (2014). Visualizing Sequences in the Social
-Sciences: Relative Frequency Sequence Plots. *Sociological Methods &
+Fasang, A. E., & Liao, T. F. (2014). Visualizing sequences in the social
+sciences: Relative frequency sequence plots. *Sociological Methods &
 Research*, *43*(4), 643–676. <https://doi.org/10.1177/0049124113506563>
 
 Gabadinho, A., Ritschard, G., Müller, N. S., & Studer, M. (2011).
-Analyzing and Visualizing State Sequences in R with TraMineR. *Journal
+Analyzing and visualizing state sequences in r with TraMineR. *Journal
 of Statistical Software*, *40*(4), 1–37.
 <https://doi.org/10.18637/jss.v040.i04>
 
@@ -850,6 +896,4 @@ SAGE. <https://sa-book.github.io/>
 Wickham, H. (2016). *ggplot2: Elegant graphics for data analysis* (2nd
 ed. 2016). Springer. <https://doi.org/10.1007/978-3-319-24277-4>
 
-------------------------------------------------------------------------
-
-1.  <https://patchwork.data-imaginist.com/articles/guides/annotation.html#titles-subtitles-and-captions>
+[^1]: <https://patchwork.data-imaginist.com/articles/guides/annotation.html#titles-subtitles-and-captions>

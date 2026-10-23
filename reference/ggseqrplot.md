@@ -209,10 +209,11 @@ biofam.dhd <- seqdist(biofam.seq, method="DHD")
 #>  [>] creating a 'sm' with the costs derived from the transition rates
 #>  [>] creating time varying substitution-cost matrix using transition rates ...
 #>  [>] computing time varying transition probabilities for states 0/1/2/3/4/5/6/7 ...
+#>  [>] checking 'sm' (size and triangle inequality)
 #>  [>] 103 distinct  sequences 
 #>  [>] min/max sequence lengths: 16/16
 #>  [>] computing distances using the DHD metric
-#>  [>] elapsed time: 0.037 secs
+#>  [>] elapsed time: 0.044 secs
 
 # Representative sequence  plot (using defaults)
 # ... with TraMineR::seqplot
