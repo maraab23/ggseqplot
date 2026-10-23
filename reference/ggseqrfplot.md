@@ -272,7 +272,7 @@ diss <- seqdist(biofam.seq, method = "LCS")
 #>  [>] 76 distinct  sequences 
 #>  [>] min/max sequence lengths: 16/16
 #>  [>] computing distances using the LCS metric
-#>  [>] elapsed time: 0.011 secs
+#>  [>] elapsed time: 0.019 secs
 
 
 # Using 12 groups and default MDS sorting

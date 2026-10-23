@@ -213,7 +213,7 @@ biofam.dhd <- seqdist(biofam.seq, method="DHD")
 #>  [>] 103 distinct  sequences 
 #>  [>] min/max sequence lengths: 16/16
 #>  [>] computing distances using the DHD metric
-#>  [>] elapsed time: 0.023 secs
+#>  [>] elapsed time: 0.039 secs
 
 # Representative sequence  plot (using defaults)
 # ... with TraMineR::seqplot

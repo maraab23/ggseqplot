@@ -626,7 +626,7 @@ diss <- seqdist(biofam.seq, method = "LCS")
 #>  [>] 76 distinct  sequences
 #>  [>] min/max sequence lengths: 16/16
 #>  [>] computing distances using the LCS metric
-#>  [>] elapsed time: 0.01 secs
+#>  [>] elapsed time: 0.019 secs
 
 ## Relative Frequency Sequence Plot
 ## default version
@@ -832,7 +832,7 @@ diss <- seqdist(biofam.seq, method = "LCS")
 #>  [>] 76 distinct  sequences
 #>  [>] min/max sequence lengths: 16/16
 #>  [>] computing distances using the LCS metric
-#>  [>] elapsed time: 0.01 secs
+#>  [>] elapsed time: 0.016 secs
 
 sex <- biofam[501:600, "sex"]
 
