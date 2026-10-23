@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 
 [![CRAN status](https://www.r-pkg.org/badges/version/ggseqplot)](https://cran.r-project.org/package=ggseqplot)
-[![R-CMD-check](https://github.com/maraab23/ggseqplot/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/maraab23/ggseqplot/actions/workflows/check-standard.yaml)
+[![R-CMD-check](https://github.com/maraab23/ggseqplot/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/maraab23/ggseqplot/actions/workflows/R-CMD-check.yaml)
 [![Codecov test coverage](https://codecov.io/gh/maraab23/ggseqplot/graph/badge.svg)](https://app.codecov.io/gh/maraab23/ggseqplot)
 [![CRAN Downloads](https://cranlogs.r-pkg.org/badges/grand-total/ggseqplot)](https://cranlogs.r-pkg.org/badges/grand-total/ggseqplot)
 [![pkgdown](https://img.shields.io/badge/docs-pkgdown-blue.svg)](https://maraab23.github.io/ggseqplot/)

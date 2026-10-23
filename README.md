@@ -7,7 +7,7 @@
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/ggseqplot)](https://cran.r-project.org/package=ggseqplot)
-[![R-CMD-check](https://github.com/maraab23/ggseqplot/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/maraab23/ggseqplot/actions/workflows/check-standard.yaml)
+[![R-CMD-check](https://github.com/maraab23/ggseqplot/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/maraab23/ggseqplot/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/maraab23/ggseqplot/graph/badge.svg)](https://app.codecov.io/gh/maraab23/ggseqplot)
 [![CRAN
