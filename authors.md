@@ -8,7 +8,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/maraab23/ggseqplot/blob/main/inst/CITATION)
+[`inst/CITATION`](https://github.com/maraab23/ggseqplot/blob/v1.0.0/inst/CITATION)
 
 Raab, M. (2022): ggseqplot: Render Sequence Plots using 'ggplot2'.
 https://doi.org/10.32614/CRAN.package.ggseqplot

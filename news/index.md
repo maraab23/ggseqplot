@@ -2,6 +2,8 @@
 
 ## ggseqplot 1.0.0
 
+CRAN release: 2026-10-23
+
 - added `ggseqtreeplot` for rendering regression trees of sequences
   ([`TraMineR::seqtree`](https://rdrr.io/pkg/TraMineR/man/seqtree.html))
   without requiring GraphViz; the node plots can be adjusted with

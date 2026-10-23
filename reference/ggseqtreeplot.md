@@ -229,7 +229,7 @@ mvad.diss <- seqdist(mvad.seq, method = "HAM")
 #>  [>] 227 distinct  sequences 
 #>  [>] min/max sequence lengths: 70/70
 #>  [>] computing distances using the HAM metric
-#>  [>] elapsed time: 0.081 secs
+#>  [>] elapsed time: 0.054 secs
 mvad.tree <- seqtree(mvad.seq ~ male + Grammar + funemp + gcse5eq,
                      data = mvad, diss = mvad.diss, R = 100, max.depth = 3)
 
