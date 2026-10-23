@@ -1,7 +1,5 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-skip_if_not_installed("TraMineRextras")
-
 # Example data come from TraMineR
 library(TraMineR)
 # biofam data set

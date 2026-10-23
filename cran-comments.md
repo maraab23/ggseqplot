@@ -1,10 +1,14 @@
-# Resubmission note for release 0.8.9
+# Submission note for release 1.0.0
 
-## Changes since release 0.8.8
+## Changes since release 0.8.9
 
-* fixed empty aesthetic warning in `ggseqmsplot`
-* moved `ggplot2` and `TraMineR` from Depends to Imports
-* added `ytlab` argument for `ggseqiplot`
+* added three new plot functions: `ggseqtreeplot` (regression trees of
+  sequences, without requiring GraphViz), `ggseqimplicplot` (implicative
+  statistic computed with `TraMineRextras::seqimplic`), and `ggseqpcplot`
+  (decorated parallel coordinate plots)
+* `TraMineRextras` and `stats` are new imports; `ggplot2` (>= 3.5.0) is now required
+* revised the Description field (method reference added) and added the
+  copyright holder role
 
 
 ## R CMD check results
@@ -14,7 +18,4 @@
 
 ## revdepcheck results
 
-We checked 1 reverse dependenciy, comparing R CMD check results across CRAN and dev versions of this package.
-
- * We saw 0 new problems
- * We failed to check 0 packages
+TODO: re-run `revdepcheck::revdep_check()` before submission and update this section.

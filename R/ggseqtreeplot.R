@@ -113,13 +113,10 @@
 #'                      data = mvad, diss = mvad.diss, R = 100, max.depth = 3)
 #'
 #' # Tree with state distribution plots
-#' # with TraMineR (requires GraphViz)
-#' \dontrun{
-#' seqtreedisplay(mvad.tree, type = "d", border = NA)
-#' }
-#' # with ggseqplot
+#' # (similar to TraMineR::seqtreedisplay, which requires GraphViz)
 #' ggseqtreeplot(mvad.tree)
 #'
+#' \donttest{
 #' # Tree with index plots (only shown for the terminal nodes)
 #' ggseqtreeplot(mvad.tree, type = "i", only.leaf = TRUE)
 #'
@@ -149,6 +146,7 @@
 #'         legend.position.inside = c(0, 1),
 #'         legend.justification = c(0, 1),
 #'         legend.direction = "vertical")
+#' }
 #'
 #' @import ggplot2
 #' @importFrom rlang .data

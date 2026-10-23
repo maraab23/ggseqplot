@@ -30,24 +30,24 @@ knitr::opts_chunk$set(
 
 The main goal of [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) is to 
 provide functions that reproduce the sequence plots from
-[`{TraMineR}`](http://traminer.unige.ch){target="\_blank"}'s `seqplot`
+[`{TraMineR}`](https://traminer.unige.ch){target="\_blank"}'s `seqplot`
 using [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="\_blank"}.
 These plots are produced on the basis of state sequence objects defined with
 `TraMineR::seqdef` (and, for some functions, on the basis of event sequence
 objects or regression trees of sequences). The package automates the reshaping and plotting of
 sequence data. This library builds on the excellent work of the
-[`{TraMineR}`](http://traminer.unige.ch){target="\_blank"} and
+[`{TraMineR}`](https://traminer.unige.ch){target="\_blank"} and
 [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="\_blank"}
 developers and uses several of their functions to produce
 ggplot2-flavored figures.
 
 Note that this library was not written because I personally dislike the
 plots produced by
-[`{TraMineR}`](http://traminer.unige.ch){target="\_blank"}, but rather
+[`{TraMineR}`](https://traminer.unige.ch){target="\_blank"}, but rather
 because I normally use
 [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="\_blank"} instead of
 base R's `plot` environment for data visualization.
-[`{TraMineR}`](http://traminer.unige.ch){target="\_blank"} was developed before
+[`{TraMineR}`](https://traminer.unige.ch){target="\_blank"} was developed before
 [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="\_blank"} became as popular
 as it is today, when most users were more familiar with base R plots. 
 Today, however, many researchers and students prefer to use 
@@ -65,21 +65,18 @@ following functions:
 -   `ggseqmsplot` (equivalent to `TraMineR::seqmsplot`)
 -   `ggseqmtplot` (equivalent to `TraMineR::seqmtplot`)
 -   `ggseqtrplot` (based on transition rates from `TraMineR::seqtrate`)
+-   `ggseqimplicplot` (equivalent to the plot method of `TraMineRextras::seqimplic`)
 -   `ggseqiplot` (equivalent to `TraMineR::seqIplot`)
 -   `ggseqfplot` (equivalent to `TraMineR::seqfplot`)
 -   `ggseqrplot` (equivalent to `TraMineR::seqrplot`)
 -   `ggseqrfplot` (equivalent to `TraMineRextras::seqplot.rf`)
-
-The development version on GitHub additionally contains:
-
--   `ggseqimplicplot` (equivalent to the plot method of `TraMineRextras::seqimplic`)
 -   `ggseqpcplot` (equivalent to `TraMineR::seqpcplot`)
 -   `ggseqtreeplot` (equivalent to `TraMineR::seqtreedisplay`, but without
     requiring an installation of GraphViz)
 
 
 A complementary [vignette](https://maraab23.github.io/ggseqplot/articles/ggseqplot.html) outlines how [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) reshapes sequence data
-generated with [`{TraMineR}`](http://traminer.unige.ch){target="\_blank"} functions for
+generated with [`{TraMineR}`](https://traminer.unige.ch){target="\_blank"} functions for
 visualization with [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="\_blank"}. 
 It also shows how to customize the plots using familiar
 [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="\_blank"}
@@ -130,7 +127,7 @@ their helpful comments on earlier versions of this library.
 ## Use of generative AI
 
 The functions `ggseqimplicplot`, `ggseqpcplot`, and `ggseqtreeplot` (added in
-the development version 0.8.9.9000) were written with the assistance of the
+version 1.0.0) were written with the assistance of the
 AI coding tool [Claude Code](https://claude.com/claude-code){target="\_blank"}
 (Anthropic). The generated code, documentation, and tests were reviewed,
 revised, and tested by the package maintainer.

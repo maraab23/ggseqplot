@@ -39,9 +39,8 @@
 #' @details The implicative statistic measures how strongly membership in a
 #' group implies being in a certain state at a given sequence position. The
 #' function uses \code{\link[TraMineRextras:seqimplic]{TraMineRextras::seqimplic}}
-#' to compute the statistic. Hence, the package 'TraMineRextras' has to be
-#' installed. Alternatively, an object of class \code{seqimplic} can be passed
-#' to the function.
+#' to compute the statistic. Alternatively, an object of class \code{seqimplic}
+#' can be passed to the function.
 #'
 #' Like in \code{TraMineRextras::plot.seqimplic}, the (sign-reversed)
 #' implicative statistic is shown for each state and position as line plot,
@@ -69,20 +68,18 @@
 #' data(mvad)
 #' mvad.seq <- seqdef(mvad, 17:86)
 #'
-#' if (requireNamespace("TraMineRextras", quietly = TRUE)) {
-#'   # typical states of pupils with/without 5 or more GCSEs
-#'   # with TraMineRextras
-#'   mvad.si.gcse5eq <- TraMineRextras::seqimplic(mvad.seq, group = mvad$gcse5eq)
-#'   plot(mvad.si.gcse5eq, lwd = 3, conf.level = c(0.95, 0.99))
+#' # typical states of pupils with/without 5 or more GCSEs
+#' # with TraMineRextras
+#' mvad.si.gcse5eq <- TraMineRextras::seqimplic(mvad.seq, group = mvad$gcse5eq)
+#' plot(mvad.si.gcse5eq, lwd = 3, conf.level = c(0.95, 0.99))
 #'
-#'   # with ggseqplot (using the seqimplic object ...)
-#'   ggseqimplicplot(seqimplicobject = mvad.si.gcse5eq,
-#'                   conf.level = c(0.95, 0.99))
+#' # with ggseqplot (using the seqimplic object ...)
+#' ggseqimplicplot(seqimplicobject = mvad.si.gcse5eq,
+#'                 conf.level = c(0.95, 0.99))
 #'
-#'   # ... or using the sequence data and the group vector)
-#'   ggseqimplicplot(mvad.seq, group = mvad$gcse5eq,
-#'                   conf.level = c(0.95, 0.99), facet_ncol = 1)
-#' }
+#' # ... or using the sequence data and the group vector)
+#' ggseqimplicplot(mvad.seq, group = mvad$gcse5eq,
+#'                 conf.level = c(0.95, 0.99), facet_ncol = 1)
 #'
 #' @import ggplot2
 #' @importFrom rlang .data
@@ -96,10 +93,6 @@ ggseqimplicplot <- function(seqdata = NULL,
                             facet_ncol = NULL,
                             facet_nrow = NULL) {
   if (is.null(seqimplicobject)) {
-    if (!requireNamespace("TraMineRextras", quietly = TRUE)) {
-      stop("package 'TraMineRextras' is required for computing the implicative statistic, please install it")
-    }
-
     if (!inherits(seqdata, "stslist")) {
       stop("data are not stored as sequence object, use 'TraMineR::seqdef' to create one")
     }

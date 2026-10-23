@@ -47,13 +47,14 @@ dimensions of information stored in sequence data [@brzinsky-fay2014]. Common
 examples include transition plots, Kaplan-Meier curves, modal state plots, mean 
 time plots, state distribution plots, and entropy plots [@fasang2014; @raab2022].
 
-[`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) includes five types of summarization plots:
+[`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) includes six types of summarization plots:
 
 -   State distribution plots (`ggseqdplot`)
--   Entropy line plots (`ggseqplot`)
+-   Entropy line plots (`ggseqeplot`)
 -   Modal state sequence plot (`ggseqmsplot`)
 -   Mean time plot (`ggseqmtplot`)
 -   Transition rate plots (`ggseqtrplot`)
+-   Implicative statistic plots (`ggseqimplicplot`)
 
 In contrast to summarization plots, representation plots visualize actually 
 observed sequences. The most basic version is the sequence index plot, which 
@@ -68,6 +69,14 @@ display only a subset of sequences have been proposed.
 -   Sequence frequency plot (`ggseqfplot`)
 -   Representative sequence plot (`ggseqrplot`)
 -   Relative frequency sequence plot (`ggseqrfplot`)
+-   Decorated parallel coordinate plot (`ggseqpcplot`)
+
+Regression tree plots (`ggseqtreeplot`) do not fit neatly into either
+category. They display the results of a regression tree of sequences
+(`TraMineR::seqtree`), i.e., of a discrepancy analysis that partitions the
+sequences by covariates. Each node of the tree contains a sequence plot,
+which can be a summarization plot (e.g., a state distribution plot) or a
+representation plot (e.g., a sequence index plot).
 
 For a deeper discussion of sequence data visualization, see Brzinsky-Fay 
 [-@brzinsky-fay2014], Fasang and Liao [-@fasang2014] and Chapter 2 of Raab & 
@@ -75,8 +84,10 @@ Struffolino [-@raab2022].
 
 With the exception of transition rate plots, all of the plots listed
 above can also be produced with
-[`{TraMineR}`](http://traminer.unige.ch){target="_blank"}. In fact, 
-[`{TraMineR}`](http://traminer.unige.ch){target="_blank"} typically offers more 
+[`{TraMineR}`](https://traminer.unige.ch){target="_blank"} (or its companion package
+`{TraMineRextras}`). Note, however, that `TraMineR::seqtreedisplay` requires an
+installation of GraphViz, whereas `ggseqtreeplot` does not. In fact,
+[`{TraMineR}`](https://traminer.unige.ch){target="_blank"} typically offers more 
 customization options—but only through base R's plotting system. If you are 
 comfortable using base R graphics, there may be little reason to switch to [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/).
 
@@ -86,7 +97,7 @@ However, [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) was developed
 precisely because many R users today prefer 
 [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="_blank"} to base
 R's `plot` environment for visualizing data.
-[`{TraMineR}`](http://traminer.unige.ch){target="_blank"}
+[`{TraMineR}`](https://traminer.unige.ch){target="_blank"}
 [@gabadinho2011] was developed before
 [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="_blank"}
 [@wickham2016] was as popular as it is today and back then many users
@@ -97,7 +108,7 @@ This vignette demonstrates how sequence objects created via
 `TraMineR::seqdef` are reshaped to plot them as ggplot2-typed figures
 using [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/). 
 
-It outlines which functions from [`{TraMineR}`](http://traminer.unige.ch){target="_blank"} and the [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="_blank"} universe are involved in generating the visualizations.
+It outlines which functions from [`{TraMineR}`](https://traminer.unige.ch){target="_blank"} and the [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="_blank"} universe are involved in generating the visualizations.
 
 The vignette further illustrates how the appearance of plots produced with [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) can be customized using
 [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="_blank"} functions
@@ -108,7 +119,7 @@ and extensions.
 
 We begin by loading the required libraries and preparing the sequence data to be 
 visualized. The examples are based on data sets and examples provided by the
-[`{TraMineR}`](http://traminer.unige.ch){target="_blank"} package.
+[`{TraMineR}`](https://traminer.unige.ch){target="_blank"} package.
 
 \
 
@@ -188,7 +199,7 @@ ex1.seq <- seqdef(ex1, 1:13,
 All functions in [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) follow a 
 similar structure: they take a state sequence object—created with 
 `TraMineR::seqdef`—as their starting point. The functions either operate directly 
-on the sequence data or use other [`{TraMineR}`](http://traminer.unige.ch){target="_blank"} functions, such as `TraMineR::seqstatd`, to derive the information to be visualized.
+on the sequence data or use other [`{TraMineR}`](https://traminer.unige.ch){target="_blank"} functions, such as `TraMineR::seqstatd`, to derive the information to be visualized.
 
 Internally, [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) reshapes the 
 data into a tidy (long) format before plotting them with [`{ggplot2}`](https://ggplot2.tidyverse.org/){target="_blank"} functions. This 
@@ -391,7 +402,7 @@ p1 + p2 &
 
 ### Example 3: Sequence index plots of illustrative (very few) sequences 
 
-[`{TraMineR}`](http://traminer.unige.ch){target="_blank"} offers two types of sequence index plots: `TraMineR::seqiplot` for displaying a small selection of sequences (typically no more than 10), and `TraMineR::seqIplot` for plotting the full set of sequences. The former adds white space between the displayed sequences, making it well suited for illustrative purposes—for example, when showcasing a few hand-picked sequences in publications or teaching materials. While [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) does not provide built-in spacing between sequences, a similar effect can be achieved with a small trick: by assigning each sequence to its own group via the group argument, `ggseqiplot` uses `ggplot2::facet_wrap` to place each sequence in a separate panel, thereby visually separating them.
+[`{TraMineR}`](https://traminer.unige.ch){target="_blank"} offers two types of sequence index plots: `TraMineR::seqiplot` for displaying a small selection of sequences (typically no more than 10), and `TraMineR::seqIplot` for plotting the full set of sequences. The former adds white space between the displayed sequences, making it well suited for illustrative purposes—for example, when showcasing a few hand-picked sequences in publications or teaching materials. While [`{ggseqplot}`](https://maraab23.github.io/ggseqplot/) does not provide built-in spacing between sequences, a similar effect can be achieved with a small trick: by assigning each sequence to its own group via the group argument, `ggseqiplot` uses `ggplot2::facet_wrap` to place each sequence in a separate panel, thereby visually separating them.
 
 In the example below, we display five sequences (`biofam.seq[2:6,]`) as a faceted plot, where each sequence forms its own group (`group = 1:5`) and is shown in a separate panel arranged in a single column (`facet_ncol = 1`). The remainder of the code applies visual fine-tuning: group labels are moved to the left (`strip.position = "left"`) and rotated (`strip.text.y.left = element_text(angle = 0)`); superfluous axis elements—such as y-axis labels (`axis.text.y = element_blank()`), ticks (`axis.ticks.y = element_blank()`), and the axis title (`labs(y = NULL)`)—are removed; and the white space between sequences is slightly reduced by adjusting vertical panel spacing (`panel.spacing.y = unit(1.5, "lines")`).
 
